@@ -1,4 +1,4 @@
-const CACHE_NAME = "lineare-algebra-cache-v2";
+const CACHE_NAME = "lineare-algebra-cache-v3";
 const APP_ASSETS = [
   "./",
   "./index.html",
