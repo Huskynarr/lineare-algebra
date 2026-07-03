@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interaktive Lernplattform für Lineare Algebra vom absoluten Einstieg bis zum Bachelor-Niveau.">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+  <title>Lineare Algebra Trainer</title>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero__content">
+      <p class="hero__eyebrow">Studiumsvorbereitung</p>
+      <h1>Lineare Algebra: von 0 bis Bachelor-fit</h1>
+      <p class="hero__lead">
+        Lernpfad mit Theorie, Beispielen, Übungen, Quiz und Fortschrittssystem. Funktioniert auch offline über HTML5 Cache
+        (Service Worker + Cache API).
+      </p>
+    </div>
+    <aside class="hero__stats" aria-label="Fortschrittsübersicht">
+      <div class="stat">
+        <span class="stat__label">Abgeschlossene Lektionen</span>
+        <strong id="completed-lessons">0 / 0</strong>
+      </div>
+      <div class="stat">
+        <span class="stat__label">Fortschritt</span>
+        <strong id="progress-percent">0 %</strong>
+      </div>
+      <div class="stat">
+        <span class="stat__label">Mastery-Score</span>
+        <strong id="mastery-score">0 %</strong>
+      </div>
+      <div class="progress-bar" aria-hidden="true">
+        <span id="progress-bar-fill"></span>
+      </div>
+      <div class="hero__actions">
+        <button id="export-progress" type="button">Savegame herunterladen</button>
+        <label class="button-like" for="import-progress">Savegame laden</label>
+        <input id="import-progress" type="file" accept="application/json">
+        <button id="reset-progress" type="button" class="ghost">Fortschritt zurücksetzen</button>
+      </div>
+      <p id="status-message" role="status" aria-live="polite"></p>
+    </aside>
+  </header>
+
+  <main class="layout">
+    <section class="panel panel--modules" aria-labelledby="lernpfad-title">
+      <h2 id="lernpfad-title">Lernpfad</h2>
+      <p class="panel__description">Arbeite die Module nacheinander durch. Die Lektionen bauen didaktisch aufeinander auf.</p>
+      <div id="module-list" class="module-list"></div>
+    </section>
+
+    <section class="panel panel--lesson" aria-labelledby="lesson-title">
+      <article id="lesson-detail">
+        <h2 id="lesson-title">Lektion laden …</h2>
+        <p>Bitte wähle links eine Lektion aus.</p>
+      </article>
+    </section>
+  </main>
+
+  <section class="panel panel--plan" aria-labelledby="study-plan-title">
+    <h2 id="study-plan-title">16-Wochen-Lernplan (empfohlen)</h2>
+    <p class="panel__description">Ein orientierender Plan für berufsbegleitendes oder kompaktes Nachholen.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Wochen</th>
+            <th>Fokus</th>
+            <th>Ziel</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1–2</td><td>Einstieg & Vektoren</td><td>Notation verstehen, sicher rechnen</td></tr>
+          <tr><td>3–4</td><td>Matrizen & LGS</td><td>Gauss-Verfahren ohne Hilfe anwenden</td></tr>
+          <tr><td>5–6</td><td>Determinanten</td><td>Lösbarkeit, Volumen, Invertierbarkeit beurteilen</td></tr>
+          <tr><td>7–8</td><td>Vektorräume</td><td>Basis, Dimension und Unterräume sicher bestimmen</td></tr>
+          <tr><td>9–10</td><td>Lineare Abbildungen</td><td>Kern/Bild und Rang-Nullität beherrschen</td></tr>
+          <tr><td>11–12</td><td>Eigenwerte</td><td>Diagonaliserbarkeit und Anwendungen prüfen</td></tr>
+          <tr><td>13–14</td><td>Skalarprodukt & Orthogonalität</td><td>Projektionen, Gram-Schmidt, QR verstehen</td></tr>
+          <tr><td>15–16</td><td>SVD, Numerik & Klausurtraining</td><td>Transferaufgaben und alte Klausuren lösen</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel panel--tools" aria-labelledby="toolbox-title">
+    <h2 id="toolbox-title">Rechenwerkzeuge</h2>
+    <p class="panel__description">Für schnelle Selbstkontrolle bei Übungen.</p>
+
+    <div class="tool-grid">
+      <article class="tool">
+        <h3>Skalarprodukt & Winkel</h3>
+        <label for="vector-a">Vektor a (z. B. 1,2,3)</label>
+        <input id="vector-a" type="text" value="1,2,3">
+        <label for="vector-b">Vektor b (z. B. 4,5,6)</label>
+        <input id="vector-b" type="text" value="4,5,6">
+        <button id="calc-dot" type="button">Berechnen</button>
+        <p id="dot-output" class="tool__output"></p>
+      </article>
+
+      <article class="tool">
+        <h3>Determinante einer 2x2-Matrix</h3>
+        <label for="matrix-2x2">Matrix (Format: a,b;c,d)</label>
+        <input id="matrix-2x2" type="text" value="1,2;3,4">
+        <button id="calc-det" type="button">Berechnen</button>
+        <p id="det-output" class="tool__output"></p>
+      </article>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Lineare Algebra Trainer · Offline-fähig · Savegame Export/Import</p>
+  </footer>
+
+  <script defer src="data/learningPath.js"></script>
+  <script defer src="app.js"></script>
+</body>
+</html>

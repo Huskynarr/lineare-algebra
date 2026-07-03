@@ -1,0 +1,11 @@
+{
+  "name": "Lineare Algebra Trainer",
+  "short_name": "LA Trainer",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#0f172a",
+  "description": "Lernplattform für Lineare Algebra vom Einstieg bis Bachelor-Niveau.",
+  "lang": "de-DE"
+}
