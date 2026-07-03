@@ -62,6 +62,10 @@
         return;
       }
       state.selectedLessonId = target.getAttribute("data-lesson-id");
+      const navToggle = document.getElementById("nav-toggle");
+      if (navToggle) {
+        navToggle.checked = false;
+      }
       render();
     });
 
