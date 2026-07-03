@@ -10,42 +10,27 @@
   <title>Lineare Algebra Trainer</title>
 </head>
 <body>
-  <header class="hero">
-    <div class="hero__content">
-      <p class="hero__eyebrow">Studiumsvorbereitung</p>
-      <h1>Lineare Algebra: von 0 bis Bachelor-fit</h1>
-      <p class="hero__lead">
-        Lernpfad mit Theorie, Beispielen, Übungen, Quiz und Fortschrittssystem. Funktioniert auch offline über HTML5 Cache
-        (Service Worker + Cache API).
-      </p>
+  <header class="topbar">
+    <div class="topbar__brand">
+      <h1>Lineare Algebra Trainer</h1>
+      <p class="topbar__sub">Lernpfad · Theorie · Übungen · Quiz · Offline-fähig</p>
     </div>
-    <aside class="hero__stats" aria-label="Fortschrittsübersicht">
-      <div class="stat">
-        <span class="stat__label">Abgeschlossene Lektionen</span>
-        <strong id="completed-lessons">0 / 0</strong>
-      </div>
-      <div class="stat">
-        <span class="stat__label">Fortschritt</span>
-        <strong id="progress-percent">0 %</strong>
-      </div>
-      <div class="stat">
-        <span class="stat__label">Mastery-Score</span>
-        <strong id="mastery-score">0 %</strong>
-      </div>
-      <div class="progress-bar" aria-hidden="true">
-        <span id="progress-bar-fill"></span>
-      </div>
-      <details class="hero__manage">
-        <summary>Fortschritt verwalten</summary>
-        <div class="hero__actions">
+    <div class="topbar__stats" aria-label="Fortschrittsübersicht">
+      <div class="stat"><span class="stat__label">Lektionen</span><strong id="completed-lessons">0 / 0</strong></div>
+      <div class="stat"><span class="stat__label">Fortschritt</span><strong id="progress-percent">0 %</strong></div>
+      <div class="stat"><span class="stat__label">Mastery</span><strong id="mastery-score">0 %</strong></div>
+      <div class="progress-bar" aria-hidden="true"><span id="progress-bar-fill"></span></div>
+      <details class="topbar__manage">
+        <summary>Verwalten</summary>
+        <div class="topbar__actions">
           <button id="export-progress" type="button">Savegame herunterladen</button>
           <label class="button-like" for="import-progress">Savegame laden</label>
           <input id="import-progress" type="file" accept="application/json">
-          <button id="reset-progress" type="button" class="ghost">Fortschritt zurücksetzen</button>
+          <button id="reset-progress" type="button" class="ghost">Zurücksetzen</button>
         </div>
       </details>
       <p id="status-message" role="status" aria-live="polite"></p>
-    </aside>
+    </div>
   </header>
 
   <main class="layout">
@@ -119,7 +104,7 @@
   </details>
 
   <footer class="footer">
-    <p>Lineare Algebra Trainer · Offline-fähig · Savegame Export/Import</p>
+    <p>Lineare Algebra Trainer · Offline-fähig · Fortschritt lokal speichern und exportieren</p>
   </footer>
 
   <script defer src="data/learningPath.js"></script>
