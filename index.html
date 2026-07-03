@@ -35,12 +35,15 @@
       <div class="progress-bar" aria-hidden="true">
         <span id="progress-bar-fill"></span>
       </div>
-      <div class="hero__actions">
-        <button id="export-progress" type="button">Savegame herunterladen</button>
-        <label class="button-like" for="import-progress">Savegame laden</label>
-        <input id="import-progress" type="file" accept="application/json">
-        <button id="reset-progress" type="button" class="ghost">Fortschritt zurücksetzen</button>
-      </div>
+      <details class="hero__manage">
+        <summary>Fortschritt verwalten</summary>
+        <div class="hero__actions">
+          <button id="export-progress" type="button">Savegame herunterladen</button>
+          <label class="button-like" for="import-progress">Savegame laden</label>
+          <input id="import-progress" type="file" accept="application/json">
+          <button id="reset-progress" type="button" class="ghost">Fortschritt zurücksetzen</button>
+        </div>
+      </details>
       <p id="status-message" role="status" aria-live="polite"></p>
     </aside>
   </header>
@@ -60,9 +63,11 @@
     </section>
   </main>
 
-  <section class="panel panel--plan" aria-labelledby="study-plan-title">
-    <h2 id="study-plan-title">16-Wochen-Lernplan (empfohlen)</h2>
-    <p class="panel__description">Ein orientierender Plan für berufsbegleitendes oder kompaktes Nachholen.</p>
+  <details class="panel panel--plan">
+    <summary class="panel__summary">
+      <h2 id="study-plan-title">16-Wochen-Lernplan (empfohlen)</h2>
+      <p class="panel__description">Ein orientierender Plan für berufsbegleitendes oder kompaktes Nachholen.</p>
+    </summary>
     <div class="table-wrap">
       <table>
         <thead>
@@ -84,11 +89,13 @@
         </tbody>
       </table>
     </div>
-  </section>
+  </details>
 
-  <section class="panel panel--tools" aria-labelledby="toolbox-title">
-    <h2 id="toolbox-title">Rechenwerkzeuge</h2>
-    <p class="panel__description">Für schnelle Selbstkontrolle bei Übungen.</p>
+  <details class="panel panel--tools">
+    <summary class="panel__summary">
+      <h2 id="toolbox-title">Rechenwerkzeuge</h2>
+      <p class="panel__description">Für schnelle Selbstkontrolle bei Übungen.</p>
+    </summary>
 
     <div class="tool-grid">
       <article class="tool">
@@ -109,7 +116,7 @@
         <p id="det-output" class="tool__output"></p>
       </article>
     </div>
-  </section>
+  </details>
 
   <footer class="footer">
     <p>Lineare Algebra Trainer · Offline-fähig · Savegame Export/Import</p>
