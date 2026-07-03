@@ -29,7 +29,7 @@ python3 -m http.server 8080   # then open http://localhost:8080
 
 ## Service worker / offline
 
-`service-worker.js` caches a fixed `APP_ASSETS` list and uses a cache-then-network strategy. When changing any asset, bump `CACHE_NAME` (`lineare-algebra-cache-v1`) — the `activate` handler only purges caches whose name differs. New assets must be added to `APP_ASSETS` explicitly or they won't be pre-cached.
+`service-worker.js` caches a fixed `APP_ASSETS` list and uses a cache-then-network strategy. When changing any asset, bump `CACHE_NAME` (`lineare-algebra-cache-v1`) — the `activate` handler only purges caches whose name differs. Also bump `SW_VERSION` in `app.js` (used as a `?v=` query param on the registration URL) to force browsers to register a fresh SW and bypass CDN/HTTP caches of the old script. New assets must be added to `APP_ASSETS` explicitly or they won't be pre-cached.
 
 ## Conventions
 

@@ -12,6 +12,7 @@
   const lessonById = new Map(allLessons.map((lesson) => [lesson.id, lesson]));
   const STORAGE_KEY = "lineare-algebra-savegame-v1";
   const SAVEGAME_VERSION = 1;
+  const SW_VERSION = 2;
 
   const elements = {
     moduleList: document.getElementById("module-list"),
@@ -495,7 +496,7 @@
     }
     window.addEventListener("load", () => {
       navigator.serviceWorker
-        .register("./service-worker.js")
+        .register(`./service-worker.js?v=${SW_VERSION}`)
         .then(() => {
           showStatus("Offline-Cache ist aktiv.");
         })
