@@ -3,48 +3,83 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="description" content="Interaktive Lernplattform für Lineare Algebra vom absoluten Einstieg bis zum Bachelor-Niveau.">
+  <meta name="description" content="Kostenloser Lineare Algebra Trainer: Interaktive Lernplattform mit 11 Modulen, Theorie, Übungen, Quiz und Fortschrittssystem.Offline nutzbar.">
+  <meta name="keywords" content="Lineare Algebra, Vektoren, Matrizen, Determinanten, Eigenwerte, Lernen, Üben, Klausur, Studium, kostenlos">
+  <meta name="author" content="Huskynarr">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://huskynarr.is-a.dev/lineare-algebra/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Lineare Algebra Trainer — von 0 bis Bachelor-fit">
+  <meta property="og:description" content="Kostenloser interaktiver Trainer für Lineare Algebra: 11 Module, Theorie, Übungen, Quiz, offline-fähig.">
+  <meta property="og:url" content="https://huskynarr.is-a.dev/lineare-algebra/">
+  <meta property="og:site_name" content="Lineare Algebra Trainer">
+  <meta property="og:locale" content="de_DE">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Lineare Algebra Trainer">
+  <meta name="twitter:description" content="Kostenloser interaktiver Trainer für Lineare Algebra: 11 Module, Theorie, Übungen, Quiz, offline-fähig.">
+
   <meta name="theme-color" content="#0b1220">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="stylesheet" href="styles.css">
-  <title>Lineare Algebra Trainer</title>
+  <link rel="preload" href="data/learningPath.js" as="script">
+  <link rel="preload" href="app.js" as="script">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "Lineare Algebra Trainer",
+    "description": "Kostenloser interaktiver Trainer für Lineare Algebra mit 11 Modulen, Übungen und Quiz.",
+    "url": "https://huskynarr.is-a.dev/lineare-algebra/",
+    "inLanguage": "de",
+    "educationalLevel": ["beginner", "intermediate", "advanced"],
+    "subject": "Linear Algebra"
+  }
+  </script>
+
+  <title>Lineare Algebra Trainer — kostenlos lernen & üben</title>
 </head>
 <body>
-  <input type="checkbox" id="nav-toggle">
+  <a href="#warmup-panel" class="skip-link">Zum Inhalt springen</a>
+  <input type="checkbox" id="nav-toggle" aria-hidden="true">
 
   <header class="topbar">
-    <label for="nav-toggle" class="topbar__burger" aria-label="Lernpfad öffnen" title="Lernpfad">
+    <label for="nav-toggle" class="topbar__burger" role="button" tabindex="0" aria-label="Lernpfad-Menü öffnen" aria-controls="sidebar" aria-expanded="false" title="Lernpfad">
       <span></span><span></span><span></span>
     </label>
     <div class="topbar__brand">
-      <h1>Lineare Algebra</h1>
+      <h1 data-i18n="app.title">Lineare Algebra</h1>
     </div>
     <div class="topbar__stats" aria-label="Fortschrittsübersicht">
-      <span class="stat"><span class="stat__label">Fortschritt</span> <strong id="progress-percent">0 %</strong></span>
-      <span class="stat"><span class="stat__label">Mastery</span> <strong id="mastery-score">0 %</strong></span>
-      <div class="progress-bar" aria-hidden="true"><span id="progress-bar-fill"></span></div>
+      <span class="stat"><span class="stat__label" data-i18n="stat.progress">Fortschritt</span> <strong id="progress-percent">0 %</strong></span>
+      <span class="stat"><span class="stat__label" data-i18n="stat.mastery">Mastery</span> <strong id="mastery-score">0 %</strong></span>
+      <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Gesamtfortschritt"><span id="progress-bar-fill"></span></div>
     </div>
   </header>
 
   <label for="nav-toggle" class="nav-overlay" aria-hidden="true"></label>
 
-  <aside class="sidebar" aria-label="Lernpfad">
+  <aside class="sidebar" id="sidebar" aria-label="Lernpfad-Navigation" role="navigation">
     <div class="sidebar__head">
       <h2>Lernpfad</h2>
-      <label for="nav-toggle" class="sidebar__close" aria-label="Lernpfad schließen">✕</label>
+      <label for="nav-toggle" class="sidebar__close" role="button" aria-label="Lernpfad-Menü schließen">✕</label>
     </div>
     <p class="sidebar__hint">Module und Lektionen</p>
-    <div id="module-list" class="module-list"></div>
+    <nav id="module-list" class="module-list" aria-label="Lektionsliste"></nav>
     <span class="hidden-completed" id="completed-lessons" aria-hidden="true">0 / 0</span>
   </aside>
 
   <main class="content">
     <section class="panel panel--warmup" id="warmup-panel">
-      <h2>Aufwärmen: Algebra-Basics</h2>
-      <p class="panel__description">10 zufällige Aufgaben zum Reinkommen — Terme, Gleichungen, Brüche und Zahlen.</p>
+      <h2 data-i18n="warmup.title">Aufwärmen: Algebra-Basics</h2>
+      <p class="panel__description" data-i18n="warmup.description">10 zufällige Aufgaben zum Reinkommen — Terme, Gleichungen, Brüche und Zahlen.</p>
       <div id="warmup-area"></div>
     </section>
 
@@ -89,21 +124,21 @@
         <p class="panel__description">Für schnelle Selbstkontrolle bei Übungen.</p>
       </summary>
       <div class="tool-grid">
-        <article class="tool">
-          <h3>Skalarprodukt & Winkel</h3>
+        <article class="tool" aria-labelledby="tool-dot-title">
+          <h3 id="tool-dot-title">Skalarprodukt & Winkel</h3>
           <label for="vector-a">Vektor a (z. B. 1,2,3)</label>
-          <input id="vector-a" type="text" value="1,2,3">
+          <input id="vector-a" type="text" value="1,2,3" aria-describedby="dot-output">
           <label for="vector-b">Vektor b (z. B. 4,5,6)</label>
-          <input id="vector-b" type="text" value="4,5,6">
+          <input id="vector-b" type="text" value="4,5,6" aria-describedby="dot-output">
           <button id="calc-dot" type="button">Berechnen</button>
-          <p id="dot-output" class="tool__output"></p>
+          <p id="dot-output" class="tool__output" role="status" aria-live="polite"></p>
         </article>
-        <article class="tool">
-          <h3>Determinante einer 2x2-Matrix</h3>
+        <article class="tool" aria-labelledby="tool-det-title">
+          <h3 id="tool-det-title">Determinante einer 2x2-Matrix</h3>
           <label for="matrix-2x2">Matrix (Format: a,b;c,d)</label>
-          <input id="matrix-2x2" type="text" value="1,2;3,4">
+          <input id="matrix-2x2" type="text" value="1,2;3,4" aria-describedby="det-output">
           <button id="calc-det" type="button">Berechnen</button>
-          <p id="det-output" class="tool__output"></p>
+          <p id="det-output" class="tool__output" role="status" aria-live="polite"></p>
         </article>
       </div>
     </details>
@@ -128,6 +163,10 @@
       Made with <span class="footer__heart" aria-label="love">&#10084;</span>
       from <span class="footer__forest">Blackforest</span>
       by <a href="https://huskynarr.de" class="footer__link">Huskynarr</a>
+    </p>
+    <p class="footer__links">
+      <a href="https://huskynarr.de/impressum">Impressum</a> ·
+      <a href="https://huskynarr.de/datenschutz">Datenschutz</a>
     </p>
   </footer>
 

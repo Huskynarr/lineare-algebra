@@ -1,11 +1,16 @@
-const CACHE_NAME = "lineare-algebra-cache-v6";
+const CACHE_NAME = "lineare-algebra-cache-v7";
 const APP_ASSETS = [
   "./",
   "./index.html",
   "./styles.css",
   "./app.js",
   "./data/learningPath.js",
-  "./manifest.webmanifest"
+  "./manifest.webmanifest",
+  "./favicon.svg",
+  "./icon-192.png",
+  "./icon-512.png",
+  "./robots.txt",
+  "./sitemap.xml"
 ];
 
 self.addEventListener("install", (event) => {

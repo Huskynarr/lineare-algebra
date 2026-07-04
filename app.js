@@ -12,10 +12,34 @@
   const lessonById = new Map(allLessons.map((lesson) => [lesson.id, lesson]));
   const STORAGE_KEY = "lineare-algebra-savegame-v1";
   const SAVEGAME_VERSION = 1;
-  const SW_VERSION = 6;
+  const SW_VERSION = 7;
   const WARMUP_COUNT = 10;
 
   const WARMUP_TYPES = ["simplify", "equation", "fraction", "decimal"];
+
+  const I18N = {
+    de: {
+      "app.title": "Lineare Algebra",
+      "stat.progress": "Fortschritt",
+      "stat.mastery": "Mastery",
+      "warmup.title": "Aufwärmen: Algebra-Basics",
+      "warmup.description": "10 zufällige Aufgaben zum Reinkommen — Terme, Gleichungen, Brüche und Zahlen.",
+      "warmup.task": "Aufgabe",
+      "warmup.of": "von",
+      "warmup.check": "Antwort prüfen",
+      "warmup.next": "Weiter",
+      "warmup.finish": "Abschließen",
+      "warmup.done": "Geschafft!",
+      "warmup.selectAnswer": "Bitte zuerst eine Antwort auswählen.",
+      "lesson.prev": "Vorherige Lektion",
+      "lesson.complete": "Abschließen",
+      "quiz.check": "Antwort prüfen"
+    }
+  };
+
+  function t(key) {
+    return (I18N[document.documentElement.lang] || I18N.de)[key] || key;
+  }
 
   const elements = {
     moduleList: document.getElementById("module-list"),
@@ -61,10 +85,21 @@
       state.selectedLessonId = allLessons[0].id;
     }
 
+    applyI18n();
     initWarmup();
     render();
     bindEvents();
     registerServiceWorker();
+  }
+
+  function applyI18n() {
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      const key = el.getAttribute("data-i18n");
+      const val = t(key);
+      if (val) {
+        el.textContent = val;
+      }
+    });
   }
 
   function bindEvents() {
@@ -79,6 +114,7 @@
         navToggle.checked = false;
       }
       render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
     elements.lessonDetail.addEventListener("click", (event) => {
@@ -125,6 +161,33 @@
         advanceWarmup();
       }
     });
+
+    const burger = document.querySelector(".topbar__burger");
+    if (burger) {
+      burger.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          document.getElementById("nav-toggle").checked = !document.getElementById("nav-toggle").checked;
+          burger.setAttribute("aria-expanded", document.getElementById("nav-toggle").checked);
+        }
+      });
+    }
+
+    const navToggle = document.getElementById("nav-toggle");
+    if (navToggle) {
+      navToggle.addEventListener("change", () => {
+        const burgerEl = document.querySelector(".topbar__burger");
+        if (burgerEl) {
+          burgerEl.setAttribute("aria-expanded", navToggle.checked);
+        }
+        if (navToggle.checked) {
+          const firstLink = document.querySelector(".sidebar .lesson-link");
+          if (firstLink) {
+            setTimeout(() => firstLink.focus(), 300);
+          }
+        }
+      });
+    }
   }
 
   function render() {
@@ -266,6 +329,10 @@
     elements.progressPercent.textContent = `${percent} %`;
     elements.masteryScore.textContent = `${mastery} %`;
     elements.progressBarFill.style.width = `${percent}%`;
+    const bar = elements.progressBarFill.closest(".progress-bar");
+    if (bar) {
+      bar.setAttribute("aria-valuenow", String(percent));
+    }
   }
 
   function toggleCompletion(lessonId) {
@@ -315,6 +382,7 @@
     if (next) {
       state.selectedLessonId = next.id;
       render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
       renderLessonDetail();
       renderProgressSummary();
@@ -847,9 +915,13 @@
 
   function renderWarmupSummary() {
     const correct = state.warmup.answers.filter((ans, i) => ans === state.warmup.questions[i]?.answerIndex).length;
+    const pct = Math.round((correct / WARMUP_COUNT) * 100);
+    const stars = pct >= 90 ? 3 : pct >= 60 ? 2 : pct >= 30 ? 1 : 0;
+    const starHtml = [0, 1, 2].map((i) => i < stars ? "&#9733;" : "&#9734;").join(" ");
     return `
       <div class="warmup-done">
-        <p><strong>Geschafft!</strong> Du hast ${correct} von ${WARMUP_COUNT} Aufgaben richtig.</p>
+        <div class="warmup-stars" aria-label="${stars} von 3 Sternen">${starHtml}</div>
+        <p><strong>Geschafft!</strong> Du hast ${correct} von ${WARMUP_COUNT} Aufgaben richtig (${pct}&nbsp;%).</p>
         <p>Jetzt geht es mit der Linearen Algebra weiter — wähle links eine Lektion aus dem Lernpfad.</p>
       </div>
     `;
