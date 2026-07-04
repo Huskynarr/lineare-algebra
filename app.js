@@ -12,7 +12,10 @@
   const lessonById = new Map(allLessons.map((lesson) => [lesson.id, lesson]));
   const STORAGE_KEY = "lineare-algebra-savegame-v1";
   const SAVEGAME_VERSION = 1;
-  const SW_VERSION = 4;
+  const SW_VERSION = 5;
+  const WARMUP_COUNT = 10;
+
+  const WARMUP_TYPES = ["simplify", "equation", "fraction", "decimal"];
 
   const elements = {
     moduleList: document.getElementById("module-list"),
@@ -31,12 +34,19 @@
     dotOutput: document.getElementById("dot-output"),
     matrix2x2: document.getElementById("matrix-2x2"),
     calcDet: document.getElementById("calc-det"),
-    detOutput: document.getElementById("det-output")
+    detOutput: document.getElementById("det-output"),
+    warmupArea: document.getElementById("warmup-area")
   };
 
   const state = {
     selectedLessonId: allLessons[0]?.id || null,
-    progress: loadProgress()
+    progress: loadProgress(),
+    warmup: {
+      questions: [],
+      currentIndex: 0,
+      answers: [],
+      finished: false
+    }
   };
 
   init();
@@ -51,6 +61,7 @@
       state.selectedLessonId = allLessons[0].id;
     }
 
+    initWarmup();
     render();
     bindEvents();
     registerServiceWorker();
@@ -102,6 +113,18 @@
 
     elements.calcDot.addEventListener("click", calculateDotProduct);
     elements.calcDet.addEventListener("click", calculateDeterminant2x2);
+
+    elements.warmupArea.addEventListener("click", (event) => {
+      const checkBtn = event.target.closest("#warmup-check");
+      if (checkBtn) {
+        evaluateWarmup();
+        return;
+      }
+      const nextBtn = event.target.closest("#warmup-next");
+      if (nextBtn) {
+        advanceWarmup();
+      }
+    });
   }
 
   function render() {
@@ -332,6 +355,7 @@
       version: SAVEGAME_VERSION,
       startedAt: now,
       updatedAt: now,
+      warmupCompleted: false,
       completedLessons: {},
       quizAnswers: {}
     };
@@ -361,6 +385,7 @@
       version: SAVEGAME_VERSION,
       startedAt: typeof candidate.startedAt === "string" ? candidate.startedAt : base.startedAt,
       updatedAt: typeof candidate.updatedAt === "string" ? candidate.updatedAt : base.updatedAt,
+      warmupCompleted: candidate.warmupCompleted === true,
       completedLessons: {},
       quizAnswers: {}
     };
@@ -541,5 +566,321 @@
 
   function isObject(value) {
     return value !== null && typeof value === "object" && !Array.isArray(value);
+  }
+
+  /* ===================== Warmup: Algebra-Basics ===================== */
+
+  function randInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function pick(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function shuffle(arr) {
+    const copy = [...arr];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }
+
+  function generateWarmupQuestions() {
+    const questions = [];
+    for (let i = 0; i < WARMUP_COUNT; i++) {
+      const level = i + 1;
+      const type = WARMUP_TYPES[i % WARMUP_TYPES.length];
+      questions.push(generateQuestion(type, level));
+    }
+    return shuffle(questions);
+  }
+
+  function generateQuestion(type, level) {
+    switch (type) {
+      case "simplify":
+        return genSimplify(level);
+      case "equation":
+        return genEquation(level);
+      case "fraction":
+        return genFraction(level);
+      case "decimal":
+        return genDecimal(level);
+      default:
+        return genSimplify(level);
+    }
+  }
+
+  function genSimplify(level) {
+    const a = randInt(1, 3 + level);
+    const b = randInt(1, 3 + level);
+    const c = randInt(1, 5 + level * 2);
+    const sign = level <= 3 ? "+" : pick(["+", "-"]);
+    const expr = `${a}x ${sign} ${b}x ${level <= 5 ? "+ " + c : "- " + c}`;
+    let answer;
+    if (sign === "+") {
+      answer = `${a + b}x ${level <= 5 ? "+ " + c : "- " + c}`;
+    } else {
+      answer = `${a - b}x ${level <= 5 ? "+ " + c : "- " + c}`;
+    }
+    const wrong1 = `${a + b + randInt(1, 3)}x ${level <= 5 ? "+ " + c : "- " + c}`;
+    const wrong2 = `${a + b}x ${level <= 5 ? "+ " + (c + randInt(1, 3)) : "- " + (c + randInt(1, 3))}`;
+    const wrong3 = `${a + b}x`;
+    const options = shuffle([answer, wrong1, wrong2, wrong3]);
+    return {
+      type: "simplify",
+      question: `Vereinfache den Term: ${expr}`,
+      options: options,
+      answerIndex: options.indexOf(answer),
+      correctAnswer: answer,
+      explanation: `Fasse die x-Glieder zusammen: ${a}x ${sign} ${b}x = ${answer.split(" ")[0]}. Die Zahl bleibt unverändert.`
+    };
+  }
+
+  function genEquation(level) {
+    const solution = randInt(1, 3 + level);
+    const factor = randInt(2, 3 + Math.floor(level / 2));
+    const addend = randInt(1, 5 + level);
+    const result = factor * solution + addend;
+    const question = `Löse die Gleichung: ${factor}x + ${addend} = ${result}`;
+    const answer = `x = ${solution}`;
+    const wrong1 = `x = ${solution + randInt(1, 3)}`;
+    const wrong2 = `x = ${Math.max(1, solution - randInt(1, 3))}`;
+    const wrong3 = `x = ${factor + addend}`;
+    const options = shuffle([answer, wrong1, wrong2, wrong3]);
+    return {
+      type: "equation",
+      question: question,
+      options: options,
+      answerIndex: options.indexOf(answer),
+      correctAnswer: answer,
+      explanation: `Ziehe ${addend} ab: ${factor}x = ${result - addend}. Dann teile durch ${factor}: x = ${solution}.`
+    };
+  }
+
+  function genFraction(level) {
+    if (level <= 5) {
+      const denom = pick([2, 3, 4, 5, 6]);
+      const a = randInt(1, denom - 1);
+      const b = randInt(1, denom - 1);
+      const numSum = a * denom + b * denom;
+      const question = `Berechne: ${a}/${denom} + ${b}/${denom}`;
+      const answer = `${a + b}/${denom}`;
+      const wrong1 = `${a + b}/${denom * 2}`;
+      const wrong2 = `${a * b}/${denom}`;
+      const wrong3 = `${a + b + 1}/${denom}`;
+      const options = shuffle([answer, wrong1, wrong2, wrong3]);
+      return {
+        type: "fraction",
+        question: question,
+        options: options,
+        answerIndex: options.indexOf(answer),
+        correctAnswer: answer,
+        explanation: `Gleicher Nenner — einfach Zähler addieren: ${a} + ${b} = ${a + b}. Ergebnis: ${a + b}/${denom}.`
+      };
+    } else {
+      const d1 = pick([2, 3, 4]);
+      const d2 = pick([3, 4, 5, 6]);
+      const n1 = randInt(1, d1 - 1);
+      const n2 = randInt(1, d2 - 1);
+      const lcm = (d1 * d2) / gcd(d1, d2);
+      const resultNum = n1 * (lcm / d1) + n2 * (lcm / d2);
+      const question = `Berechne: ${n1}/${d1} + ${n2}/${d2}`;
+      const answer = `${resultNum}/${lcm}`;
+      const wrong1 = `${n1 + n2}/${d1 + d2}`;
+      const wrong2 = `${resultNum + 1}/${lcm}`;
+      const wrong3 = `${n1 + n2}/${lcm}`;
+      const options = shuffle([answer, wrong1, wrong2, wrong3]);
+      return {
+        type: "fraction",
+        question: question,
+        options: options,
+        answerIndex: options.indexOf(answer),
+        correctAnswer: answer,
+        explanation: `Hauptnenner ist ${lcm}. Umgerechnet: ${n1 * (lcm / d1)}/${lcm} + ${n2 * (lcm / d2)}/${lcm} = ${resultNum}/${lcm}.`
+      };
+    }
+  }
+
+  function gcd(a, b) {
+    while (b) {
+      [a, b] = [b, a % b];
+    }
+    return a;
+  }
+
+  function genDecimal(level) {
+    const formats = [
+      () => {
+        const num = Math.round(Math.random() * Math.pow(10, 3 + Math.floor(level / 3))) / 100;
+        const places = level <= 4 ? 1 : level <= 7 ? 2 : 3;
+        const rounded = Number(num.toFixed(places));
+        return {
+          q: `Runde ${num.toString().replace(".", ",")} auf ${places} Nachkommastelle${places > 1 ? "n" : ""}.`,
+          a: rounded.toString().replace(".", ","),
+          wrongs: [
+            num.toFixed(places + 1).replace(".", ","),
+            num.toFixed(Math.max(0, places - 1)).replace(".", ","),
+            (rounded + 0.1).toFixed(places).replace(".", ",")
+          ],
+          exp: `Schau auf die Stelle nach der gewünschten Genauigkeit und runde entsprechend.`
+        };
+      },
+      () => {
+        const a = randInt(1, 5 + level);
+        const b = randInt(1, 5 + level);
+        const op = level <= 4 ? "+" : "-";
+        const result = op === "+" ? a + b : Math.abs(a - b);
+        const decA = (a / 10).toString().replace(".", ",");
+        const decB = (b / 10).toString().replace(".", ",");
+        return {
+          q: `Berechne: ${decA} ${op} ${decB}`,
+          a: (result / 10).toString().replace(".", ","),
+          wrongs: [
+            ((result + 1) / 10).toString().replace(".", ","),
+            ((result - 1) / 10).toString().replace(".", ","),
+            (result / 100).toString().replace(".", ",")
+          ],
+          exp: `${op === "+" ? "Addiere" : "Subtrahiere"} die Zahlen wie gehabt, das Komma bleibt an derselben Stelle.`
+        };
+      },
+      () => {
+        const whole = randInt(1, 10 + level);
+        const dec = randInt(1, 99);
+        const num = parseFloat(`${whole}.${dec}`);
+        const smaller = randInt(1, 10 + level) + Math.random();
+        const bigger = num + randInt(1, 5);
+        return {
+          q: `Welche Zahl ist größer: ${num.toString().replace(".", ",")} oder ${smaller.toFixed(2).replace(".", ",")}?`,
+          a: num > smaller ? `${num.toString().replace(".", ",")}` : `${smaller.toFixed(2).replace(".", ",")}`,
+          wrongs: [
+            num > smaller ? `${smaller.toFixed(2).replace(".", ",")}` : `${num.toString().replace(".", ",")}`,
+            "Beide gleich",
+            "Keine der beiden"
+          ],
+          exp: `Vergleiche erst die ganzen Zahlen, dann die Nachkommastellen von links nach rechts.`
+        };
+      }
+    ];
+    const gen = formats[randInt(0, formats.length - 1)]();
+    const options = shuffle([gen.a, ...gen.wrongs]);
+    return {
+      type: "decimal",
+      question: gen.q,
+      options: options,
+      answerIndex: options.indexOf(gen.a),
+      correctAnswer: gen.a,
+      explanation: gen.exp
+    };
+  }
+
+  function initWarmup() {
+    if (state.progress.warmupCompleted) {
+      state.warmup.finished = true;
+      elements.warmupArea.innerHTML = renderWarmupSummary();
+      return;
+    }
+    state.warmup.questions = generateWarmupQuestions();
+    state.warmup.currentIndex = 0;
+    state.warmup.answers = [];
+    state.warmup.finished = false;
+    renderWarmup();
+  }
+
+  function renderWarmup() {
+    if (state.warmup.finished) {
+      elements.warmupArea.innerHTML = renderWarmupSummary();
+      return;
+    }
+
+    const idx = state.warmup.currentIndex;
+    const q = state.warmup.questions[idx];
+    if (!q) {
+      return;
+    }
+    const answered = state.warmup.answers[idx];
+    const hasAnswered = typeof answered === "number";
+    const isCorrect = hasAnswered && answered === q.answerIndex;
+    const total = WARMUP_COUNT;
+    const progressPct = Math.round((idx / total) * 100);
+
+    let buttonHtml;
+    if (hasAnswered) {
+      const isLast = idx >= total - 1;
+      buttonHtml = `<button id="warmup-next" type="button">${isLast ? "Abschließen" : "Weiter"}</button>`;
+    } else {
+      buttonHtml = `<button id="warmup-check" type="button">Antwort prüfen</button>`;
+    }
+
+    let feedbackHtml = "";
+    if (hasAnswered) {
+      feedbackHtml = `<p class="quiz-feedback ${isCorrect ? "success" : "error"}">${
+        isCorrect ? "Richtig! " : "Leider falsch. "
+      }${escapeHtml(q.explanation)}</p>`;
+    }
+
+    elements.warmupArea.innerHTML = `
+      <div class="warmup-progress">
+        <span>Aufgabe ${idx + 1} von ${total}</span>
+        <div class="progress-bar"><span style="width: ${progressPct}%"></span></div>
+      </div>
+      <div class="warmup-question">
+        <p class="warmup-task">${escapeHtml(q.question)}</p>
+        <div class="warmup-options">
+          ${q.options
+            .map(
+              (opt, i) => `
+              <label class="${hasAnswered && i === q.answerIndex ? "is-correct" : ""}${hasAnswered && i === answered && i !== q.answerIndex ? "is-wrong" : ""}">
+                <input type="radio" name="warmup-answer" value="${i}" ${answered === i ? "checked" : ""} ${hasAnswered ? "disabled" : ""}>
+                ${escapeHtml(opt)}
+              </label>
+            `
+            )
+            .join("")}
+        </div>
+        ${buttonHtml}
+        ${feedbackHtml}
+      </div>
+    `;
+  }
+
+  function renderWarmupSummary() {
+    const correct = state.warmup.answers.filter((ans, i) => ans === state.warmup.questions[i]?.answerIndex).length;
+    return `
+      <div class="warmup-done">
+        <p><strong>Geschafft!</strong> Du hast ${correct} von ${WARMUP_COUNT} Aufgaben richtig.</p>
+        <p>Jetzt geht es mit der Linearen Algebra weiter — wähle links eine Lektion aus dem Lernpfad.</p>
+      </div>
+    `;
+  }
+
+  function evaluateWarmup() {
+    const idx = state.warmup.currentIndex;
+    const q = state.warmup.questions[idx];
+    if (!q) {
+      return;
+    }
+    const selected = document.querySelector('input[name="warmup-answer"]:checked');
+    if (!selected) {
+      showStatus("Bitte zuerst eine Antwort auswählen.", true);
+      return;
+    }
+    state.warmup.answers[idx] = Number(selected.value);
+    renderWarmup();
+  }
+
+  function advanceWarmup() {
+    const idx = state.warmup.currentIndex;
+    if (idx >= WARMUP_COUNT - 1) {
+      state.warmup.finished = true;
+      state.progress.warmupCompleted = true;
+      persistProgress();
+      renderWarmup();
+      showStatus("Warmup abgeschlossen — viel Erfolg bei der Linearen Algebra!");
+    } else {
+      state.warmup.currentIndex++;
+      renderWarmup();
+    }
   }
 })();

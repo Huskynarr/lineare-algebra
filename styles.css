@@ -545,6 +545,82 @@ th {
   text-decoration: underline;
 }
 
+/* ---------- Warmup ---------- */
+
+.warmup-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+}
+
+.warmup-progress .progress-bar {
+  flex: 1;
+  margin: 0;
+}
+
+.warmup-question {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.warmup-task {
+  font-size: 1rem;
+  margin: 0 0 0.3rem;
+}
+
+.warmup-options {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.warmup-options label {
+  display: block;
+  background: #0f1a30;
+  border: 1px solid var(--border-soft);
+  border-radius: 0.5rem;
+  padding: 0.45rem 0.6rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.warmup-options label:hover {
+  border-color: var(--accent);
+}
+
+.warmup-options label.is-correct {
+  border-color: #2faa6c;
+  background: rgba(47, 170, 108, 0.15);
+}
+
+.warmup-options label.is-wrong {
+  border-color: var(--warning);
+  background: rgba(251, 113, 133, 0.15);
+}
+
+.warmup-options input[type="radio"] {
+  margin-right: 0.4rem;
+}
+
+.warmup-options input:disabled {
+  cursor: default;
+}
+
+#warmup-check, #warmup-next {
+  margin-top: 0.3rem;
+}
+
+.warmup-done {
+  text-align: center;
+  padding: 0.8rem;
+}
+
+.warmup-done p {
+  margin: 0.3rem 0;
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 640px) {
