@@ -12,7 +12,7 @@
   const lessonById = new Map(allLessons.map((lesson) => [lesson.id, lesson]));
   const STORAGE_KEY = "lineare-algebra-savegame-v1";
   const SAVEGAME_VERSION = 1;
-  const SW_VERSION = 5;
+  const SW_VERSION = 6;
   const WARMUP_COUNT = 10;
 
   const WARMUP_TYPES = ["simplify", "equation", "fraction", "decimal"];
