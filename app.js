@@ -12,7 +12,7 @@
   const lessonById = new Map(allLessons.map((lesson) => [lesson.id, lesson]));
   const STORAGE_KEY = "lineare-algebra-savegame-v1";
   const SAVEGAME_VERSION = 1;
-  const SW_VERSION = 3;
+  const SW_VERSION = 4;
 
   const elements = {
     moduleList: document.getElementById("module-list"),
@@ -71,12 +71,6 @@
     });
 
     elements.lessonDetail.addEventListener("click", (event) => {
-      const completeButton = event.target.closest("#toggle-complete");
-      if (completeButton) {
-        toggleCompletion(state.selectedLessonId);
-        return;
-      }
-
       const nextButton = event.target.closest("#next-lesson");
       if (nextButton) {
         selectNeighborLesson(1);
@@ -92,6 +86,13 @@
       const checkQuizButton = event.target.closest("#check-quiz");
       if (checkQuizButton) {
         evaluateQuiz();
+        return;
+      }
+
+      const nextQuizButton = event.target.closest("#next-quiz");
+      if (nextQuizButton) {
+        advanceFromQuiz();
+        return;
       }
     });
 
@@ -164,8 +165,10 @@
     const isCorrect = hasAnswer && userAnswer === lesson.quiz.answerIndex;
     const previousText =
       getNeighborLesson(-1) !== null ? `<button id="prev-lesson" type="button" class="ghost">Vorherige Lektion</button>` : "";
-    const nextText =
-      getNeighborLesson(1) !== null ? `<button id="next-lesson" type="button" class="ghost">Nächste Lektion</button>` : "";
+    const hasNext = getNeighborLesson(1) !== null;
+    const quizButtonHtml = hasAnswer
+      ? `<button id="next-quiz" type="button">${hasNext ? "Weiter" : "Abschließen"}</button>`
+      : `<button id="check-quiz" type="button">Antwort prüfen</button>`;
 
     elements.lessonDetail.innerHTML = `
       <h2 id="lesson-title">${escapeHtml(lesson.title)}</h2>
@@ -175,9 +178,7 @@
     )} Minuten</p>
 
       <div class="lesson-actions">
-        <button id="toggle-complete" type="button">${isCompleted(lesson.id) ? "Als offen markieren" : "Als erledigt markieren"}</button>
         ${previousText}
-        ${nextText}
       </div>
 
       <section class="lesson-section">
@@ -209,7 +210,7 @@
             `
           )
           .join("")}
-        <button id="check-quiz" type="button">Antwort prüfen</button>
+        ${quizButtonHtml}
         <p class="quiz-feedback ${hasAnswer ? (isCorrect ? "success" : "error") : ""}">
           ${
             hasAnswer
@@ -278,6 +279,24 @@
       showStatus("Richtig! Stark.");
     } else {
       showStatus("Nicht ganz. Erklärung beachten und erneut probieren.", true);
+    }
+  }
+
+  function advanceFromQuiz() {
+    const lesson = lessonById.get(state.selectedLessonId);
+    if (lesson && !isCompleted(lesson.id)) {
+      state.progress.completedLessons[lesson.id] = true;
+      persistProgress();
+    }
+    const next = getNeighborLesson(1);
+    if (next) {
+      state.selectedLessonId = next.id;
+      render();
+    } else {
+      renderLessonDetail();
+      renderProgressSummary();
+      renderModuleList();
+      showStatus("Glückwunsch! Du hast alle Lektionen abgeschlossen.");
     }
   }
 
