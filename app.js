@@ -12,7 +12,7 @@
   const lessonById = new Map(allLessons.map((lesson) => [lesson.id, lesson]));
   const STORAGE_KEY = "lineare-algebra-savegame-v1";
   const SAVEGAME_VERSION = 1;
-  const SW_VERSION = 12;
+  const SW_VERSION = 13;
   const WARMUP_COUNT = 10;
 
   const WARMUP_TYPES = ["simplify", "equation", "fraction", "decimal"];
@@ -82,7 +82,8 @@
       currentIndex: 0,
       answers: [],
       finished: false
-    }
+    },
+    shareModuleId: null
   };
 
   init();
@@ -155,6 +156,7 @@
         return;
       }
       state.selectedLessonId = target.getAttribute("data-lesson-id");
+      state.shareModuleId = null;
       const navToggle = document.getElementById("nav-toggle");
       if (navToggle) {
         navToggle.checked = false;
@@ -220,7 +222,10 @@
       if (startBtn) {
         state.selectedLessonId = allLessons[0]?.id || null;
         render();
-        document.getElementById("warmup-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+        const lessonEl = document.querySelector(".panel--lesson");
+        if (lessonEl) {
+          lessonEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
       }
     });
 
@@ -233,6 +238,42 @@
           render();
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
+        return;
+      }
+
+      const shareCloseBtn = event.target.closest(".share-banner__close");
+      if (shareCloseBtn) {
+        const moduleId = state.shareModuleId;
+        state.shareModuleId = null;
+        if (moduleId) {
+          try {
+            const key = "lineare-algebra-shared-modules";
+            const list = JSON.parse(localStorage.getItem(key) || "[]");
+            if (!list.includes(moduleId)) {
+              list.push(moduleId);
+              localStorage.setItem(key, JSON.stringify(list));
+            }
+          } catch (e) {}
+        }
+        const banner = document.querySelector(".share-banner");
+        if (banner) banner.remove();
+        return;
+      }
+
+      const copyBtn = event.target.closest("#share-copy-link");
+      if (copyBtn) {
+        const quoteEl = document.getElementById("share-quote");
+        const text = quoteEl ? quoteEl.textContent + " https://huskynarr.is-a.dev/lineare-algebra/" : "https://huskynarr.is-a.dev/lineare-algebra/";
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => {
+            showStatus("Link in die Zwischenablage kopiert!");
+          }).catch(() => {
+            showStatus("Kopieren nicht möglich — bitte manuell markieren.", true);
+          });
+        } else {
+          showStatus("Kopieren wird in diesem Browser nicht unterstützt.", true);
+        }
+        return;
       }
     });
 
@@ -270,6 +311,7 @@
     renderProgressSummary();
     renderMath();
     renderReviewBanner();
+    renderShareBanner();
   }
 
   function renderMath(scope) {
@@ -583,11 +625,59 @@
     }
   }
 
+  function renderShareBanner() {
+    if (!state.shareModuleId) return;
+    const module = learningPath.find((entry) => entry.id === state.shareModuleId);
+    if (!module) {
+      state.shareModuleId = null;
+      return;
+    }
+    const shareText = `Ich habe das Modul "${module.title}" im Lineare Algebra Trainer geschafft! 🎉 Willst du mit mir lernen?`;
+    const shareUrl = "https://huskynarr.is-a.dev/lineare-algebra/";
+    const fullText = `${shareText} ${shareUrl}`;
+    const encoded = encodeURIComponent(fullText);
+    const encodedUrl = encodeURIComponent(shareUrl);
+    const encodedQuote = encodeURIComponent(shareText);
+
+    const banner = document.createElement("div");
+    banner.className = "share-banner";
+    banner.innerHTML = `
+      <button type="button" class="share-banner__close" aria-label="Teilen-Fenster schließen">✕</button>
+      <div class="share-banner__emoji" aria-hidden="true">🎉</div>
+      <h2 class="share-banner__title">Modul geschafft!</h2>
+      <p class="share-banner__text">Du hast <strong>${escapeHtml(module.title)}</strong> abgeschlossen. Teile deinen Erfolg:</p>
+      <p class="share-banner__quote" id="share-quote">${escapeHtml(shareText)}</p>
+      <div class="share-banner__actions">
+        <a class="share-btn share-btn--wa" href="https://wa.me/?text=${encoded}" target="_blank" rel="noopener noreferrer" aria-label="Über WhatsApp teilen">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.978-1.043zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413z"/></svg>
+          <span>WhatsApp</span>
+        </a>
+        <a class="share-btn share-btn--x" href="https://twitter.com/intent/tweet?text=${encoded}" target="_blank" rel="noopener noreferrer" aria-label="Über X teilen">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <span>X</span>
+        </a>
+        <a class="share-btn share-btn--fb" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedQuote}" target="_blank" rel="noopener noreferrer" aria-label="Über Facebook teilen">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          <span>Facebook</span>
+        </a>
+        <button type="button" class="share-btn share-btn--copy" id="share-copy-link" aria-label="Link kopieren">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          <span>Kopieren</span>
+        </button>
+      </div>
+    `;
+    const content = document.querySelector(".content");
+    if (content && content.firstChild) {
+      content.insertBefore(banner, content.firstChild);
+    }
+  }
+
   function advanceFromQuiz() {
     const lesson = lessonById.get(state.selectedLessonId);
     if (lesson && !isCompleted(lesson.id)) {
       state.progress.completedLessons[lesson.id] = true;
       persistProgress();
+      checkModuleCompletion(lesson.moduleId);
     }
     const next = getNeighborLesson(1);
     if (next) {
@@ -602,6 +692,22 @@
     }
   }
 
+  function checkModuleCompletion(moduleId) {
+    if (!moduleId) return;
+    const module = learningPath.find((entry) => entry.id === moduleId);
+    if (!module) return;
+    const allDone = module.lessons.every((lesson) => isCompleted(lesson.id));
+    if (allDone) {
+      const key = "lineare-algebra-shared-modules";
+      const alreadyShared = (() => {
+        try { return JSON.parse(localStorage.getItem(key) || "[]"); } catch (e) { return []; }
+      })();
+      if (!alreadyShared.includes(moduleId)) {
+        state.shareModuleId = moduleId;
+      }
+    }
+  }
+
   function selectNeighborLesson(step) {
     const currentIndex = allLessons.findIndex((lesson) => lesson.id === state.selectedLessonId);
     if (currentIndex < 0) {
@@ -612,6 +718,7 @@
       return;
     }
     state.selectedLessonId = allLessons[nextIndex].id;
+    state.shareModuleId = null;
     render();
   }
 

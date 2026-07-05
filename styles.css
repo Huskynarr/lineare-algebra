@@ -962,6 +962,114 @@ details.panel > :last-child {
   text-decoration: underline;
 }
 
+/* ---------- Share banner ---------- */
+
+.share-banner {
+  position: relative;
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.14), rgba(56, 189, 248, 0.1));
+  border: 1px solid var(--done-border);
+  border-radius: var(--radius);
+  padding: 1.2rem 1.4rem 1.1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  box-shadow: var(--shadow);
+  animation: share-pop 0.4s ease;
+}
+
+@keyframes share-pop {
+  from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+.share-banner__close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  min-height: 2rem;
+  padding: 0;
+  background: transparent;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  line-height: 1;
+  border-radius: 50%;
+}
+
+.share-banner__close:hover {
+  background: var(--hover-overlay);
+  color: var(--text);
+  filter: none;
+  transform: none;
+}
+
+.share-banner__emoji {
+  font-size: 2.6rem;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.share-banner__title {
+  font-size: 1.25rem;
+  margin: 0 0 0.35rem;
+  color: var(--accent-2);
+}
+
+.share-banner__text {
+  margin: 0 0 0.6rem;
+  font-size: 0.92rem;
+  color: var(--text-soft);
+}
+
+.share-banner__quote {
+  background: var(--surface-2);
+  border: 1px dashed var(--border-soft);
+  border-radius: 0.6rem;
+  padding: 0.6rem 0.8rem;
+  margin: 0 auto 0.9rem;
+  max-width: 520px;
+  font-size: 0.88rem;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.share-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.9rem;
+  min-height: 2.6rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: transform 0.12s ease, filter 0.12s ease, background 0.15s ease;
+}
+
+.share-btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+.share-btn span {
+  line-height: 1;
+}
+
+.share-btn--wa   { background: #25d366; color: #0f172a; }
+.share-btn--x    { background: #0f172a; color: #ffffff; border-color: var(--border-soft); }
+.share-btn--fb   { background: #1877f2; color: #ffffff; }
+.share-btn--copy { background: var(--surface); color: var(--text); border-color: var(--border-soft); }
+
 /* ---------- Review banner ---------- */
 
 .review-banner {
