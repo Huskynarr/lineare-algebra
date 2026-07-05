@@ -12,7 +12,7 @@
   const lessonById = new Map(allLessons.map((lesson) => [lesson.id, lesson]));
   const STORAGE_KEY = "lineare-algebra-savegame-v1";
   const SAVEGAME_VERSION = 1;
-  const SW_VERSION = 8;
+  const SW_VERSION = 9;
   const WARMUP_COUNT = 10;
 
   const WARMUP_TYPES = ["simplify", "equation", "fraction", "decimal"];
@@ -159,6 +159,13 @@
       const nextBtn = event.target.closest("#warmup-next");
       if (nextBtn) {
         advanceWarmup();
+        return;
+      }
+      const startBtn = event.target.closest("#warmup-start-lesson");
+      if (startBtn) {
+        state.selectedLessonId = allLessons[0]?.id || null;
+        render();
+        document.getElementById("warmup-panel").scrollIntoView({ behavior: "smooth", block: "start" });
       }
     });
 
@@ -922,7 +929,8 @@
       <div class="warmup-done">
         <div class="warmup-stars" aria-label="${stars} von 3 Sternen">${starHtml}</div>
         <p><strong>Geschafft!</strong> Du hast ${correct} von ${WARMUP_COUNT} Aufgaben richtig (${pct}&nbsp;%).</p>
-        <p>Jetzt geht es mit der Linearen Algebra weiter — wähle links eine Lektion aus dem Lernpfad.</p>
+        <p>Jetzt geht es mit der Linearen Algebra weiter.</p>
+        <button id="warmup-start-lesson" type="button" class="warmup-continue">Zur ersten Lektion</button>
       </div>
     `;
   }

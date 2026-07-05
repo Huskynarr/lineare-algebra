@@ -293,7 +293,7 @@ input[type="text"] {
 
 .layout {
   display: grid;
-  grid-template-columns: 260px minmax(0, 1fr) 280px;
+  grid-template-columns: 280px minmax(0, 1fr) 280px;
   gap: 1rem;
   padding: 1rem;
   padding-left: max(1rem, env(safe-area-inset-left));
@@ -633,22 +633,29 @@ details.panel > :last-child {
 
 .table-wrap {
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 
 th, td {
   border: 1px solid #2e4065;
-  padding: 0.45rem;
+  padding: 0.35rem 0.4rem;
   text-align: left;
 }
 
 th {
   background: #16233f;
+  white-space: nowrap;
+}
+
+.panel--plan td:first-child {
+  white-space: nowrap;
+  font-weight: 600;
 }
 
 /* Tools */
@@ -826,6 +833,12 @@ th {
   letter-spacing: 0.3rem;
   color: #fbbf24;
   margin-bottom: 0.4rem;
+}
+
+.warmup-continue {
+  margin-top: 0.6rem;
+  font-size: 1rem;
+  padding: 0.7rem 1.5rem;
 }
 
 /* ---------- Responsive ---------- */
