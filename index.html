@@ -28,6 +28,11 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+  <link rel="preload" href="data/learningPath.js" as="script">
+  <link rel="preload" href="app.js" as="script">
   <link rel="preload" href="data/learningPath.js" as="script">
   <link rel="preload" href="app.js" as="script">
 
@@ -158,6 +163,29 @@
           <input id="matrix-2x2" type="text" value="1,2;3,4" aria-describedby="det-output">
           <button id="calc-det" type="button">Berechnen</button>
           <p id="det-output" class="tool__output" role="status" aria-live="polite"></p>
+        </article>
+        <article class="tool" aria-labelledby="tool-mul-title">
+          <h3 id="tool-mul-title">Matrix mal Matrix</h3>
+          <label for="matrix-a">Matrix A (Zeilen mit ; trennen)</label>
+          <input id="matrix-a" type="text" value="1,2;3,4" aria-describedby="mul-output">
+          <label for="matrix-b2">Matrix B</label>
+          <input id="matrix-b2" type="text" value="5,6;7,8" aria-describedby="mul-output">
+          <button id="calc-mul" type="button">Multiplizieren</button>
+          <p id="mul-output" class="tool__output" role="status" aria-live="polite"></p>
+        </article>
+        <article class="tool" aria-labelledby="tool-inv-title">
+          <h3 id="tool-inv-title">Inverse 2x2</h3>
+          <label for="matrix-inv">Matrix (Format: a,b;c,d)</label>
+          <input id="matrix-inv" type="text" value="4,7;2,6" aria-describedby="inv-output">
+          <button id="calc-inv" type="button">Invertieren</button>
+          <p id="inv-output" class="tool__output" role="status" aria-live="polite"></p>
+        </article>
+        <article class="tool" aria-labelledby="tool-gauss-title">
+          <h3 id="tool-gauss-title">Gauss-Verfahren (2x2)</h3>
+          <label for="gauss-input">LGS (Format: a,b;c,d|e,f)</label>
+          <input id="gauss-input" type="text" value="2,1;1,-1|1,3" aria-describedby="gauss-output">
+          <button id="calc-gauss" type="button">Lösen</button>
+          <p id="gauss-output" class="tool__output" role="status" aria-live="polite"></p>
         </article>
       </div>
     </aside>

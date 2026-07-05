@@ -1,5 +1,85 @@
 window.LEARNING_PATH = Object.freeze([
   {
+    id: "mod-0",
+    title: "Vorab: Komplexe Zahlen",
+    level: "Einsteiger",
+    targetHours: 6,
+    goals: [
+      "Komplexe Zahlen verstehen und darstellen",
+      "Mit komplexen Zahlen rechnen",
+      "Verbindung zu Eigenweten herstellen"
+    ],
+    lessons: [
+      {
+        id: "m0-l1",
+        title: "Was sind komplexe Zahlen?",
+        difficulty: "Einsteiger",
+        estimatedMinutes: 40,
+        theory: [
+          "Manche Gleichungen haben keine normale Lösung, z.B. $x^2 = -1$. Keine echte Zahl ergibt -1 wenn man sie quadriert.",
+          "Deshalb erfinden Mathematiker die Zahl $i$ mit der Eigenschaft $i^2 = -1$. Das ist die 'imaginäre Einheit'.",
+          "Eine komplexe Zahl hat die Form $z = a + bi$, wobei $a$ und $b$ normale Zahlen sind. $a$ heißt der Realteil, $b$ der Imaginärteil.",
+          "Stell dir ein Koordinatensystem vor: Die x-Achse ist der Realteil, die y-Achse der Imaginärteil. Jede komplexe Zahl ist ein Punkt darin."
+        ],
+        example: "$z = 3 + 4i$ ist eine komplexe Zahl. Realteil = 3, Imaginärteil = 4. In der komplexen Ebene liegt dieser Punkt bei (3, 4).",
+        exercise: "Schreibe die komplexe Zahl $z = 5 - 2i$ in der Form $a + bi$ auf. Was ist Realteil, was ist Imaginärteil?",
+        hint: "Realteil ist die Zahl vor dem $i$, Imaginärteil die Zahl dahinter (mit Vorzeichen).",
+        quiz: {
+          inputType: "text",
+          question: "Was ist der Imaginärteil von $z = 7 - 3i$?",
+          correctAnswer: "-3",
+          acceptAnswers: ["-3", "-3i"],
+          placeholder: "Zahl eingeben...",
+          explanation: "Der Imaginärteil ist die Zahl vor dem $i$, also -3.",
+          solution: "Bei $z = a + bi$ ist $a$ der Realteil und $b$ der Imaginärteil. Hier: $a = 7$, $b = -3$. Also ist der Imaginärteil $-3$."
+        }
+      },
+      {
+        id: "m0-l2",
+        title: "Mit komplexen Zahlen rechnen",
+        difficulty: "Einsteiger",
+        estimatedMinutes: 50,
+        theory: [
+          "Addition: Realteile und Imaginärteile werden einzeln addiert. $(a + bi) + (c + di) = (a+c) + (b+d)i$.",
+          "Multiplikation: Wie bei Klammern ausmultiplizieren, dabei $i^2 = -1$ verwenden. $(a+bi)(c+di) = (ac - bd) + (ad + bc)i$.",
+          "Die 'konjugiert komplexe Zahl' von $z = a + bi$ ist $\\bar{z} = a - bi$. Damit kann man Division durchführen."
+        ],
+        example: "$(2 + 3i) + (1 - i) = 3 + 2i$. Und $(2 + 3i)(1 - i) = 2 - 2i + 3i - 3i^2 = 2 + i + 3 = 5 + i$.",
+        exercise: "Berechne $(1 + 2i) \\cdot (3 - i)$.",
+        hint: "Klammern ausmultiplizieren und $i^2 = -1$ einsetzen.",
+        quiz: {
+          inputType: "text",
+          question: "Berechne $(1 + 2i) \\cdot (3 - i)$. Gib das Ergebnis in der Form $a + bi$ ein.",
+          correctAnswer: "5 + 5i",
+          acceptAnswers: ["5+5i", "5 + 5i"],
+          placeholder: "z.B. 3 + 4i",
+          explanation: "Ausmultiplizieren: $1 \\cdot 3 + 1 \\cdot (-i) + 2i \\cdot 3 + 2i \\cdot (-i) = 3 - i + 6i - 2i^2 = 3 + 5i + 2 = 5 + 5i$.",
+          solution: "Schritt 1: Klammer ausmultiplizieren: $1 \\cdot 3 = 3$, $1 \\cdot (-i) = -i$, $2i \\cdot 3 = 6i$, $2i \\cdot (-i) = -2i^2 = +2$.\\nSchritt 2: Zusammenfassen: $3 + 2 + (-i + 6i) = 5 + 5i$."
+        }
+      },
+      {
+        id: "m0-l3",
+        title: "Warum braucht man komplexe Zahlen in der Linearen Algebra?",
+        difficulty: "Einsteiger",
+        estimatedMinutes: 35,
+        theory: [
+          "Einige Matrizen haben keine reellen Eigenwerte, sondern komplexe. Zum Beispiel Drehungen in der Ebene.",
+          "Das charakteristische Polynom $\\det(A - \\lambda I) = 0$ kann komplexe Nullstellen haben — die dann die Eigenwerte sind.",
+          "Auch wenn die Eingangsmatrix reell ist, können komplexe Eigenwerte auftreten. Das ist normal und kein Fehler."
+        ],
+        example: "Die Drehmatrix $\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$ hat die Eigenwerte $\\lambda = \\pm i$. Diese sind komplex, obwohl die Matrix nur reelle Zahlen enthält.",
+        exercise: "Warum ist es wichtig, komplexe Zahlen zu kennen, bevor man Eigenwerte lernt?",
+        hint: "Denk an das charakteristische Polynom — nicht immer hat es reelle Nullstellen.",
+        quiz: {
+          question: "Können reelle Matrizen komplexe Eigenwerte haben?",
+          options: ["Nein, niemals", "Ja, das kommt häufig vor (z.B. bei Drehungen)", "Nur wenn die Matrix null ist", "Nur bei sehr großen Matrizen"],
+          answerIndex: 1,
+          explanation: "Ja! Auch reelle Matrizen können komplexe Eigenwerte haben. Das ist ganz normal — z.B. bei Drehmatrizen."
+        }
+      }
+    ]
+  },
+  {
     id: "mod-1",
     title: "Start: Mathe-Basics auffrischen",
     level: "Einsteiger",

@@ -580,6 +580,27 @@ ul {
   color: #fda4af;
 }
 
+.quiz-solution {
+  margin-top: 0.6rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 0.5rem;
+  padding: 0.6rem;
+  background: #0d1528;
+}
+
+.quiz-solution summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--accent);
+}
+
+.quiz-solution__body {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  line-height: 1.6;
+}
+
 /* Collapsible panels */
 
 details.panel {
@@ -747,6 +768,38 @@ th {
 
 .footer__link:hover {
   text-decoration: underline;
+}
+
+/* ---------- Review banner ---------- */
+
+.review-banner {
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid #fbbf24;
+  border-radius: var(--radius);
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.review-banner p {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.review-banner em {
+  color: #fbbf24;
+  font-style: normal;
+}
+
+.review-banner button {
+  background: #fbbf24;
+  color: #0f172a;
+  font-size: 0.82rem;
+  padding: 0.4rem 0.8rem;
 }
 
 /* ---------- Warmup ---------- */

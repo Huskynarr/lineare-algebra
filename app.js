@@ -12,7 +12,7 @@
   const lessonById = new Map(allLessons.map((lesson) => [lesson.id, lesson]));
   const STORAGE_KEY = "lineare-algebra-savegame-v1";
   const SAVEGAME_VERSION = 1;
-  const SW_VERSION = 9;
+  const SW_VERSION = 10;
   const WARMUP_COUNT = 10;
 
   const WARMUP_TYPES = ["simplify", "equation", "fraction", "decimal"];
@@ -59,6 +59,16 @@
     matrix2x2: document.getElementById("matrix-2x2"),
     calcDet: document.getElementById("calc-det"),
     detOutput: document.getElementById("det-output"),
+    matrixA: document.getElementById("matrix-a"),
+    matrixB2: document.getElementById("matrix-b2"),
+    calcMul: document.getElementById("calc-mul"),
+    mulOutput: document.getElementById("mul-output"),
+    matrixInv: document.getElementById("matrix-inv"),
+    calcInv: document.getElementById("calc-inv"),
+    invOutput: document.getElementById("inv-output"),
+    gaussInput: document.getElementById("gauss-input"),
+    calcGauss: document.getElementById("calc-gauss"),
+    gaussOutput: document.getElementById("gauss-output"),
     warmupArea: document.getElementById("warmup-area")
   };
 
@@ -136,6 +146,12 @@
         return;
       }
 
+      const checkQuizTextButton = event.target.closest("#check-quiz-text");
+      if (checkQuizTextButton) {
+        evaluateTextQuiz();
+        return;
+      }
+
       const nextQuizButton = event.target.closest("#next-quiz");
       if (nextQuizButton) {
         advanceFromQuiz();
@@ -149,6 +165,9 @@
 
     elements.calcDot.addEventListener("click", calculateDotProduct);
     elements.calcDet.addEventListener("click", calculateDeterminant2x2);
+    elements.calcMul.addEventListener("click", calculateMatrixMultiply);
+    elements.calcInv.addEventListener("click", calculateInverse2x2);
+    elements.calcGauss.addEventListener("click", calculateGauss);
 
     elements.warmupArea.addEventListener("click", (event) => {
       const checkBtn = event.target.closest("#warmup-check");
@@ -166,6 +185,18 @@
         state.selectedLessonId = allLessons[0]?.id || null;
         render();
         document.getElementById("warmup-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      const reviewBtn = event.target.closest("#review-go");
+      if (reviewBtn) {
+        const queue = state.progress.reviewQueue || [];
+        if (queue.length > 0) {
+          state.selectedLessonId = queue[0];
+          render();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
       }
     });
 
@@ -201,6 +232,23 @@
     renderModuleList();
     renderLessonDetail();
     renderProgressSummary();
+    renderMath();
+    renderReviewBanner();
+  }
+
+  function renderMath(scope) {
+    if (typeof renderMathInElement !== "function") {
+      return;
+    }
+    const root = scope || document.querySelector(".content") || document.body;
+    renderMathInElement(root, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false }
+      ],
+      throwOnError: false,
+      ignoredTags: ["script", "noscript", "style", "textarea", "code", "pre"]
+    });
   }
 
   function renderModuleList() {
@@ -256,10 +304,13 @@
     const userAnswer = state.progress.quizAnswers[lesson.id];
     const hasAnswer = typeof userAnswer === "number";
     const isCorrect = hasAnswer && userAnswer === lesson.quiz.answerIndex;
+    const isTextQuiz = (lesson.quiz.inputType || "mc") === "text";
+    const textChecked = state.progress.quizTextChecked?.[lesson.id] === true;
+    const quizAnswered = isTextQuiz ? textChecked : hasAnswer;
     const previousText =
       getNeighborLesson(-1) !== null ? `<button id="prev-lesson" type="button" class="ghost">Vorherige Lektion</button>` : "";
     const hasNext = getNeighborLesson(1) !== null;
-    const quizButtonHtml = hasAnswer
+    const quizButtonHtml = quizAnswered
       ? `<button id="next-quiz" type="button">${hasNext ? "Weiter" : "Abschließen"}</button>`
       : `<button id="check-quiz" type="button">Antwort prüfen</button>`;
 
@@ -292,29 +343,69 @@
 
       <section class="lesson-section quiz">
         <h3>Mini-Quiz</h3>
-        <p>${escapeHtml(lesson.quiz.question)}</p>
-        ${lesson.quiz.options
-          .map(
-            (option, index) => `
-              <label>
-                <input type="radio" name="quiz-answer" value="${index}" ${userAnswer === index ? "checked" : ""}>
-                ${escapeHtml(option)}
-              </label>
-            `
-          )
-          .join("")}
-        ${quizButtonHtml}
-        <p class="quiz-feedback ${hasAnswer ? (isCorrect ? "success" : "error") : ""}">
-          ${
-            hasAnswer
-              ? isCorrect
-                ? "Richtig. " + escapeHtml(lesson.quiz.explanation)
-                : "Noch nicht korrekt. " + escapeHtml(lesson.quiz.explanation)
-              : "Noch keine Antwort abgegeben."
-          }
-        </p>
+        ${renderQuiz(lesson, userAnswer, hasAnswer, isCorrect, quizButtonHtml)}
       </section>
     `;
+    renderMath(elements.lessonDetail);
+  }
+
+  function renderQuiz(lesson, userAnswer, hasAnswer, isCorrect, quizButtonHtml) {
+    const quiz = lesson.quiz;
+    const inputType = quiz.inputType || "mc";
+
+    if (inputType === "text") {
+      const textAnswer = state.progress.quizTextAnswers?.[lesson.id];
+      const hasTextAnswer = typeof textAnswer === "string" && textAnswer.length > 0;
+      const textChecked = state.progress.quizTextChecked?.[lesson.id] === true;
+      let feedback = "";
+      if (textChecked) {
+        const accept = quiz.acceptAnswers || [quiz.correctAnswer];
+        const isTextCorrect = accept.some((a) => normalizeAnswer(textAnswer) === normalizeAnswer(a));
+        feedback = `<p class="quiz-feedback ${isTextCorrect ? "success" : "error"}">${
+          isTextCorrect ? "Richtig! " : "Leider falsch. "
+        }${escapeHtml(quiz.explanation)}</p>`;
+        if (!isTextCorrect && quiz.solution) {
+          feedback += `<details class="quiz-solution"><summary>Lösungsweg anzeigen</summary><div class="quiz-solution__body">${escapeHtml(quiz.solution)}</div></details>`;
+        }
+      }
+      const textButton = textChecked
+        ? quizButtonHtml
+        : `<button id="check-quiz-text" type="button">Antwort prüfen</button>`;
+      return `
+        <p>${escapeHtml(quiz.question)}</p>
+        <input type="text" id="quiz-text-input" placeholder="${escapeHtml(quiz.placeholder || "Deine Antwort...")}" value="${escapeHtml(textAnswer || "")}" ${textChecked ? "disabled" : ""}>
+        ${textButton}
+        ${feedback}
+      `;
+    }
+
+    return `
+      <p>${escapeHtml(quiz.question)}</p>
+      ${quiz.options
+        .map(
+          (option, index) => `
+            <label>
+              <input type="radio" name="quiz-answer" value="${index}" ${userAnswer === index ? "checked" : ""}>
+              ${escapeHtml(option)}
+            </label>
+          `
+        )
+        .join("")}
+      ${quizButtonHtml}
+      <p class="quiz-feedback ${hasAnswer ? (isCorrect ? "success" : "error") : ""}">
+        ${
+          hasAnswer
+            ? isCorrect
+              ? "Richtig. " + escapeHtml(quiz.explanation)
+              : "Noch nicht korrekt. " + escapeHtml(quiz.explanation)
+            : "Noch keine Antwort abgegeben."
+        }
+      </p>
+    `;
+  }
+
+  function normalizeAnswer(str) {
+    return String(str || "").trim().toLowerCase().replace(/\s+/g, " ").replace(",", ".");
   }
 
   function renderProgressSummary() {
@@ -369,6 +460,13 @@
     }
     const answer = Number(selected.value);
     state.progress.quizAnswers[lesson.id] = answer;
+    if (answer === lesson.quiz.answerIndex) {
+      removeFromReviewQueue(lesson.id);
+      showStatus("Richtig! Stark.");
+    } else {
+      addToReviewQueue(lesson.id);
+      showStatus("Nicht ganz. Erklärung beachten und erneut probieren.", true);
+    }
     persistProgress();
     renderLessonDetail();
     renderProgressSummary();
@@ -376,6 +474,76 @@
       showStatus("Richtig! Stark.");
     } else {
       showStatus("Nicht ganz. Erklärung beachten und erneut probieren.", true);
+    }
+  }
+
+  function evaluateTextQuiz() {
+    const lesson = lessonById.get(state.selectedLessonId);
+    if (!lesson || !lesson.quiz || lesson.quiz.inputType !== "text") {
+      return;
+    }
+    const input = document.getElementById("quiz-text-input");
+    if (!input || !input.value.trim()) {
+      showStatus("Bitte zuerst eine Antwort eingeben.", true);
+      return;
+    }
+    if (!state.progress.quizTextAnswers) {
+      state.progress.quizTextAnswers = {};
+    }
+    if (!state.progress.quizTextChecked) {
+      state.progress.quizTextChecked = {};
+    }
+    state.progress.quizTextAnswers[lesson.id] = input.value;
+    state.progress.quizTextChecked[lesson.id] = true;
+    const accept = lesson.quiz.acceptAnswers || [lesson.quiz.correctAnswer];
+    const correct = accept.some((a) => normalizeAnswer(input.value) === normalizeAnswer(a));
+    if (correct) {
+      removeFromReviewQueue(lesson.id);
+      showStatus("Richtig! Stark.");
+    } else {
+      addToReviewQueue(lesson.id);
+      showStatus("Nicht ganz. Erklärung beachten und erneut probieren.", true);
+    }
+    persistProgress();
+    renderLessonDetail();
+    renderProgressSummary();
+  }
+
+  function addToReviewQueue(lessonId) {
+    if (!state.progress.reviewQueue) {
+      state.progress.reviewQueue = [];
+    }
+    if (!state.progress.reviewQueue.includes(lessonId)) {
+      state.progress.reviewQueue.push(lessonId);
+    }
+  }
+
+  function removeFromReviewQueue(lessonId) {
+    if (!state.progress.reviewQueue) {
+      return;
+    }
+    state.progress.reviewQueue = state.progress.reviewQueue.filter((id) => id !== lessonId);
+  }
+
+  function renderReviewBanner() {
+    const queue = state.progress.reviewQueue || [];
+    if (queue.length === 0) {
+      return;
+    }
+    const firstReviewId = queue[0];
+    const lesson = lessonById.get(firstReviewId);
+    if (!lesson) {
+      return;
+    }
+    const banner = document.createElement("div");
+    banner.className = "review-banner";
+    banner.innerHTML = `
+      <p><strong>Wiederholung:</strong> Du hast ${queue.length} Lektion${queue.length > 1 ? "en" : ""} zum Wiederholen — z.B. <em>${escapeHtml(lesson.title)}</em></p>
+      <button id="review-go" type="button">Jetzt wiederholen</button>
+    `;
+    const content = document.querySelector(".content");
+    if (content && content.firstChild) {
+      content.insertBefore(banner, content.firstChild);
     }
   }
 
@@ -432,7 +600,10 @@
       updatedAt: now,
       warmupCompleted: false,
       completedLessons: {},
-      quizAnswers: {}
+      quizAnswers: {},
+      quizTextAnswers: {},
+      quizTextChecked: {},
+      reviewQueue: []
     };
   }
 
@@ -462,7 +633,10 @@
       updatedAt: typeof candidate.updatedAt === "string" ? candidate.updatedAt : base.updatedAt,
       warmupCompleted: candidate.warmupCompleted === true,
       completedLessons: {},
-      quizAnswers: {}
+      quizAnswers: {},
+      quizTextAnswers: {},
+      quizTextChecked: {},
+      reviewQueue: Array.isArray(candidate.reviewQueue) ? candidate.reviewQueue.filter((id) => typeof id === "string") : []
     };
 
     if (isObject(candidate.completedLessons)) {
@@ -579,6 +753,106 @@
       elements.detOutput.textContent = `det(A) = ${det}`;
     } catch (error) {
       elements.detOutput.textContent = error.message;
+    }
+  }
+
+  function parseMatrix(input) {
+    const rows = input.split(";").map((r) => r.trim()).filter((r) => r.length > 0);
+    if (rows.length === 0) {
+      throw new Error("Bitte Matrix eingeben, Zeilen mit ';' trennen.");
+    }
+    const matrix = rows.map((row) => row.split(",").map((v) => Number(v.trim())));
+    const cols = matrix[0].length;
+    if (matrix.some((row) => row.length !== cols || row.some((v) => !Number.isFinite(v)))) {
+      throw new Error("Matrix ungültig. Zahlen mit Komma, Zeilen mit Semikolon trennen.");
+    }
+    return matrix;
+  }
+
+  function formatMatrix(m) {
+    return "[" + m.map((row) => row.join(", ")).join("; ") + "]";
+  }
+
+  function calculateMatrixMultiply() {
+    try {
+      const A = parseMatrix(elements.matrixA.value);
+      const B = parseMatrix(elements.matrixB2.value);
+      if (A[0].length !== B.length) {
+        throw new Error(`Spalten von A (${A[0].length}) müssen Zeilen von B (${B.length}) entsprechen.`);
+      }
+      const result = A.map((row) =>
+        B[0].map((_, j) => row.reduce((sum, val, i) => sum + val * B[i][j], 0))
+      );
+      elements.mulOutput.textContent = `A · B = ${formatMatrix(result)}`;
+    } catch (error) {
+      elements.mulOutput.textContent = error.message;
+    }
+  }
+
+  function calculateInverse2x2() {
+    try {
+      const m = parse2x2Matrix(elements.matrixInv.value);
+      const det = m[0][0] * m[1][1] - m[0][1] * m[1][0];
+      if (det === 0) {
+        elements.invOutput.textContent = "Matrix ist nicht invertierbar (det = 0).";
+        return;
+      }
+      const inv = [
+        [m[1][1] / det, -m[0][1] / det],
+        [-m[1][0] / det, m[0][0] / det]
+      ];
+      const fmt = (n) => Math.round(n * 1000) / 1000;
+      elements.invOutput.textContent = `A⁻¹ = [${fmt(inv[0][0])}, ${fmt(inv[0][1])}; ${fmt(inv[1][0])}, ${fmt(inv[1][1])}]`;
+    } catch (error) {
+      elements.invOutput.textContent = error.message;
+    }
+  }
+
+  function calculateGauss() {
+    try {
+      const parts = elements.gaussInput.value.split("|");
+      if (parts.length !== 2) {
+        throw new Error("Format: a,b;c,d|e,f (Matrix|Vektor)");
+      }
+      const A = parseMatrix(parts[0]);
+      const b = parts[1].split(",").map((v) => Number(v.trim()));
+      if (A.length !== b.length) {
+        throw new Error("Anzahl Zeilen muss Anzahl Ergebnisse entsprechen.");
+      }
+      const n = A.length;
+      const aug = A.map((row, i) => [...row, b[i]]);
+      for (let col = 0; col < n; col++) {
+        let maxRow = col;
+        for (let r = col + 1; r < n; r++) {
+          if (Math.abs(aug[r][col]) > Math.abs(aug[maxRow][col])) {
+            maxRow = r;
+          }
+        }
+        [aug[col], aug[maxRow]] = [aug[maxRow], aug[col]];
+        const pivot = aug[col][col];
+        if (pivot === 0) {
+          elements.gaussOutput.textContent = "System nicht eindeutig lösbar (Pivot = 0).";
+          return;
+        }
+        for (let r = col + 1; r < n; r++) {
+          const factor = aug[r][col] / pivot;
+          for (let c = col; c <= n; c++) {
+            aug[r][c] -= factor * aug[col][c];
+          }
+        }
+      }
+      const x = new Array(n);
+      for (let i = n - 1; i >= 0; i--) {
+        x[i] = aug[i][n];
+        for (let j = i + 1; j < n; j++) {
+          x[i] -= aug[i][j] * x[j];
+        }
+        x[i] /= aug[i][i];
+      }
+      const fmt = (n2) => Math.round(n2 * 1000) / 1000;
+      elements.gaussOutput.textContent = `x = (${x.map(fmt).join(", ")})`;
+    } catch (error) {
+      elements.gaussOutput.textContent = error.message;
     }
   }
 
@@ -918,6 +1192,7 @@
         ${feedbackHtml}
       </div>
     `;
+    renderMath(elements.warmupArea);
   }
 
   function renderWarmupSummary() {
