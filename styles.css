@@ -612,7 +612,7 @@ details.panel {
   list-style: none;
   padding: 1.1rem;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 0.6rem;
   flex-wrap: wrap;
 }
@@ -622,14 +622,18 @@ details.panel {
 }
 
 .panel__summary::before {
-  content: "▸";
-  color: var(--accent);
-  font-size: 0.8rem;
+  content: "";
+  width: 0.6rem;
+  height: 0.6rem;
+  flex-shrink: 0;
+  border-right: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: rotate(-45deg);
   transition: transform 0.18s ease;
 }
 
 details.panel[open] > .panel__summary::before {
-  transform: rotate(90deg);
+  transform: rotate(45deg);
 }
 
 .panel__summary h2 {
@@ -650,33 +654,60 @@ details.panel > :last-child {
   padding-bottom: 1.1rem;
 }
 
-/* Plan table */
+/* Plan list (responsive cards) */
 
-.table-wrap {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+.plan-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
+.plan-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  background: #0f1a30;
+  border: 1px solid var(--border-soft);
+  border-left: 3px solid var(--accent);
+  border-radius: 0.6rem;
+  padding: 0.55rem 0.7rem;
+  transition: border-color 0.15s ease, transform 0.12s ease;
+}
+
+.plan-card:hover {
+  border-left-color: var(--accent-2);
+  transform: translateX(2px);
+}
+
+.plan-card__weeks {
+  flex-shrink: 0;
+  font-weight: 700;
   font-size: 0.8rem;
+  color: var(--accent);
+  background: rgba(56, 189, 248, 0.12);
+  border-radius: 0.4rem;
+  padding: 0.15rem 0.45rem;
+  min-width: 2.6rem;
+  text-align: center;
+  line-height: 1.4;
 }
 
-th, td {
-  border: 1px solid #2e4065;
-  padding: 0.35rem 0.4rem;
-  text-align: left;
+.plan-card__body {
+  min-width: 0;
 }
 
-th {
-  background: #16233f;
-  white-space: nowrap;
+.plan-card__body h3 {
+  margin: 0 0 0.1rem;
+  font-size: 0.88rem;
 }
 
-.panel--plan td:first-child {
-  white-space: nowrap;
-  font-weight: 600;
+.plan-card__body p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  line-height: 1.45;
 }
 
 /* Tools */
@@ -696,7 +727,53 @@ th {
   background: #0f1a30;
   border: 1px solid var(--border-soft);
   border-radius: var(--radius);
+  padding: 0;
+  overflow: hidden;
+}
+
+.tool__summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.7rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  transition: background 0.15s ease;
+}
+
+.tool__summary:hover {
+  background: rgba(56, 189, 248, 0.08);
+}
+
+.tool__summary::-webkit-details-marker {
+  display: none;
+}
+
+.tool__summary::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  flex-shrink: 0;
+  border-right: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: rotate(-45deg);
+  transition: transform 0.18s ease;
+}
+
+.tool[open] > .tool__summary::before {
+  transform: rotate(45deg);
+}
+
+.tool__summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.tool__body {
+  padding: 0 0.7rem 0.7rem;
 }
 
 .tool__output {
@@ -1007,12 +1084,17 @@ th {
     font-size: 0.95rem;
   }
 
-  table {
-    font-size: 0.78rem;
+  .plan-card {
+    padding: 0.5rem 0.6rem;
   }
 
-  th, td {
-    padding: 0.35rem;
+  .plan-card__weeks {
+    min-width: 2.2rem;
+    font-size: 0.76rem;
+  }
+
+  .plan-card__body h3 {
+    font-size: 0.84rem;
   }
 }
 
