@@ -866,8 +866,7 @@
     }
     state.progress = defaultProgress();
     persistProgress();
-    render();
-    showStatus("Fortschritt zurückgesetzt.");
+    window.location.reload();
   }
 
   function calculateDotProduct() {
