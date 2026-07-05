@@ -12,7 +12,7 @@
   const lessonById = new Map(allLessons.map((lesson) => [lesson.id, lesson]));
   const STORAGE_KEY = "lineare-algebra-savegame-v1";
   const SAVEGAME_VERSION = 1;
-  const SW_VERSION = 11;
+  const SW_VERSION = 12;
   const WARMUP_COUNT = 10;
 
   const WARMUP_TYPES = ["simplify", "equation", "fraction", "decimal"];
@@ -69,7 +69,9 @@
     gaussInput: document.getElementById("gauss-input"),
     calcGauss: document.getElementById("calc-gauss"),
     gaussOutput: document.getElementById("gauss-output"),
-    warmupArea: document.getElementById("warmup-area")
+    warmupArea: document.getElementById("warmup-area"),
+    themeDark: document.getElementById("theme-dark"),
+    themeLight: document.getElementById("theme-light")
   };
 
   const state = {
@@ -96,10 +98,44 @@
     }
 
     applyI18n();
+    initTheme();
     initWarmup();
     render();
     bindEvents();
     registerServiceWorker();
+  }
+
+  function initTheme() {
+    const stored = (() => {
+      try { return localStorage.getItem("lineare-algebra-theme"); } catch (e) { return null; }
+    })();
+    const current = stored === "light" ? "light" : "dark";
+    applyTheme(current);
+
+    if (elements.themeDark) {
+      elements.themeDark.addEventListener("click", () => applyTheme("dark"));
+    }
+    if (elements.themeLight) {
+      elements.themeLight.addEventListener("click", () => applyTheme("light"));
+    }
+  }
+
+  function applyTheme(theme) {
+    const isLight = theme === "light";
+    if (isLight) {
+      document.documentElement.setAttribute("data-theme", "light");
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+    try { localStorage.setItem("lineare-algebra-theme", theme); } catch (e) {}
+    if (elements.themeDark) {
+      elements.themeDark.classList.toggle("is-active", !isLight);
+      elements.themeDark.setAttribute("aria-pressed", String(!isLight));
+    }
+    if (elements.themeLight) {
+      elements.themeLight.classList.toggle("is-active", isLight);
+      elements.themeLight.setAttribute("aria-pressed", String(isLight));
+    }
   }
 
   function applyI18n() {
@@ -219,9 +255,9 @@
           burgerEl.setAttribute("aria-expanded", navToggle.checked);
         }
         if (navToggle.checked) {
-          const firstLink = document.querySelector(".sidebar .lesson-link");
-          if (firstLink) {
-            setTimeout(() => firstLink.focus(), 300);
+          const firstControl = document.querySelector(".sidebar .theme-switch__btn");
+          if (firstControl) {
+            setTimeout(() => firstControl.focus(), 300);
           }
         }
       });

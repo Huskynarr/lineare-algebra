@@ -50,6 +50,15 @@
   </script>
 
   <title>Lineare Algebra Trainer — kostenlos lernen & üben</title>
+
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("lineare-algebra-theme");
+        if (t === "light") document.documentElement.setAttribute("data-theme", "light");
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
   <a href="#warmup-panel" class="skip-link">Zum Inhalt springen</a>
@@ -57,7 +66,7 @@
   <input type="checkbox" id="tools-toggle" aria-hidden="true">
 
   <header class="topbar">
-    <label for="nav-toggle" class="topbar__burger" role="button" tabindex="0" aria-label="Lernpfad-Menü öffnen" aria-controls="sidebar" aria-expanded="false" title="Lernpfad">
+    <label for="nav-toggle" class="topbar__burger" role="button" tabindex="0" aria-label="Einstellungen öffnen" aria-controls="sidebar" aria-expanded="false" title="Einstellungen">
       <span></span><span></span><span></span>
     </label>
     <div class="topbar__brand">
@@ -74,19 +83,45 @@
   <label for="nav-toggle" class="nav-overlay" aria-hidden="true"></label>
   <label for="tools-toggle" class="tools-overlay" aria-hidden="true"></label>
 
-  <aside class="sidebar" id="sidebar" aria-label="Lernpfad-Navigation" role="navigation">
+  <aside class="sidebar" id="sidebar" aria-label="Einstellungen" role="navigation">
     <div class="sidebar__head">
-      <h2>Lernpfad</h2>
-      <label for="nav-toggle" class="sidebar__close" role="button" aria-label="Lernpfad-Menü schließen">✕</label>
+      <h2>Einstellungen</h2>
+      <label for="nav-toggle" class="sidebar__close" role="button" aria-label="Einstellungen schließen">✕</label>
     </div>
-    <p class="sidebar__hint">Module und Lektionen</p>
-    <nav id="module-list" class="module-list" aria-label="Lektionsliste"></nav>
-    <span class="hidden-completed" id="completed-lessons" aria-hidden="true">0 / 0</span>
+    <p class="sidebar__hint">Design und Fortschritt</p>
+
+    <section class="settings-block">
+      <h3 class="settings-block__title">Design</h3>
+      <div class="theme-switch" role="group" aria-label="Farbschema wählen">
+        <button type="button" id="theme-dark" class="theme-switch__btn is-active" aria-pressed="true">🌙 Dark</button>
+        <button type="button" id="theme-light" class="theme-switch__btn" aria-pressed="false">☀️ White</button>
+      </div>
+    </section>
+
+    <section class="settings-block">
+      <h3 class="settings-block__title">Fortschritt verwalten</h3>
+      <div class="manage-actions">
+        <button id="export-progress" type="button">Savegame herunterladen</button>
+        <label class="button-like" for="import-progress">Savegame laden</label>
+        <input id="import-progress" type="file" accept="application/json">
+        <button id="reset-progress" type="button" class="ghost">Zurücksetzen</button>
+      </div>
+      <p id="status-message" role="status" aria-live="polite"></p>
+    </section>
   </aside>
 
   <div class="layout">
-    <aside class="sidebar-left" aria-label="Werkzeuge und Verwaltung">
-      <details class="panel panel--plan" open>
+    <aside class="sidebar-left" aria-label="Lernpfad und Lernplan">
+      <details class="panel panel--path" open>
+        <summary class="panel__summary">
+          <h2>Lernpfad</h2>
+        </summary>
+        <p class="panel__description">Module und Lektionen</p>
+        <nav id="module-list" class="module-list" aria-label="Lektionsliste"></nav>
+        <span class="hidden-completed" id="completed-lessons" aria-hidden="true">0 / 0</span>
+      </details>
+
+      <details class="panel panel--plan">
         <summary class="panel__summary">
           <h2 id="study-plan-title">16-Wochen-Lernplan</h2>
         </summary>
@@ -155,19 +190,6 @@
             </div>
           </li>
         </ol>
-      </details>
-
-      <details class="panel panel--manage">
-        <summary class="panel__summary">
-          <h2>Fortschritt verwalten</h2>
-        </summary>
-        <div class="manage-actions">
-          <button id="export-progress" type="button">Savegame herunterladen</button>
-          <label class="button-like" for="import-progress">Savegame laden</label>
-          <input id="import-progress" type="file" accept="application/json">
-          <button id="reset-progress" type="button" class="ghost">Zurücksetzen</button>
-        </div>
-        <p id="status-message" role="status" aria-live="polite"></p>
       </details>
     </aside>
 
