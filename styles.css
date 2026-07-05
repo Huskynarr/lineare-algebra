@@ -681,6 +681,20 @@ details.panel > :last-child {
   transform: translateX(2px);
 }
 
+.plan-card--warmup {
+  border-left-color: #fbbf24;
+  background: rgba(251, 191, 36, 0.06);
+}
+
+.plan-card--warmup:hover {
+  border-left-color: #f59e0b;
+}
+
+.plan-card--warmup .plan-card__weeks {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.14);
+}
+
 .plan-card__weeks {
   flex-shrink: 0;
   font-weight: 700;
