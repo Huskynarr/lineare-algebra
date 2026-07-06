@@ -315,7 +315,7 @@ window.LEARNING_PATH = Object.freeze([
         difficulty: "Aufbau",
         estimatedMinutes: 50,
         theory: [
-          "Ein Gleichungssystem ist wie ein Rätsel mit mehreren Gleichungen. Beispiel: 2 Äpfel und 1 Birne kosten 5€. 1 Apfel und 1 Birne kosten 3€. Wie viel kostet每种?",
+          "Ein Gleichungssystem ist wie ein Rätsel mit mehreren Gleichungen. Beispiel: 2 Äpfel und 1 Birne kosten 5€. 1 Apfel und 1 Birne kosten 3€. Wie viel kostet jede Sorte?",
           "Man schreibt das als Tabelle (Matrix) auf: Die Zahlen vor den Variablen kommen in eine Tabelle, die Ergebnisse daneben.",
           "Wenn die rechte Seite null ist (also alles gratis), dann gibt es immer die Lösung 'alles null' (triviale Lösung)."
         ],
@@ -883,3 +883,203 @@ window.LEARNING_PATH = Object.freeze([
     ]
   }
 ]);
+
+window.LEARNING_REFERENCES = Object.freeze({
+  "m0-l1": [
+    { label: "Komplexe Zahlen — Wikipedia", url: "https://de.wikipedia.org/wiki/Komplexe_Zahl", source: "Wikipedia" },
+    { label: "Imaginäre Einheit — Wikipedia", url: "https://de.wikipedia.org/wiki/Imaginäre_Zahl", source: "Wikipedia" },
+    { label: "Komplexe Zahlen (Video) — MIT OCW 18.06", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" }
+  ],
+  "m0-l2": [
+    { label: "Komplexe Zahlen — Rechenregeln (Wikipedia)", url: "https://de.wikipedia.org/wiki/Komplexe_Zahl#Rechenregeln", source: "Wikipedia" },
+    { label: "Konjugiert komplexe Zahl — Wikipedia", url: "https://de.wikipedia.org/wiki/Konjugiert_komplexe_Zahl", source: "Wikipedia" },
+    { label: "MIT OpenCourseWare 18.06 — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" }
+  ],
+  "m0-l3": [
+    { label: "Eigenwertproblem — Wikipedia", url: "https://de.wikipedia.org/wiki/Eigenwertproblem", source: "Wikipedia" },
+    { label: "Drehmatrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Drehmatrix", source: "Wikipedia" },
+    { label: "Gilbert Strang — Wikipedia", url: "https://de.wikipedia.org/wiki/Gilbert_Strang", source: "Prof. Gilbert Strang, MIT" }
+  ],
+  "m1-l1": [
+    { label: "Term (Algebra) — Wikipedia", url: "https://de.wikipedia.org/wiki/Term", source: "Wikipedia" },
+    { label: "Distributivgesetz — Wikipedia", url: "https://de.wikipedia.org/wiki/Distributivgesetz", source: "Wikipedia" },
+    { label: "Khan Academy — Algebra Basics", url: "https://www.khanacademy.org/math/algebra", source: "Khan Academy" }
+  ],
+  "m1-l2": [
+    { label: "Funktion (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Funktion_(Mathematik)", source: "Wikipedia" },
+    { label: "Gleichung — Wikipedia", url: "https://de.wikipedia.org/wiki/Gleichung", source: "Wikipedia" },
+    { label: "Lineare Funktion — Wikipedia", url: "https://de.wikipedia.org/wiki/Lineare_Funktion", source: "Wikipedia" }
+  ],
+  "m1-l3": [
+    { label: "Summenzeichen — Wikipedia", url: "https://de.wikipedia.org/wiki/Summenzeichen", source: "Wikipedia" },
+    { label: "Beweis (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Beweis_(Mathematik)", source: "Wikipedia" },
+    { label: "Widerspruchsbeweis — Wikipedia", url: "https://de.wikipedia.org/wiki/Widerspruchsbeweis", source: "Wikipedia" }
+  ],
+  "m2-l1": [
+    { label: "Vektor — Wikipedia", url: "https://de.wikipedia.org/wiki/Vektor", source: "Wikipedia" },
+    { label: "Vektorraum — Wikipedia", url: "https://de.wikipedia.org/wiki/Vektorraum", source: "Wikipedia" },
+    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" },
+    { label: "MIT OCW 18.06 — Vectors", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+  ],
+  "m2-l2": [
+    { label: "Vektoraddition — Wikipedia", url: "https://de.wikipedia.org/wiki/Vektor#Addition_und_Subtraktion", source: "Wikipedia" },
+    { label: "Euklidische Norm — Wikipedia", url: "https://de.wikipedia.org/wiki/Euklidische_Norm", source: "Wikipedia" },
+    { label: "Satz des Pythagoras — Wikipedia", url: "https://de.wikipedia.org/wiki/Satz_des_Pythagoras", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Lengths & Dot Products", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+  ],
+  "m2-l3": [
+    { label: "Linearkombination — Wikipedia", url: "https://de.wikipedia.org/wiki/Linearkombination", source: "Wikipedia" },
+    { label: "Lineare Unabhängigkeit — Wikipedia", url: "https://de.wikipedia.org/wiki/Lineare_Unabhängigkeit", source: "Wikipedia" },
+    { label: "Spann (Vektorraum) — Wikipedia", url: "https://de.wikipedia.org/wiki/Spann_(Vektorraum)", source: "Wikipedia" },
+    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" }
+  ],
+  "m3-l1": [
+    { label: "Matrix (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Matrix_(Mathematik)", source: "Wikipedia" },
+    { label: "Einheitsmatrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Einheitsmatrix", source: "Wikipedia" },
+    { label: "Nullmatrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Nullmatrix", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Matrices", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" }
+  ],
+  "m3-l2": [
+    { label: "Matrizenmultiplikation — Wikipedia", url: "https://de.wikipedia.org/wiki/Matrizenmultiplikation", source: "Wikipedia" },
+    { label: "Kommutativität bei Matrizen — Wikipedia", url: "https://de.wikipedia.org/wiki/Matrizenmultiplikation#Nichtkommutativität", source: "Wikipedia" },
+    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" }
+  ],
+  "m3-l3": [
+    { label: "Inverse Matrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Inverse_Matrix", source: "Wikipedia" },
+    { label: "Reguläre Matrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Reguläre_Matrix", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Inverse Matrices", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+  ],
+  "m4-l1": [
+    { label: "Lineares Gleichungssystem — Wikipedia", url: "https://de.wikipedia.org/wiki/Lineares_Gleichungssystem", source: "Wikipedia" },
+    { label: "Koeffizientenmatrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Koeffizientenmatrix", source: "Wikipedia" },
+    { label: "Triviale Lösung — Wikipedia", url: "https://de.wikipedia.org/wiki/Triviale_Lösung", source: "Wikipedia" }
+  ],
+  "m4-l2": [
+    { label: "Gaußsches Eliminationsverfahren — Wikipedia", url: "https://de.wikipedia.org/wiki/Gaußsches_Eliminationsverfahren", source: "Wikipedia" },
+    { label: "Carl Friedrich Gauß — Wikipedia", url: "https://de.wikipedia.org/wiki/Carl_Friedrich_Gauß", source: "Universität Göttingen" },
+    { label: "Treppenform — Wikipedia", url: "https://de.wikipedia.org/wiki/Treppenform", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Elimination", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" }
+  ],
+  "m4-l3": [
+    { label: "Rang (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Rang_(Mathematik)", source: "Wikipedia" },
+    { label: "Rang-Defekt — Wikipedia", url: "https://de.wikipedia.org/wiki/Rangsatz", source: "Wikipedia" },
+    { label: "Freie Variable — Wikipedia", url: "https://de.wikipedia.org/wiki/Freie_Variable", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Rank & Solvability", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+  ],
+  "m5-l1": [
+    { label: "Determinante — Wikipedia", url: "https://de.wikipedia.org/wiki/Determinante", source: "Wikipedia" },
+    { label: "Regel von Sarrus — Wikipedia", url: "https://de.wikipedia.org/wiki/Regel_von_Sarrus", source: "Wikipedia" },
+    { label: "Entwicklungssatz von Laplace — Wikipedia", url: "https://de.wikipedia.org/wiki/Laplacer_Entwicklungssatz", source: "Wikipedia" },
+    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" }
+  ],
+  "m5-l2": [
+    { label: "Determinante — Rechenregeln (Wikipedia)", url: "https://de.wikipedia.org/wiki/Determinante#Rechenregeln", source: "Wikipedia" },
+    { label: "Multilinearität — Wikipedia", url: "https://de.wikipedia.org/wiki/Multilinearität", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Determinants", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+  ],
+  "m5-l3": [
+    { label: "Determinante als Volumenfaktor — Wikipedia", url: "https://de.wikipedia.org/wiki/Determinante#Geometrische_Interpretation", source: "Wikipedia" },
+    { label: "Orientierung (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Orientierung_(Mathematik)", source: "Wikipedia" },
+    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" }
+  ],
+  "m6-l1": [
+    { label: "Vektorraum — Wikipedia", url: "https://de.wikipedia.org/wiki/Vektorraum", source: "Wikipedia" },
+    { label: "Unterraum — Wikipedia", url: "https://de.wikipedia.org/wiki/Unterraum", source: "Wikipedia" },
+    { label: "Körper (Algebra) — Wikipedia", url: "https://de.wikipedia.org/wiki/Körper_(Algebra)", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Vector Spaces", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+  ],
+  "m6-l2": [
+    { label: "Basis (Vektorraum) — Wikipedia", url: "https://de.wikipedia.org/wiki/Basis_(Vektorraum)", source: "Wikipedia" },
+    { label: "Erzeugendensystem — Wikipedia", url: "https://de.wikipedia.org/wiki/Erzeugendensystem", source: "Wikipedia" },
+    { label: "Hermann Grassmann — Wikipedia", url: "https://de.wikipedia.org/wiki/Hermann_Graßmann", source: "Wikipedia" }
+  ],
+  "m6-l3": [
+    { label: "Dimension (Vektorraum) — Wikipedia", url: "https://de.wikipedia.org/wiki/Dimension_(Mathematik)", source: "Wikipedia" },
+    { label: "Basiswechsel — Wikipedia", url: "https://de.wikipedia.org/wiki/Basiswechsel", source: "Wikipedia" },
+    { label: "Koordinaten (Vektorraum) — Wikipedia", url: "https://de.wikipedia.org/wiki/Koordinaten_(Vektorraum)", source: "Wikipedia" }
+  ],
+  "m7-l1": [
+    { label: "Lineare Abbildung — Wikipedia", url: "https://de.wikipedia.org/wiki/Lineare_Abbildung", source: "Wikipedia" },
+    { label: "Linearität — Wikipedia", url: "https://de.wikipedia.org/wiki/Linearität", source: "Wikipedia" },
+    { label: "Abbildungsmatrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Abbildungsmatrix", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Linear Transformations", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+  ],
+  "m7-l2": [
+    { label: "Kern (Algebra) — Wikipedia", url: "https://de.wikipedia.org/wiki/Kern_(Algebra)", source: "Wikipedia" },
+    { label: "Bild (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Bild_(Mathematik)", source: "Wikipedia" },
+    { label: "Injektivität — Wikipedia", url: "https://de.wikipedia.org/wiki/Injektive_Funktion", source: "Wikipedia" }
+  ],
+  "m7-l3": [
+    { label: "Rang-Nullitätssatz — Wikipedia", url: "https://de.wikipedia.org/wiki/Rang-Nullitätssatz", source: "Wikipedia" },
+    { label: "Dimensionssatz — Wikipedia", url: "https://de.wikipedia.org/wiki/Dimensionssatz", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Rank & Nullity", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" }
+  ],
+  "m8-l1": [
+    { label: "Eigenwertproblem — Wikipedia", url: "https://de.wikipedia.org/wiki/Eigenwertproblem", source: "Wikipedia" },
+    { label: "Eigenvektor — Wikipedia", url: "https://de.wikipedia.org/wiki/Eigenvektor", source: "Wikipedia" },
+    { label: "Essence of Linear Algebra — Eigenvalues — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" },
+    { label: "MIT OCW 18.06 — Eigenvalues", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+  ],
+  "m8-l2": [
+    { label: "Charakteristisches Polynom — Wikipedia", url: "https://de.wikipedia.org/wiki/Charakteristisches_Polynom", source: "Wikipedia" },
+    { label: "Nullstelle — Wikipedia", url: "https://de.wikipedia.org/wiki/Nullstelle", source: "Wikipedia" },
+    { label: "Fundamentalsatz der Algebra — Wikipedia", url: "https://de.wikipedia.org/wiki/Fundamentalsatz_der_Algebra", source: "Wikipedia" }
+  ],
+  "m8-l3": [
+    { label: "Diagonalisierbarkeit — Wikipedia", url: "https://de.wikipedia.org/wiki/Diagonalisierbarkeit", source: "Wikipedia" },
+    { label: "Diagonalmatrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Diagonalmatrix", source: "Wikipedia" },
+    { label: "Algebraische Vielfachheit — Wikipedia", url: "https://de.wikipedia.org/wiki/Algebraische_Vielfachheit", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Diagonalization", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" }
+  ],
+  "m9-l1": [
+    { label: "Skalarprodukt — Wikipedia", url: "https://de.wikipedia.org/wiki/Skalarprodukt", source: "Wikipedia" },
+    { label: "Orthogonalität — Wikipedia", url: "https://de.wikipedia.org/wiki/Orthogonalität", source: "Wikipedia" },
+    { label: "Cauchy-Schwarzsche Ungleichung — Wikipedia", url: "https://de.wikipedia.org/wiki/Cauchy-Schwarzsche_Ungleichung", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Dot Product", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+  ],
+  "m9-l2": [
+    { label: "Projektion (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Projektion_(Mathematik)", source: "Wikipedia" },
+    { label: "Orthogonale Projektion — Wikipedia", url: "https://de.wikipedia.org/wiki/Orthogonale_Projektion", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Projections", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+  ],
+  "m9-l3": [
+    { label: "Gram-Schmidtsches Orthogonalisierungsverfahren — Wikipedia", url: "https://de.wikipedia.org/wiki/Gram-Schmidtsches_Orthogonalisierungsverfahren", source: "Wikipedia" },
+    { label: "Jørgen Pedersen Gram — Wikipedia", url: "https://de.wikipedia.org/wiki/Jørgen_Pedersen_Gram", source: "Wikipedia" },
+    { label: "Erhard Schmidt (Mathematiker) — Wikipedia", url: "https://de.wikipedia.org/wiki/Erhard_Schmidt_(Mathematiker)", source: "Universität Berlin" },
+    { label: "QR-Zerlegung — Wikipedia", url: "https://de.wikipedia.org/wiki/QR-Zerlegung", source: "Wikipedia" }
+  ],
+  "m10-l1": [
+    { label: "Spektralsatz — Wikipedia", url: "https://de.wikipedia.org/wiki/Spektralsatz", source: "Wikipedia" },
+    { label: "Symmetrische Matrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Symmetrische_Matrix", source: "Wikipedia" },
+    { label: "Hilbertraum — Wikipedia", url: "https://de.wikipedia.org/wiki/Hilbertraum", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Symmetric Matrices", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" }
+  ],
+  "m10-l2": [
+    { label: "Singulärwertzerlegung — Wikipedia", url: "https://de.wikipedia.org/wiki/Singulärwertzerlegung", source: "Wikipedia" },
+    { label: "Singulärwert — Wikipedia", url: "https://de.wikipedia.org/wiki/Singulärwert", source: "Wikipedia" },
+    { label: "Essence of Linear Algebra — SVD — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" },
+    { label: "MIT OCW 18.06 — SVD", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+  ],
+  "m10-l3": [
+    { label: "Methode der kleinsten Quadrate — Wikipedia", url: "https://de.wikipedia.org/wiki/Methode_der_kleinsten_Quadrate", source: "Wikipedia" },
+    { label: "Gauss-Markow-Theorem — Wikipedia", url: "https://de.wikipedia.org/wiki/Gauss-Markow-Theorem", source: "Wikipedia" },
+    { label: "Ausgleichsrechnung — Wikipedia", url: "https://de.wikipedia.org/wiki/Ausgleichungsrechnung", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Least Squares", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+  ],
+  "m11-l1": [
+    { label: "Jordan-Normalform — Wikipedia", url: "https://de.wikipedia.org/wiki/Jordan-Normalform", source: "Wikipedia" },
+    { label: "Verallgemeinerter Eigenvektor — Wikipedia", url: "https://de.wikipedia.org/wiki/Verallgemeinerter_Eigenvektor", source: "Wikipedia" },
+    { label: "Camille Jordan — Wikipedia", url: "https://de.wikipedia.org/wiki/Camille_Jordan", source: "Wikipedia" }
+  ],
+  "m11-l2": [
+    { label: "Konditionszahl (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Konditionszahl_(Mathematik)", source: "Wikipedia" },
+    { label: "Pivotisierung — Wikipedia", url: "https://de.wikipedia.org/wiki/Pivotisierung", source: "Wikipedia" },
+    { label: "Rundungsfehler — Wikipedia", url: "https://de.wikipedia.org/wiki/Rundungsfehler", source: "Wikipedia" },
+    { label: "Numerische Mathematik — Wikipedia", url: "https://de.wikipedia.org/wiki/Numerische_Mathematik", source: "Wikipedia" }
+  ],
+  "m11-l3": [
+    { label: "Klausur (Prüfung) — Lernstrategien", url: "https://de.wikipedia.org/wiki/Lernen", source: "Wikipedia" },
+    { label: "Dimensionsprüfung — Wikipedia", url: "https://de.wikipedia.org/wiki/Dimension_(Mathematik)", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Review", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" }
+  ]
+});

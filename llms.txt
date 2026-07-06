@@ -1,0 +1,133 @@
+# Lineare Algebra Trainer
+
+> Kostenloser, interaktiver Lineare-Algebra-Trainer (deutsch, offline-fähig, keine Registrierung, keine Werbung). 11 Module, 36 Lektionen mit Theorie, Beispielen, Übungen, Mini-Quiz und Spielfortschritt. Inklusive Rechenwerkzeugen für Vektoren, Matrizen, Determinanten, Gauß-Verfahren und Eigenwerte. Zielgruppe: Anfänger bis Klausur-Kandidaten.
+
+## Wichtigste Links
+
+- [App (Startseite)](https://huskynarr.is-a.dev/lineare-algebra/)
+- [Vollständiger Inhalt für LLMs](https://huskynarr.is-a.dev/lineare-algebra/llms-full.txt)
+- [Sitemap](https://huskynarr.is-a.dev/lineare-algebra/sitemap.xml)
+- [Quellcode auf GitHub](https://github.com/Huskynarr/lineare-algebra)
+
+## Module
+
+### Vorab: Komplexe Zahlen
+
+Lernziele: Komplexe Zahlen verstehen und darstellen; Mit komplexen Zahlen rechnen; Verbindung zu Eigenweten herstellen.
+
+Lektionen:
+
+- Was sind komplexe Zahlen? (Einsteiger, ~40 min)
+- Mit komplexen Zahlen rechnen (Einsteiger, ~50 min)
+- Warum braucht man komplexe Zahlen in der Linearen Algebra? (Einsteiger, ~35 min)
+
+### Start: Mathe-Basics auffrischen
+
+Lernziele: Zahlen und Rechnen sicher beherrschen; Mit Klammern und Termen umgehen können; Erste Beweise verstehen.
+
+Lektionen:
+
+- Zahlen, Terme und Klammern (Einsteiger, ~45 min)
+- Gleichungen und Funktionen (Einsteiger, ~50 min)
+- Summenzeichen und Beweise (Einsteiger, ~55 min)
+
+### Vektoren: Pfeile im Raum
+
+Lernziele: Verstehen, was ein Vektor ist; Mit Vektoren rechnen können; Linearkombinationen kennenlernen.
+
+Lektionen:
+
+- Was ist ein Vektor? (Einsteiger, ~45 min)
+- Mit Vektoren rechnen (Einsteiger, ~60 min)
+- Vektoren mischen: Linearkombination (Einsteiger, ~65 min)
+
+### Matrizen: Zahlentabellen
+
+Lernziele: Verstehen, was eine Matrix ist; Matrizen addieren und multiplizieren; Inverse Matrizen kennenlernen.
+
+Lektionen:
+
+- Was ist eine Matrix? (Aufbau, ~50 min)
+- Matrizen multiplizieren (Aufbau, ~65 min)
+- Die inverse Matrix (Aufbau, ~70 min)
+
+### Gleichungssysteme lösen
+
+Lernziele: Gleichungssysteme aufstellen; Das Gauss-Verfahren anwenden; Verstehen, wann es Lösungen gibt.
+
+Lektionen:
+
+- Was ist ein Gleichungssystem? (Aufbau, ~50 min)
+- Das Gauss-Verfahren (Aufbau, ~75 min)
+- Wann gibt es Lösungen? (Aufbau, ~65 min)
+
+### Determinanten: Der Stempel
+
+Lernziele: Determinanten berechnen können; Regeln für Determinanten kennen; Verstehen, was Determinanten bedeuten.
+
+Lektionen:
+
+- Was ist eine Determinante? (Aufbau, ~55 min)
+- Regeln für Determinanten (Aufbau, ~60 min)
+- Determinante als Flächenmaß (Aufbau, ~45 min)
+
+### Vektorräume: Die Welt der Vektoren
+
+Lernziele: Verstehen, was ein Vektorraum ist; Basen und Dimensionen kennenlernen; Mit Unterräumen umgehen.
+
+Lektionen:
+
+- Was ist ein Vektorraum? (Aufbau, ~60 min)
+- Basis: Die Bausteine (Aufbau, ~70 min)
+- Dimension: Wie viele Bausteine? (Aufbau, ~65 min)
+
+### Lineare Abbildungen: Vektor-Maschinen
+
+Lernziele: Verstehen, was eine lineare Abbildung ist; Kern und Bild bestimmen; Den Rang-Nullitätssatz anwenden.
+
+Lektionen:
+
+- Was ist eine lineare Abbildung? (Fortgeschritten, ~50 min)
+- Kern und Bild (Fortgeschritten, ~70 min)
+- Der Rang-Nullitätssatz (Fortgeschritten, ~60 min)
+
+### Eigenwerte: Besondere Richtungen
+
+Lernziele: Verstehen, was Eigenwerte und Eigenvektoren sind; Das charakteristische Polynom nutzen; Diagonalisierbarkeit prüfen.
+
+Lektionen:
+
+- Was sind Eigenwerte? (Fortgeschritten, ~65 min)
+- Das charakteristische Polynom (Fortgeschritten, ~70 min)
+- Diagonalisierbarkeit (Fortgeschritten, ~70 min)
+
+### Skalarprodukt und Winkel
+
+Lernziele: Verstehen, was ein Skalarprodukt ist; Projektionen berechnen; Gram-Schmidt und QR kennenlernen.
+
+Lektionen:
+
+- Das Skalarprodukt (Fortgeschritten, ~55 min)
+- Projektion: Schatten werfen (Fortgeschritten, ~65 min)
+- Gram-Schmidt: Senkrechte Basen bauen (Fortgeschritten, ~70 min)
+
+### SVD und Datenanalyse
+
+Lernziele: Den Spektralsatz verstehen; Die SVD (Singulärwertzerlegung) kennenlernen; Ausgleichsrechnung verstehen.
+
+Lektionen:
+
+- Der Spektralsatz (Profi, ~60 min)
+- SVD: Matrizen zerlegen (Profi, ~75 min)
+- Ausgleichsrechnung (Least Squares) (Profi, ~70 min)
+
+### Prüfungsvorbereitung und Tipps
+
+Lernziele: Wissen verknüpfen statt auswendig lernen; Häufige Fehler vermeiden; Strategien für die Prüfung entwickeln.
+
+Lektionen:
+
+- Wenn Matrizen nicht diagonalisierbar sind (Profi, ~65 min)
+- Rundungsfehler und Stabilität (Profi, ~60 min)
+- Tipps für die Prüfung (Profi, ~55 min)
+

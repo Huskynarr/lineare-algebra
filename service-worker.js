@@ -1,4 +1,4 @@
-const CACHE_NAME = "lineare-algebra-cache-v13";
+const CACHE_NAME = "lineare-algebra-cache-v15";
 const APP_ASSETS = [
   "./",
   "./index.html",
@@ -7,10 +7,13 @@ const APP_ASSETS = [
   "./data/learningPath.js",
   "./manifest.webmanifest",
   "./favicon.svg",
+  "./og-image.svg",
   "./icon-192.png",
   "./icon-512.png",
   "./robots.txt",
-  "./sitemap.xml"
+  "./sitemap.xml",
+  "./llms.txt",
+  "./llms-full.txt"
 ];
 
 self.addEventListener("install", (event) => {

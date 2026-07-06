@@ -10,10 +10,14 @@
     }))
   );
   const lessonById = new Map(allLessons.map((lesson) => [lesson.id, lesson]));
+  const LEARNING_REFERENCES = (window.LEARNING_REFERENCES && typeof window.LEARNING_REFERENCES === "object") ? window.LEARNING_REFERENCES : {};
   const STORAGE_KEY = "lineare-algebra-savegame-v1";
   const SAVEGAME_VERSION = 1;
-  const SW_VERSION = 13;
+  const SW_VERSION = 15;
   const WARMUP_COUNT = 10;
+  const LESSON_GAME_COUNT = 5;
+  const LESSON_GAME_PASS_PCT = 60;
+  const CERTIFICATE_MASTERY_THRESHOLD = 80;
 
   const WARMUP_TYPES = ["simplify", "equation", "fraction", "decimal"];
 
@@ -83,6 +87,14 @@
       answers: [],
       finished: false
     },
+    lessonGame: {
+      lessonId: null,
+      questions: [],
+      currentIndex: 0,
+      answers: [],
+      finished: false
+    },
+    certificateOpen: false,
     shareModuleId: null
   };
 
@@ -195,6 +207,30 @@
         advanceFromQuiz();
         return;
       }
+
+      const gameStartBtn = event.target.closest("#game-start");
+      if (gameStartBtn) {
+        startLessonGame(state.selectedLessonId);
+        return;
+      }
+
+      const gameRestartBtn = event.target.closest("#game-restart");
+      if (gameRestartBtn) {
+        startLessonGame(state.selectedLessonId);
+        return;
+      }
+
+      const gameCheckBtn = event.target.closest("#game-check");
+      if (gameCheckBtn) {
+        evaluateLessonGame();
+        return;
+      }
+
+      const gameNextBtn = event.target.closest("#game-next");
+      if (gameNextBtn) {
+        advanceLessonGame();
+        return;
+      }
     });
 
     elements.exportProgress.addEventListener("click", exportSavegame);
@@ -230,6 +266,37 @@
     });
 
     document.addEventListener("click", (event) => {
+      const certOpenBtn = event.target.closest("#certificate-open");
+      if (certOpenBtn) {
+        openCertificate();
+        return;
+      }
+
+      const certBannerClose = event.target.closest("#certificate-banner-close");
+      if (certBannerClose) {
+        const banner = document.querySelector(".certificate-banner");
+        if (banner) banner.remove();
+        return;
+      }
+
+      const certCloseBtn = event.target.closest("#certificate-close");
+      if (certCloseBtn) {
+        closeCertificate();
+        return;
+      }
+
+      const certPrintBtn = event.target.closest("#certificate-print");
+      if (certPrintBtn) {
+        window.print();
+        return;
+      }
+
+      const certSaveNameBtn = event.target.closest("#certificate-save-name");
+      if (certSaveNameBtn) {
+        saveCertificateName();
+        return;
+      }
+
       const reviewBtn = event.target.closest("#review-go");
       if (reviewBtn) {
         const queue = state.progress.reviewQueue || [];
@@ -312,6 +379,7 @@
     renderMath();
     renderReviewBanner();
     renderShareBanner();
+    renderCertificateBanner();
   }
 
   function renderMath(scope) {
@@ -347,6 +415,7 @@
                 <span>
                   ${escapeHtml(lesson.title)}
                   <small>· ${escapeHtml(lesson.estimatedMinutes.toString())} min</small>
+                  ${renderLessonGameStars(lesson.id)}
                 </span>
                 <span class="badge ${done ? "done" : ""}">${done ? "✓" : lessonIndex + 1}</span>
               </button>
@@ -423,8 +492,75 @@
         <h3>Mini-Quiz</h3>
         ${renderQuiz(lesson, userAnswer, hasAnswer, isCorrect, quizButtonHtml)}
       </section>
+
+      ${renderReferences(lesson)}
+
+      ${renderFAQBlock(lesson)}
+
+      <section class="lesson-section lesson-game" id="lesson-game-section">
+        <h3>Spielmodus</h3>
+        ${renderLessonGameSection(lesson)}
+      </section>
     `;
+    updateLessonFAQJsonLd(lesson);
     renderMath(elements.lessonDetail);
+  }
+
+  function renderReferences(lesson) {
+    const refs = Array.isArray(lesson.references) && lesson.references.length > 0
+      ? lesson.references
+      : (Array.isArray(LEARNING_REFERENCES[lesson.id]) ? LEARNING_REFERENCES[lesson.id] : []);
+    if (refs.length === 0) return "";
+    const items = refs.map((ref) => {
+      const url = escapeHtml(ref.url || "");
+      const label = escapeHtml(ref.label || ref.url || "");
+      const source = ref.source ? ` <small class="reference-source">${escapeHtml(ref.source)}</small>` : "";
+      return `<li><a href="${url}" target="_blank" rel="noopener noreferrer nofollow">${label}</a>${source}</li>`;
+    }).join("");
+    return `
+      <section class="lesson-section lesson-references" aria-labelledby="references-title">
+        <h3 id="references-title">Quellen &amp; weiterführende Links</h3>
+        <ul class="reference-list">${items}</ul>
+      </section>`;
+  }
+
+  function buildLessonFAQ(lesson) {
+    const quiz = lesson.quiz;
+    if (!quiz || !quiz.question) return null;
+    let answer = "";
+    if (quiz.inputType !== "text" && Array.isArray(quiz.options) && typeof quiz.answerIndex === "number" && quiz.options[quiz.answerIndex] != null) {
+      answer = `Richtig ist: ${quiz.options[quiz.answerIndex]}. `;
+    }
+    if (quiz.explanation) answer += quiz.explanation;
+    if (quiz.solution) answer += ` Lösungsweg: ${quiz.solution}`;
+    return { question: quiz.question, answer: answer.trim() };
+  }
+
+  function renderFAQBlock(lesson) {
+    const faq = buildLessonFAQ(lesson);
+    if (!faq) return "";
+    return `
+      <section class="lesson-section lesson-faq" aria-labelledby="faq-title">
+        <h3 id="faq-title">Häufige Frage zu dieser Lektion</h3>
+        <details class="faq-item">
+          <summary>${escapeHtml(faq.question)}</summary>
+          <div class="faq-answer">${escapeHtml(faq.answer)}</div>
+        </details>
+      </section>`;
+  }
+
+  function updateLessonFAQJsonLd(lesson) {
+    const node = document.getElementById("dynamic-faq-jsonld");
+    if (!node) return;
+    const faq = buildLessonFAQ(lesson);
+    if (!faq) { node.textContent = "{}"; return; }
+    const payload = {
+      "@context": "https://schema.org",
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+    };
+    node.textContent = JSON.stringify(payload);
   }
 
   function renderQuiz(lesson, userAnswer, hasAnswer, isCorrect, quizButtonHtml) {
@@ -746,7 +882,9 @@
       quizAnswers: {},
       quizTextAnswers: {},
       quizTextChecked: {},
-      reviewQueue: []
+      reviewQueue: [],
+      lessonGames: {},
+      certificate: { unlocked: false, name: "", shownAt: null }
     };
   }
 
@@ -779,7 +917,9 @@
       quizAnswers: {},
       quizTextAnswers: {},
       quizTextChecked: {},
-      reviewQueue: Array.isArray(candidate.reviewQueue) ? candidate.reviewQueue.filter((id) => typeof id === "string") : []
+      reviewQueue: Array.isArray(candidate.reviewQueue) ? candidate.reviewQueue.filter((id) => typeof id === "string") : [],
+      lessonGames: {},
+      certificate: sanitizeCertificate(candidate.certificate)
     };
 
     if (isObject(candidate.completedLessons)) {
@@ -805,7 +945,31 @@
       }
     }
 
+    if (isObject(candidate.lessonGames)) {
+      for (const lessonId of Object.keys(candidate.lessonGames)) {
+        if (!lessonById.has(lessonId)) continue;
+        const g = candidate.lessonGames[lessonId];
+        if (!isObject(g)) continue;
+        sanitized.lessonGames[lessonId] = {
+          bestPct: typeof g.bestPct === "number" && isFinite(g.bestPct) ? Math.max(0, Math.round(g.bestPct)) : 0,
+          bestStars: typeof g.bestStars === "number" && isFinite(g.bestStars) ? Math.max(0, Math.min(3, Math.round(g.bestStars))) : 0,
+          attempts: typeof g.attempts === "number" && isFinite(g.attempts) ? Math.max(0, Math.round(g.attempts)) : 0
+        };
+      }
+    }
+
     return sanitized;
+  }
+
+  function sanitizeCertificate(source) {
+    if (!isObject(source)) {
+      return { unlocked: false, name: "", shownAt: null };
+    }
+    return {
+      unlocked: source.unlocked === true,
+      name: typeof source.name === "string" ? source.name.slice(0, 80) : "",
+      shownAt: typeof source.shownAt === "string" ? source.shownAt : null
+    };
   }
 
   function persistProgress() {
@@ -1379,5 +1543,792 @@
       state.warmup.currentIndex++;
       renderWarmup();
     }
+  }
+
+  /* ===================== Spielmodus pro Lektion ===================== */
+
+  function computeStars(pct) {
+    if (pct >= 90) return 3;
+    if (pct >= 60) return 2;
+    if (pct >= 30) return 1;
+    return 0;
+  }
+
+  function mcq(question, answer, wrongs, explanation) {
+    const set = [answer];
+    for (const w of wrongs) {
+      if (w !== answer && !set.includes(w)) set.push(w);
+    }
+    const opts = shuffle(set);
+    return {
+      question: question,
+      options: opts,
+      answerIndex: opts.indexOf(answer),
+      correctAnswer: answer,
+      explanation: explanation
+    };
+  }
+
+  function fmtComplex(a, b) {
+    if (a === 0 && b === 0) return "0";
+    const imPart = (val) => (val === 1 ? "i" : val === -1 ? "-i" : val + "i");
+    if (a === 0) return imPart(b);
+    if (b === 0) return String(a);
+    return b > 0 ? `${a} + ${imPart(b)}` : `${a} - ${imPart(-b)}`;
+  }
+
+  function genComplex() {
+    const subtype = randInt(0, 4);
+    if (subtype === 0) {
+      const a = randInt(-9, 9);
+      const b = randInt(-9, 9);
+      return mcq(
+        `Was ist der Realteil von $z = ${fmtComplex(a, b)}$?`,
+        String(a),
+        [String(a + randInt(1, 3) * (Math.random() < 0.5 ? -1 : 1)), String(b), String(a - 1)],
+        `Der Realteil ist die Zahl ohne $i$: also ${a}.`
+      );
+    }
+    if (subtype === 1) {
+      const a = randInt(-9, 9);
+      const b = randInt(-9, 9);
+      return mcq(
+        `Was ist der Imaginärteil von $z = ${fmtComplex(a, b)}$?`,
+        String(b),
+        [String(b + randInt(1, 3) * (Math.random() < 0.5 ? -1 : 1)), String(a), String(-b)],
+        `Der Imaginärteil ist die Zahl vor dem $i$ (mit Vorzeichen): also ${b}.`
+      );
+    }
+    if (subtype === 2) {
+      const a = randInt(-4, 4), b = randInt(-4, 4);
+      const c = randInt(-4, 4), d = randInt(-4, 4);
+      const re = a + c, im = b + d;
+      return mcq(
+        `Berechne $(${fmtComplex(a, b)}) + (${fmtComplex(c, d)})$.`,
+        fmtComplex(re, im),
+        [fmtComplex(a + d, b + c), fmtComplex(re + 1, im), fmtComplex(re, im + 1)],
+        `Realteile und Imaginärteile einzeln addieren: ${a}+${c}=${re}, ${b}+${d}=${im}.`
+      );
+    }
+    if (subtype === 3) {
+      const a = randInt(-3, 3), b = randInt(-3, 3);
+      const c = randInt(-3, 3), d = randInt(-3, 3);
+      const re = a * c - b * d, im = a * d + b * c;
+      return mcq(
+        `Berechne $(${fmtComplex(a, b)}) \\cdot (${fmtComplex(c, d)})$.`,
+        fmtComplex(re, im),
+        [fmtComplex(a * c + b * d, a * d - b * c), fmtComplex(re + 1, im), fmtComplex(re, im + 1)],
+        `Ausmultiplizieren mit $i^2 = -1$: Real ${a}·${c}-${b}·${d}=${re}, Imag ${a}·${d}+${b}·${c}=${im}.`
+      );
+    }
+    const a = randInt(-6, 6), b = randInt(-6, 6);
+    return mcq(
+      `Wie lautet die konjugiert komplexe Zahl zu $z = ${fmtComplex(a, b)}$?`,
+      fmtComplex(a, -b),
+      [fmtComplex(-a, b), fmtComplex(-a, -b), fmtComplex(a + 1, b)],
+      `Konjugiert bedeutet: das Vorzeichen des Imaginärteils umdrehen.`
+    );
+  }
+
+  function genBasics() {
+    const gen = pick([genSimplify, genEquation, genFraction, genDecimal]);
+    return gen(randInt(1, 9));
+  }
+
+  function genVectors() {
+    const subtype = randInt(0, 4);
+    if (subtype === 0) {
+      const a = randInt(-6, 6), b = randInt(-6, 6), c = randInt(-6, 6), d = randInt(-6, 6);
+      return mcq(
+        `Berechne $(${a}, ${b}) + (${c}, ${d})$.`,
+        `${a + c}, ${b + d}`,
+        [`${a + c}, ${b - d}`, `${a + d}, ${b + c}`, `${a + c + 1}, ${b + d}`],
+        `Komponenten einzeln addieren: ${a}+${c}=${a + c}, ${b}+${d}=${b + d}.`
+      );
+    }
+    if (subtype === 1) {
+      const k = randInt(2, 6);
+      const a = randInt(-4, 4), b = randInt(-4, 4), c = randInt(-4, 4);
+      return mcq(
+        `Berechne $${k} \\cdot (${a}, ${b}, ${c})$.`,
+        `${k * a}, ${k * b}, ${k * c}`,
+        [`${k + a}, ${k + b}, ${k + c}`, `${k * a + 1}, ${k * b}, ${k * c}`, `${a + k}, ${b + k}, ${c + k}`],
+        `Jede Komponente mit ${k} multiplizieren.`
+      );
+    }
+    if (subtype === 2) {
+      const triples = [[3, 4, 5], [5, 12, 13], [6, 8, 10], [8, 15, 17], [9, 12, 15]];
+      const [a, b, len] = pick(triples);
+      const sign = pick([1, -1]);
+      return mcq(
+        `Wie lang ist der Vektor $(${sign * a}, ${b})$?`,
+        `${len}`,
+        [`${a + b}`, `${len + 1}`, `${a * b}`],
+        `Länge $= \\sqrt{${a}^2 + ${b}^2} = \\sqrt{${a*a} + ${b*b}} = ${len}$.`
+      );
+    }
+    if (subtype === 3) {
+      const a = randInt(-6, 6), b = randInt(-6, 6);
+      return mcq(
+        `Welche x-Komponente hat der Vektor $(${a}, ${b})$?`,
+        `${a}`,
+        [`${b}`, `${a + 1}`, `${-a}`],
+        `Die erste Zahl ist die x-Komponente: ${a}.`
+      );
+    }
+    const a = randInt(-6, 6), b = randInt(-6, 6), c = randInt(-6, 6), d = randInt(-6, 6);
+    const sum = (a + c) ** 2 + (b + d) ** 2;
+    return mcq(
+      `Ist $(${a}, ${b}) + (${c}, ${d})$ gleich $(${a + c}, ${b + d})$?`,
+      "Ja, Komponenten werden einzeln addiert.",
+      ["Nein, man muss die Vektoren multiplizieren", "Nur wenn beide Vektoren gleich lang sind", "Nur wenn alle Zahlen positiv sind"],
+      `Vektoraddition: komponentenweise. Hier: (${a + c}, ${b + d}).`
+    );
+  }
+
+  function genMatrices() {
+    const subtype = randInt(0, 4);
+    if (subtype === 0) {
+      const ra = randInt(2, 4), ca = randInt(2, 4);
+      const rb = ca, cb = randInt(2, 4);
+      return mcq(
+        `Matrix $A$ ist ${ra}×${ca}, Matrix $B$ ist ${rb}×${cb}. Welche Form hat $A \\cdot B$?`,
+        `${ra}×${cb}`,
+        [`${ca}×${rb}`, `${ra}×${ca}`, `${rb}×${cb}`],
+        `Bei $A \\cdot B$ bleiben die Zeilen von A und die Spalten von B: ${ra}×${cb}.`
+      );
+    }
+    if (subtype === 1) {
+      return mcq(
+        "Wie heißt eine quadratische Matrix mit Einsen auf der Diagonalen und sonst nur Nullen?",
+        "Einheitsmatrix",
+        ["Nullmatrix", "Diagonalmatrix (allgemein)", "Spaltenmatrix"],
+        "Das ist die Einheitsmatrix $I$ — sie verhält sich wie die 1 bei Zahlen."
+      );
+    }
+    if (subtype === 2) {
+      return mcq(
+        "Wann darf man zwei Matrizen addieren?",
+        "Wenn beide gleich viele Zeilen und Spalten haben.",
+        ["Immer", "Nur wenn beide quadratisch sind", "Nur wenn die Determinante gleich ist"],
+        "Matrizenaddition geht nur bei gleicher Form (gleiche Zeilen- und Spaltenzahl)."
+      );
+    }
+    if (subtype === 3) {
+      return mcq(
+        "Stimmt $A \\cdot B = B \\cdot A$ bei Matrizen?",
+        "Nein, die Reihenfolge macht einen Unterschied.",
+        ["Ja, immer", "Nur bei Nullmatrizen", "Nur wenn beide Diagonalmatrizen sind"],
+        "Im Gegensatz zu Zahlen ist die Matrixmultiplikation nicht kommutativ."
+      );
+    }
+    return mcq(
+      "Wie heißt eine Matrix, die nur aus Nullen besteht?",
+      "Nullmatrix",
+      ["Einheitsmatrix", "Inverse", "Spaltenvektor"],
+      "Eine Matrix lauter Nullen heißt Nullmatrix."
+    );
+  }
+
+  function genLGS() {
+    const subtype = randInt(0, 4);
+    if (subtype === 0) {
+      return mcq(
+        "Was gilt immer für ein Gleichungssystem $A \\vec{x} = \\vec{0}$?",
+        "Es gibt immer die triviale Lösung $\\vec{x} = \\vec{0}$.",
+        ["Es gibt keine Lösung", "Es gibt genau eine nicht-triviale Lösung", "Es gibt nur Lösungen, wenn A invertierbar ist"],
+        "Bei rechter Seite null ist der Nullvektor immer eine Lösung."
+      );
+    }
+    if (subtype === 1) {
+      const vars = randInt(2, 5), rang = randInt(1, vars - 1);
+      const frei = vars - rang;
+      return mcq(
+        `Ein System hat ${vars} Variablen und Rang ${rang}. Wie viele freie Variablen gibt es (falls lösbar)?`,
+        `${frei}`,
+        [`${vars + rang}`, `${rang}`, `${vars}`],
+        `Freiheitsgrad = Variablen − Rang = ${vars} − ${rang} = ${frei}.`
+      );
+    }
+    if (subtype === 2) {
+      return mcq(
+        "Welche Operation ist beim Gauss-Verfahren NICHT erlaubt?",
+        "Eine Zeile mit 0 multiplizieren.",
+        ["Zwei Zeilen vertauschen", "Ein Vielfaches einer Zeile zu einer anderen addieren", "Eine Zeile mit 3 multiplizieren"],
+        "Mit 0 multiplizieren zerstört die Zeile — Information geht verloren."
+      );
+    }
+    if (subtype === 3) {
+      return mcq(
+        "Wann hat ein lösbares Gleichungssystem unendlich viele Lösungen?",
+        "Wenn der Rang kleiner ist als die Anzahl der Variablen.",
+        ["Wenn es genauso viele Gleichungen wie Variablen gibt", "Wenn alle Zahlen gleich sind", "Wenn die Determinante 1 ist"],
+        "Bei Rang < Variablen gibt es freie Variablen → unendlich viele Lösungen."
+      );
+    }
+    return mcq(
+      "Wann hat ein Gleichungssystem genau eine Lösung?",
+      "Wenn Rang = Anzahl der Variablen und das System lösbar ist.",
+      ["Wenn es mehr Gleichungen als Variablen gibt", "Wenn die Determinante 0 ist", "Immer bei quadratischen Matrizen"],
+      "Voller Rang (Rang = Variablen) und Lösbarkeit → eindeutige Lösung."
+    );
+  }
+
+  function genDeterminant() {
+    const subtype = randInt(0, 3);
+    if (subtype === 0) {
+      const a = randInt(-5, 5), b = randInt(-5, 5), c = randInt(-5, 5), d = randInt(-5, 5);
+      const det = a * d - b * c;
+      return mcq(
+        `Berechne die Determinante von $\\begin{pmatrix} ${a} & ${b} \\\\ ${c} & ${d} \\end{pmatrix}$.`,
+        `${det}`,
+        [`${a * d + b * c}`, `${a * c - b * d}`, `${det + 1}`],
+        `Formel: $ad - bc = ${a}·${d} - ${b}·${c} = ${det}$.`
+      );
+    }
+    if (subtype === 1) {
+      return mcq(
+        "Was passiert mit der Determinante, wenn man zwei Zeilen vertauscht?",
+        "Das Vorzeichen ändert sich (+ wird -, - wird +).",
+        ["Sie bleibt gleich", "Sie wird 0", "Sie wird verdoppelt"],
+        "Ein Zeilentausch wechselt das Vorzeichen der Determinante."
+      );
+    }
+    if (subtype === 2) {
+      return mcq(
+        "Was bedeutet $\\det(A) = 0$?",
+        "Alles wird zusammengequetscht — A hat keine inverse.",
+        ["Die Fläche wird gespiegelt", "Die Fläche bleibt gleich", "A ist die Einheitsmatrix"],
+        "det = 0 bedeutet die Abbildung ist nicht invertierbar."
+      );
+    }
+    return mcq(
+      "Wenn man eine Zeile einer Matrix mit 3 multipliziert, was passiert mit der Determinante?",
+      "Sie wird mit 3 multipliziert.",
+      ["Sie bleibt gleich", "Sie wird 0", "Sie wird mit 9 multipliziert"],
+        "Zeilenfaktor multipliziert auch die Determinante."
+    );
+  }
+
+  function genVectorSpace() {
+    const subtype = randInt(0, 3);
+    if (subtype === 0) {
+      return mcq(
+        "Was muss jeder Unterraum unbedingt enthalten?",
+        "Den Nullvektor.",
+        ["Unendlich viele Vektoren", "Nur senkrechte Vektoren", "Nur ganze Zahlen"],
+        "Ohne den Nullvektor ist es kein Unterraum."
+      );
+    }
+    if (subtype === 1) {
+      const dim = randInt(2, 6);
+      return mcq(
+        `Wie viele Basisvektoren braucht eine Basis im ${dim}-dimensionalen Raum?`,
+        `${dim}`,
+        [`${dim - 1}`, `${dim + 1}`, `${dim * 2}`],
+        `Die Dimension ist genau die Anzahl der Basisvektoren: ${dim}.`
+      );
+    }
+    if (subtype === 2) {
+      return mcq(
+        "Was beschreibt eine Basis?",
+        "Ein minimaler Satz Bausteine, mit dem man jeden Vektor bauen kann.",
+        ["Die längsten Vektoren", "Alle Vektoren des Raumes", "Vektoren gleicher Länge"],
+        "Eine Basis ist erzeugend und linear unabhängig — minimal und vollständig."
+      );
+    }
+    return mcq(
+      "Was ändert sich bei einem Basiswechsel?",
+      "Nur die Koordinaten ändern sich, der Vektor bleibt derselbe.",
+      ["Die Vektoren ändern sich", "Der Raum wird kleiner", "Gar nichts, auch Koordinaten nicht"],
+        "Der Vektor bleibt, nur seine Beschreibung durch Koordinaten ändert sich."
+    );
+  }
+
+  function genLinearMap() {
+    const subtype = randInt(0, 3);
+    if (subtype === 0) {
+      return mcq(
+        "Welche Abbildung ist linear?",
+        "$T(x, y) = (3x, 3y)$ (Strecken)",
+        ["$T(x) = x + 5$", "$T(x) = x^2$", "$T(x) = |x|$"],
+        "Nur Strecken erfüllt beide Linearitätsregeln (Addition und Vielfaches)."
+      );
+    }
+    if (subtype === 1) {
+      return mcq(
+        "Was bedeutet es, wenn der Kern einer Abbildung nur aus dem Nullvektor besteht?",
+        "Nichts geht verloren — die Abbildung ist injektiv.",
+        ["Die Maschine funktioniert nicht", "Alles wird zu null", "Das Bild ist leer"],
+        "Nur null → null bedeutet: verschiedene Eingaben geben verschiedene Ausgaben."
+      );
+    }
+    if (subtype === 2) {
+      const ein = randInt(3, 9), kern = randInt(0, ein - 1);
+      const bild = ein - kern;
+      return mcq(
+        `Die Eingabe hat ${ein} Dimensionen, der Kern ${kern}. Wie groß ist das Bild?`,
+        `${bild}`,
+        [`${ein + kern}`, `${kern}`, `${ein}`],
+        `Rang-Nullitätssatz: Eingabe = Kern + Bild → Bild = ${ein} − ${kern} = ${bild}.`
+      );
+    }
+    return mcq(
+      "Was ist das Bild einer linearen Abbildung?",
+      "Die Menge aller möglichen Ausgaben.",
+      ["Die Menge der Eingaben, die null werden", "Der Nullvektor", "Die Determinante"],
+        "Das Bild = alle Vektoren, die als Ergebnis herauskommen können."
+    );
+  }
+
+  function genEigen() {
+    const subtype = randInt(0, 3);
+    if (subtype === 0) {
+      const a = randInt(2, 9), b = randInt(2, 9);
+      return mcq(
+        `Bestimme die Eigenwerte von $\\begin{pmatrix} ${a} & 0 \\\\ 0 & ${b} \\end{pmatrix}$.`,
+        `${a} und ${b}`,
+        [`${a + b} und ${a - b}`, `${a * b} und 0`, `1 und ${a}`],
+        "Bei einer Diagonalmatrix sind die Eigenwerte genau die Diagonaleinträge."
+      );
+    }
+    if (subtype === 1) {
+      const lam = randInt(2, 6);
+      return mcq(
+        `Ist $\\vec{v} = (1, 0)$ ein Eigenvektor von $\\begin{pmatrix} ${lam} & 0 \\\\ 0 & ${lam + 1} \\end{pmatrix}$? Welcher Eigenwert?`,
+        `Ja, Eigenwert ${lam}`,
+        [`Ja, Eigenwert ${lam + 1}`, "Nein", "Ja, Eigenwert 0"],
+        `A·(1,0) = (${lam}, 0) = ${lam}·(1,0) → Eigenwert ${lam}.`
+      );
+    }
+    if (subtype === 2) {
+      return mcq(
+        "Wie findet man die Eigenwerte einer Matrix?",
+        "Man löst $\\det(A - \\lambda I) = 0$ (charakteristisches Polynom).",
+        ["Man berechnet die Determinante von A", "Man addiert alle Einträge", "Man invertiert A"],
+        "Nullstellen des charakteristischen Polynoms = Eigenwerte."
+      );
+    }
+    return mcq(
+      "Warum darf ein Eigenvektor nicht der Nullvektor sein?",
+      "Weil sonst jede Zahl ein Eigenwert wäre ($A·0 = \\lambda·0$ ist immer wahr).",
+      ["Weil der Nullvektor zu lang ist", "Weil nur positive Zahlen erlaubt sind", "Weil der Nullvektor keine Länge hat"],
+        "Mit dem Nullvektor wäre die Definition sinnlos — jedes λ würde passen."
+    );
+  }
+
+  function genDot() {
+    const subtype = randInt(0, 3);
+    if (subtype === 0) {
+      const a = randInt(-5, 5), b = randInt(-5, 5), c = randInt(-5, 5), d = randInt(-5, 5);
+      const dot = a * c + b * d;
+      return mcq(
+        `Berechne das Skalarprodukt von $(${a}, ${b})$ und $(${c}, ${d})$.`,
+        `${dot}`,
+        [`${a * c - b * d}`, `${a + b + c + d}`, `${dot + 1}`],
+        `Paarweise multiplizieren und addieren: ${a}·${c} + ${b}·${d} = ${dot}.`
+      );
+    }
+    if (subtype === 1) {
+      return mcq(
+        "Wann stehen zwei Vektoren senkrecht (orthogonal) aufeinander?",
+        "Wenn ihr Skalarprodukt null ist.",
+        ["Wenn sie gleich lang sind", "Wenn sie identisch sind", "Wenn beide positiv sind"],
+        "Skalarprodukt = 0 bedeutet 90°-Winkel."
+      );
+    }
+    if (subtype === 2) {
+      return mcq(
+        "Was bedeutet 'orthonormal'?",
+        "Vektoren stehen senkrecht aufeinander und haben Länge 1.",
+        ["Alle Vektoren sind gleich lang", "Es gibt genau zwei Vektoren", "Die Determinante ist 1"],
+        "Orthonormal = orthogonal + normiert (Länge 1)."
+      );
+    }
+    return mcq(
+      "Was ist eine orthogonale Projektion?",
+      "Wie ein Schatten — man wirft einen Vektor auf eine Linie oder Ebene.",
+      ["Eine Spiegelung", "Eine Drehung", "Eine Vergrößerung"],
+        "Projektion = nächstgelegener Punkt auf einer Linie/Ebene, Fehler steht senkrecht."
+    );
+  }
+
+  function genSVD() {
+    const subtype = randInt(0, 2);
+    if (subtype === 0) {
+      return mcq(
+        "Für welche Matrizen gilt der Spektralsatz (reelle Eigenwerte, senkrechte Eigenvektoren)?",
+        "Für symmetrische Matrizen.",
+        ["Für alle Matrizen", "Nur für Nullmatrizen", "Nur für Diagonalmatrizen"],
+        "Symmetrische Matrizen haben reelle Eigenwerte und orthogonale Eigenvektoren."
+      );
+    }
+    if (subtype === 1) {
+      return mcq(
+        "Für welche Matrizen existiert eine Singulärwertzerlegung (SVD)?",
+        "Für jede reelle Matrix.",
+        ["Nur für quadratische Matrizen", "Nur für symmetrische Matrizen", "Nur für invertierbare Matrizen"],
+        "Die SVD funktioniert für jede Matrix — egal welche Form."
+      );
+    }
+    return mcq(
+      "Was macht die Least-Squares-Methode?",
+      "Sie findet die bestmögliche Näherung, wenn es keine exakte Lösung gibt.",
+      ["Sie findet die exakte Lösung", "Sie teilt durch null", "Sie zeichnet ein Bild"],
+        "Least Squares minimiert den Fehler — die bestmögliche Näherung."
+    );
+  }
+
+  function genExam() {
+    const subtype = randInt(0, 2);
+    if (subtype === 0) {
+      return mcq(
+        "Was ist der schnellste Plausibilitätscheck in einer Prüfung?",
+        "Prüfen, ob die Dimensionen bei jeder Rechnung zusammenpassen.",
+        ["Alle Rechnungen neu rechnen", "Nur das Vorzeichen kontrollieren", "Das Ergebnis abschätzen"],
+        "Ein Dimensionscheck ist schnell und findet sofort viele Fehler."
+      );
+    }
+    if (subtype === 1) {
+      return mcq(
+        "Was sagt die Konditionszahl aus?",
+        "Wie empfindlich das Ergebnis auf kleine Änderungen reagiert.",
+        ["Wie schnell der Computer rechnet", "Wie viele Nullen die Matrix hat", "Wie groß die Determinante ist"],
+        "Hohe Konditionszahl = kleine Störungen → große Ergebnisänderung."
+      );
+    }
+    return mcq(
+      "Wann ist eine Matrix 'defekt' (nicht diagonalisierbar)?",
+      "Wenn es zu wenige unabhängige Eigenvektoren gibt.",
+      ["Wenn die Determinante 1 ist", "Wenn alle Eigenwerte verschieden sind", "Wenn die Matrix symmetrisch ist"],
+        "Zu wenige Eigenvektoren → keine Basis → nicht diagonalisierbar (Jordan-Form hilft)."
+    );
+  }
+
+  const LESSON_GAME_GENERATORS = {
+    "mod-0": genComplex,
+    "mod-1": genBasics,
+    "mod-2": genVectors,
+    "mod-3": genMatrices,
+    "mod-4": genLGS,
+    "mod-5": genDeterminant,
+    "mod-6": genVectorSpace,
+    "mod-7": genLinearMap,
+    "mod-8": genEigen,
+    "mod-9": genDot,
+    "mod-10": genSVD,
+    "mod-11": genExam
+  };
+
+  function generateLessonGameQuestions(moduleId) {
+    const gen = LESSON_GAME_GENERATORS[moduleId] || genBasics;
+    const questions = [];
+    const seen = new Set();
+    let guard = 0;
+    while (questions.length < LESSON_GAME_COUNT && guard < 80) {
+      guard++;
+      const q = gen();
+      if (!q || seen.has(q.question)) continue;
+      seen.add(q.question);
+      questions.push(q);
+    }
+    return questions;
+  }
+
+  function startLessonGame(lessonId) {
+    const lesson = lessonById.get(lessonId);
+    if (!lesson) return;
+    state.lessonGame = {
+      lessonId: lessonId,
+      questions: generateLessonGameQuestions(lesson.moduleId),
+      currentIndex: 0,
+      answers: [],
+      finished: false
+    };
+    renderLessonDetail();
+  }
+
+  function renderLessonGameSection(lesson) {
+    const game = state.lessonGame;
+    const isActive = game.lessonId === lesson.id && !game.finished && game.questions.length > 0;
+    const isSummary = game.lessonId === lesson.id && game.finished;
+    const best = state.progress.lessonGames?.[lesson.id];
+
+    if (isActive) {
+      return renderLessonGameActive(game);
+    }
+    if (isSummary) {
+      return renderLessonGameSummary(lesson, game, best);
+    }
+    const bestHtml = best && best.attempts > 0
+      ? `<p class="game-best">Dein bestes Ergebnis: <strong>${best.bestPct}%</strong> ${starString(best.bestStars)} (in ${best.attempts} Versuch${best.attempts === 1 ? "" : "en"})</p>`
+      : `<p class="game-best">Noch nicht gespielt — starte dein erstes Spiel!</p>`;
+    return `
+      <p class="game-intro">Spiele ${LESSON_GAME_COUNT} zufällige Aufgaben zum Thema «${escapeHtml(lesson.title)}» und sammle Sterne. Mindestens ${LESSON_GAME_PASS_PCT}% richtig schließt die Lektion ab.</p>
+      ${bestHtml}
+      <button id="game-start" type="button" class="game-btn">Spiel starten</button>
+    `;
+  }
+
+  function starString(stars) {
+    return [0, 1, 2].map((i) => (i < stars ? "&#9733;" : "&#9734;")).join(" ");
+  }
+
+  function renderLessonGameActive(game) {
+    const idx = game.currentIndex;
+    const q = game.questions[idx];
+    if (!q) return "";
+    const answered = game.answers[idx];
+    const hasAnswered = typeof answered === "number";
+    const isCorrect = hasAnswered && answered === q.answerIndex;
+    const total = game.questions.length;
+    const progressPct = Math.round((idx / total) * 100);
+
+    let buttonHtml;
+    if (hasAnswered) {
+      const isLast = idx >= total - 1;
+      buttonHtml = `<button id="game-next" type="button">${isLast ? "Ergebnis anzeigen" : "Weiter"}</button>`;
+    } else {
+      buttonHtml = `<button id="game-check" type="button">Antwort prüfen</button>`;
+    }
+
+    let feedbackHtml = "";
+    if (hasAnswered) {
+      feedbackHtml = `<p class="quiz-feedback ${isCorrect ? "success" : "error"}">${
+        isCorrect ? "Richtig! " : "Leider falsch. "
+      }${escapeHtml(q.explanation)}</p>`;
+    }
+
+    return `
+      <div class="warmup-progress">
+        <span>Aufgabe ${idx + 1} von ${total}</span>
+        <div class="progress-bar"><span style="width: ${progressPct}%"></span></div>
+      </div>
+      <div class="warmup-question">
+        <p class="warmup-task">${escapeHtml(q.question)}</p>
+        <div class="warmup-options">
+          ${q.options
+            .map(
+              (opt, i) => `
+              <label class="${hasAnswered && i === q.answerIndex ? "is-correct" : ""}${hasAnswered && i === answered && i !== q.answerIndex ? "is-wrong" : ""}">
+                <input type="radio" name="game-answer" value="${i}" ${answered === i ? "checked" : ""} ${hasAnswered ? "disabled" : ""}>
+                ${escapeHtml(opt)}
+              </label>
+            `
+            )
+            .join("")}
+        </div>
+        ${buttonHtml}
+        ${feedbackHtml}
+      </div>
+    `;
+  }
+
+  function renderLessonGameSummary(lesson, game, best) {
+    const correct = game.answers.filter((ans, i) => ans === game.questions[i]?.answerIndex).length;
+    const total = game.questions.length;
+    const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+    const stars = computeStars(pct);
+    const passed = pct >= LESSON_GAME_PASS_PCT;
+    return `
+      <div class="warmup-done">
+        <div class="warmup-stars" aria-label="${stars} von 3 Sternen">${starString(stars)}</div>
+        <p><strong>${passed ? "Geschafft!" : "Üben hilft!"}</strong> Du hast ${correct} von ${total} Aufgaben richtig (${pct}&nbsp;%).</p>
+        ${passed ? `<p>Die Lektion «${escapeHtml(lesson.title)}» gilt damit als erledigt.</p>` : `<p>Ab ${LESSON_GAME_PASS_PCT}% gilt die Lektion als erledigt — versuch es noch einmal.</p>`}
+        <div class="game-summary-actions">
+          <button id="game-restart" type="button" class="game-btn">Nochmal spielen</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function evaluateLessonGame() {
+    const game = state.lessonGame;
+    const idx = game.currentIndex;
+    const q = game.questions[idx];
+    if (!q) return;
+    const selected = document.querySelector('input[name="game-answer"]:checked');
+    if (!selected) {
+      showStatus("Bitte zuerst eine Antwort auswählen.", true);
+      return;
+    }
+    game.answers[idx] = Number(selected.value);
+    renderLessonDetail();
+  }
+
+  function advanceLessonGame() {
+    const game = state.lessonGame;
+    const idx = game.currentIndex;
+    if (idx >= game.questions.length - 1) {
+      finishLessonGame();
+    } else {
+      game.currentIndex++;
+      renderLessonDetail();
+    }
+  }
+
+  function finishLessonGame() {
+    const game = state.lessonGame;
+    const lesson = lessonById.get(game.lessonId);
+    if (!lesson) return;
+    const correct = game.answers.filter((ans, i) => ans === game.questions[i]?.answerIndex).length;
+    const total = game.questions.length;
+    const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+    const stars = computeStars(pct);
+
+    if (!state.progress.lessonGames) state.progress.lessonGames = {};
+    const prev = state.progress.lessonGames[lesson.id] || { bestPct: 0, bestStars: 0, attempts: 0 };
+    state.progress.lessonGames[lesson.id] = {
+      bestPct: Math.max(prev.bestPct, pct),
+      bestStars: Math.max(prev.bestStars, stars),
+      attempts: prev.attempts + 1
+    };
+
+    if (pct >= LESSON_GAME_PASS_PCT && !isCompleted(lesson.id)) {
+      state.progress.completedLessons[lesson.id] = true;
+      checkModuleCompletion(lesson.moduleId);
+    }
+    if (pct >= LESSON_GAME_PASS_PCT) {
+      removeFromReviewQueue(lesson.id);
+    } else {
+      addToReviewQueue(lesson.id);
+    }
+
+    persistProgress();
+    game.finished = true;
+    render();
+    showStatus(
+      pct >= LESSON_GAME_PASS_PCT
+        ? `Spiel geschafft — ${correct}/${total} richtig, ${stars} Sterne!`
+        : `${correct}/${total} richtig. Nochmal probieren für ${LESSON_GAME_PASS_PCT}%.`,
+      pct < LESSON_GAME_PASS_PCT
+    );
+  }
+
+  /* ===================== Zertifikat ===================== */
+
+  function certificateAvailable() {
+    const allDone = allLessons.length > 0 && allLessons.every((l) => isCompleted(l.id));
+    if (!allDone) return false;
+    return computeMastery() >= CERTIFICATE_MASTERY_THRESHOLD;
+  }
+
+  function computeMastery() {
+    const total = allLessons.length;
+    const completed = allLessons.filter((l) => isCompleted(l.id)).length;
+    const completionRate = total > 0 ? completed / total : 0;
+    const quizCorrect = allLessons.reduce((count, l) => {
+      const a = state.progress.quizAnswers[l.id];
+      if (typeof a === "number" && a === l.quiz.answerIndex) return count + 1;
+      return count;
+    }, 0);
+    const quizRate = total > 0 ? quizCorrect / total : 0;
+    return Math.round((completionRate * 0.7 + quizRate * 0.3) * 100);
+  }
+
+  function renderCertificateBanner() {
+    if (!certificateAvailable()) return;
+    if (document.querySelector(".certificate-banner")) return;
+    const content = document.querySelector(".content");
+    if (!content) return;
+    const banner = document.createElement("div");
+    banner.className = "certificate-banner";
+    banner.innerHTML = `
+      <div class="certificate-banner__emoji" aria-hidden="true">🎓</div>
+      <div class="certificate-banner__body">
+        <h2>Zertifikat freigeschaltet!</h2>
+        <p>Du hast alle Lektionen abgeschlossen und ${CERTIFICATE_MASTERY_THRESHOLD}% Mastery erreicht. Hol dir dein Zertifikat.</p>
+      </div>
+      <div class="certificate-banner__actions">
+        <button id="certificate-open" type="button">Zertifikat anzeigen</button>
+        <button id="certificate-banner-close" type="button" class="ghost" aria-label="Hinweis schließen">✕</button>
+      </div>
+    `;
+    content.insertBefore(banner, content.firstChild);
+  }
+
+  function openCertificate() {
+    if (!certificateAvailable()) {
+      showStatus("Zertifikat ist noch nicht freigeschaltet.", true);
+      return;
+    }
+    if (!state.progress.certificate) state.progress.certificate = { unlocked: false, name: "", shownAt: null };
+    state.progress.certificate.unlocked = true;
+    state.progress.certificate.shownAt = new Date().toISOString();
+    persistProgress();
+    state.certificateOpen = true;
+    renderCertificateModal();
+  }
+
+  function closeCertificate() {
+    state.certificateOpen = false;
+    const modal = document.getElementById("certificate-modal");
+    if (modal) modal.remove();
+  }
+
+  function saveCertificateName() {
+    const input = document.getElementById("certificate-name-input");
+    if (!input) return;
+    const name = input.value.trim();
+    if (!name) {
+      showStatus("Bitte einen Namen eingeben.", true);
+      return;
+    }
+    if (!state.progress.certificate) state.progress.certificate = { unlocked: false, name: "", shownAt: null };
+    state.progress.certificate.name = name;
+    persistProgress();
+    renderCertificateModal();
+  }
+
+  function renderCertificateModal() {
+    const existing = document.getElementById("certificate-modal");
+    if (existing) existing.remove();
+    if (!state.certificateOpen) return;
+
+    const mastery = computeMastery();
+    const completed = allLessons.filter((l) => isCompleted(l.id)).length;
+    const total = allLessons.length;
+    const name = state.progress.certificate?.name || "";
+    const date = new Date().toLocaleDateString("de-DE", { day: "2-digit", month: "long", year: "numeric" });
+    const nameHtml = name
+      ? `<div class="cert-name">${escapeHtml(name)}</div>`
+      : `<div class="cert-name-entry"><label for="certificate-name-input">Dein Name:</label><input type="text" id="certificate-name-input" placeholder="Vor- und Nachname" maxlength="80"><button id="certificate-save-name" type="button">Speichern</button></div>`;
+
+    const modal = document.createElement("div");
+    modal.id = "certificate-modal";
+    modal.className = "certificate-modal";
+    modal.innerHTML = `
+      <div class="certificate-modal__backdrop" id="certificate-close" aria-hidden="true"></div>
+      <div class="certificate-sheet" role="dialog" aria-modal="true" aria-label="Zertifikat">
+        <button id="certificate-close" type="button" class="certificate-close" aria-label="Zertifikat schließen">✕</button>
+        <div class="certificate-sheet__inner">
+          <div class="certificate-sheet__seal">🏆</div>
+          <p class="certificate-sheet__eyebrow">Lineare Algebra Trainer</p>
+          <h2 class="certificate-sheet__title">Zertifikat</h2>
+          ${nameHtml}
+          <p class="certificate-sheet__text">hat erfolgreich alle ${total} Lektionen abgeschlossen und damit den Lernpfad zur Linearen Algebra durchlaufen.</p>
+          <div class="certificate-sheet__stats">
+            <div><strong>${completed}/${total}</strong><span>Lektionen</span></div>
+            <div><strong>${mastery}%</strong><span>Mastery</span></div>
+          </div>
+          <p class="certificate-sheet__date">Ausgestellt am ${date}</p>
+          <div class="certificate-sheet__signature">
+            <span>Lineare Algebra Trainer</span>
+            <span class="certificate-sheet__line"></span>
+          </div>
+          <div class="certificate-sheet__actions">
+            <button id="certificate-print" type="button">Drucken / als PDF</button>
+            <button id="certificate-close" type="button" class="ghost">Schließen</button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+
+  function renderLessonGameStars(lessonId) {
+    const best = state.progress.lessonGames?.[lessonId];
+    if (!best || best.bestStars <= 0) return "";
+    return ` <span class="lesson-stars" aria-label="${best.bestStars} Sterne">${starString(best.bestStars)}</span>`;
   }
 })();

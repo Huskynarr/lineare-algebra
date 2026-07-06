@@ -3,36 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="description" content="Kostenloser Lineare Algebra Trainer: Interaktive Lernplattform mit 11 Modulen, Theorie, Übungen, Quiz und Fortschrittssystem.Offline nutzbar.">
-  <meta name="keywords" content="Lineare Algebra, Vektoren, Matrizen, Determinanten, Eigenwerte, Lernen, Üben, Klausur, Studium, kostenlos">
-  <meta name="author" content="Huskynarr">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://huskynarr.is-a.dev/lineare-algebra/">
 
+  <!-- Core SEO -->
+  <title>Lineare Algebra Trainer — kostenlos lernen & üben | 11 Module, Quiz, offline</title>
+  <meta name="description" content="Kostenloser, interaktiver Lineare-Algebra-Trainer: 11 Module, 36 Lektionen mit Theorie, Beispielen, Übungen, Mini-Quiz und Spielfortschritt. Offline nutzbar, mit Rechenwerkzeugen für Vektoren, Matrizen, Determinanten, Gauß-Verfahren und Eigenwerte — ideal zur Klausurvorbereitung.">
+  <meta name="keywords" content="Lineare Algebra, Vektoren, Matrizen, Determinanten, Eigenwerte, Vektorräume, Lineare Abbildungen, Skalarprodukt, Gram-Schmidt, SVD, Gauß-Verfahren, LGS, Klausur, Studium, kostenlos, offline">
+  <meta name="author" content="Huskynarr">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="language" content="German">
+  <meta name="revisit-after" content="7 days">
+  <meta name="rating" content="general">
+  <meta name="distribution" content="global">
+  <link rel="canonical" href="https://huskynarr.is-a.dev/lineare-algebra/">
+  <link rel="author" href="https://huskynarr.de">
+  <link rel="publisher" href="https://huskynarr.de">
+  <link rel="alternate" hreflang="de" href="https://huskynarr.is-a.dev/lineare-algebra/">
+  <link rel="alternate" hreflang="x-default" href="https://huskynarr.is-a.dev/lineare-algebra/">
+
+  <!-- OpenGraph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Lineare Algebra Trainer — von 0 bis Bachelor-fit">
-  <meta property="og:description" content="Kostenloser interaktiver Trainer für Lineare Algebra: 11 Module, Theorie, Übungen, Quiz, offline-fähig.">
+  <meta property="og:description" content="Kostenloser interaktiver Trainer für Lineare Algebra: 11 Module, 36 Lektionen mit Theorie, Übungen, Quiz und Spielfortschritt. Offline-fähig, mit Rechenwerkzeugen.">
   <meta property="og:url" content="https://huskynarr.is-a.dev/lineare-algebra/">
   <meta property="og:site_name" content="Lineare Algebra Trainer">
   <meta property="og:locale" content="de_DE">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:image" content="https://huskynarr.is-a.dev/lineare-algebra/og-image.svg">
+  <meta property="og:image:secure_url" content="https://huskynarr.is-a.dev/lineare-algebra/og-image.svg">
+  <meta property="og:image:type" content="image/svg+xml">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Lineare Algebra Trainer — 11 Module, 36 Lektionen, offline-fähig">
+  <meta property="article:author" content="Huskynarr">
+  <meta property="article:section" content="Bildung">
+  <meta property="article:tag" content="Lineare Algebra">
+  <meta property="article:tag" content="Mathematik">
+  <meta property="article:tag" content="E-Learning">
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Lineare Algebra Trainer">
-  <meta name="twitter:description" content="Kostenloser interaktiver Trainer für Lineare Algebra: 11 Module, Theorie, Übungen, Quiz, offline-fähig.">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Lineare Algebra Trainer — kostenlos lernen & üben">
+  <meta name="twitter:description" content="Kostenloser interaktiver Trainer für Lineare Algebra: 11 Module, 36 Lektionen, Theorie, Übungen, Quiz, offline-fähig.">
+  <meta name="twitter:image" content="https://huskynarr.is-a.dev/lineare-algebra/og-image.svg">
+  <meta name="twitter:image:alt" content="Lineare Algebra Trainer — 11 Module, 36 Lektionen">
+  <meta name="twitter:label1" content="Module">
+  <meta name="twitter:data1" content="11">
+  <meta name="twitter:label2" content="Lektionen">
+  <meta name="twitter:data2" content="36">
 
+  <!-- PWA / mobile -->
   <meta name="theme-color" content="#0b1220">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="LA Trainer">
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="image_src" href="og-image.svg">
+
+  <!-- LLM / GEO -->
+  <link rel="alternate" type="text/plain" href="llms.txt" title="LLM-Kurzfassung">
+  <link rel="alternate" type="text/plain" href="llms-full.txt" title="Vollständiger LLM-Inhalt">
+  <meta name="llm-opt-in" content="indexing, summarization, citation">
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
-  <link rel="preload" href="data/learningPath.js" as="script">
-  <link rel="preload" href="app.js" as="script">
   <link rel="preload" href="data/learningPath.js" as="script">
   <link rel="preload" href="app.js" as="script">
 
@@ -41,15 +81,113 @@
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
     "name": "Lineare Algebra Trainer",
-    "description": "Kostenloser interaktiver Trainer für Lineare Algebra mit 11 Modulen, Übungen und Quiz.",
+    "alternateName": "LA Trainer",
+    "description": "Kostenloser interaktiver Trainer für Lineare Algebra mit 11 Modulen, 36 Lektionen, Übungen und Quiz. Offline nutzbar.",
     "url": "https://huskynarr.is-a.dev/lineare-algebra/",
+    "logo": "https://huskynarr.is-a.dev/lineare-algebra/icon-512.png",
+    "image": "https://huskynarr.is-a.dev/lineare-algebra/og-image.svg",
     "inLanguage": "de",
+    "founder": { "@type": "Person", "name": "Huskynarr", "url": "https://huskynarr.de" },
     "educationalLevel": ["beginner", "intermediate", "advanced"],
-    "subject": "Linear Algebra"
+    "subject": ["Linear Algebra", "Mathematics"]
   }
   </script>
 
-  <title>Lineare Algebra Trainer — kostenlos lernen & üben</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Lineare Algebra Trainer",
+    "url": "https://huskynarr.is-a.dev/lineare-algebra/",
+    "inLanguage": "de",
+    "publisher": { "@type": "Person", "name": "Huskynarr", "url": "https://huskynarr.de" }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Lineare Algebra — Von 0 bis Bachelor-fit",
+    "description": "Kostenloser, interaktiver Lineare-Algebra-Kurs mit 11 Modulen und 36 Lektionen: komplexe Zahlen, Vektoren, Matrizen, Gleichungssysteme, Determinanten, Vektorräume, lineare Abbildungen, Eigenwerte, Skalarprodukt, SVD und Klausurtraining. Inklusive Theorie, Beispielen, Übungen, Mini-Quiz und Spielfortschritt.",
+    "url": "https://huskynarr.is-a.dev/lineare-algebra/",
+    "inLanguage": "de",
+    "educationalLevel": ["Anfänger", "Fortgeschritten", "Profi"],
+    "provider": {
+      "@type": "EducationalOrganization",
+      "name": "Lineare Algebra Trainer",
+      "url": "https://huskynarr.is-a.dev/lineare-algebra/"
+    },
+    "creator": { "@type": "Person", "name": "Huskynarr", "url": "https://huskynarr.de" },
+    "image": "https://huskynarr.is-a.dev/lineare-algebra/og-image.svg",
+    "about": [
+      {"@type": "Thing", "name": "Lineare Algebra", "sameAs": "https://de.wikipedia.org/wiki/Lineare_Algebra"},
+      {"@type": "Thing", "name": "Vektorraum", "sameAs": "https://de.wikipedia.org/wiki/Vektorraum"},
+      {"@type": "Thing", "name": "Matrix (Mathematik)", "sameAs": "https://de.wikipedia.org/wiki/Matrix_(Mathematik)"},
+      {"@type": "Thing", "name": "Determinante", "sameAs": "https://de.wikipedia.org/wiki/Determinante"},
+      {"@type": "Thing", "name": "Eigenwertproblem", "sameAs": "https://de.wikipedia.org/wiki/Eigenwertproblem"},
+      {"@type": "Thing", "name": "Singulärwertzerlegung", "sameAs": "https://de.wikipedia.org/wiki/Singulärwertzerlegung"}
+    ],
+    "teaches": [
+      "Komplexe Zahlen", "Vektoren und Linearkombinationen", "Matrizen und Matrizenmultiplikation",
+      "Inverse Matrizen", "Lineare Gleichungssysteme", "Gauß-Verfahren", "Determinanten",
+      "Vektorräume, Basen und Dimension", "Lineare Abbildungen, Kern und Bild",
+      "Rang-Nullitätssatz", "Eigenwerte und Eigenvektoren", "Charakteristisches Polynom",
+      "Diagonalisierbarkeit", "Skalarprodukt und Orthogonalität", "Projektionen",
+      "Gram-Schmidt-Verfahren und QR-Zerlegung", "Spektralsatz", "Singulärwertzerlegung",
+      "Methode der kleinsten Quadrate", "Jordan-Normalform", "Numerische Stabilität"
+    ],
+    "hasCourseInstance": {
+      "@type": "CourseInstance",
+      "courseMode": "Online",
+      "courseWorkload": "PT130H",
+      "inLanguage": "de",
+      "isAccessibleForFree": true
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "inLanguage": "de",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Ist der Lineare-Algebra-Trainer wirklich kostenlos?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Ja. Der Trainer ist vollständig kostenlos, enthält keine Werbung, benötigt keine Registrierung und funktioniert dank Service Worker auch offline im Browser."}
+      },
+      {
+        "@type": "Question",
+        "name": "Wie viele Module und Lektionen umfasst der Trainer?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Der Trainer umfasst 11 inhaltliche Module (plus Aufwärm-Modul) mit insgesamt 36 Lektionen. Jede Lektion enthält Theorie, ein Beispiel, eine Übungsaufgabe mit Tipp und ein Mini-Quiz."}
+      },
+      {
+        "@type": "Question",
+        "name": "Welche Themen werden behandelt?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Komplexe Zahlen, Mathe-Basics, Vektoren, Matrizen, lineare Gleichungssysteme und Gauß-Verfahren, Determinanten, Vektorräume, lineare Abbildungen, Eigenwerte, Skalarprodukt und Orthogonalität, SVD und Ausgleichsrechnung sowie Klausurtraining."}
+      },
+      {
+        "@type": "Question",
+        "name": "Brauche ich Internetverbindung?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Nur beim ersten Aufruf. Danach wird die App über einen Service Worker lokal im Browser zwischengespeichert und funktioniert offline. Fortschritte werden in localStorage gespeichert."}
+      },
+      {
+        "@type": "Question",
+        "name": "Für welche Zielgruppe ist der Trainer geeignet?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Für Anfänger ohne Vorkenntnisse bis hin zu Studierenden, die sich auf eine Lineare-Algebra-Klausur vorbereiten. Die Lektionen sind in die Schwierigkeitsgrade Einsteiger, Aufbau, Fortgeschritten und Profi eingeteilt."}
+      },
+      {
+        "@type": "Question",
+        "name": "Welche Rechenwerkzeuge sind integriert?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Skalarprodukt und Winkel zwischen Vektoren, Determinante einer 2x2-Matrix, Matrixmultiplikation, Inverse einer 2x2-Matrix sowie das Gauß-Verfahren für 2x2-Systeme."}
+      }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json" id="dynamic-faq-jsonld">{"@context":"https://schema.org","@type":"Question","name":"","acceptedAnswer":{"@type":"Answer","text":""}}</script>
 
   <script>
     (function () {

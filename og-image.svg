@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Lineare Algebra Trainer — 11 Module, 36 Lektionen, offline-fähig">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="1" stop-color="#14233f"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5cf2c2"/>
+      <stop offset="1" stop-color="#4aa8ff"/>
+    </linearGradient>
+    <style>
+      .ttl { font: 800 64px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #ffffff; }
+      .sub { font: 500 30px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #c7d6ee; }
+      .tag { font: 600 22px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #0b1220; }
+      .meta { font: 500 24px ui-monospace, "SF Mono", Menlo, Consolas, monospace; fill: #9fb4d6; }
+      .brand { font: 700 22px ui-sans-serif, system-ui, sans-serif; fill: #c7d6ee; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- subtle grid -->
+  <g stroke="#1c3358" stroke-width="1" opacity="0.6">
+    <path d="M0 105 H1200 M0 210 H1200 M0 315 H1200 M0 420 H1200 M0 525 H1200"/>
+    <path d="M105 0 V630 M210 0 V630 M315 0 V630 M420 0 V630 M525 0 V630 M630 0 V630 M735 0 V630 M840 0 V630 M945 0 V630 M1050 0 V630 M1145 0 V630"/>
+  </g>
+
+  <!-- matrix motif -->
+  <g transform="translate(820,150)" font-family="ui-monospace, monospace" font-size="34" fill="#9fb4d6">
+    <path d="M0 0 L0 240 M180 0 L180 240" stroke="url(#accent)" stroke-width="3" fill="none"/>
+    <text x="22" y="50">1</text>
+    <text x="100" y="50">2</text>
+    <text x="22" y="120">3</text>
+    <text x="100" y="120">0</text>
+    <text x="22" y="190">0</text>
+    <text x="100" y="190">1</text>
+  </g>
+
+  <!-- vector arrow motif -->
+  <g transform="translate(820,420)">
+    <line x1="0" y1="120" x2="240" y2="20" stroke="url(#accent)" stroke-width="4"/>
+    <polygon points="240,20 220,30 232,42" fill="#5cf2c2"/>
+    <circle cx="0" cy="120" r="6" fill="#4aa8ff"/>
+  </g>
+
+  <text x="80" y="170" class="ttl">Lineare Algebra</text>
+  <text x="80" y="240" class="ttl">Trainer</text>
+
+  <rect x="80" y="275" width="320" height="48" rx="24" fill="url(#accent)"/>
+  <text x="240" y="307" text-anchor="middle" class="tag">kostenlos · offline · interaktiv</text>
+
+  <text x="80" y="370" class="sub">Von 0 bis Bachelor-fit — Theorie, Übungen,</text>
+  <text x="80" y="410" class="sub">Quiz und Rechenwerkzeuge.</text>
+
+  <text x="80" y="490" class="meta">11 Module · 36 Lektionen · Mini-Quiz · Spielfortschritt</text>
+
+  <text x="80" y="575" class="brand">Made in the Blackforest — von Huskynarr</text>
+</svg>

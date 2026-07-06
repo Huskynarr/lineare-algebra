@@ -31,7 +31,8 @@ jobs:
           rsync -av --delete ./ site \
             --exclude .git \
             --exclude .github \
-            --exclude site
+            --exclude site \
+            --exclude tools
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
