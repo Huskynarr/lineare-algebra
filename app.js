@@ -13,7 +13,7 @@
   const LEARNING_REFERENCES = (window.LEARNING_REFERENCES && typeof window.LEARNING_REFERENCES === "object") ? window.LEARNING_REFERENCES : {};
   const STORAGE_KEY = "lineare-algebra-savegame-v1";
   const SAVEGAME_VERSION = 1;
-  const SW_VERSION = 16;
+  const SW_VERSION = 17;
   const WARMUP_COUNT = 10;
   const LESSON_GAME_COUNT = 5;
   const LESSON_GAME_PASS_PCT = 60;
@@ -1671,6 +1671,7 @@
       state.warmup.finished = true;
       state.lessonStarted = true;
       elements.warmupArea.innerHTML = renderWarmupSummary();
+      elements.warmupArea.closest(".panel--warmup")?.classList.add("is-done");
       return;
     }
     state.warmup.questions = generateWarmupQuestions();
@@ -1678,6 +1679,7 @@
     state.warmup.answers = [];
     state.warmup.finished = false;
     state.lessonStarted = false;
+    elements.warmupArea.closest(".panel--warmup")?.classList.remove("is-done");
     renderWarmup();
   }
 
@@ -1745,12 +1747,17 @@
     const stars = pct >= 90 ? 3 : pct >= 60 ? 2 : pct >= 30 ? 1 : 0;
     const starHtml = [0, 1, 2].map((i) => i < stars ? "&#9733;" : "&#9734;").join(" ");
     return `
-      <div class="warmup-done">
-        <div class="warmup-stars" aria-label="${stars} von 3 Sternen">${starHtml}</div>
-        <p><strong>Geschafft!</strong> Du hast ${correct} von ${WARMUP_COUNT} Aufgaben richtig (${pct}&nbsp;%).</p>
-        <p>Jetzt geht es mit der Linearen Algebra weiter.</p>
-        <button id="warmup-start-lesson" type="button" class="warmup-continue">Zur ersten Lektion</button>
-      </div>
+      <details class="warmup-done">
+        <summary>
+          <span class="warmup-done__badge">&#10003; Aufwärmen erledigt</span>
+          <span class="warmup-stars" aria-label="${stars} von 3 Sternen">${starHtml}</span>
+          <span class="warmup-done__score">${correct} / ${WARMUP_COUNT} richtig</span>
+        </summary>
+        <div class="warmup-done__body">
+          <p>Jetzt geht es mit der Linearen Algebra weiter.</p>
+          <button id="warmup-start-lesson" type="button" class="warmup-continue">Zur ersten Lektion</button>
+        </div>
+      </details>
     `;
   }
 
