@@ -13,7 +13,7 @@
 
 ### Vorab: Komplexe Zahlen
 
-Lernziele: Komplexe Zahlen verstehen und darstellen; Mit komplexen Zahlen rechnen; Verbindung zu Eigenweten herstellen.
+Lernziele: Komplexe Zahlen verstehen und darstellen; Mit komplexen Zahlen rechnen; Verbindung zu Eigenwerten herstellen.
 
 Lektionen:
 
@@ -53,12 +53,12 @@ Lektionen:
 
 ### Gleichungssysteme lösen
 
-Lernziele: Gleichungssysteme aufstellen; Das Gauss-Verfahren anwenden; Verstehen, wann es Lösungen gibt.
+Lernziele: Gleichungssysteme aufstellen; Das Gauß-Verfahren anwenden; Verstehen, wann es Lösungen gibt.
 
 Lektionen:
 
 - Was ist ein Gleichungssystem? (Aufbau, ~50 min)
-- Das Gauss-Verfahren (Aufbau, ~75 min)
+- Das Gauß-Verfahren (Aufbau, ~75 min)
 - Wann gibt es Lösungen? (Aufbau, ~65 min)
 
 ### Determinanten: Der Stempel

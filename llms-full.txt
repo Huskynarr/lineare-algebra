@@ -10,7 +10,7 @@ Dieser Text ist eine maschinenlesbare Inhaltsübersicht für LLM-Crawler und Suc
 
 - Level: Einsteiger
 - Zielzeit: 6 Stunden
-- Lernziele: Komplexe Zahlen verstehen und darstellen; Mit komplexen Zahlen rechnen; Verbindung zu Eigenweten herstellen
+- Lernziele: Komplexe Zahlen verstehen und darstellen; Mit komplexen Zahlen rechnen; Verbindung zu Eigenwerten herstellen
 
 ### Lektion: Was sind komplexe Zahlen?
 
@@ -459,7 +459,7 @@ Berechne die inverse Matrix von [[4, 7], [2, 6]] und prüfe das Ergebnis durch M
 
 - Level: Aufbau
 - Zielzeit: 12 Stunden
-- Lernziele: Gleichungssysteme aufstellen; Das Gauss-Verfahren anwenden; Verstehen, wann es Lösungen gibt
+- Lernziele: Gleichungssysteme aufstellen; Das Gauß-Verfahren anwenden; Verstehen, wann es Lösungen gibt
 
 ### Lektion: Was ist ein Gleichungssystem?
 
@@ -496,30 +496,36 @@ Schreibe folgendes als Tabelle auf: 3x + 2y - z = 7, x - y + 2z = 1, 2x + y - z 
 
 ---
 
-### Lektion: Das Gauss-Verfahren
+### Lektion: Das Gauß-Verfahren
 
 - Schwierigkeit: Aufbau
 - Empfohlene Zeit: 75 Minuten
 
 #### Theorie
 
-- Das Gauss-Verfahren ist wie Aufräumen: Man bringt die Tabelle Schritt für Schritt in eine einfachere Form, bis man die Lösung ablesen kann.
+- Das Gauß-Verfahren ist wie Aufräumen: Man bringt die Tabelle Schritt für Schritt in eine einfachere Form, bis man die Lösung ablesen kann.
 - Dabei darf man: Zeilen vertauschen, eine Zeile mit einer Zahl multiplizieren (nicht null!), und ein Vielfaches einer Zeile zu einer anderen dazuaddieren.
 - Das Ziel ist eine Treppenform: Unten links sollen lauter Nullen stehen, sodass man von unten nach oben die Lösungen ablesen kann.
+- Vollständiges 3×3-Beispiel — wir lösen x + y + z = 6, 2x - y + z = 3, x + 2y - z = 2. Die erweiterte Matrix ist: Zeile1 (1, 1, 1 | 6), Zeile2 (2, -1, 1 | 3), Zeile3 (1, 2, -1 | 2).
+- Schritt 1 — Nullen in Spalte 1: Z2 → Z2 − 2·Z1 und Z3 → Z3 − Z1. Neu: Z1 (1, 1, 1 | 6), Z2 (0, -3, -1 | -9), Z3 (0, 1, -2 | -4).
+- Schritt 2 — Pivot tauschen: Wir tauschen Z2 und Z3, damit in Spalte 2 eine 1 oben steht. Neu: Z1 (1, 1, 1 | 6), Z2 (0, 1, -2 | -4), Z3 (0, -3, -1 | -9).
+- Schritt 3 — Null in Spalte 2 unten: Z3 → Z3 + 3·Z2. Neu: Z1 (1, 1, 1 | 6), Z2 (0, 1, -2 | -4), Z3 (0, 0, -7 | -21).
+- Schritt 4 — Einser auf der Diagonalen: Z3 → Z3 / (−7). Neu: Z3 (0, 0, 1 | 3). Jetzt steht die Dreiecksform.
+- Rücksubstitution: Aus Z3 liest man z = 3. Aus Z2: y − 2·z = −4, also y − 6 = −4, also y = 2. Aus Z1: x + y + z = 6, also x + 2 + 3 = 6, also x = 1. Lösung: (x, y, z) = (1, 2, 3).
 
 #### Beispiel
 
-Wenn in der untersten Zeile '0 0 1 | 5' steht, weiß man sofort: z = 5. Damit geht man eine Zeile nach oben und findet y, dann x.
+Wenn in der untersten Zeile '0 0 1 | 5' steht, weiß man sofort: z = 5. Damit geht man eine Zeile nach oben und findet y, dann x. Im 3×3-Beispiel oben endet die Matrix in '0 0 1 | 3', also z = 3 — dann y = 2 und x = 1.
 
 #### Übungsaufgabe
 
-Löse dieses System mit dem Gauss-Verfahren: x + y + z = 6, 2x - y + z = 3, x + 2y - z = 2.
+Löse dieses System mit dem Gauß-Verfahren: x + y + z = 6, 2x - y + z = 3, x + 2y - z = 2.
 
 *Tipp: Arbeite spaltenweise von links nach rechts. Erstelle unterhalb der ersten Zahl Nullen, dann unter der zweiten.*
 
 #### Mini-Quiz (Q&A)
 
-**F:** Welche Operation ist beim Gauss-Verfahren NICHT erlaubt?
+**F:** Welche Operation ist beim Gauß-Verfahren NICHT erlaubt?
 
 **A:** Richtig ist: Eine Zeile mit 0 multiplizieren. Mit 0 multiplizieren zerstört die ganze Zeile — das ist nicht erlaubt, weil man Information verliert.
 
@@ -539,7 +545,7 @@ Löse dieses System mit dem Gauss-Verfahren: x + y + z = 6, 2x - y + z = 3, x + 
 
 #### Theorie
 
-- Der Rang einer Matrix ist die Anzahl der Zeilen, die nach dem Gauss-Verfahren nicht nur aus Nullen bestehen.
+- Der Rang einer Matrix ist die Anzahl der Zeilen, die nach dem Gauß-Verfahren nicht nur aus Nullen bestehen.
 - Eine Lösung gibt es genau dann, wenn die Matrix und die erweiterte Matrix (mit Ergebnissen) denselben Rang haben.
 - Wenn der Rang kleiner ist als die Anzahl der Variablen, gibt es freie Variablen — das bedeutet unendlich viele Lösungen.
 
@@ -551,7 +557,7 @@ Ein System mit 4 Variablen und Rang 3 hat einen Freiheitsgrad: Eine Variable ist
 
 Bestimme den Rang der Matrix und der erweiterten Matrix für: x + y = 2, 2x + 2y = 4. Was fällt auf?
 
-*Tipp: Wende Gauss an. Wenn eine Zeile nur aus Nullen wird, zählt sie nicht mehr zum Rang.*
+*Tipp: Wende Gauß an. Wenn eine Zeile nur aus Nullen wird, zählt sie nicht mehr zum Rang.*
 
 #### Mini-Quiz (Q&A)
 
@@ -584,10 +590,15 @@ Bestimme den Rang der Matrix und der erweiterten Matrix für: x + y = 2, 2x + 2y
 - Eine Determinante ist eine einzige Zahl, die man aus einer quadratischen Matrix berechnet. Sie sagt uns wichtige Dinge über die Matrix.
 - Für eine 2x2-Matrix [[a, b], [c, d]] ist die Determinante einfach: a·d - b·c.
 - Für 3x3-Matrizen gibt es verschiedene Wege (z.B. die Regel von Sarrus), aber das Prinzip bleibt gleich.
+- Regel von Sarrus für 3×3: Schreibe die ersten beiden Spalten rechts noch einmal dazu. Summiere die Produkte der drei Diagonalen von links-oben nach rechts-unten und ziehe die Produkte der drei Diagonalen von rechts-oben nach links-unten ab.
+- Vollständiges 3×3-Beispiel mit Sarrus — Matrix A = [[1, 2, 3], [4, 5, 6], [7, 8, 10]]. Wir hängen Spalte 1 und 2 rechts an: [[1,2,3,1,2],[4,5,6,4,5],[7,8,10,7,8]].
+- Plus-Diagonalen (links-oben → rechts-unten): 1·5·10 + 2·6·7 + 3·4·8 = 50 + 84 + 96 = 230.
+- Minus-Diagonalen (rechts-oben → links-unten): 3·5·7 + 1·6·8 + 2·4·10 = 105 + 48 + 80 = 233.
+- det(A) = 230 − 233 = −3. Da die Determinante ungleich null ist, ist A invertierbar.
 
 #### Beispiel
 
-det([[3, 1], [2, 4]]) = 3·4 - 1·2 = 12 - 2 = 10.
+det([[3, 1], [2, 4]]) = 3·4 - 1·2 = 12 - 2 = 10. Für 3×3 mit Sarrus: det([[1,2,3],[4,5,6],[7,8,10]]) = 1·5·10 + 2·6·7 + 3·4·8 − 3·5·7 − 1·6·8 − 2·4·10 = 230 − 233 = −3.
 
 #### Übungsaufgabe
 
@@ -956,10 +967,13 @@ Prüfe: Ist (1, 1) ein Eigenvektor der Matrix [[3, 0], [0, 3]? Welcher Eigenwert
 - Um die Eigenwerte zu finden, löst man eine Gleichung: det(A - λ·I) = 0. Das ist das 'charakteristische Polynom'.
 - Die Nullstellen dieses Polynoms sind die Eigenwerte. Wie bei einer normalen Gleichung sucht man die Werte für λ, die Null ergeben.
 - Manchmal sind Eigenwerte komplexe Zahlen (mit i). Das kann selbst bei ganz normalen Matrizen passieren — zum Beispiel bei Drehungen.
+- Vollständiges 2×2-Beispiel — A = [[2, 1], [0, 3]]. Wir bilden A − λI = [[2−λ, 1], [0, 3−λ]]. Die Determinante: (2−λ)(3−λ) − 1·0 = (2−λ)(3−λ). Das char. Polynom ist also (2−λ)(3−λ) = 0 mit Nullstellen λ₁ = 2 und λ₂ = 3.
+- Vollständiges 3×3-Beispiel — A = [[2, 0, 0], [0, 3, 4], [0, 4, -3]]. Blockstruktur: Der linke obere Block [2] liefert direkt den Eigenwert λ = 2. Für den rechten 2×2-Block B = [[3, 4], [4, -3]] gilt det(B − λI) = (3−λ)(−3−λ) − 16 = λ² − 9 − 16 = λ² − 25.
+- Das gesamte char. Polynom: det(A − λI) = (2−λ)·(λ² − 25) = 0. Nullstellen: λ₁ = 2, λ₂ = 5, λ₃ = −5. Drei verschiedene reelle Eigenwerte — also ist A diagonalisierbar.
 
 #### Beispiel
 
-Für A = [[4, 0], [0, 5]] ist das Polynom (4-λ)(5-λ) = 0. Die Eigenwerte sind λ = 4 und λ = 5.
+Für A = [[4, 0], [0, 5]] ist das Polynom (4-λ)(5-λ) = 0. Die Eigenwerte sind λ = 4 und λ = 5. Für A = [[2, 1], [0, 3]] rechnet man det(A − λI) = (2−λ)(3−λ) = 0, also λ = 2 und λ = 3.
 
 #### Übungsaufgabe
 
@@ -971,7 +985,7 @@ Finde die Eigenwerte der Matrix [[2, 1], [0, 3]].
 
 **F:** Wie findet man die Eigenwerte einer Matrix?
 
-**A:** Richtig ist: Man löst det(A - λI) = 0 (das charakteristische Polynom). Man setzt det(A - λI) = 0 und sucht die Nullstellen. Diese sind die Eigenwerte.
+**A:** Richtig ist: Man löst det(A - λI) = 0 (das charakteristische Polynom). Man setzt det(A - λI) = 0 und sucht die Nullstellen. Diese sind die Eigenwerte. Für 3×3-Matrizen nutzt man oft Blockstruktur oder entwickelt nach einer Zeile.
 
 #### Quellen & weiterführende Links
 
@@ -1294,7 +1308,7 @@ Erkläre in eigenen Worten, warum eine Matrix nicht diagonalisierbar sein kann.
 
 - Computer können nicht unendlich genau rechnen — es gibt immer kleine Rundungsfehler. Bei manchen Rechnungen werden diese Fehler groß, bei anderen klein.
 - Die 'Konditionszahl' sagt, wie empfindlich eine Rechnung ist. Eine hohe Konditionszahl bedeutet: Kleine Änderungen in den Daten können große Änderungen im Ergebnis bewirken.
-- Mit guten Verfahren (wie Pivotisierung beim Gauss-Verfahren) kann man Rundungsfehler klein halten.
+- Mit guten Verfahren (wie Pivotisierung beim Gauß-Verfahren) kann man Rundungsfehler klein halten.
 
 #### Beispiel
 
@@ -1302,7 +1316,7 @@ Wenn eine Matrix fast eine Determinante von 0 hat, sind die Lösungen sehr empfi
 
 #### Übungsaufgabe
 
-Erkläre, warum man beim Gauss-Verfahren die Zeile mit der größten Zahl als erste wählen sollte (Pivotisierung).
+Erkläre, warum man beim Gauß-Verfahren die Zeile mit der größten Zahl als erste wählen sollte (Pivotisierung).
 
 *Tipp: Wenn man durch eine sehr kleine Zahl teilt, werden Rundungsfehler groß. Größere Zahlen sind sicherer.*
 
@@ -1331,6 +1345,8 @@ Erkläre, warum man beim Gauss-Verfahren die Zeile mit der größten Zahl als er
 - Fang mit den Aufgaben an, die du sofort verstehst. Das gibt Sicherheit und Punkte.
 - Schreib jeden Zwischenschritt auf. Auch wenn das Endergebnis falsch ist, gibt es für richtige Zwischenschritte Punkte.
 - Prüfe am Ende: Stimmen die Dimensionen? Ist das Ergebnis plausibel? Ein schneller Dimensionscheck findet viele Flüchtigkeitsfehler.
+- Die beste Vorbereitung auf die Klausur sind echte Altklausuren. Rechne sie unter realen Bedingungen: 90 Minuten, keine Hilfsmittel, kein Handy. Wer schon einmal eine echte Klausur timed durchgerechnet hat, ist in der Prüfung deutlich ruhiger.
+- In den Quellen unten findest du frei verfügbare Altklausuren der Universität Freiburg (Lineare Algebra I und II). Wähle eine recent Klausur aus, drucke sie aus und rechne sie komplett — und vergleiche danach mit deinen Notizen.
 
 #### Beispiel
 
@@ -1353,6 +1369,11 @@ Stell dir vor, du hast 90 Minuten Zeit für 4 Aufgaben. Wie teilst du die Zeit e
 - [Klausur (Prüfung) — Lernstrategien](https://de.wikipedia.org/wiki/Lernen) — Wikipedia
 - [Dimensionsprüfung — Wikipedia](https://de.wikipedia.org/wiki/Dimension_(Mathematik)) — Wikipedia
 - [MIT OCW 18.06 — Review](https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/) — Prof. Gilbert Strang, MIT
+- [Altklausuren Lineare Algebra I — Uni Freiburg](https://fachschaft.mathematik.uni-freiburg.de/protokolle/k/s/la1.html) — Fachschaft Mathematik, Universität Freiburg
+- [Altklausuren Lineare Algebra II — Uni Freiburg](https://fachschaft.mathematik.uni-freiburg.de/protokolle/k/s/la2.html) — Fachschaft Mathematik, Universität Freiburg
+- [Klausur LA I, WS 21/22 (Mildenberger) — PDF](https://fachschaft.mathematik.uni-freiburg.de/protokolle/data/2022/023.pdf) — Prof. Dr. Heike Mildenberger, Universität Freiburg
+- [Klausur LA I, WS 20/21 (Kebekus) — PDF](https://fachschaft.mathematik.uni-freiburg.de/protokolle/data/2020/003.pdf) — Prof. Dr. Stefan Kebekus, Universität Freiburg
+- [Klausur LA I, WS 18/19 (Huber-Klawitter) — PDF](https://fachschaft.mathematik.uni-freiburg.de/protokolle/data/2019/003.pdf) — Prof. Dr. Annette Huber-Klawitter, Universität Freiburg
 
 ---
 
