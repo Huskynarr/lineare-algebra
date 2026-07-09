@@ -994,12 +994,6 @@ details.panel > :last-child {
   gap: 0.6rem;
 }
 
-.tool-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(200px, 1fr));
-  gap: 0.8rem;
-}
-
 .tool {
   background: var(--surface);
   border: 1px solid var(--border-soft);
@@ -1810,10 +1804,6 @@ details.panel > :last-child {
   .lesson-actions .button-like {
     flex: 1 1 auto;
     min-width: unset;
-  }
-
-  .tool-grid {
-    grid-template-columns: 1fr;
   }
 
   .module-card {
