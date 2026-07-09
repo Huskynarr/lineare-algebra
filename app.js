@@ -14,7 +14,7 @@
   const LEARNING_REFERENCES = (window.LEARNING_REFERENCES && typeof window.LEARNING_REFERENCES === "object") ? window.LEARNING_REFERENCES : {};
   const STORAGE_KEY = "lineare-algebra-savegame-v1";
   const SAVEGAME_VERSION = 2;
-  const SW_VERSION = 20;
+  const SW_VERSION = 21;
   const WARMUP_COUNT = 10;
   const LESSON_GAME_COUNT = 5;
   const LESSON_GAME_PASS_PCT = 60;

@@ -181,10 +181,10 @@ LA.render.renderLessonDetail = function () {
   const textChecked = LA.state.progress.quizTextChecked?.[lesson.id] === true;
   const quizAnswered = isTextQuiz ? textChecked : hasAnswer;
   const previousText =
-    LA.getNeighborLesson(-1) !== null ? `<button id="prev-lesson" type="button" class="ghost">Vorherige Lektion</button>` : "";
+    LA.getNeighborLesson(-1) !== null ? `<button id="prev-lesson" type="button" class="ghost" aria-label="Vorherige Lektion">Vorherige Lektion</button>` : "";
   const hasNext = LA.getNeighborLesson(1) !== null;
   const quizButtonHtml = quizAnswered
-    ? `<button id="next-quiz" type="button">${hasNext ? "Weiter" : "Abschließen"}</button>`
+    ? `<button id="next-quiz" type="button" aria-label="${hasNext ? "Nächste Lektion" : "Kurs abschließen"}">${hasNext ? "Weiter" : "Abschließen"}</button>`
     : `<button id="check-quiz" type="button">Antwort prüfen</button>`;
 
   LA.elements.lessonDetail.innerHTML = `
@@ -314,7 +314,7 @@ LA.render.renderQuiz = function (lesson, userAnswer, hasAnswer, isCorrect, quizB
     if (textChecked) {
       const accept = quiz.acceptAnswers || [quiz.correctAnswer];
       const isTextCorrect = accept.some((a) => LA.quiz.normalizeAnswer(textAnswer) === LA.quiz.normalizeAnswer(a));
-      feedback = `<p class="quiz-feedback ${isTextCorrect ? "success" : "error"}">${
+      feedback = `<p class="quiz-feedback ${isTextCorrect ? "success" : "error"}" role="status" aria-live="polite">${
         isTextCorrect ? "Richtig! " : "Leider falsch. "
       }${LA.escapeHtml(quiz.explanation)}</p>`;
       if (!isTextCorrect && quiz.solution) {
@@ -345,7 +345,7 @@ LA.render.renderQuiz = function (lesson, userAnswer, hasAnswer, isCorrect, quizB
         )
         .join("")}
       ${quizButtonHtml}
-      <p class="quiz-feedback ${hasAnswer ? (isCorrect ? "success" : "error") : ""}">
+      <p class="quiz-feedback ${hasAnswer ? (isCorrect ? "success" : "error") : ""}" role="status" aria-live="polite">
         ${
           hasAnswer
             ? isCorrect
@@ -478,7 +478,7 @@ LA.render.renderWarmup = function () {
 
   let feedbackHtml = "";
   if (hasAnswered) {
-    feedbackHtml = `<p class="quiz-feedback ${isCorrect ? "success" : "error"}">${
+    feedbackHtml = `<p class="quiz-feedback ${isCorrect ? "success" : "error"}" role="status" aria-live="polite">${
       isCorrect ? "Richtig! " : "Leider falsch. "
     }${LA.escapeHtml(q.explanation)}</p>`;
   }
@@ -571,7 +571,7 @@ LA.render.renderLessonGameActive = function (game) {
 
   let feedbackHtml = "";
   if (hasAnswered) {
-    feedbackHtml = `<p class="quiz-feedback ${isCorrect ? "success" : "error"}">${
+    feedbackHtml = `<p class="quiz-feedback ${isCorrect ? "success" : "error"}" role="status" aria-live="polite">${
       isCorrect ? "Richtig! " : "Leider falsch. "
     }${LA.escapeHtml(q.explanation)}</p>`;
   }

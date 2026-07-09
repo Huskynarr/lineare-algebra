@@ -235,8 +235,8 @@
     <section class="settings-block">
       <h3 class="settings-block__title">Design</h3>
       <div class="theme-switch" role="group" aria-label="Farbschema wählen">
-        <button type="button" id="theme-dark" class="theme-switch__btn is-active" aria-pressed="true">🌙 Dark</button>
-        <button type="button" id="theme-light" class="theme-switch__btn" aria-pressed="false">☀️ White</button>
+        <button type="button" id="theme-dark" class="theme-switch__btn is-active" aria-pressed="true" aria-label="Dunkles Design aktivieren">🌙 Dark</button>
+        <button type="button" id="theme-light" class="theme-switch__btn" aria-pressed="false" aria-label="Helles Design aktivieren">☀️ White</button>
       </div>
     </section>
 
@@ -246,7 +246,7 @@
         <button id="export-progress" type="button">Savegame herunterladen</button>
         <label class="button-like" for="import-progress">Savegame laden</label>
         <input id="import-progress" type="file" accept="application/json">
-        <button id="reset-progress" type="button" class="ghost">Zurücksetzen</button>
+        <button id="reset-progress" type="button" class="ghost" aria-label="Fortschritt zurücksetzen">Zurücksetzen</button>
       </div>
       <p id="status-message" role="status" aria-live="polite"></p>
     </section>
