@@ -1,9 +1,14 @@
-const CACHE_NAME = "lineare-algebra-cache-v19";
+const CACHE_NAME = "lineare-algebra-cache-v20";
 const APP_ASSETS = [
   "./",
   "./index.html",
   "./styles.css",
   "./app.js",
+  "./app.math.js",
+  "./app.progress.js",
+  "./app.quiz.js",
+  "./app.viz.js",
+  "./app.render.js",
   "./data/learningPath.js",
   "./manifest.webmanifest",
   "./favicon.svg",
