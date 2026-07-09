@@ -128,6 +128,27 @@ LA.render._patchModuleCompletion = function () {
       }
     }
   });
+
+  // Modulfortschritt pro Modul aktualisieren. Der Vollbuild bettet in jedes
+  // <article class="module-card"> ein <div class="module-meta"> mit drei
+  // <span>s ein; das dritte ist "Modulfortschritt: X%". Die Karten werden in
+  // LA.learningPath-Reihenfolge ausgegeben, sodass die N-te .module-card zum
+  // Modul LA.learningPath[N] gehört (die Karte trägt kein data-Attribut).
+  const moduleCards = document.querySelectorAll(".module-card");
+  moduleCards.forEach((card, moduleIndex) => {
+    const module = LA.learningPath[moduleIndex];
+    if (!module || !Array.isArray(module.lessons)) return;
+    const meta = card.querySelector(".module-meta");
+    if (!meta) return;
+    const spans = meta.querySelectorAll("span");
+    if (spans.length < 3) return;
+    const total = module.lessons.length;
+    const doneCount = total > 0
+      ? module.lessons.filter((lesson) => LA.isCompleted(lesson.id)).length
+      : 0;
+    const pct = total > 0 ? Math.round((doneCount / total) * 100) : 0;
+    spans[2].textContent = `Modulfortschritt: ${pct}%`;
+  });
 };
 
 LA.render.renderLessonDetail = function () {
