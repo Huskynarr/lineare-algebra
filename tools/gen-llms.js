@@ -68,7 +68,7 @@ function buildShort(lp) {
   const lines = [];
   lines.push("# Lineare Algebra Trainer");
   lines.push("");
-  lines.push(`> Kostenloser, interaktiver Lineare-Algebra-Trainer (deutsch, offline-fähig, keine Registrierung, keine Werbung). 11 Module, 36 Lektionen mit Theorie, Beispielen, Übungen, Mini-Quiz und Spielfortschritt. Inklusive Rechenwerkzeugen für Vektoren, Matrizen, Determinanten, Gauß-Verfahren und Eigenwerte. Zielgruppe: Anfänger bis Klausur-Kandidaten.`);
+  lines.push(`> Kostenloser, interaktiver Lineare-Algebra-Trainer (deutsch, offline-fähig, keine Registrierung, keine Werbung). 17 Module, 52 Lektionen von Schul-Basics über Lineare Algebra 1 bis Lineare Algebra 2 (Normalformen, Bilinearformen, Moduln) mit Theorie, Beispielen, Übungen, Mini-Quiz und Spielfortschritt. Inklusive Rechenwerkzeugen für Vektoren, Matrizen, Determinanten, Gauß-Verfahren und Eigenwerte. Zielgruppe: Anfänger bis Klausur-Kandidaten, orientiert an der Uni Freiburg.`);
   lines.push("");
   lines.push("## Wichtigste Links");
   lines.push("");
@@ -176,6 +176,9 @@ function buildFull(lp, refs) {
   lines.push("- Matrix mal Matrix");
   lines.push("- Inverse einer 2x2-Matrix");
   lines.push("- Gauß-Verfahren für 2x2-Systeme");
+  lines.push("- Eigenwerte: charakteristisches Polynom und Eigenwerte (bis 4x4)");
+  lines.push("- Jordan-Normalform: Kästchenstruktur und Minimalpolynom");
+  lines.push("- Bilinearform: Rang, Signatur (Sylvester) und Klassifikation");
   lines.push("");
 
   return lines.join("\n");

@@ -11,13 +11,13 @@ Interaktive Lernplattform für den Wiedereinstieg in die Lineare Algebra — von
 
 ## Features
 
-- **12 Module, 36 Lektionen** (Einsteiger → Profi): komplexe Zahlen, Vektoren, Matrizen, LGS, Determinanten, Vektorräume, lineare Abbildungen, Eigenwerte, Skalarprodukt, SVD, Klausurtraining
+- **17 Module, 52 Lektionen** (Einsteiger → Profi): Schul-Basics & Beweise, komplexe Zahlen, Vektoren, Matrizen, LGS, Determinanten, Vektorräume, lineare Abbildungen, Eigenwerte, Skalarprodukt — und in **Lineare Algebra 2**: abstrakte Vektorräume, Jordan-/rationale Normalform, Bilinearformen, Moduln über Hauptidealringen, Freiburg-Klausurtraining
 - **Pro Lektion:** Theorie, Beispiel, Übungsaufgabe mit Tipp, Mini-Quiz (Multiple-Choice oder Freitext), Spielmodus
 - **Fortschrittsanzeige** + Mastery-Score (70 % Bearbeitung + 30 % Quiz korrekt)
 - **Savegame-System:** Fortschritt lokal speichern, als JSON exportieren/importieren
 - **Offline-Lernen** via Service Worker + Cache API
-- **Rechenwerkzeuge:** Skalarprodukt & Winkel, Determinante 2×2, Matrix-Multiplikation, Inverse 2×2, Gauß-Verfahren 2×2
-- **Quellen & Referenzen** pro Lektion (Wikipedia, MIT OCW 18.06 von Prof. Gilbert Strang, 3Blue1Brown)
+- **Rechenwerkzeuge:** Skalarprodukt & Winkel, Determinante 2×2, Matrix-Multiplikation, Inverse 2×2, Gauß-Verfahren 2×2 — sowie für LA2: Eigenwert-Rechner (char. Polynom + Eigenwerte bis 4×4), Jordan-Normalform-Rechner (Kästchen & Minimalpolynom), Bilinearform-Rechner (Rang, Signatur, Klassifikation)
+- **Quellen & Referenzen** pro Lektion (Wikipedia, historische Mathematiker-Artikel, Freiburger Altklausuren der Fachschaft Mathematik)
 - **Dark / Light Theme** umschaltbar
 - **Zertifikat** ab 80 % Mastery
 

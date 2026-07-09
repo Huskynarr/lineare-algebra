@@ -1,6 +1,6 @@
 # Lineare Algebra Trainer
 
-> Kostenloser, interaktiver Lineare-Algebra-Trainer (deutsch, offline-fähig, keine Registrierung, keine Werbung). 11 Module, 36 Lektionen mit Theorie, Beispielen, Übungen, Mini-Quiz und Spielfortschritt. Inklusive Rechenwerkzeugen für Vektoren, Matrizen, Determinanten, Gauß-Verfahren und Eigenwerte. Zielgruppe: Anfänger bis Klausur-Kandidaten.
+> Kostenloser, interaktiver Lineare-Algebra-Trainer (deutsch, offline-fähig, keine Registrierung, keine Werbung). 17 Module, 52 Lektionen von Schul-Basics über Lineare Algebra 1 bis Lineare Algebra 2 (Normalformen, Bilinearformen, Moduln) mit Theorie, Beispielen, Übungen, Mini-Quiz und Spielfortschritt. Inklusive Rechenwerkzeugen für Vektoren, Matrizen, Determinanten, Gauß-Verfahren und Eigenwerte. Zielgruppe: Anfänger bis Klausur-Kandidaten, orientiert an der Uni Freiburg.
 
 ## Wichtigste Links
 
@@ -11,123 +11,174 @@
 
 ## Module
 
-### Vorab: Komplexe Zahlen
+### Start: Rechnen & Terme auffrischen
 
-Lernziele: Komplexe Zahlen verstehen und darstellen; Mit komplexen Zahlen rechnen; Verbindung zu Eigenwerten herstellen.
-
-Lektionen:
-
-- Was sind komplexe Zahlen? (Einsteiger, ~40 min)
-- Mit komplexen Zahlen rechnen (Einsteiger, ~50 min)
-- Warum braucht man komplexe Zahlen in der Linearen Algebra? (Einsteiger, ~35 min)
-
-### Start: Mathe-Basics auffrischen
-
-Lernziele: Zahlen und Rechnen sicher beherrschen; Mit Klammern und Termen umgehen können; Erste Beweise verstehen.
+Lernziele: Sicher mit Vorzeichen, Brüchen und Dezimalzahlen rechnen; Terme zusammenfassen und Klammern auflösen; Binomische Formeln anwenden.
 
 Lektionen:
 
-- Zahlen, Terme und Klammern (Einsteiger, ~45 min)
-- Gleichungen und Funktionen (Einsteiger, ~50 min)
-- Summenzeichen und Beweise (Einsteiger, ~55 min)
+- Zahlen und Vorzeichen (Einsteiger, ~35 min)
+- Brüche und Dezimalzahlen (Einsteiger, ~45 min)
+- Terme, Klammern und binomische Formeln (Einsteiger, ~50 min)
 
-### Vektoren: Pfeile im Raum
+### Gleichungen, Mengen und Beweise
 
-Lernziele: Verstehen, was ein Vektor ist; Mit Vektoren rechnen können; Linearkombinationen kennenlernen.
-
-Lektionen:
-
-- Was ist ein Vektor? (Einsteiger, ~45 min)
-- Mit Vektoren rechnen (Einsteiger, ~60 min)
-- Vektoren mischen: Linearkombination (Einsteiger, ~65 min)
-
-### Matrizen: Zahlentabellen
-
-Lernziele: Verstehen, was eine Matrix ist; Matrizen addieren und multiplizieren; Inverse Matrizen kennenlernen.
+Lernziele: Lineare und quadratische Gleichungen lösen; Mengen, Abbildungen und logische Quantoren verstehen; Beweise per Summenzeichen und vollständiger Induktion führen.
 
 Lektionen:
 
-- Was ist eine Matrix? (Aufbau, ~50 min)
-- Matrizen multiplizieren (Aufbau, ~65 min)
-- Die inverse Matrix (Aufbau, ~70 min)
+- Gleichungen lösen (Einsteiger, ~45 min)
+- Mengen, Abbildungen und Logik (Einsteiger, ~50 min)
+- Summenzeichen und vollständige Induktion (Einsteiger, ~55 min)
 
-### Gleichungssysteme lösen
+### Komplexe Zahlen
 
-Lernziele: Gleichungssysteme aufstellen; Das Gauß-Verfahren anwenden; Verstehen, wann es Lösungen gibt.
-
-Lektionen:
-
-- Was ist ein Gleichungssystem? (Aufbau, ~50 min)
-- Das Gauß-Verfahren (Aufbau, ~75 min)
-- Wann gibt es Lösungen? (Aufbau, ~65 min)
-
-### Determinanten: Der Stempel
-
-Lernziele: Determinanten berechnen können; Regeln für Determinanten kennen; Verstehen, was Determinanten bedeuten.
+Lernziele: Komplexe Zahlen definieren und in der Gaußschen Ebene darstellen; Mit komplexen Zahlen rechnen; Polarkoordinaten und den Fundamentalsatz der Algebra kennen.
 
 Lektionen:
 
-- Was ist eine Determinante? (Aufbau, ~55 min)
-- Regeln für Determinanten (Aufbau, ~60 min)
-- Determinante als Flächenmaß (Aufbau, ~45 min)
+- Die imaginäre Einheit (Einsteiger, ~40 min)
+- Rechnen mit komplexen Zahlen (Aufbau, ~50 min)
+- Polardarstellung und Fundamentalsatz (Aufbau, ~55 min)
 
-### Vektorräume: Die Welt der Vektoren
+### Vektoren im R^n
 
-Lernziele: Verstehen, was ein Vektorraum ist; Basen und Dimensionen kennenlernen; Mit Unterräumen umgehen.
-
-Lektionen:
-
-- Was ist ein Vektorraum? (Aufbau, ~60 min)
-- Basis: Die Bausteine (Aufbau, ~70 min)
-- Dimension: Wie viele Bausteine? (Aufbau, ~65 min)
-
-### Lineare Abbildungen: Vektor-Maschinen
-
-Lernziele: Verstehen, was eine lineare Abbildung ist; Kern und Bild bestimmen; Den Rang-Nullitätssatz anwenden.
+Lernziele: Vektoren als Pfeile und als Zahlentupel auffassen; Addition und skalare Vielfache berechnen; Linearkombinationen und den Spann verstehen.
 
 Lektionen:
 
-- Was ist eine lineare Abbildung? (Fortgeschritten, ~50 min)
-- Kern und Bild (Fortgeschritten, ~70 min)
-- Der Rang-Nullitätssatz (Fortgeschritten, ~60 min)
+- Was ist ein Vektor? (Einsteiger, ~40 min)
+- Addition und skalare Vielfache (Aufbau, ~45 min)
+- Linearkombination und Spann (Aufbau, ~55 min)
 
-### Eigenwerte: Besondere Richtungen
+### Matrizen
 
-Lernziele: Verstehen, was Eigenwerte und Eigenvektoren sind; Das charakteristische Polynom nutzen; Diagonalisierbarkeit prüfen.
-
-Lektionen:
-
-- Was sind Eigenwerte? (Fortgeschritten, ~65 min)
-- Das charakteristische Polynom (Fortgeschritten, ~70 min)
-- Diagonalisierbarkeit (Fortgeschritten, ~70 min)
-
-### Skalarprodukt und Winkel
-
-Lernziele: Verstehen, was ein Skalarprodukt ist; Projektionen berechnen; Gram-Schmidt und QR kennenlernen.
+Lernziele: Matrizen als Tabellen anordnen; Matrizen multiplizieren; Die inverse Matrix und elementare Zeilenoperationen nutzen.
 
 Lektionen:
 
-- Das Skalarprodukt (Fortgeschritten, ~55 min)
-- Projektion: Schatten werfen (Fortgeschritten, ~65 min)
-- Gram-Schmidt: Senkrechte Basen bauen (Fortgeschritten, ~70 min)
+- Was ist eine Matrix? (Aufbau, ~40 min)
+- Matrizen multiplizieren (Aufbau, ~55 min)
+- Inverse Matrix und Zeilenoperationen (Aufbau, ~55 min)
 
-### SVD und Datenanalyse
+### Lineare Gleichungssysteme
 
-Lernziele: Den Spektralsatz verstehen; Die SVD (Singulärwertzerlegung) kennenlernen; Ausgleichsrechnung verstehen.
-
-Lektionen:
-
-- Der Spektralsatz (Profi, ~60 min)
-- SVD: Matrizen zerlegen (Profi, ~75 min)
-- Ausgleichsrechnung (Least Squares) (Profi, ~70 min)
-
-### Prüfungsvorbereitung und Tipps
-
-Lernziele: Wissen verknüpfen statt auswendig lernen; Häufige Fehler vermeiden; Strategien für die Prüfung entwickeln.
+Lernziele: Ein LGS als Matrix schreiben; Das Gauß-Verfahren sicher anwenden; Lösbarkeit über den Rang entscheiden.
 
 Lektionen:
 
-- Wenn Matrizen nicht diagonalisierbar sind (Profi, ~65 min)
-- Rundungsfehler und Stabilität (Profi, ~60 min)
-- Tipps für die Prüfung (Profi, ~55 min)
+- Vom LGS zur Matrix (Aufbau, ~40 min)
+- Das Gauß-Verfahren (Aufbau, ~55 min)
+- Rang und Lösbarkeit (Aufbau, ~50 min)
+
+### Determinanten
+
+Lernziele: Die Determinante definieren und berechnen; Rechenregeln für Determinanten anwenden; Determinante als Volumen (Orientierung) verstehen.
+
+Lektionen:
+
+- Was ist eine Determinante? (Aufbau, ~45 min)
+- Rechenregeln für Determinanten (Aufbau, ~50 min)
+- Determinante als Volumen (Aufbau → Fortgeschritten, ~50 min)
+- Vom Pfeil zum Axiom: warum abstrahieren? (Aufbau → Fortgeschritten, ~50 min)
+
+### Vektorräume (axiomatisch)
+
+Lernziele: Körper und die Vektorraumaxiome kennen; Unterräume erkennen und nachweisen; Beispiele wie Funktionen- und Polynomräume einordnen.
+
+Lektionen:
+
+- Körper und Vektorraumaxiome (Fortgeschritten, ~55 min)
+- Unterräume (Fortgeschritten, ~50 min)
+- Funktionen- und Polynomräume (Fortgeschritten, ~55 min)
+
+### Basis und Dimension
+
+Lernziele: Erzeugendensystem und lineare Unabhängigkeit definieren; Basen erkennen und das Austauschlemma anwenden; Den Dimensionsbegriff und endlichdimensionale Räume beherrschen.
+
+Lektionen:
+
+- Erzeugendensystem und lineare Unabhängigkeit (Fortgeschritten, ~55 min)
+- Basis und Austauschlemma (Fortgeschritten, ~60 min)
+- Dimension endlichdimensionaler Räume (Fortgeschritten, ~55 min)
+
+### Lineare Abbildungen
+
+Lernziele: Lineare Abbildungen definieren und Kern/Bild berechnen; Den Rang-Nullitätssatz anwenden; Darstellungsmatrix und Basiswechsel beherrschen.
+
+Lektionen:
+
+- Definition, Kern und Bild (Fortgeschritten, ~55 min)
+- Rang-Nullitätssatz (Fortgeschritten, ~50 min)
+- Darstellungsmatrix und Basiswechsel (Fortgeschritten → Profi, ~65 min)
+
+### Eigenwerte
+
+Lernziele: Eigenwerte und Eigenvektoren definieren und berechnen; Das charakteristische Polynom nutzen; Diagonalisierbarkeit und Vielfachheiten beurteilen.
+
+Lektionen:
+
+- Eigenwerte und Eigenvektoren (Profi, ~55 min)
+- Charakteristisches Polynom (Profi, ~60 min)
+- Diagonalisierbarkeit und Vielfachheiten (Profi, ~65 min)
+
+### Skalarprodukt und Orthogonalität
+
+Lernziele: Skalarprodukte definieren und Cauchy-Schwarz anwenden; Orthogonale Projektionen und Gram-Schmidt berechnen; QR-Zerlegung und orthogonale Matrizen nutzen.
+
+Lektionen:
+
+- Skalarprodukt und Cauchy-Schwarz (Profi, ~55 min)
+- Projektion und Gram-Schmidt (Profi, ~65 min)
+- QR-Zerlegung und orthogonale Matrizen (Profi, ~60 min)
+
+### Struktur von Vektorräumen (LA2)
+
+Lernziele: Direkte Summen und Quotientenräume bilden; Dualraum und Dualabbildung verstehen; Den Annihilator einsetzen.
+
+Lektionen:
+
+- Direkte Summen und Komplemente (Profi, ~55 min)
+- Quotientenräume (Profi, ~60 min)
+- Dualraum und Dualabbildung (Profi, ~65 min)
+
+### Normalformen von Endomorphismen (LA2)
+
+Lernziele: Invariante Unterräume und Cayley-Hamilton nutzen; Minimalpolynom und seine Beziehung zum charakteristischen Polynom; Jordan-Normalform und rationale Normalform bestimmen.
+
+Lektionen:
+
+- Invariante Unterräume und Cayley-Hamilton (Profi, ~60 min)
+- Minimalpolynom (Profi, ~60 min)
+- Jordan-Normalform und rationale Normalform (Profi, ~70 min)
+
+### Bilinearformen und Geometrie (LA2)
+
+Lernziele: Bilinear- und Sesquilinearformen mit Darstellungsmatrix beschreiben; Symmetrische Formen, Signatur und den Satz von Sylvester anwenden; Orthogonale, unitäre und symplektische Gruppen einordnen.
+
+Lektionen:
+
+- Bilinear- und Sesquilinearformen (Profi, ~60 min)
+- Signatur und Satz von Sylvester (Profi, ~65 min)
+- Klassische Gruppen und selbstadjungierte Operatoren (Profi, ~65 min)
+
+### Moduln über Hauptidealringen (LA2)
+
+Lernziele: Ringe, Ideale und Moduln als Verallgemeinerung von Vektorräumen verstehen; Freie Moduln und den Struktursatz über Hauptidealringen anwenden; Normalformen als Modul-Quotient über $K[x]$ interpretieren.
+
+Lektionen:
+
+- Ringe und Ideale (Profi, ~60 min)
+- Moduln und der Struktursatz (Profi, ~65 min)
+- Normalformen als Modul über K[x] (Profi, ~70 min)
+
+### Freiburg: Klausurtraining
+
+Lernziele: Typische LA1-Klausuraufgaben sicher erkennen; Typische LA2-Klausuraufgaben lösen; Prüfungsstrategie und Freiburg-Dozentenbezug nutzen.
+
+Lektionen:
+
+- Typische LA1-Aufgaben (Profi, ~60 min)
+- Typische LA2-Aufgaben (Profi, ~65 min)
+- Prüfungsstrategie und Freiburg-Dozenten (Profi, ~55 min)
 

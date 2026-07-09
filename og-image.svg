@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Lineare Algebra Trainer — 11 Module, 36 Lektionen, offline-fähig">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Lineare Algebra Trainer — 17 Module, 52 Lektionen, LA1 + LA2, offline-fähig">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0b1220"/>
@@ -49,10 +49,10 @@
   <rect x="80" y="275" width="320" height="48" rx="24" fill="url(#accent)"/>
   <text x="240" y="307" text-anchor="middle" class="tag">kostenlos · offline · interaktiv</text>
 
-  <text x="80" y="370" class="sub">Von 0 bis Bachelor-fit — Theorie, Übungen,</text>
+  <text x="80" y="370" class="sub">Von 0 bis LA2 — Theorie, Übungen,</text>
   <text x="80" y="410" class="sub">Quiz und Rechenwerkzeuge.</text>
 
-  <text x="80" y="490" class="meta">11 Module · 36 Lektionen · Mini-Quiz · Spielfortschritt</text>
+  <text x="80" y="490" class="meta">17 Module · 52 Lektionen · LA1 + LA2 · Mini-Quiz · Spielfortschritt</text>
 
   <text x="80" y="575" class="brand">Made in the Blackforest — von Huskynarr</text>
 </svg>

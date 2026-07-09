@@ -1,958 +1,1401 @@
 window.LEARNING_PATH = Object.freeze([
   {
     id: "mod-0",
-    title: "Vorab: Komplexe Zahlen",
+    title: "Start: Rechnen & Terme auffrischen",
     level: "Einsteiger",
-    targetHours: 6,
+    targetHours: 8,
     goals: [
-      "Komplexe Zahlen verstehen und darstellen",
-      "Mit komplexen Zahlen rechnen",
-      "Verbindung zu Eigenwerten herstellen"
+      "Sicher mit Vorzeichen, Brüchen und Dezimalzahlen rechnen",
+      "Terme zusammenfassen und Klammern auflösen",
+      "Binomische Formeln anwenden"
     ],
     lessons: [
       {
         id: "m0-l1",
-        title: "Was sind komplexe Zahlen?",
+        title: "Zahlen und Vorzeichen",
         difficulty: "Einsteiger",
-        estimatedMinutes: 40,
+        estimatedMinutes: 35,
         theory: [
-          "Manche Gleichungen haben keine normale Lösung, z.B. $x^2 = -1$. Keine echte Zahl ergibt -1 wenn man sie quadriert.",
-          "Deshalb erfinden Mathematiker die Zahl $i$ mit der Eigenschaft $i^2 = -1$. Das ist die 'imaginäre Einheit'.",
-          "Eine komplexe Zahl hat die Form $z = a + bi$, wobei $a$ und $b$ normale Zahlen sind. $a$ heißt der Realteil, $b$ der Imaginärteil.",
-          "Stell dir ein Koordinatensystem vor: Die x-Achse ist der Realteil, die y-Achse der Imaginärteil. Jede komplexe Zahl ist ein Punkt darin."
+          "Wir rechnen mit ganzen Zahlen, Brüchen und Dezimalzahlen. Wichtig sind die Vorzeichen: eine negative Zahl hat ein Minus davor, zum Beispiel $-3$.",
+          "Beim Addieren gilt: gleichnamige Vorzeichen werden addiert, unterschiedliche voneinander abgezogen. $(-5)+(-3)=-8$, aber $(-5)+3=-2$.",
+          "Beim Multiplizieren gilt die Vorzeichenregel: minus mal minus gibt plus. $(-4)\cdot(-3)=12$, dagegen $(-4)\cdot 3=-12$.",
+          "Der Betrag $|a|$ macht jede Zahl positiv: $|-7|=7$ und $|7|=7$."
         ],
-        example: "$z = 3 + 4i$ ist eine komplexe Zahl. Realteil = 3, Imaginärteil = 4. In der komplexen Ebene liegt dieser Punkt bei (3, 4).",
-        exercise: "Schreibe die komplexe Zahl $z = 5 - 2i$ in der Form $a + bi$ auf. Was ist Realteil, was ist Imaginärteil?",
-        hint: "Realteil ist die Zahl vor dem $i$, Imaginärteil die Zahl dahinter (mit Vorzeichen).",
-        solution: "$z = 5 - 2i$ steht schon in der Form $a + bi$ mit $a = 5$ und $b = -2$.\nRealteil: $a = 5$\nImaginärteil: $b = -2$\nIn der komplexen Ebene liegt der Punkt bei $(5, -2)$.",
+        example: "$(-2)+5-(-3)=-2+5+3=6$. Schritt für Schritt: erst $-2+5=3$, dann $3-(-3)=3+3=6$.",
+        exercise: "Berechne $(-7)\cdot(-2)+(-3)$.",
+        hint: "Erst multiplizieren (minus mal minus gibt plus), dann addieren.",
+        solution: "Schritt 1 — Multiplikation: $(-7)\cdot(-2)=14$.\nSchritt 2 — Addition: $14+(-3)=11$.\nErgebnis: $11$.",
         quiz: {
-          inputType: "text",
-          question: "Was ist der Imaginärteil von $z = 7 - 3i$?",
-          correctAnswer: "-3",
-          acceptAnswers: ["-3", "-3i"],
-          placeholder: "Zahl eingeben...",
-          explanation: "Der Imaginärteil ist die Zahl vor dem $i$, also -3.",
-          solution: "Bei $z = a + bi$ ist $a$ der Realteil und $b$ der Imaginärteil. Hier: $a = 7$, $b = -3$. Also ist der Imaginärteil $-3$."
+          question: "Was ergibt $(-6)\cdot(-4)$?",
+          options: ["$-24$", "$24$", "$-10$", "$10$"],
+          answerIndex: 1,
+          explanation: "Minus mal minus gibt plus: $(-6)\cdot(-4)=24$."
         }
       },
       {
         id: "m0-l2",
-        title: "Mit komplexen Zahlen rechnen",
+        title: "Brüche und Dezimalzahlen",
         difficulty: "Einsteiger",
-        estimatedMinutes: 50,
+        estimatedMinutes: 45,
         theory: [
-          "Addition: Realteile und Imaginärteile werden einzeln addiert. $(a + bi) + (c + di) = (a+c) + (b+d)i$.",
-          "Multiplikation: Wie bei Klammern ausmultiplizieren, dabei $i^2 = -1$ verwenden. $(a+bi)(c+di) = (ac - bd) + (ad + bc)i$.",
-          "Die 'konjugiert komplexe Zahl' von $z = a + bi$ ist $\\bar{z} = a - bi$. Damit kann man Division durchführen."
+          "Ein Bruch $\\tfrac{a}{b}$ besteht aus Zähler $a$ und Nenner $b$. Erweitern heißt Zähler und Nenner mit derselben Zahl multiplizieren, Kürzen heißt durch dieselbe Zahl teilen.",
+          "Brüche werden addiert, indem man sie auf einen gemeinsamen Nenner bringt: $\\tfrac{1}{2}+\\tfrac{1}{3}=\\tfrac{3}{6}+\\tfrac{2}{6}=\\tfrac{5}{6}$.",
+          "Multipliziert wird Zähler mal Zähler, Nenner mal Nenner: $\\tfrac{2}{3}\cdot\\tfrac{4}{5}=\\tfrac{8}{15}$. Division durch einen Bruch ist Multiplikation mit dem Kehrwert: $\\tfrac{a}{b}:\\tfrac{c}{d}=\\tfrac{a}{b}\cdot\\tfrac{d}{c}$.",
+          "Eine Dezimalzahl wie $0{,}75$ ist derselbe Wert wie der Bruch $\\tfrac{3}{4}$.-periodische Dezimalzahlen (z. B. $0{,}\\overline{3}=\\tfrac{1}{3}$) entsprechen stets einem Bruch."
         ],
-        example: "$(2 + 3i) + (1 - i) = 3 + 2i$. Und $(2 + 3i)(1 - i) = 2 - 2i + 3i - 3i^2 = 2 + i + 3 = 5 + i$.",
-        exercise: "Berechne $(1 + 2i) \\cdot (3 - i)$.",
-        hint: "Klammern ausmultiplizieren und $i^2 = -1$ einsetzen.",
-        solution: "Schritt 1 — Klammer ausmultiplizieren:\n$(1 + 2i) \\cdot (3 - i) = 1\\cdot 3 + 1\\cdot (-i) + 2i\\cdot 3 + 2i\\cdot (-i)$\n$= 3 - i + 6i - 2i^2$\nSchritt 2 — $i^2 = -1$ einsetzen:\n$= 3 + 5i - 2\\cdot(-1) = 3 + 5i + 2$\nSchritt 3 — zusammenfassen:\n$= 5 + 5i$",
+        example: "$\\tfrac{2}{5}+\\tfrac{1}{4}=\\tfrac{8}{20}+\\tfrac{5}{20}=\\tfrac{13}{20}$. Gemeinsamer Nenner ist $20$, da $20=5\cdot 4$.",
+        exercise: "Berechne $\\tfrac{3}{4}\cdot\\tfrac{2}{9}$ und kürze das Ergebnis.",
+        hint: "Zähler mal Zähler, Nenner mal Nenner, dann kürzen: $\\tfrac{6}{36}$.",
+        solution: "$\\tfrac{3}{4}\cdot\\tfrac{2}{9}=\\tfrac{3\cdot 2}{4\cdot 9}=\\tfrac{6}{36}=\\tfrac{1}{6}$.\nProbe: $\\tfrac{1}{6}\approx 0{,}1\\overline{6}$ und $\\tfrac{3}{4}\cdot\\tfrac{2}{9}=0{,}75\cdot 0{,}\\overline{2}\approx 0{,}1\\overline{6}$.",
         quiz: {
-          inputType: "text",
-          question: "Berechne $(1 + 2i) \\cdot (3 - i)$. Gib das Ergebnis in der Form $a + bi$ ein.",
-          correctAnswer: "5 + 5i",
-          acceptAnswers: ["5+5i", "5 + 5i"],
-          placeholder: "z.B. 3 + 4i",
-          explanation: "Ausmultiplizieren: $1 \\cdot 3 + 1 \\cdot (-i) + 2i \\cdot 3 + 2i \\cdot (-i) = 3 - i + 6i - 2i^2 = 3 + 5i + 2 = 5 + 5i$.",
-          solution: "Schritt 1: Klammer ausmultiplizieren: $1 \\cdot 3 = 3$, $1 \\cdot (-i) = -i$, $2i \\cdot 3 = 6i$, $2i \\cdot (-i) = -2i^2 = +2$.\\nSchritt 2: Zusammenfassen: $3 + 2 + (-i + 6i) = 5 + 5i$."
+          question: "Wie teilt man $\\tfrac{2}{3}$ durch $\\tfrac{4}{5}$?",
+          options: ["$\\tfrac{8}{15}$", "$\\tfrac{5}{6}$", "$\\tfrac{2}{5}$", "$\\tfrac{4}{3}$"],
+          answerIndex: 1,
+          explanation: "Division durch einen Bruch ist Multiplikation mit dem Kehrwert: $\\tfrac{2}{3}\cdot\\tfrac{5}{4}=\\tfrac{10}{12}=\\tfrac{5}{6}$."
         }
       },
       {
         id: "m0-l3",
-        title: "Warum braucht man komplexe Zahlen in der Linearen Algebra?",
+        title: "Terme, Klammern und binomische Formeln",
         difficulty: "Einsteiger",
-        estimatedMinutes: 35,
+        estimatedMinutes: 50,
         theory: [
-          "Einige Matrizen haben keine reellen Eigenwerte, sondern komplexe. Zum Beispiel Drehungen in der Ebene.",
-          "Das charakteristische Polynom $\\det(A - \\lambda I) = 0$ kann komplexe Nullstellen haben — die dann die Eigenwerte sind.",
-          "Auch wenn die Eingangsmatrix reell ist, können komplexe Eigenwerte auftreten. Das ist normal und kein Fehler."
+          "Ein Term ist ein Rechenausdruck mit Variablen, z. B. $3x+2$. Gleichartige Terme fasst man zusammen: $5x+3x=8x$, aber $5x+3$ lässt sich nicht weiter zusammenfassen.",
+          "Eine Klammer wird ausmultipliziert: $a(b+c)=ab+ac$. Bei $-(b+c)$ dreht sich jedes Vorzeichen um: $-(b+c)=-b-c$.",
+          "Die drei binomischen Formeln lauten: $(a+b)^2=a^2+2ab+b^2$, $(a-b)^2=a^2-2ab+b^2$ und $(a+b)(a-b)=a^2-b^2$.",
+          "Die dritte Formel ist besonders nützlich, weil sie ein Produkt aus Summe und Differenz zu einer Differenz der Quadrate macht."
         ],
-        example: "Die Drehmatrix $\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$ hat die Eigenwerte $\\lambda = \\pm i$. Diese sind komplex, obwohl die Matrix nur reelle Zahlen enthält.",
-        exercise: "Warum ist es wichtig, komplexe Zahlen zu kennen, bevor man Eigenwerte lernt?",
-        hint: "Denk an das charakteristische Polynom — nicht immer hat es reelle Nullstellen.",
-        solution: "Eigenwerte sind die Nullstellen des charakteristischen Polynoms $\\det(A - \\lambda I) = 0$.\nDieses Polynom kann komplexe Nullstellen haben — selbst wenn die Matrix nur reelle Zahlen enthält.\nBeispiel: Die Drehmatrix $\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$ hat die Eigenwerte $\\lambda = i$ und $\\lambda = -i$.\nOhne komplexe Zahlen könnte man diese Eigenwerte gar nicht angeben. Deshalb lernt man sie zuerst kennen.",
+        example: "$(x+3)(x-3)=x^2-9$ mit der dritten binomischen Formel. Geht auch ohne schrittweises Ausmultiplizieren.",
+        exercise: "Vereinfache $(2x+1)^2-(2x-1)(2x+1)$.",
+        hint: "Erste Klammer: erste binomische Formel. Zweite Klammer: dritte binomische Formel. Dann abziehen.",
+        solution: "Schritt 1 — $(2x+1)^2=4x^2+4x+1$ (erste binomische Formel).\nSchritt 2 — $(2x-1)(2x+1)=(2x)^2-1^2=4x^2-1$ (dritte binomische Formel).\nSchritt 3 — abziehen: $(4x^2+4x+1)-(4x^2-1)=4x^2+4x+1-4x^2+1=4x+2$.",
         quiz: {
-          question: "Können reelle Matrizen komplexe Eigenwerte haben?",
-          options: ["Nein, niemals", "Ja, das kommt häufig vor (z.B. bei Drehungen)", "Nur wenn die Matrix null ist", "Nur bei sehr großen Matrizen"],
-          answerIndex: 1,
-          explanation: "Ja! Auch reelle Matrizen können komplexe Eigenwerte haben. Das ist ganz normal — z.B. bei Drehmatrizen."
+          question: "Welche binomische Formel steckt in $(a+b)(a-b)$?",
+          options: ["$(a+b)^2$", "$(a-b)^2$", "Dritte binomische Formel: $a^2-b^2$", "Gar keine"],
+          answerIndex: 2,
+          explanation: "Das ist die dritte binomische Formel: Summe mal Differenz ergibt die Differenz der Quadrate, $a^2-b^2$."
         }
       }
     ]
   },
   {
     id: "mod-1",
-    title: "Start: Mathe-Basics auffrischen",
+    title: "Gleichungen, Mengen und Beweise",
     level: "Einsteiger",
-    targetHours: 8,
+    targetHours: 10,
     goals: [
-      "Zahlen und Rechnen sicher beherrschen",
-      "Mit Klammern und Termen umgehen können",
-      "Erste Beweise verstehen"
+      "Lineare und quadratische Gleichungen lösen",
+      "Mengen, Abbildungen und logische Quantoren verstehen",
+      "Beweise per Summenzeichen und vollständiger Induktion führen"
     ],
     lessons: [
       {
         id: "m1-l1",
-        title: "Zahlen, Terme und Klammern",
+        title: "Gleichungen lösen",
         difficulty: "Einsteiger",
         estimatedMinutes: 45,
         theory: [
-          "Es gibt verschiedene Zahlenarten: normale Zahlen (1, 2, 3 ...), negative Zahlen (-1, -2 ...), Brüche (½, ¾) und Kommazahlen (3,14).",
-          "Beim Rechnen gibt es wichtige Regeln: Tauschgesetz (3+5 = 5+3), Klammergesetz ((2·3)·4 = 2·(3·4)) und Verteilungsgesetz (a·(b+c) = a·b + a·c).",
-          "Das Verteilungsgesetz bedeutet: Wenn du eine Zahl vor einer Klammer hast, multiplizierst du sie mit jedem Teil in der Klammer."
+          "Eine lineare Gleichung hat die Form $ax+b=0$. Man isoliert $x$: $ax+b=0\Rightarrow ax=-b\Rightarrow x=-\tfrac{b}{a}$ (für $a\neq 0$).",
+          "Eine quadratische Gleichung $x^2+px+q=0$ löst man mit der pq-Formel: $x_{1,2}=-\tfrac{p}{2}\pm\sqrt{\tfrac{p^2}{4}-q}$. Die Zahl unter der Wurzel heißt Diskriminante; ist sie negativ, gibt es keine reelle Lösung.",
+          "Allgemeiner: $ax^2+bx+c=0$ mit $x_{1,2}=\tfrac{-b\pm\sqrt{b^2-4ac}}{2a}$ für $a\neq 0$.",
+          "Wichtig: jede Umformung muss auf beiden Seiten gleichzeitig erfolgen. Eine Gleichung bleibt wahr, wenn man beide Seiten mit derselben Zahl addiert, subtrahiert, multipliziert oder durch dieselbe von null verschiedene Zahl teilt."
         ],
-        example: "Rechne 3·(4 + 2) aus. Statt erst zu addieren, kannst du auch rechnen: 3·4 + 3·2 = 12 + 6 = 18. Beides gibt 18!",
-        exercise: "Vereinfache den Ausdruck 2·(x + 3) + 4·(x - 1) und finde x, wenn das Ergebnis 14 sein soll.",
-        hint: "Multipliziere zuerst die Zahlen vor den Klammern in die Klammern hinein.",
-        solution: "Schritt 1 — Klammern auflösen (Verteilungsgesetz):\n$2\\cdot(x + 3) + 4\\cdot(x - 1) = 2x + 6 + 4x - 4$\nSchritt 2 — zusammenfassen:\n$= (2x + 4x) + (6 - 4) = 6x + 2$\nSchritt 3 — Gleichung aufstellen, falls das Ergebnis 14 sein soll:\n$6x + 2 = 14$\n$6x = 12$\n$x = 2$\nProbe: $2\\cdot(2+3) + 4\\cdot(2-1) = 2\\cdot 5 + 4\\cdot 1 = 10 + 4 = 14$. ✓",
+        example: "$x^2-5x+6=0$. Mit $p=-5$, $q=6$: $x_{1,2}=\tfrac{5}{2}\pm\sqrt{\tfrac{25}{4}-6}=\tfrac{5}{2}\pm\sqrt{\tfrac{1}{4}}=\tfrac{5}{2}\pm\tfrac{1}{2}$, also $x_1=3$, $x_2=2$.",
+        exercise: "Löse $2x^2-4x+2=0$.",
+        hint: "Erst durch $2$ teilen, dann pq-Formel anwenden.",
+        solution: "Durch $2$ teilen: $x^2-2x+1=0$, also $p=-2$, $q=1$.\n$x_{1,2}=1\pm\sqrt{1-1}=1\pm 0=1$.\nEs gibt genau eine (doppelte) Lösung: $x=1$.",
         quiz: {
-          question: "Was bedeutet das Verteilungsgesetz a·(b + c) = a·b + a·c?",
-          options: ["Man darf Klammern weglassen", "Man multipliziert die Zahl vor der Klammer mit jedem Teil darin", "Man addiert zuerst", "Man dividiert alles"],
-          answerIndex: 1,
-          explanation: "Die Zahl vor der Klammer wird mit jedem Teil in der Klammer multipliziert."
+          question: "Was bedeutet eine negative Diskriminante bei einer quadratischen Gleichung mit reellen Koeffizienten?",
+          options: ["Zwei reelle Lösungen", "Genau eine Lösung", "Keine reelle Lösung", "Unendlich viele Lösungen"],
+          answerIndex: 2,
+          explanation: "Ist die Diskriminante negativ, wird die Wurzel imaginär — es gibt keine reelle Lösung."
         }
       },
       {
         id: "m1-l2",
-        title: "Gleichungen und Funktionen",
+        title: "Mengen, Abbildungen und Logik",
         difficulty: "Einsteiger",
         estimatedMinutes: 50,
         theory: [
-          "Eine Gleichung ist wie eine Waage: Links und rechts muss das Gleiche rauskommen. Beispiel: 2x + 3 = 11 bedeutet: Welche Zahl für x macht beide Seiten gleich?",
-          "Eine Funktion ist wie eine Maschine: Du steckst eine Zahl rein (x) und bekommst eine andere raus (y). Beispiel: f(x) = 3x bedeutet, jede Zahl wird verdreifacht.",
-          "Wenn du eine Funktion als Bild zeichnest, entsteht bei einfachen Funktionen eine Gerade (wie ein Diagramm auf Millimeterpapier)."
+          "Eine Menge ist eine Zusammenfassung von Elementen, geschrieben als $\{a,b,c\}$. Die leere Menge heißt $\emptyset$. Die Notation $x\in M$ bedeutet „$x$ ist Element von $M$“.",
+          "Eine Abbildung (Funktion) $f:A\to B$ ordnet jedem Element von $A$ (Definitionsbereich) genau ein Element von $B$ (Zielbereich) zu. Sie heißt injektiv, wenn verschiedene Elemente verschiedene Bilder haben, surjektiv, wenn das Ziel ganz getroffen wird, und bijektiv, wenn beides gilt.",
+          "In der Mathematik formuliert man Aussagen mit Quantoren: $\forall$ (für alle) und $\exists$ (es existiert). „Für alle $x$ existiert ein $y$“ heißt $\forall x\;\exists y$.",
+          "Der Beweis durch Kontraposition nutzt: die Aussage „Aus $A$ folgt $B$“ ist äquivalent zu „Aus $\neg B$ folgt $\neg A$“."
         ],
-        example: "f(x) = 2x + 1. Steckst du x=3 rein, kommt raus: 2·3+1 = 7. Die Maschine macht aus 3 die Zahl 7.",
-        exercise: "Finde heraus, bei welchem x die Funktion f(x) = -3x + 12 den Wert 0 hat (also die Nullstelle).",
-        hint: "Setze f(x) = 0 und löse nach x auf: -3x + 12 = 0.",
-        solution: "Wir setzen $f(x) = 0$:\n$-3x + 12 = 0$\n$-3x = -12$\n$x = 4$\nProbe: $f(4) = -3\\cdot 4 + 12 = -12 + 12 = 0$. ✓\nDie Nullstelle liegt bei $x = 4$.",
+        example: "$f:\mathbb{R}\to\mathbb{R}$, $f(x)=x^2$ ist nicht injektiv (denn $f(2)=f(-2)=4$) und nicht surjektiv (negativen Zahlen werden nie getroffen). Dagegen ist $g:\mathbb{R}\to[0,\infty)$, $g(x)=x^2$ surjektiv.",
+        exercise: "Ist $f:\mathbb{R}\to\mathbb{R}$, $f(x)=2x+1$ bijektiv? Begründe.",
+        hint: "Prüfe Injektivität (verschiedene Eingaben $\Rightarrow$ verschiedene Ausgaben) und Surjektivität (kann man jedes $y$ erreichen?).",
+        solution: "Injektiv: $2x_1+1=2x_2+1\Rightarrow 2x_1=2x_2\Rightarrow x_1=x_2$. Also injektiv.\nSurjektiv: Zu jedem $y\in\mathbb{R}$ wähle $x=\tfrac{y-1}{2}$, dann $f(x)=y$. Also surjektiv.\nDa $f$ injektiv und surjektiv ist, ist $f$ bijektiv.",
         quiz: {
-          question: "Was ist eine Funktion?",
-          options: ["Eine sehr schwierige Rechnung", "Eine Maschine, die aus einer Eingabe eine Ausgabe macht", "Eine Gleichung mit x", "Ein Diagramm"],
+          question: "Wann heißt eine Abbildung $f:A\to B$ bijektiv?",
+          options: ["Wenn sie injektiv oder surjektiv ist", "Wenn sie injektiv und surjektiv ist", "Wenn $A=B$ ist", "Wenn sie linear ist"],
           answerIndex: 1,
-          explanation: "Eine Funktion nimmt eine Zahl (x) und gibt eine andere Zahl zurück — wie eine Maschine."
+          explanation: "Bijektiv bedeutet injektiv (verschiedene Elemente haben verschiedene Bilder) und surjektiv (das Ziel wird vollständig getroffen) zugleich."
         }
       },
       {
         id: "m1-l3",
-        title: "Summenzeichen und Beweise",
+        title: "Summenzeichen und vollständige Induktion",
         difficulty: "Einsteiger",
         estimatedMinutes: 55,
         theory: [
-          "Das Summenzeichen Σ (großes griechisches Sigma) ist eine Abkürzung für 'addiere viele Zahlen'. Statt 1+2+3+4+5 zu schreiben, kann man Σ verwenden.",
-          "Ein Beweis ist wie eine Erklärung, warum etwas stimmt. Man zeigt Schritt für Schritt, dass eine Behauptung richtig ist.",
-          "Es gibt verschiedene Beweisarten: Man kann direkt zeigen, dass etwas stimmt. Oder man nimmt an, es stimmt nicht, und zeigt, dass das einen Widerspruch ergibt."
+          "Das Summenzeichen fasst eine Summe zusammen: $\sum_{i=1}^{n} a_i=a_1+a_2+\dots+a_n$. Der Index $i$ läuft von $1$ bis $n$.",
+          "Ein wichtiger Spezialfall ist die Gaußsche Summe: $\sum_{i=1}^{n} i=\tfrac{n(n+1)}{2}$, also $1+2+\dots+n$.",
+          "Die vollständige Induktion beweist eine Aussage $A(n)$ für alle $n\geq n_0$ in zwei Schritten: Induktionsanfang (IA) zeige $A(n_0)$, Induktionsschluss (IS) zeige: gilt $A(n)$, so gilt auch $A(n+1)$.",
+          "Die Annahme „$A(n)$ gilt“ heißt Induktionsvoraussetzung (IV). Im Schluss nutzt man IV, um von $n$ auf $n+1$ zu kommen."
         ],
-        example: "Statt 1+2+3+4+5 = 15 zu schreiben, schreibt man Σ und meint: 'Addiere alle Zahlen von 1 bis 5'. Das Ergebnis ist 15.",
-        exercise: "Addiere die Zahlen 3 + 6 + 9 + 12 + 15. Erkläre, wie du vorgegangen bist.",
-        hint: "Du kannst einfach der Reihe nach addieren oder schauen, ob es ein Muster gibt.",
-        solution: "Einfach der Reihe nach addieren:\n$3 + 6 = 9$\n$9 + 9 = 18$\n$18 + 12 = 30$\n$30 + 15 = 45$\nMuster-Beobachtung: Alle Zahlen sind Vielfache von 3 — $3\\cdot 1, 3\\cdot 2, 3\\cdot 3, 3\\cdot 4, 3\\cdot 5$.\nMit Summenzeichen: $3\\cdot \\sum_{k=1}^{5} k = 3\\cdot(1+2+3+4+5) = 3\\cdot 15 = 45$.\nErgebnis: 45.",
+        example: "Gaußsche Summe für $n=4$: $\sum_{i=1}^{4} i=1+2+3+4=10=\tfrac{4\cdot 5}{2}=10$.",
+        exercise: "Zeige per Induktion: $\sum_{i=1}^{n} i=\tfrac{n(n+1)}{2}$ für alle $n\geq 1$.",
+        hint: "IA: $n=1$. IS: schreibe $\sum_{i=1}^{n+1} i = \sum_{i=1}^{n} i + (n+1)$ und nutze die IV.",
+        solution: "Induktionsanfang ($n=1$): $\sum_{i=1}^{1} i=1=\tfrac{1\cdot 2}{2}=1$. ✓\nInduktionsvoraussetzung: es gelte $\sum_{i=1}^{n} i=\tfrac{n(n+1)}{2}$.\nInduktionsschluss ($n\to n+1$):\n$\sum_{i=1}^{n+1} i = \sum_{i=1}^{n} i + (n+1) = \tfrac{n(n+1)}{2} + (n+1) = \tfrac{n(n+1)+2(n+1)}{2} = \tfrac{(n+1)(n+2)}{2}$.\nDas ist genau die Formel mit $n+1$ statt $n$. Also gilt die Aussage für alle $n\geq 1$.",
         quiz: {
-          question: "Wofür steht das Summenzeichen Σ?",
-          options: ["Subtrahieren", "Addieren vieler Zahlen", "Multiplizieren", "Eine schwere Rechnung"],
+          question: "Was ist die Induktionsvoraussetzung (IV)?",
+          options: ["Die Aussage für $n=1$", "Die Annahme, dass $A(n)$ gilt, um $A(n+1)$ zu zeigen", "Das Resultat am Ende", "Die zu beweisende Formel"],
           answerIndex: 1,
-          explanation: "Σ ist die Abkürzung für 'addiere alle diese Zahlen'."
+          explanation: "Die IV ist die Annahme, dass die Aussage für ein festes $n$ schon gilt; mit ihr zeigt man den Schritt auf $n+1$."
         }
       }
     ]
   },
   {
     id: "mod-2",
-    title: "Vektoren: Pfeile im Raum",
-    level: "Einsteiger",
-    targetHours: 10,
+    title: "Komplexe Zahlen",
+    level: "Einsteiger → Aufbau",
+    targetHours: 9,
     goals: [
-      "Verstehen, was ein Vektor ist",
-      "Mit Vektoren rechnen können",
-      "Linearkombinationen kennenlernen"
+      "Komplexe Zahlen definieren und in der Gaußschen Ebene darstellen",
+      "Mit komplexen Zahlen rechnen",
+      "Polarkoordinaten und den Fundamentalsatz der Algebra kennen"
     ],
     lessons: [
       {
         id: "m2-l1",
-        title: "Was ist ein Vektor?",
+        title: "Die imaginäre Einheit",
         difficulty: "Einsteiger",
-        estimatedMinutes: 45,
+        estimatedMinutes: 40,
         theory: [
-          "Ein Vektor ist ein Pfeil. Er hat eine Richtung und eine Länge. Stell dir vor, jemand sagt dir: 'Geh 3 Schritte nach rechts und 2 nach vorne' — das ist ein Vektor!",
-          "Man schreibt Vektoren als Zahlen in Klammern: (3, 2) bedeutet 3 nach rechts, 2 nach oben.",
-          "Vektoren kann man sich wie Wegbeschreibungen vorstellen: Der Startpunkt ist egal, wichtig ist nur die Richtung und wie weit man geht."
+          "Manche Gleichungen haben keine reelle Lösung, z. B. $x^2=-1$, da Quadrate reeller Zahlen nie negativ sind.",
+          "Deshalb erweitert man die reellen Zahlen um die imaginäre Einheit $i$ mit der Eigenschaft $i^2=-1$.",
+          "Eine komplexe Zahl hat die Form $z=a+bi$ mit $a,b\in\mathbb{R}$. Dabei heißt $a=\operatorname{Re}(z)$ der Realteil und $b=\operatorname{Im}(z)$ der Imaginärteil.",
+          "Die Menge aller komplexen Zahlen heißt $\mathbb{C}$. In der Gaußschen Ebene wird $z=a+bi$ als Punkt $(a,b)$ dargestellt: die $x$-Achse ist der Realteil, die $y$-Achse der Imaginärteil."
         ],
-        example: "Der Vektor (2, 1) bedeutet: Geh 2 Schritte nach rechts und 1 Schritt nach oben. Der Vektor (-1, 3) bedeutet: 1 Schritt nach links und 3 nach oben.",
-        exercise: "Zeichne die Vektoren (2, 1), (-1, 2) und (1, -2) in ein Koordinatensystem. Starte immer bei (0, 0).",
-        hint: "Die erste Zahl ist immer nach rechts/links, die zweite nach oben/unten.",
-        solution: "Zeichne ein Koordinatensystem mit x- und y-Achse. Jeder Pfeil beginnt im Ursprung $(0, 0)$.\nVektor $(2, 1)$: Pfeilspitze bei $(2, 1)$ — 2 nach rechts, 1 nach oben.\nVektor $(-1, 2)$: Pfeilspitze bei $(-1, 2)$ — 1 nach links, 2 nach oben.\nVektor $(1, -2)$: Pfeilspitze bei $(1, -2)$ — 1 nach rechts, 2 nach unten.\nLängen (Satz des Pythagoras):\n$|(2, 1)| = \\sqrt{4 + 1} = \\sqrt{5} \\approx 2{,}24$\n$|(-1, 2)| = \\sqrt{1 + 4} = \\sqrt{5} \\approx 2{,}24$\n$|(1, -2)| = \\sqrt{1 + 4} = \\sqrt{5} \\approx 2{,}24$\n(Die Visualisierung oben zeigt alle drei Vektoren.)",
-        visualization: {
-          type: "vector-plot",
-          mode: "static",
-          vectors: [[2, 1], [-1, 2], [1, -2]]
-        },
+        example: "$z=3+4i$ hat Realteil $3$ und Imaginärteil $4$ und liegt in der Gaußschen Ebene bei $(3,4)$.",
+        exercise: "Bestimme Real- und Imaginärteil von $z=5-2i$.",
+        hint: "Realteil ist die Zahl ohne $i$, Imaginärteil die Zahl vor dem $i$ (mit Vorzeichen).",
+        solution: "$z=5-2i=5+(-2)i$, also $a=5$, $b=-2$.\nRealteil: $\operatorname{Re}(z)=5$.\nImaginärteil: $\operatorname{Im}(z)=-2$.",
         quiz: {
-          question: "Was beschreibt ein Vektor?",
-          options: ["Nur eine Zahl", "Eine Richtung und eine Länge (wie ein Pfeil)", "Eine Farbe", "Nur eine Position"],
-          answerIndex: 1,
-          explanation: "Ein Vektor ist wie ein Pfeil: Er hat eine Richtung und eine Länge. Der Startpunkt ist egal."
+          inputType: "text",
+          question: "Was ist der Imaginärteil von $z=7-3i$?",
+          correctAnswer: "-3",
+          acceptAnswers: ["-3", "-3i"],
+          placeholder: "Zahl eingeben…",
+          explanation: "Der Imaginärteil ist die Zahl vor dem $i$, also $-3$.",
+          solution: "Bei $z=a+bi$ ist $b$ der Imaginärteil. Hier ist $b=-3$."
         }
       },
       {
         id: "m2-l2",
-        title: "Mit Vektoren rechnen",
-        difficulty: "Einsteiger",
-        estimatedMinutes: 60,
+        title: "Rechnen mit komplexen Zahlen",
+        difficulty: "Aufbau",
+        estimatedMinutes: 50,
         theory: [
-          "Vektoren addiert man, indem man die Zahlen einzeln zusammenzählt: (1, 2) + (3, 4) = (4, 6). Stell dir vor, du gehst erst einen Weg und dann noch einen.",
-          "Eine Zahl vor einem Vektor multipliziert jede Zahl im Vektor: 3·(1, 2) = (3, 6). Das bedeutet: Du gehst dreimal so weit in dieselbe Richtung.",
-          "Die Länge eines Vektors berechnet man mit dem Satz des Pythagoras: Länge von (a, b) = √(a² + b²). Das ist die Entfernung vom Start bis zum Ziel."
+          "Addition und Subtraktion erfolgen komponentenweise: $(a+bi)\pm(c+di)=(a\pm c)+(b\pm d)i$.",
+          "Multiplikation: Klammern ausmultiplizieren und $i^2=-1$ verwenden. $(a+bi)(c+di)=(ac-bd)+(ad+bc)i$.",
+          "Die konjugiert komplexe Zahl zu $z=a+bi$ ist $\bar z=a-bi$. Es gilt $z\bar z=a^2+b^2\in\mathbb{R}$.",
+          "Division: den Bruch mit $\bar z$ erweitern, damit der Nenner reell wird: $\tfrac{w}{z}=\tfrac{w\bar z}{z\bar z}$."
         ],
-        example: "u = (1, 2, 3) und v = (2, 0, 1). Dann ist u+v = (3, 2, 4) und 2·u = (2, 4, 6). Die Länge von u ist √(1+4+9) = √14 ≈ 3,7.",
-        exercise: "Berechne u+v und 3·u für u = (1, 1, 0) und v = (1, 0, 1). Berechne auch die Länge von v.",
-        hint: "Addiere jede Zahl einzeln. Für die Länge: Quadrate addieren und dann die Wurzel ziehen.",
-        solution: "Addition (komponentenweise):\n$u + v = (1, 1, 0) + (1, 0, 1) = (1+1,\\ 1+0,\\ 0+1) = (2, 1, 1)$\nSkalare Multiplikation:\n$3\\cdot u = 3\\cdot(1, 1, 0) = (3, 3, 0)$\nLänge von $v$ (Satz des Pythagoras):\n$|v| = \\sqrt{1^2 + 0^2 + 1^2} = \\sqrt{1 + 0 + 1} = \\sqrt{2} \\approx 1{,}41$",
-        visualization: {
-          type: "vector-plot",
-          mode: "addition",
-          u: [2, 1],
-          v: [1, 2]
-        },
+        example: "$(2+3i)(1-i)=2-2i+3i-3i^2=2+i+3=5+i$. Der Realteil entsteht aus $2-3i^2=2+3=5$.",
+        exercise: "Berechne $(1+2i)(3-i)$.",
+        hint: "Klammern ausmultiplizieren und $i^2=-1$ einsetzen.",
+        solution: "$(1+2i)(3-i)=1\cdot 3+1\cdot(-i)+2i\cdot 3+2i\cdot(-i)=3-i+6i-2i^2$.\nMit $i^2=-1$: $3+5i+2=5+5i$.",
         quiz: {
-          question: "Wie rechnet man (2, 3) + (4, 1)?",
-          options: ["(6, 3)", "(6, 4)", "(2, 4)", "(8, 3)"],
-          answerIndex: 1,
-          explanation: "Man addiert die Zahlen einzeln: 2+4=6 und 3+1=4, also (6, 4)."
+          inputType: "text",
+          question: "Berechne $(1+2i)(3-i)$ in der Form $a+bi$.",
+          correctAnswer: "5 + 5i",
+          acceptAnswers: ["5+5i", "5 + 5i"],
+          placeholder: "z. B. 3 + 4i",
+          explanation: "Ausmultiplizieren ergibt $3-i+6i-2i^2=3+5i+2=5+5i$.",
+          solution: "Klammern ausmultiplizieren: $3-i+6i-2i^2$. Mit $i^2=-1$ wird $-2i^2=+2$. Also $3+2+5i=5+5i$."
         }
       },
       {
         id: "m2-l3",
-        title: "Vektoren mischen: Linearkombination",
-        difficulty: "Einsteiger",
-        estimatedMinutes: 65,
+        title: "Polardarstellung und Fundamentalsatz",
+        difficulty: "Aufbau",
+        estimatedMinutes: 55,
         theory: [
-          "Eine Linearkombination ist, wenn man Vektoren mit Zahlen multipliziert und dann addiert. Beispiel: 2·(1,0) + 3·(0,1) = (2, 3).",
-          "Stell dir vor, du hast eine Sammlung von Wegbeschreibungen. Durch Mischen (Linearkombinationen) kannst du viele verschiedene Ziele erreichen.",
-          "Vektoren sind 'linear unabhängig', wenn man keinen von ihnen durch Mischen der anderen herstellen kann. Wie Bausteine, die alle unterschiedlich sind."
+          "Statt Koordinaten $(a,b)$ kann man $z$ durch Betrag $r=|z|=\sqrt{a^2+b^2}$ und Winkel $\varphi$ beschreiben: $z=r(\cos\varphi+i\sin\varphi)$. Der Winkel $\varphi$ heißt Argument.",
+          "Dank der Eulerschen Formel $e^{i\varphi}=\cos\varphi+i\sin\varphi$ schreibt man $z=r\,e^{i\varphi}$.",
+          "In Polardarstellung wird Multiplikation einfach: $r_1 e^{i\varphi_1}\cdot r_2 e^{i\varphi_2}=r_1 r_2\,e^{i(\varphi_1+\varphi_2)}$ — Beträge multiplizieren, Argumente addieren.",
+          "Der Fundamentalsatz der Algebra besagt: jedes nichtkonstante Polynom hat in $\mathbb{C}$ eine Nullstelle. Damit zerfällt jedes Polynom vom Grad $n$ über $\mathbb{C}$ in $n$ Linearfaktoren. Das ist der Grund, warum wir komplexe Zahlen für Eigenwerte brauchen."
         ],
-        example: "(3, 3) kann man aus (1, 1) und (2, 2) bauen: (3, 3) = (1, 1) + (2, 2). Also sind diese drei Vektoren voneinander abhängig.",
-        exercise: "Kannst du (1, 0, 1) aus (0, 1, 1) und (1, 1, 2) herstellen? Versuche es mit Zahlen davor.",
-        hint: "Probiere: a·(1,0,1) + b·(0,1,1) + c·(1,1,2) = (0,0,0). Wenn nur a=b=c=0 geht, sind sie unabhängig.",
-        solution: "Wir suchen $a, b$ mit $a\\cdot(0, 1, 1) + b\\cdot(1, 1, 2) = (1, 0, 1)$.\nKomponentenweise:\n1. Komponente: $0\\cdot a + 1\\cdot b = 1 \\Rightarrow b = 1$\n2. Komponente: $1\\cdot a + 1\\cdot b = 0 \\Rightarrow a + 1 = 0 \\Rightarrow a = -1$\n3. Komponente: $1\\cdot a + 2\\cdot b = 1 \\Rightarrow -1 + 2 = 1 \\Rightarrow 1 = 1$ ✓\nProbe: $-1\\cdot(0, 1, 1) + 1\\cdot(1, 1, 2) = (0, -1, -1) + (1, 1, 2) = (1, 0, 1)$. ✓\nAntwort: Ja, mit $a = -1$ und $b = 1$. Die Vektoren sind also linear abhängig.",
-        visualization: {
-          type: "vector-plot",
-          mode: "linear-combination",
-          u: [1, 0],
-          v: [0, 1]
-        },
+        example: "Die Drehmatrix $\begin{pmatrix}0&-1\\\\1&0\end{pmatrix}$ hat das charakteristische Polynom $\lambda^2+1$ mit Nullstellen $\lambda=\pm i$. Diese sind komplex, obwohl die Matrix reell ist.",
+        exercise: "Gib $z=1+i$ in Polardarstellung $r\,e^{i\varphi}$ an (Betrags- und Winkelwert).",
+        hint: "Betrag $r=\sqrt{1^2+1^2}$, Winkel $\varphi$ so, dass $\cos\varphi=\tfrac{a}{r}$, $\sin\varphi=\tfrac{b}{r}$.",
+        solution: "Betrag: $r=\sqrt{1^2+1^2}=\sqrt{2}$.\nWinkel: $\varphi=\tfrac{\pi}{4}$ (45°), denn $\cos\tfrac{\pi}{4}=\sin\tfrac{\pi}{4}=\tfrac{1}{\sqrt{2}}$.\nAlso $z=\sqrt{2}\,e^{i\pi/4}$.",
         quiz: {
-          question: "Was bedeutet 'linear unabhängig'?",
-          options: ["Alle Vektoren sind gleich lang", "Keinen Vektor kann man aus den anderen bauen", "Alle Vektoren zeigen nach oben", "Es gibt unendlich viele"],
+          question: "Was besagt der Fundamentalsatz der Algebra?",
+          options: ["Jedes Polynom hat nur reelle Nullstellen", "Jedes nichtkonstante Polynom hat in $\mathbb{C}$ eine Nullstelle", "Es gibt unendlich viele Primzahlen", "Jede Matrix ist diagonalisierbar"],
           answerIndex: 1,
-          explanation: "Linear unabhängig bedeutet: Keinen der Vektoren kann man durch Mischen der anderen herstellen."
+          explanation: "Über $\mathbb{C}$ hat jedes nichtkonstante Polynom mindestens eine Nullstelle, zerfällt also in Linearfaktoren."
         }
       }
     ]
   },
   {
     id: "mod-3",
-    title: "Matrizen: Zahlentabellen",
+    title: "Vektoren im R^n",
     level: "Einsteiger → Aufbau",
-    targetHours: 11,
+    targetHours: 10,
     goals: [
-      "Verstehen, was eine Matrix ist",
-      "Matrizen addieren und multiplizieren",
-      "Inverse Matrizen kennenlernen"
+      "Vektoren als Pfeile und als Zahlentupel auffassen",
+      "Addition und skalare Vielfache berechnen",
+      "Linearkombinationen und den Spann verstehen"
     ],
     lessons: [
       {
         id: "m3-l1",
-        title: "Was ist eine Matrix?",
-        difficulty: "Aufbau",
-        estimatedMinutes: 50,
+        title: "Was ist ein Vektor?",
+        difficulty: "Einsteiger",
+        estimatedMinutes: 40,
         theory: [
-          "Eine Matrix ist einfach eine Tabelle voller Zahlen. Wie eine Excel-Tabelle hat sie Zeilen (waagerecht) und Spalten (senkrecht).",
-          "Die Zahl ganz oben links ist in Zeile 1, Spalte 1. Die Zahl daneben in Zeile 1, Spalte 2 — und so weiter.",
-          "Besondere Matrizen: Eine Matrix mit lauter Nullen heißt Nullmatrix. Eine Matrix mit Einsen auf der Diagonalen und sonst Nullen heißt Einheitsmatrix (wie die Zahl 1 bei Matrizen)."
+          "Ein Vektor hat eine Länge und eine Richtung. Man schreibt ihn als Spalte $\vec v=\begin{pmatrix}v_1\\\\v_2\\\\\vdots\\\\v_n\end{pmatrix}$; die Einträge $v_i$ heißen Komponenten.",
+          "Im $\mathbb{R}^2$ ist $\vec v=\begin{pmatrix}3\\\\2\end{pmatrix}$ der Pfeil vom Ursprung zum Punkt $(3,2)$. Im $\mathbb{R}^3$ kommt eine dritte Komponente hinzu.",
+          "Der Nullvektor $\vec 0$ hat nur Nullen als Komponenten. Vektoren vergleicht man komponentenweise: gleich heißt, alle Komponenten stimmen überein.",
+          "Die Länge (Norm) ist $\lVert\vec v\rVert=\sqrt{v_1^2+\dots+v_n^2}$, also der Satz des Pythagoras verallgemeinert."
         ],
-        example: "Die Matrix [[1, 2], [0, 1]] hat 2 Zeilen und 2 Spalten. Die Zahl 1 oben links steht in Zeile 1, Spalte 1.",
-        exercise: "Schreibe eine Matrix mit 3 Zeilen und 2 Spalten auf. Notiere bei jeder Zahl, in welcher Zeile und Spalte sie steht.",
-        hint: "Zeile zuerst, Spalte danach: Die Zahl in Zeile 2, Spalte 1 ist die erste Zahl in der zweiten Reihe.",
-        solution: "Eine $3\\times 2$-Matrix hat 3 Zeilen und 2 Spalten, z.B.:\n$\\begin{pmatrix} 5 & 2 \\\\ 7 & 9 \\\\ 3 & 4 \\end{pmatrix}$\nEinträge (Schreibweise: Zeile zuerst, dann Spalte):\nZeile 1, Spalte 1: 5\nZeile 1, Spalte 2: 2\nZeile 2, Spalte 1: 7\nZeile 2, Spalte 2: 9\nZeile 3, Spalte 1: 3\nZeile 3, Spalte 2: 4",
+        example: "Die Länge von $\vec v=\begin{pmatrix}3\\\\4\end{pmatrix}$ ist $\sqrt{3^2+4^2}=\sqrt{25}=5$.",
+        exercise: "Berechne die Länge von $\vec v=\begin{pmatrix}1\\\\2\\\\2\end{pmatrix}$.",
+        hint: "Quadrate addieren und die Wurzel ziehen: $\sqrt{1^2+2^2+2^2}$.",
+        solution: "$\lVert\vec v\rVert=\sqrt{1^2+2^2+2^2}=\sqrt{1+4+4}=\sqrt{9}=3$.",
+        visualization: {
+          type: "vector-plot",
+          mode: "default",
+          u: [3, 2]
+        },
         quiz: {
-          question: "Wann kann man zwei Matrizen addieren?",
-          options: ["Immer", "Wenn beide gleich viele Zeilen und Spalten haben", "Nur bei quadratischen Matrizen", "Nie"],
-          answerIndex: 1,
-          explanation: "Matrizen müssen gleich groß sein (gleiche Zeilen und Spalten), damit man sie Zahl für Zahl addieren kann."
+          inputType: "text",
+          question: "Wie lang ist $\begin{pmatrix}6\\\\8\end{pmatrix}$?",
+          correctAnswer: "10",
+          acceptAnswers: ["10"],
+          placeholder: "Zahl eingeben…",
+          explanation: "Die Länge ist $\sqrt{6^2+8^2}=\sqrt{36+64}=\sqrt{100}=10$.",
+          solution: "Quadrate addieren: $6^2+8^2=100$, also Länge $\sqrt{100}=10$."
         }
       },
       {
         id: "m3-l2",
-        title: "Matrizen multiplizieren",
+        title: "Addition und skalare Vielfache",
         difficulty: "Aufbau",
-        estimatedMinutes: 65,
+        estimatedMinutes: 45,
         theory: [
-          "Matrizen multipliziert man anders als normale Zahlen. Man darf nicht einfach jede Zahl mit jeder multiplizieren.",
-          "Die Regel: Die Zahl in Zeile i der ersten Matrix wird mit der Zahl in Spalte j der zweiten Matrix kombiniert (malnehmen und aufaddieren).",
-          "Wichtig: Die Reihenfolge macht einen Unterschied! A·B ist nicht dasselbe wie B·A. Das ist anders als bei normalen Zahlen (3·4 = 4·3)."
+          "Vektoren werden komponentenweise addiert: $\begin{pmatrix}a_1\\\\a_2\end{pmatrix}+\begin{pmatrix}b_1\\\\b_2\end{pmatrix}=\begin{pmatrix}a_1+b_1\\\\a_2+b_2\end{pmatrix}$. Geometrisch: Pfeile aneinanderlegen.",
+          "Ein skalares Vielfaches: $\lambda\vec v$ multipliziert jede Komponente mit $\lambda$. Für $\lambda>0$ bleibt die Richtung, für $\lambda<0$ kehrt sie sich um; die Länge wird mit $|\lambda|$ skaliert.",
+          "Der Gegenvektor ist $-\vec v=(-1)\vec v$. Damit ist Subtraktion $\vec a-\vec b=\vec a+(-\vec b)$.",
+          "Diese Operationen erfüllen vertraute Regeln: Kommutativität $\vec a+\vec b=\vec b+\vec a$, Distributivität $\lambda(\vec a+\vec b)=\lambda\vec a+\lambda\vec b$."
         ],
-        example: "Wenn A 2 Zeilen und 3 Spalten hat und B 3 Zeilen und 2 Spalten, dann hat A·B 2 Zeilen und 2 Spalten.",
-        exercise: "Berechne A·B für A = [[1, 0], [2, 3]] und B = [[4, 1], [0, 2]].",
-        hint: "Nimm jede Zeile von A und kombiniere sie mit jeder Spalte von B: malnehmen und aufaddieren.",
-        solution: "$A\\cdot B$ hat so viele Zeilen wie $A$ (2) und so viele Spalten wie $B$ (2) — also $2\\times 2$.\nEintrag $(1,1)$: Zeile 1 von $A$ mal Spalte 1 von $B$\n$= 1\\cdot 4 + 0\\cdot 0 = 4$\nEintrag $(1,2)$: Zeile 1 von $A$ mal Spalte 2 von $B$\n$= 1\\cdot 1 + 0\\cdot 2 = 1$\nEintrag $(2,1)$: Zeile 2 von $A$ mal Spalte 1 von $B$\n$= 2\\cdot 4 + 3\\cdot 0 = 8$\nEintrag $(2,2)$: Zeile 2 von $A$ mal Spalte 2 von $B$\n$= 2\\cdot 1 + 3\\cdot 2 = 2 + 6 = 8$\nErgebnis: $A\\cdot B = \\begin{pmatrix} 4 & 1 \\\\ 8 & 8 \\end{pmatrix}$",
+        example: "$2\begin{pmatrix}1\\\\3\end{pmatrix}+\begin{pmatrix}2\\\\-1\end{pmatrix}=\begin{pmatrix}2\\\\6\end{pmatrix}+\begin{pmatrix}2\\\\-1\end{pmatrix}=\begin{pmatrix}4\\\\5\end{pmatrix}$.",
+        exercise: "Berechne $3\begin{pmatrix}1\\\\2\end{pmatrix}-2\begin{pmatrix}2\\\\1\end{pmatrix}$.",
+        hint: "Erst die skalaren Vielfachen, dann komponentenweise subtrahieren.",
+        solution: "$3\begin{pmatrix}1\\\\2\end{pmatrix}=\begin{pmatrix}3\\\\6\end{pmatrix}$, $2\begin{pmatrix}2\\\\1\end{pmatrix}=\begin{pmatrix}4\\\\2\end{pmatrix}$.\nDifferenz: $\begin{pmatrix}3\\\\6\end{pmatrix}-\begin{pmatrix}4\\\\2\end{pmatrix}=\begin{pmatrix}-1\\\\4\end{pmatrix}$.",
+        visualization: {
+          type: "vector-plot",
+          mode: "add",
+          u: [1, 2],
+          v: [2, 1]
+        },
         quiz: {
-          question: "Stimmt A·B = B·A bei Matrizen?",
-          options: ["Ja, immer", "Nein, die Reihenfolge macht einen Unterschied", "Nur bei Nullmatrizen", "Nur bei Einheitsmatrizen"],
-          answerIndex: 1,
-          explanation: "Bei Matrizen ist die Reihenfolge wichtig: A·B und B·A können unterschiedlich sein."
+          question: "Was bewirkt ein negatives skalares Vielfaches $\lambda\vec v$ mit $\lambda<0$?",
+          options: ["Nichts", "Der Vektor wird länger, Richtung bleibt", "Richtung kehrt sich um", "Vektor wird null"],
+          answerIndex: 2,
+          explanation: "Ein negativer Skalar dreht die Richtung um und skaliert die Länge mit $|\lambda|$."
         }
       },
       {
         id: "m3-l3",
-        title: "Die inverse Matrix",
+        title: "Linearkombination und Spann",
         difficulty: "Aufbau",
-        estimatedMinutes: 70,
+        estimatedMinutes: 55,
         theory: [
-          "Die inverse Matrix ist wie der Kehrwert bei normalen Zahlen. Bei Zahlen ist 2 · ½ = 1. Bei Matrizen ist A · A⁻¹ = I (die Einheitsmatrix).",
-          "Nicht jede Matrix hat eine inverse. Wenn die Determinante 0 ist, gibt es keine inverse (dazu kommen wir später).",
-          "Mit der inversen Matrix kann man Gleichungen lösen: Statt A·x = b rechnet man x = A⁻¹·b."
+          "Eine Linearkombination von Vektoren $\vec v_1,\dots,\vec v_k$ ist $\lambda_1\vec v_1+\dots+\lambda_k\vec v_k$ mit Koeffizienten $\lambda_i\in\mathbb{R}$.",
+          "Der Spann (Erzeugendensystem) ist die Menge aller Linearkombinationen: $\operatorname{span}(\vec v_1,\dots,\vec v_k)=\{\lambda_1\vec v_1+\dots+\lambda_k\vec v_k\}$.",
+          "Im $\mathbb{R}^2$ spannen zwei nichtparallele Vektoren die ganze Ebene auf; im $\mathbb{R}^3$ spannen drei nicht in einer Ebene liegende Vektoren den ganzen Raum auf.",
+          "Ist ein Vektor schon eine Linearkombination der anderen, liefert er nichts Neues — der Spann bleibt dann gleich."
         ],
-        example: "A = [[2, 1], [1, 1]] hat die inverse Matrix A⁻¹ = [[1, -1], [-1, 2]]. Probe: A·A⁻¹ = [[1, 0], [0, 1]] = I.",
-        exercise: "Berechne die inverse Matrix von [[4, 7], [2, 6]] und prüfe das Ergebnis durch Multiplikation.",
-        hint: "Für eine 2x2-Matrix [[a,b],[c,d]] ist die inverse: (1/(ad-bc)) · [[d, -b], [-c, a]].",
-        solution: "Formel für $2\\times 2$: $A^{-1} = \\frac{1}{\\det A}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}$ mit $A = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}$.\nHier $a=4, b=7, c=2, d=6$.\nSchritt 1 — Determinante:\n$\\det A = a\\cdot d - b\\cdot c = 4\\cdot 6 - 7\\cdot 2 = 24 - 14 = 10$\nSchritt 2 — Inverse aufschreiben:\n$A^{-1} = \\frac{1}{10}\\begin{pmatrix} 6 & -7 \\\\ -2 & 4 \\end{pmatrix} = \\begin{pmatrix} 0{,}6 & -0{,}7 \\\\ -0{,}2 & 0{,}4 \\end{pmatrix}$\nSchritt 3 — Probe $A\\cdot A^{-1} = I$:\n$\\begin{pmatrix} 4 & 7 \\\\ 2 & 6 \\end{pmatrix}\\begin{pmatrix} 0{,}6 & -0{,}7 \\\\ -0{,}2 & 0{,}4 \\end{pmatrix} = \\begin{pmatrix} 4\\cdot 0{,}6 + 7\\cdot(-0{,}2) & 4\\cdot(-0{,}7) + 7\\cdot 0{,}4 \\\\ 2\\cdot 0{,}6 + 6\\cdot(-0{,}2) & 2\\cdot(-0{,}7) + 6\\cdot 0{,}4 \\end{pmatrix} = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$ ✓",
+        example: "Ist $\begin{pmatrix}1\\\\2\end{pmatrix}$ in $\operatorname{span}\!\left(\begin{pmatrix}1\\\\0\end{pmatrix},\begin{pmatrix}0\\\\1\end{pmatrix}\right)$? Ja: $\begin{pmatrix}1\\\\2\end{pmatrix}=1\begin{pmatrix}1\\\\0\end{pmatrix}+2\begin{pmatrix}0\\\\1\end{pmatrix}$.",
+        exercise: "Lässt sich $\begin{pmatrix}4\\\\6\end{pmatrix}$ als Linearkombination von $\vec v_1=\begin{pmatrix}1\\\\1\end{pmatrix}$ und $\vec v_2=\begin{pmatrix}1\\\\2\end{pmatrix}$ schreiben? Bestimme die Koeffizienten.",
+        hint: "Löse $\lambda_1\begin{pmatrix}1\\\\1\end{pmatrix}+\lambda_2\begin{pmatrix}1\\\\2\end{pmatrix}=\begin{pmatrix}4\\\\6\end{pmatrix}$, also $\lambda_1+\lambda_2=4$ und $\lambda_1+2\lambda_2=6$.",
+        solution: "System: $\lambda_1+\lambda_2=4$, $\lambda_1+2\lambda_2=6$. Subtrahieren liefert $\lambda_2=2$, dann $\lambda_1=2$.\nProbe: $2\begin{pmatrix}1\\\\1\end{pmatrix}+2\begin{pmatrix}1\\\\2\end{pmatrix}=\begin{pmatrix}2\\\\2\end{pmatrix}+\begin{pmatrix}2\\\\4\end{pmatrix}=\begin{pmatrix}4\\\\6\end{pmatrix}$. ✓",
         quiz: {
-          question: "Wann hat eine Matrix keine inverse?",
-          options: ["Wenn sie quadratisch ist", "Wenn die Determinante 0 ist", "Wenn sie nur positive Zahlen hat", "Nie, jede Matrix hat eine"],
+          question: "Was ist der Spann $\operatorname{span}(\vec v_1,\dots,\vec v_k)$?",
+          options: ["Die Menge aller Vielfachen eines Vektors", "Die Menge aller Linearkombinationen der Vektoren", "Die Länge der Vektoren", "Der Schnitt der Vektoren"],
           answerIndex: 1,
-          explanation: "Wenn die Determinante 0 ist, kann man keine inverse Matrix berechnen."
+          explanation: "Der Spann umfasst alle Linearkombinationen $\lambda_1\vec v_1+\dots+\lambda_k\vec v_k$."
         }
       }
     ]
   },
   {
     id: "mod-4",
-    title: "Gleichungssysteme lösen",
+    title: "Matrizen",
     level: "Aufbau",
-    targetHours: 12,
+    targetHours: 11,
     goals: [
-      "Gleichungssysteme aufstellen",
-      "Das Gauß-Verfahren anwenden",
-      "Verstehen, wann es Lösungen gibt"
+      "Matrizen als Tabellen anordnen",
+      "Matrizen multiplizieren",
+      "Die inverse Matrix und elementare Zeilenoperationen nutzen"
     ],
     lessons: [
       {
         id: "m4-l1",
-        title: "Was ist ein Gleichungssystem?",
+        title: "Was ist eine Matrix?",
         difficulty: "Aufbau",
-        estimatedMinutes: 50,
+        estimatedMinutes: 40,
         theory: [
-          "Ein Gleichungssystem ist wie ein Rätsel mit mehreren Gleichungen. Beispiel: 2 Äpfel und 1 Birne kosten 5€. 1 Apfel und 1 Birne kosten 3€. Wie viel kostet jede Sorte?",
-          "Man schreibt das als Tabelle (Matrix) auf: Die Zahlen vor den Variablen kommen in eine Tabelle, die Ergebnisse daneben.",
-          "Wenn die rechte Seite null ist (also alles gratis), dann gibt es immer die Lösung 'alles null' (triviale Lösung)."
+          "Eine Matrix ist ein rechteckiges Zahlenschema. Eine $m\times n$-Matrix hat $m$ Zeilen und $n$ Spalten: $A=(a_{ij})$ mit Eintrag $a_{ij}$ in Zeile $i$, Spalte $j$.",
+          "Ein Vektor $\vec v\in\mathbb{R}^n$ ist eine $n\times 1$-Matrix (Spaltenvektor); die Transponierte $\vec v^{\,T}$ ist ein Zeilenvektor.",
+          "Die Transponierte $A^{\,T}$ entsteht durch Spiegeln an der Hauptdiagonalen: $(A^{\,T})_{ij}=a_{ji}$. Eine quadratische Matrix mit $A^{\,T}=A$ heißt symmetrisch.",
+          "Matrizen werden komponentenweise addiert; ein Skalar multipliziert jeden Eintrag."
         ],
-        example: "2x + y = 1 und x - y = 3 schreibt man als Tabelle: [[2, 1 | 1], [1, -1 | 3]].",
-        exercise: "Schreibe folgendes als Tabelle auf: 3x + 2y - z = 7, x - y + 2z = 1, 2x + y - z = 4.",
-        hint: "Jede Gleichung wird eine Zeile. Die Zahlen vor x, y, z kommen vor den Strich, die Ergebnisse dahinter.",
-        solution: "Jede Gleichung wird eine Zeile. Vor dem Strich stehen die Koeffizienten von $x, y, z$, dahinter die rechte Seite.\nGleichung 1: $3x + 2y - z = 7 \\rightarrow (3,\\ 2,\\ -1\\ |\\ 7)$\nGleichung 2: $x - y + 2z = 1 \\rightarrow (1,\\ -1,\\ 2\\ |\\ 1)$\nGleichung 3: $2x + y - z = 4 \\rightarrow (2,\\ 1,\\ -1\\ |\\ 4)$\nAls erweiterte Matrix:\n$\\begin{pmatrix} 3 & 2 & -1 & | & 7 \\\\ 1 & -1 & 2 & | & 1 \\\\ 2 & 1 & -1 & | & 4 \\end{pmatrix}$",
+        example: "Für $A=\begin{pmatrix}1&2\\\\3&4\end{pmatrix}$ ist $A^{\,T}=\begin{pmatrix}1&3\\\\2&4\end{pmatrix}$ und $2A=\begin{pmatrix}2&4\\\\6&8\end{pmatrix}$.",
+        exercise: "Bestimme $A^{\,T}$ für $A=\begin{pmatrix}1&0&2\\\\3&1&4\end{pmatrix}$.",
+        hint: "Zeilen werden zu Spalten und umgekehrt; die Transponierte ist $3\times 2$.",
+        solution: "$A$ ist $2\times 3$, also wird $A^{\,T}$ eine $3\times 2$-Matrix:\n$A^{\,T}=\begin{pmatrix}1&3\\\\0&1\\\\2&4\end{pmatrix}$.",
         quiz: {
-          question: "Was gilt immer für ein Gleichungssystem, bei dem die rechte Seite null ist?",
-          options: ["Es gibt keine Lösung", "Es gibt immer die Lösung 'alles null'", "Es gibt genau eine Lösung", "Es gibt unendlich viele"],
+          question: "Was bedeutet $A^{\,T}=A$ für eine quadratische Matrix?",
+          options: ["Sie ist invertierbar", "Sie ist symmetrisch", "Sie ist die Nullmatrix", "Sie hat Determinante 1"],
           answerIndex: 1,
-          explanation: "Wenn alle Zahlen rechts null sind, ist 'alles null' immer eine Lösung (die sogenannte triviale Lösung)."
+          explanation: "Eine Matrix mit $A^{\,T}=A$ heißt symmetrisch — sie ist an der Hauptdiagonalen gespiegelt."
         }
       },
       {
         id: "m4-l2",
-        title: "Das Gauß-Verfahren",
+        title: "Matrizen multiplizieren",
         difficulty: "Aufbau",
-        estimatedMinutes: 75,
+        estimatedMinutes: 55,
         theory: [
-          "Das Gauß-Verfahren ist wie Aufräumen: Man bringt die Tabelle Schritt für Schritt in eine einfachere Form, bis man die Lösung ablesen kann.",
-          "Dabei darf man: Zeilen vertauschen, eine Zeile mit einer Zahl multiplizieren (nicht null!), und ein Vielfaches einer Zeile zu einer anderen dazuaddieren.",
-          "Das Ziel ist eine Treppenform: Unten links sollen lauter Nullen stehen, sodass man von unten nach oben die Lösungen ablesen kann.",
-          "Vollständiges 3×3-Beispiel — wir lösen x + y + z = 6, 2x - y + z = 3, x + 2y - z = 2. Die erweiterte Matrix ist: Zeile1 (1, 1, 1 | 6), Zeile2 (2, -1, 1 | 3), Zeile3 (1, 2, -1 | 2).",
-          "Schritt 1 — Nullen in Spalte 1: Z2 → Z2 − 2·Z1 und Z3 → Z3 − Z1. Neu: Z1 (1, 1, 1 | 6), Z2 (0, -3, -1 | -9), Z3 (0, 1, -2 | -4).",
-          "Schritt 2 — Pivot tauschen: Wir tauschen Z2 und Z3, damit in Spalte 2 eine 1 oben steht. Neu: Z1 (1, 1, 1 | 6), Z2 (0, 1, -2 | -4), Z3 (0, -3, -1 | -9).",
-          "Schritt 3 — Null in Spalte 2 unten: Z3 → Z3 + 3·Z2. Neu: Z1 (1, 1, 1 | 6), Z2 (0, 1, -2 | -4), Z3 (0, 0, -7 | -21).",
-          "Schritt 4 — Einser auf der Diagonalen: Z3 → Z3 / (−7). Neu: Z3 (0, 0, 1 | 3). Jetzt steht die Dreiecksform.",
-          "Rücksubstitution: Aus Z3 liest man z = 3. Aus Z2: y − 2·z = −4, also y − 6 = −4, also y = 2. Aus Z1: x + y + z = 6, also x + 2 + 3 = 6, also x = 1. Lösung: (x, y, z) = (1, 2, 3)."
+          "Das Produkt $AB$ ist nur definiert, wenn die Spaltenzahl von $A$ gleich der Zeilenzahl von $B$ ist. Ist $A$ eine $m\times n$- und $B$ eine $n\times p$-Matrix, so ist $AB$ eine $m\times p$-Matrix.",
+          "Der Eintrag $(AB)_{ij}$ ist das Skalarprodukt der $i$-ten Zeile von $A$ mit der $j$-ten Spalte von $B$: $(AB)_{ij}=\sum_k a_{ik}b_{kj}$.",
+          "Die Matrizenmultiplikation ist assoziativ $(AB)C=A(BC)$ und distributiv, aber im Allgemeinen nicht kommutativ: $AB\neq BA$.",
+          "Die Einheitsmatrix $I_n$ hat Einsen auf der Diagonalen und Nullen sonst; sie ist neutral: $AI=IA=A$."
         ],
-        example: "Wenn in der untersten Zeile '0 0 1 | 5' steht, weiß man sofort: z = 5. Damit geht man eine Zeile nach oben und findet y, dann x. Im 3×3-Beispiel oben endet die Matrix in '0 0 1 | 3', also z = 3 — dann y = 2 und x = 1.",
-        exercise: "Löse dieses System mit dem Gauß-Verfahren: x + y + z = 6, 2x - y + z = 3, x + 2y - z = 2.",
-        hint: "Arbeite spaltenweise von links nach rechts. Erstelle unterhalb der ersten Zahl Nullen, dann unter der zweiten.",
-        solution: "Siehe die ausführliche Schritt-für-Schritt-Lösung in der Theorie oben (Schritte 1-4 plus Rücksubstitution).\nErgebnis: $(x, y, z) = (1, 2, 3)$.\nProbe:\n$1 + 2 + 3 = 6$ ✓\n$2\\cdot 1 - 2 + 3 = 2 - 2 + 3 = 3$ ✓\n$1 + 2\\cdot 2 - 3 = 1 + 4 - 3 = 2$ ✓",
+        example: "$\begin{pmatrix}1&2\\\\3&4\end{pmatrix}\begin{pmatrix}5\\\\6\end{pmatrix}=\begin{pmatrix}1\cdot 5+2\cdot 6\\\\3\cdot 5+4\cdot 6\end{pmatrix}=\begin{pmatrix}17\\\\39\end{pmatrix}$.",
+        exercise: "Berechne $\begin{pmatrix}1&2\\\\0&3\end{pmatrix}\begin{pmatrix}4&0\\\\1&2\end{pmatrix}$.",
+        hint: "Zeile mal Spalte: $(1,4)=(1\cdot4+2\cdot1)$, dann die weiteren Einträge.",
+        solution: "Eintrag $(1,1)$: $1\cdot4+2\cdot1=6$.\n$(1,2)$: $1\cdot0+2\cdot2=4$.\n$(2,1)$: $0\cdot4+3\cdot1=3$.\n$(2,2)$: $0\cdot0+3\cdot2=6$.\nErgebnis: $\begin{pmatrix}6&4\\\\3&6\end{pmatrix}$.",
         quiz: {
-          question: "Welche Operation ist beim Gauß-Verfahren NICHT erlaubt?",
-          options: ["Zwei Zeilen vertauschen", "Eine Zeile mit 0 multiplizieren", "Ein Vielfaches einer Zeile zu einer anderen addieren", "Eine Zeile mit 3 multiplizieren"],
+          question: "Wann ist das Matrizenprodukt $AB$ definiert?",
+          options: ["Wenn beide quadratisch sind", "Wenn Spaltenzahl von $A$ gleich Zeilenzahl von $B$", "Wenn $A=B$", "Immer"],
           answerIndex: 1,
-          explanation: "Mit 0 multiplizieren zerstört die ganze Zeile — das ist nicht erlaubt, weil man Information verliert."
+          explanation: "$AB$ existiert genau dann, wenn die Anzahl der Spalten von $A$ mit der Anzahl der Zeilen von $B$ übereinstimmt."
         }
       },
       {
         id: "m4-l3",
-        title: "Wann gibt es Lösungen?",
+        title: "Inverse Matrix und Zeilenoperationen",
         difficulty: "Aufbau",
-        estimatedMinutes: 65,
+        estimatedMinutes: 55,
         theory: [
-          "Der Rang einer Matrix ist die Anzahl der Zeilen, die nach dem Gauß-Verfahren nicht nur aus Nullen bestehen.",
-          "Eine Lösung gibt es genau dann, wenn die Matrix und die erweiterte Matrix (mit Ergebnissen) denselben Rang haben.",
-          "Wenn der Rang kleiner ist als die Anzahl der Variablen, gibt es freie Variablen — das bedeutet unendlich viele Lösungen."
+          "Eine quadratische Matrix $A$ heißt invertierbar, wenn eine Matrix $A^{-1}$ existiert mit $AA^{-1}=A^{-1}A=I$. Sonst heißt $A$ singulär.",
+          "Elementare Zeilenoperationen: (1) eine Zeile mit einem Skalar $\neq 0$ multiplizieren, (2) ein Vielfaches einer Zeile zu einer anderen addieren, (3) zwei Zeilen vertauschen.",
+          "Man invertiert $A$, indem man $(A\mid I)$ durch Zeilenoperationen auf $(I\mid A^{-1})$ bringt. Klappt das nicht, ist $A$ singulär.",
+          "Für $2\times2$-Matrizen gilt explizit: ist $A=\begin{pmatrix}a&b\\\\c&d\end{pmatrix}$ mit $\det A=ad-bc\neq 0$, so ist $A^{-1}=\tfrac{1}{ad-bc}\begin{pmatrix}d&-b\\\\-c&a\end{pmatrix}$."
         ],
-        example: "Ein System mit 4 Variablen und Rang 3 hat einen Freiheitsgrad: Eine Variable ist frei wählbar, die anderen hängen davon ab.",
-        exercise: "Bestimme den Rang der Matrix und der erweiterten Matrix für: x + y = 2, 2x + 2y = 4. Was fällt auf?",
-        hint: "Wende Gauß an. Wenn eine Zeile nur aus Nullen wird, zählt sie nicht mehr zum Rang.",
-        solution: "Koeffizientenmatrix: $\\begin{pmatrix} 1 & 1 \\\\ 2 & 2 \\end{pmatrix}$.\nGauß-Schritt: $Z_2 \\rightarrow Z_2 - 2\\cdot Z_1$.\nNeu: $\\begin{pmatrix} 1 & 1 \\\\ 0 & 0 \\end{pmatrix}$.\nRang der Koeffizientenmatrix $= 1$ (nur eine Zeile ist nicht null).\nErweiterte Matrix: $\\begin{pmatrix} 1 & 1 & | & 2 \\\\ 2 & 2 & | & 4 \\end{pmatrix}$.\nGauß: $Z_2 \\rightarrow Z_2 - 2\\cdot Z_1 \\rightarrow \\begin{pmatrix} 1 & 1 & | & 2 \\\\ 0 & 0 & | & 0 \\end{pmatrix}$.\nRang der erweiterten Matrix $= 1$.\nBeide Ränge sind gleich ($=1$), also ist das System lösbar.\nDa der Rang (1) kleiner ist als die Anzahl der Variablen (2), gibt es unendlich viele Lösungen — $y$ ist frei, $x = 2 - y$.\nAuffällig: Die zweite Gleichung ist einfach das Doppelte der ersten, enthält also keine neue Information.",
+        example: "Zu $A=\begin{pmatrix}1&2\\\\3&5\end{pmatrix}$: $\det A=1\cdot5-2\cdot3=-1$, also $A^{-1}=\tfrac{1}{-1}\begin{pmatrix}5&-2\\\\-3&1\end{pmatrix}=\begin{pmatrix}-5&2\\\\3&-1\end{pmatrix}$.",
+        exercise: "Bestimme $A^{-1}$ für $A=\begin{pmatrix}2&1\\\\1&1\end{pmatrix}$ und prüfe $AA^{-1}=I$.",
+        hint: "Determinante $ad-bc$ berechnen, dann die Formel anwenden.",
+        solution: "$\det A=2\cdot1-1\cdot1=1\neq 0$.\n$A^{-1}=\tfrac{1}{1}\begin{pmatrix}1&-1\\\\-1&2\end{pmatrix}=\begin{pmatrix}1&-1\\\\-1&2\end{pmatrix}$.\nProbe: $AA^{-1}=\begin{pmatrix}2&1\\\\1&1\end{pmatrix}\begin{pmatrix}1&-1\\\\-1&2\end{pmatrix}=\begin{pmatrix}2\cdot1+1\cdot(-1)&2\cdot(-1)+1\cdot2\\\\1\cdot1+1\cdot(-1)&1\cdot(-1)+1\cdot2\end{pmatrix}=\begin{pmatrix}1&0\\\\0&1\end{pmatrix}=I$. ✓",
         quiz: {
-          question: "Wann hat ein Gleichungssystem unendlich viele Lösungen?",
-          options: ["Wenn es genauso viele Gleichungen wie Variablen gibt", "Wenn der Rang kleiner ist als die Anzahl der Variablen und es lösbar ist", "Wenn alle Zahlen gleich sind", "Nie"],
+          question: "Wann ist eine $2\times2$-Matrix invertierbar?",
+          options: ["Immer", "Wenn ihre Determinante von null verschieden ist", "Wenn sie symmetrisch ist", "Wenn alle Einträge positiv sind"],
           answerIndex: 1,
-          explanation: "Wenn es lösbar ist, aber der Rang kleiner als die Anzahl der Variablen, dann gibt es freie Variablen und damit unendlich viele Lösungen."
+          explanation: "Genau dann, wenn $\det A\neq 0$; dann liefert die explizite Formel die Inverse."
         }
       }
     ]
   },
   {
     id: "mod-5",
-    title: "Determinanten: Der Stempel",
+    title: "Lineare Gleichungssysteme",
     level: "Aufbau",
-    targetHours: 8,
+    targetHours: 10,
     goals: [
-      "Determinanten berechnen können",
-      "Regeln für Determinanten kennen",
-      "Verstehen, was Determinanten bedeuten"
+      "Ein LGS als Matrix schreiben",
+      "Das Gauß-Verfahren sicher anwenden",
+      "Lösbarkeit über den Rang entscheiden"
     ],
     lessons: [
       {
         id: "m5-l1",
-        title: "Was ist eine Determinante?",
+        title: "Vom LGS zur Matrix",
         difficulty: "Aufbau",
-        estimatedMinutes: 55,
+        estimatedMinutes: 40,
         theory: [
-          "Eine Determinante ist eine einzige Zahl, die man aus einer quadratischen Matrix berechnet. Sie sagt uns wichtige Dinge über die Matrix.",
-          "Für eine 2x2-Matrix [[a, b], [c, d]] ist die Determinante einfach: a·d - b·c.",
-          "Für 3x3-Matrizen gibt es verschiedene Wege (z.B. die Regel von Sarrus), aber das Prinzip bleibt gleich.",
-          "Regel von Sarrus für 3×3: Schreibe die ersten beiden Spalten rechts noch einmal dazu. Summiere die Produkte der drei Diagonalen von links-oben nach rechts-unten und ziehe die Produkte der drei Diagonalen von rechts-oben nach links-unten ab.",
-          "Vollständiges 3×3-Beispiel mit Sarrus — Matrix A = [[1, 2, 3], [4, 5, 6], [7, 8, 10]]. Wir hängen Spalte 1 und 2 rechts an: [[1,2,3,1,2],[4,5,6,4,5],[7,8,10,7,8]].",
-          "Plus-Diagonalen (links-oben → rechts-unten): 1·5·10 + 2·6·7 + 3·4·8 = 50 + 84 + 96 = 230.",
-          "Minus-Diagonalen (rechts-oben → links-unten): 3·5·7 + 1·6·8 + 2·4·10 = 105 + 48 + 80 = 233.",
-          "det(A) = 230 − 233 = −3. Da die Determinante ungleich null ist, ist A invertierbar."
+          "Ein lineares Gleichungssystem (LGS) hat die Form $A\vec x=\vec b$ mit Koeffizientenmatrix $A$, Unbekanntenvektor $\vec x$ und rechter Seite $\vec b$.",
+          "Man schreibt die erweiterte Koeffizientenmatrix $(A\mid\vec b)$ und arbeitet nur noch mit Zeilenoperationen.",
+          "Eine Lösung ist ein Vektor $\vec x$, der alle Gleichungen gleichzeitig erfüllt.",
+          "Die Lösungsmenge kann leer sein (unlösbar), genau ein Vektor (eindeutig) oder unendlich groß (unterbestimmt) sein."
         ],
-        example: "det([[3, 1], [2, 4]]) = 3·4 - 1·2 = 12 - 2 = 10. Für 3×3 mit Sarrus: det([[1,2,3],[4,5,6],[7,8,10]]) = 1·5·10 + 2·6·7 + 3·4·8 − 3·5·7 − 1·6·8 − 2·4·10 = 230 − 233 = −3.",
-        exercise: "Berechne die Determinante von [[5, 2], [3, 7]].",
-        hint: "Für 2x2: Oben links mal unten rechts, minus oben rechts mal unten links.",
-        solution: "Für eine $2\\times 2$-Matrix $\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}$ gilt $\\det = a\\cdot d - b\\cdot c$.\nHier: $a = 5, b = 2, c = 3, d = 7$.\n$\\det = 5\\cdot 7 - 2\\cdot 3 = 35 - 6 = 29$.\nDa $\\det \\neq 0$, ist die Matrix invertierbar.",
+        example: "Das System $x+y=3$, $x-y=1$ wird zu $(A\mid\vec b)=\left(\begin{array}{cc|c}1&1&3\\\\1&-1&1\end{array}\right)$. Lösung: $x=2$, $y=1$.",
+        exercise: "Schreibe das LGS $2x+3y=8$, $x-y=1$ als erweiterte Matrix auf.",
+        hint: "Jede Gleichung wird eine Zeile; Unbekannte in fester Reihenfolge, dann die rechte Seite.",
+        solution: "$\left(\begin{array}{cc|c}2&3&8\\\\1&-1&1\end{array}\right)$. Zwei Gleichungen, zwei Unbekannte $x,y$ in dieser Reihenfolge.",
         quiz: {
-          question: "Wie berechnet man die Determinante von [[a, b], [c, d]]?",
-          options: ["a + b + c + d", "a·d - b·c", "a·b - c·d", "a·c - b·d"],
+          question: "Wie kann die Lösungsmenge eines LGS aussehen?",
+          options: ["Nur eindeutig", "Leer, genau eine Lösung oder unendlich viele", "Immer unendlich viele", "Niemals leer"],
           answerIndex: 1,
-          explanation: "Die Formel ist: Oben links mal unten rechts, minus oben rechts mal unten links = a·d - b·c."
+          explanation: "Ein LGS ist unlösbar, eindeutig lösbar oder hat unendlich viele Lösungen — diese drei Fälle treten auf."
         }
       },
       {
         id: "m5-l2",
-        title: "Regeln für Determinanten",
+        title: "Das Gauß-Verfahren",
         difficulty: "Aufbau",
-        estimatedMinutes: 60,
+        estimatedMinutes: 55,
         theory: [
-          "Wenn man zwei Zeilen vertauscht, ändert sich das Vorzeichen der Determinante (aus + wird -, aus - wird +).",
-          "Wenn man eine Zeile mit einer Zahl multipliziert, wird auch die Determinante mit dieser Zahl multipliziert.",
-          "Wenn man ein Vielfaches einer Zeile zu einer anderen addiert, bleibt die Determinante gleich."
+          "Das Gauß-Verfahren bringt $(A\mid\vec b)$ durch Zeilenoperationen auf Zeilenstufenform: unter jeder führenden Eins (Pivot) stehen nur Nullen.",
+          "Dann löst man von unten nach oben zurück (Rücksubstitution).",
+          "Noch weiter reduziert ergibt die reduzierte Zeilenstufenform, in der über jedem Pivot ebenfalls nur Nullen stehen — die Lösung kann dann direkt abgelesen werden.",
+          "Eine Spalte ohne Pivot entspricht einer freien Variablen, die beliebig wählbar ist — Grundlage für unendlich viele Lösungen."
         ],
-        example: "Wenn det(A) = 5 und man tauscht zwei Zeilen, dann ist die neue Determinante -5.",
-        exercise: "Eine Matrix hat det = 7. Was passiert, wenn man Zeile 1 mit 3 multipliziert?",
-        hint: "Die Determinante wird auch mit 3 multipliziert.",
-        solution: "Regel: Multipliziert man eine einzelne Zeile mit einem Faktor $k$, wird auch die Determinante mit $k$ multipliziert.\nHier $k = 3$, also wird die neue Determinante:\n$3 \\cdot 7 = 21$.\nAchtung: Würde man bei einer $3\\times 3$-Matrix alle Zeilen mit 3 multiplizieren (also die gesamte Matrix), würde die Determinante mit $3^3 = 27$ multipliziert.",
+        example: "$\left(\begin{array}{cc|c}1&1&3\\\\1&-1&1\end{array}\right)\\xrightarrow{Z_2-Z_1}\left(\begin{array}{cc|c}1&1&3\\\\0&-2&-2\end{array}\right)\\xrightarrow{Z_2/(-2)}\left(\begin{array}{cc|c}1&1&3\\\\0&1&1\end{array}\right)$. Rücksubstitution: $y=1$, $x=3-1=2$.",
+        exercise: "Löse per Gauß: $\left(\begin{array}{cc|c}1&2&5\\\\2&3&8\end{array}\right)$.",
+        hint: "Erzeuge in der zweiten Zeile eine Null unter dem Pivot: $Z_2-2Z_1$.",
+        solution: "$Z_2-2Z_1$: $\left(\begin{array}{cc|c}1&2&5\\\\0&-1&-2\end{array}\right)$.\n$Z_2/(-1)$: $\left(\begin{array}{cc|c}1&2&5\\\\0&1&2\end{array}\right)$.\nRücksubstitution: $y=2$, $x=5-2\cdot2=1$.\nLösung: $\vec x=\begin{pmatrix}1\\\\2\end{pmatrix}$.",
         quiz: {
-          question: "Was passiert mit der Determinante, wenn man zwei Zeilen vertauscht?",
-          options: ["Sie bleibt gleich", "Sie wird 0", "Das Vorzeichen ändert sich (+ wird -, - wird +)", "Sie wird verdoppelt"],
-          answerIndex: 2,
-          explanation: "Ein Zeilentausch ändert das Vorzeichen: Aus +5 wird -5, aus -3 wird +3."
+          question: "Was bedeutet eine Spalte ohne Pivot-Element?",
+          options: ["Das System ist unlösbar", "Es gibt eine freie Variable", "Die Lösung ist eindeutig", "Die Matrix ist invertierbar"],
+          answerIndex: 1,
+          explanation: "Eine Spalte ohne Pivot gehört zu einer freien Variablen, die beliebig wählbar ist — es gibt unendlich viele Lösungen."
         }
       },
       {
         id: "m5-l3",
-        title: "Determinante als Flächenmaß",
+        title: "Rang und Lösbarkeit",
         difficulty: "Aufbau",
-        estimatedMinutes: 45,
+        estimatedMinutes: 50,
         theory: [
-          "Die Determinante sagt uns, wie viel eine Matrix Flächen oder Volumen vergrößert oder verkleinert.",
-          "Eine Determinante von 2 bedeutet: Flächen werden doppelt so groß. Eine Determinante von 1: Alles bleibt gleich groß.",
-          "Eine Determinante von 0 bedeutet: Alles wird zu einer Linie oder einem Punkt zusammengequetscht. Die Matrix hat dann keine inverse."
+          "Der Rang $\operatorname{rang}(A)$ ist die Anzahl der Pivot-Elemente in der Zeilenstufenform — also die Anzahl linear unabhängiger Zeilen.",
+          "Der LGS-Satz (Kronecker-Capelli) besagt: $A\vec x=\vec b$ ist genau dann lösbar, wenn $\operatorname{rang}(A)=\operatorname{rang}(A\mid\vec b)$.",
+          "Ist das System lösbar, so ist es genau dann eindeutig lösbar, wenn $\operatorname{rang}(A)=n$ (Anzahl der Unbekannten) gilt.",
+          "Der homogene Fall $\vec b=\vec 0$ ist stets lösbar (nämlich $\vec x=\vec 0$); er hat nichttriviale Lösungen genau dann, wenn $\operatorname{rang}(A)<n$."
         ],
-        example: "Eine Matrix mit det = 3 macht jede Fläche dreimal so groß. Eine Matrix mit det = -1 spiegelt und die Fläche bleibt gleich groß.",
-        exercise: "Erkläre in eigenen Worten, was det = 0, det = 2 und det = -3 für die Fläche bedeuten.",
-        hint: "Betrag = Vergrößerung, Vorzeichen = Spiegelung, 0 = Zusammenquetschen.",
-        solution: "$\\det = 0$: Die Fläche (oder das Volumen) wird auf null gequetscht — alles wird zu einer Linie oder einem Punkt. Die Matrix hat keine inverse.\n$\\det = 2$: Die Fläche wird auf das Doppelte vergrößert. Keine Spiegelung, nur Streckung.\n$\\det = -3$: Die Fläche wird verdreifacht (Betrag 3) UND gespiegelt (negatives Vorzeichen). Die Orientierung kehrt sich um — wie bei einem Spiegelbild.\nFaustregel: Vorzeichen = Orientierung, Betrag = Vergrößerungsfaktor.",
+        example: "Hat $\begin{pmatrix}1&2\\\\2&4\end{pmatrix}\vec x=\begin{pmatrix}3\\\\7\end{pmatrix}$ eine Lösung? Zeile 2 ist das Doppelte von Zeile 1, aber $7\neq 2\cdot 3$, also $\operatorname{rang}(A)=1<\operatorname{rang}(A\mid\vec b)=2$ — unlösbar.",
+        exercise: "Bestimme den Rang von $A=\begin{pmatrix}1&2&3\\\\2&4&6\\\\1&1&1\end{pmatrix}$.",
+        hint: "Zeile 2 ist $2\cdot$ Zeile 1. Bringe auf Stufenform und zähle die Pivots.",
+        solution: "$Z_2-2Z_1$ und $Z_3-Z_1$:\n$\begin{pmatrix}1&2&3\\\\0&0&0\\\\0&-1&-2\end{pmatrix}\\xrightarrow{\text{tauschen}}\begin{pmatrix}1&2&3\\\\0&-1&-2\\\\0&0&0\end{pmatrix}$.\nZwei Pivots, also $\operatorname{rang}(A)=2$.",
         quiz: {
-          question: "Was bedeutet eine Determinante von 0?",
-          options: ["Die Fläche wird gespiegelt", "Die Fläche bleibt gleich", "Alles wird zusammengequetscht — keine inverse möglich", "Die Matrix ist sehr groß"],
-          answerIndex: 2,
-          explanation: "det = 0 bedeutet: Alles wird auf eine niedrigere Dimension gequetscht. Die Matrix hat dann keine inverse."
+          question: "Wann ist ein LGS $A\vec x=\vec b$ lösbar?",
+          options: ["Wenn $\det A\neq0$", "Wenn $\operatorname{rang}(A)=\operatorname{rang}(A\mid\vec b)$", "Immer", "Wenn $A$ quadratisch ist"],
+          answerIndex: 1,
+          explanation: "Nach dem LGS-Satz ist das System genau dann lösbar, wenn Rang der Koeffizientenmatrix und Rang der erweiterten Matrix übereinstimmen."
         }
       }
     ]
   },
   {
     id: "mod-6",
-    title: "Vektorräume: Die Welt der Vektoren",
+    title: "Determinanten",
     level: "Aufbau",
-    targetHours: 12,
+    targetHours: 9,
     goals: [
-      "Verstehen, was ein Vektorraum ist",
-      "Basen und Dimensionen kennenlernen",
-      "Mit Unterräumen umgehen"
+      "Die Determinante definieren und berechnen",
+      "Rechenregeln für Determinanten anwenden",
+      "Determinante als Volumen (Orientierung) verstehen"
     ],
     lessons: [
       {
         id: "m6-l1",
-        title: "Was ist ein Vektorraum?",
+        title: "Was ist eine Determinante?",
         difficulty: "Aufbau",
-        estimatedMinutes: 60,
+        estimatedMinutes: 45,
         theory: [
-          "Ein Vektorraum ist wie ein Spielplatz für Vektoren. Dort darf man Vektoren addieren und mit Zahlen multiplizieren — und es entstehen wieder Vektoren.",
-          "Beispiele: Die Ebene (2D) ist ein Vektorraum. Der Raum (3D) auch. Aber auch alle möglichen Listen mit 5 Zahlen bilden einen Vektorraum.",
-          "Ein Unterraum ist ein kleinererer Spielplatz innerhalb des großen. Wie eine Ebene, die im 3D-Raum liegt."
+          "Die Determinante $\det A$ ist einer quadratischen Matrix $A$ zugeordnet und ist eine einzige Zahl. Sie misst, wie $A$ den Raum streckt und ob er umklappt.",
+          "Für $2\times2$ gilt $\det\begin{pmatrix}a&b\\\\c&d\end{pmatrix}=ad-bc$.",
+          "Für $3\times3$ entwickelt man nach einer Zeile, z. B. der ersten: $\det A=a_{11}A_{11}+a_{12}A_{12}+a_{13}A_{13}$, wobei $A_{ij}$ die Kofaktoren sind (Unterdeterminante mit Vorzeichen $(-1)^{i+j}$).",
+          "Die Determinante ist genau dann null, wenn $A$ nicht invertierbar ist — dann ist das Bild kleiner als der ganze Raum."
         ],
-        example: "Die xy-Ebene (alle Punkte mit z=0) ist ein Unterraum des 3D-Raums. Man kann Vektoren darin addieren — das Ergebnis bleibt in der Ebene.",
-        exercise: "Ist die Menge aller Punkte (x, y) mit x > 0 ein Unterraum? Was passiert, wenn man mit -1 multipliziert?",
-        hint: "Wenn man (3, 1) mit -1 multipliziert, bekommt man (-3, -1). Ist das noch in der Menge?",
-        solution: "Nein, diese Menge ist kein Unterraum.\nGrund 1 — Nullvektor fehlt: $(0, 0)$ hat $x = 0$, also ist $x > 0$ nicht erfüllt. Jeder Unterraum muss aber den Nullvektor enthalten.\nGrund 2 — nicht abgeschlossen unter Multiplikation: $(3, 1)$ liegt in der Menge (denn $3 > 0$). Multiplizieren mit $-1$ ergibt $(-3, -1)$. Da $-3$ nicht $> 0$, liegt $(-3, -1)$ nicht in der Menge.\nDamit scheitert die Menge an zwei Unterraum-Eigenschaften.",
+        example: "$\det\begin{pmatrix}3&1\\\\2&4\end{pmatrix}=3\cdot4-1\cdot2=12-2=10\neq0$, also ist die Matrix invertierbar.",
+        exercise: "Berechne $\det\begin{pmatrix}1&2&3\\\\0&1&4\\\\0&0&2\end{pmatrix}$.",
+        hint: "Bei einer Dreiecksmatrix ist die Determinante das Produkt der Diagonaleinträge.",
+        solution: "Die Matrix ist obere Dreiecksmatrix. Für Dreiecksmatrizen gilt $\det A=$ Produkt der Diagonale.\n$\det A=1\cdot1\cdot2=2$.",
         quiz: {
-          question: "Was braucht ein Unterraum unbedingt?",
-          options: ["Er muss den Nullvektor enthalten", "Er muss unendlich groß sein", "Er muss aus senkrechten Vektoren bestehen", "Er muss nur ganze Zahlen haben"],
+          question: "Wann ist eine Matrix nicht invertierbar?",
+          options: ["Wenn $\det A=0$", "Wenn $\det A>0$", "Wenn $\det A=1$", "Wenn alle Einträge null sind"],
           answerIndex: 0,
-          explanation: "Jeder Unterraum muss den Nullvektor (0, 0, ...) enthalten — sonst ist es kein Unterraum."
+          explanation: "Genau bei $\det A=0$ ist die Matrix singulär und besitzt keine Inverse."
         }
       },
       {
         id: "m6-l2",
-        title: "Basis: Die Bausteine",
+        title: "Rechenregeln für Determinanten",
         difficulty: "Aufbau",
-        estimatedMinutes: 70,
+        estimatedMinutes: 50,
         theory: [
-          "Eine Basis ist ein Satz von Vektoren, mit denen man jeden anderen Vektor im Raum bauen kann — und die nicht überflüssig sind.",
-          "Stell dir Lego-Steine vor: Eine Basis sind die Grundbausteine. Damit kannst du alles bauen, und kein Stein ist unnötig.",
-          "Im 2D reicht ein Pärchen: z.B. (1, 0) und (0, 1). Damit kann man jeden Vektor (a, b) als a·(1,0) + b·(0,1) bauen."
+          "Multipliziert man eine Zeile mit $\lambda$, so wird die Determinante mit $\lambda$ multipliziert: $\det(\lambda A)=\lambda^n\det A$ für $n\times n$-Matrizen.",
+          "Addiert man ein Vielfaches einer Zeile zu einer anderen, ändert sich die Determinante nicht — das ist die Grundlage des Gauß-Verfahrens.",
+          "Vertauscht man zwei Zeilen, wechselt die Determinante das Vorzeichen.",
+          "Der Multiplikationssatz lautet $\det(AB)=\det A\cdot\det B$, und $\det(A^{-1})=\tfrac{1}{\det A}$."
         ],
-        example: "Im 2D sind (1, 0) und (0, 1) eine Basis. Aber auch (1, 1) und (1, -1) sind eine Basis — es gibt viele verschiedene!",
-        exercise: "Sind (1, 0, 0), (0, 1, 0) und (1, 1, 0) eine Basis des 3D-Raums? Prüfe, ob man damit (0, 0, 1) bauen kann.",
-        hint: "Die dritte Komponente (z) ist bei allen drei Vektoren null. Kann man damit jemals etwas mit z ≠ 0 bauen?",
-        solution: "Nein. Wir versuchen, $(0, 0, 1)$ als Linearkombination zu bauen:\n$a\\cdot(1, 0, 0) + b\\cdot(0, 1, 0) + c\\cdot(1, 1, 0) = (0, 0, 1)$\n3. Komponente: $0\\cdot a + 0\\cdot b + 0\\cdot c = 1 \\Rightarrow 0 = 1$ — Widerspruch!\nDie dritte Komponente ist auf der linken Seite immer $0$. Keine Linearkombination kann also $(0, 0, 1)$ erzeugen.\nDie drei Vektoren spannen nur die $xy$-Ebene auf, nicht den ganzen $\\mathbb{R}^3$ — sie sind keine Basis des $\\mathbb{R}^3$.\nZudem ist $(1, 1, 0) = (1, 0, 0) + (0, 1, 0)$, sie sind also auch untereinander linear abhängig.",
+        example: "Aus $\det\begin{pmatrix}1&2\\\\3&4\end{pmatrix}=-2$ folgt $\det\begin{pmatrix}2&4\\\\3&4\end{pmatrix}=2\cdot(-2)=-4$ (Zeile 1 verdoppelt) und $\det\begin{pmatrix}3&4\\\\1&2\end{pmatrix}=+2$ (Zeilen vertauscht).",
+        exercise: "Es sei $\det A=3$ und $A$ eine $3\times3$-Matrix. Bestimme $\det(2A)$.",
+        hint: "Jede der drei Zeilen wird mit $2$ multipliziert, also $\det(2A)=2^3\det A$.",
+        solution: "$\det(2A)=2^3\cdot\det A=8\cdot3=24$.\nJede Zeile wird mit $2$ skaliert, und bei drei Zeilen trägt jeder Faktor bei.",
         quiz: {
-          question: "Was ist eine Basis?",
-          options: ["Die größten Vektoren im Raum", "Ein Satz von Vektoren, mit denen man alles bauen kann und die nicht überflüssig sind", "Alle Vektoren, die es gibt", "Vektoren, die gleich lang sind"],
+          question: "Was bewirkt das Vertauschen zweier Zeilen auf $\det A$?",
+          options: ["Nichts", "Vorzeichenwechsel", "Determinante wird null", "Determinante verdoppelt sich"],
           answerIndex: 1,
-          explanation: "Eine Basis ist ein minimaler Satz Bausteine: Damit kann man jeden Vektor bauen, und keiner ist überflüssig."
+          explanation: "Ein Zeilentausch wechselt das Vorzeichen der Determinante."
         }
       },
       {
         id: "m6-l3",
-        title: "Dimension: Wie viele Bausteine?",
-        difficulty: "Aufbau",
-        estimatedMinutes: 65,
+        title: "Determinante als Volumen",
+        difficulty: "Aufbau → Fortgeschritten",
+        estimatedMinutes: 50,
         theory: [
-          "Die Dimension ist einfach die Anzahl der Basisvektoren. Im 2D braucht man 2, im 3D braucht man 3.",
-          "Man kann die Basis wechseln (andere Bausteine nehmen), aber die Anzahl bleibt immer gleich — das ist die Dimension.",
-          "Bei einem Basiswechsel bleiben die Vektoren dieselben, nur die Beschreibung (die Koordinaten) ändert sich."
+          "Geometrisch ist $|\det A|$ das Volumen des Parallelotops, das die Spalten von $A$ aufspannen. Im $\mathbb{R}^2$ ist es die Fläche der Parallelogramms.",
+          "Ist $\det A=0$, liegen die Spalten in einem echten Unterraum — das Volumen kollabiert, die Matrix ist nicht invertierbar.",
+          "Das Vorzeichen der Determinante gibt die Orientierung an: $\det A>0$ erhält, $\det A<0$ kehrt die Orientierung um.",
+          "Damit erklärt sich $\det(AB)=\det A\det B$: zwei Abbildungen hintereinander multiplizieren ihre Volumenskalierungen."
         ],
-        example: "Der Vektor (3, 5) hat in der normalen Basis die Koordinaten (3, 5). In einer anderen Basis könnte derselbe Vektor die Koordinaten (4, 1) haben — er ist derselbe, nur anders beschrieben.",
-        exercise: "Wie viele Vektoren braucht man für eine Basis im 4D-Raum (also bei Listen mit 4 Zahlen)?",
-        hint: "Die Dimension entspricht der Anzahl der Zahlen in den Vektoren.",
-        solution: "Die Dimension entspricht der Anzahl der Zahlen in den Vektoren.\nIm 4D-Raum (Listen mit 4 Zahlen) braucht man 4 Basisvektoren.\nBeispiel — die Standardbasis: $(1, 0, 0, 0),\\ (0, 1, 0, 0),\\ (0, 0, 1, 0),\\ (0, 0, 0, 1)$.\nMit diesen vier Vektoren lässt sich jeder Vektor $(a, b, c, d)$ als $a\\cdot e_1 + b\\cdot e_2 + c\\cdot e_3 + d\\cdot e_4$ schreiben.",
+        example: "Die Spalten $\begin{pmatrix}1\\\\0\end{pmatrix}$, $\begin{pmatrix}0\\\\1\end{pmatrix}$ spannen das Einheitsquadrat der Fläche $1$ auf; $\det I=1$. Mit $\begin{pmatrix}2\\\\0\end{pmatrix}$, $\begin{pmatrix}0\\\\1\end{pmatrix}$ ist die Fläche $2$ und $\det=2$.",
+        exercise: "Welche Fläche spannen $\begin{pmatrix}3\\\\0\end{pmatrix}$ und $\begin{pmatrix}1\\\\2\end{pmatrix}$ auf?",
+        hint: "Fläche $=|\det|$ der Matrix mit diesen Spalten.",
+        solution: "$A=\begin{pmatrix}3&1\\\\0&2\end{pmatrix}$, $\det A=3\cdot2-1\cdot0=6$.\nFläche $=|\det A|=6$.",
         quiz: {
-          question: "Was ändert sich, wenn man die Basis wechselt?",
-          options: ["Die Vektoren ändern sich", "Nur die Beschreibung (Koordinaten) ändert sich, der Vektor bleibt derselbe", "Der Raum wird kleiner", "Gar nichts"],
+          question: "Was bedeutet geometrisch $\det A=0$?",
+          options: ["Das Volumen ist null, die Spalten sind linear abhängig", "Die Abbildung vergrößert alles", "Die Matrix ist die Einheitsmatrix", "Die Spalten sind orthogonal"],
+          answerIndex: 0,
+          explanation: "Determinante null heißt, das aufgespannte Volumen kollabiert — die Spalten liegen in einem echten Unterraum."
+        }
+      },
+      {
+        id: "m6-l4",
+        title: "Vom Pfeil zum Axiom: warum abstrahieren?",
+        difficulty: "Aufbau → Fortgeschritten",
+        estimatedMinutes: 50,
+        theory: [
+          "Bislang waren Vektoren Pfeile mit Komponenten. Doch dieselben Rechenregeln gelten auch für Objekte, die gar keine Pfeile sind: Polynome, Funktionen, Lösungen von Differentialgleichungen.",
+          "Beispiel: Polynome kann man addieren ($x^2+3x = x^2+3x$) und mit Zahlen vielfachen ($2\cdot(x^2+1)=2x^2+2$) — genau wie Vektoren. Die „Komponenten“ sind hier die Koeffizienten.",
+          "Statt jeden Typ einzeln zu behandeln, fasst man alle zusammen, die sich gleich verhalten: ein Vektorraum ist jede Menge mit Addition und skalaren Vielfachen, die die vertrauten Regeln erfüllen.",
+          "Der Gewinn ist enorm: ein einziger Beweis für alle Vektorräume zugleich. Sätze über Basen, Dimension und lineare Abbildungen gelten dann automatisch für Pfeile, Polynome und Funktionen.",
+          "Dieser Schritt — vom konkreten Objekt zur axiomatischen Struktur — ist der Kern universitärer Mathematik. Wer ihn einmal verstanden hat, sieht überall Vektorräume."
+        ],
+        example: "Die drei Vektoren $\vec e_1,\vec e_2,\vec e_3$ bilden eine Basis des $\mathbb{R}^3$; die Monome $1,x,x^2$ bilden eine Basis der quadratischen Polynome. Beide Räume haben Dimension $3$ — derselbe Satz, zwei völlig verschiedene Objekte.",
+        exercise: "Nenne zwei Vektorräume, die keine Pfeile sind, und gib jeweils eine Basis an.",
+        hint: "Denk an Polynome und Funktionen; die „Basis“ besteht aus den Bausteinen, aus denen sich alles zusammensetzt.",
+        solution: "Beispiel 1: Der Raum der Polynome vom Grad $\leq2$ mit Basis $\{1,x,x^2\}$ (Dimension $3$).\nBeispiel 2: Der Raum der stetigen Funktionen $C^0(\mathbb{R})$ — hier ist keine endliche Basis vorhanden, der Raum ist unendlichdimensional; eine „Basis“ (Hamel-Basis) existiert nur mit dem Auswahlaxiom.\nBeide sind Vektorräume, obwohl ihre Elemente keine Pfeile sind.",
+        quiz: {
+          question: "Warum abstrahieren wir vom konkreten Pfeil zum axiomatischen Vektorraum?",
+          options: ["Weil Pfeile unpraktisch sind", "Weil ein Beweis dann für Pfeile, Polynome und Funktionen zugleich gilt", "Weil man sonst nicht rechnen kann", "Weil es Vorschrift ist"],
           answerIndex: 1,
-          explanation: "Der Vektor bleibt derselbe — nur die Zahlen, mit denen man ihn beschreibt, ändern sich."
+          explanation: "Abstraktion fasst alle Objekte mit denselben Rechenregeln zusammen — ein Satz gilt dann automatisch für Pfeile, Polynome und Funktionen."
         }
       }
     ]
   },
   {
     id: "mod-7",
-    title: "Lineare Abbildungen: Vektor-Maschinen",
-    level: "Aufbau → Fortgeschritten",
-    targetHours: 10,
+    title: "Vektorräume (axiomatisch)",
+    level: "Fortgeschritten",
+    targetHours: 11,
     goals: [
-      "Verstehen, was eine lineare Abbildung ist",
-      "Kern und Bild bestimmen",
-      "Den Rang-Nullitätssatz anwenden"
+      "Körper und die Vektorraumaxiome kennen",
+      "Unterräume erkennen und nachweisen",
+      "Beispiele wie Funktionen- und Polynomräume einordnen"
     ],
     lessons: [
       {
         id: "m7-l1",
-        title: "Was ist eine lineare Abbildung?",
+        title: "Körper und Vektorraumaxiome",
         difficulty: "Fortgeschritten",
-        estimatedMinutes: 50,
+        estimatedMinutes: 55,
         theory: [
-          "Eine lineare Abbildung ist eine Maschine, die Vektoren reinwirft und neue Vektoren ausspuckt. Dabei gelten zwei Regeln:",
-          "Regel 1: Wenn du zwei Vektoren zusammen reinsteckst, ist das Ergebnis dasselbe, als würdest du sie einzeln reinstecken und dann addieren.",
-          "Regel 2: Wenn du einen Vektor mit einer Zahl multiplizierst und dann reinsteckst, ist das Ergebnis dasselbe wie wenn du ihn erst reinsteckst und dann mit der Zahl multiplizierst."
+          "Ein Körper $K$ (z. B. $\mathbb{Q},\mathbb{R},\mathbb{C}$) ist eine Menge mit Addition und Multiplikation, die die vertrauten Regeln erfüllen: Assoziativität, Kommutativität, Distributivität, neutrale und inverse Elemente.",
+          "Ein $K$-Vektorraum ist eine Menge $V$ mit Addition $\vec u+\vec v$ und skalarer Multiplikation $\lambda\vec v$ ($\lambda\in K$), die die Axiome erfüllen: $\vec u+\vec v=\vec v+\vec u$, $\lambda(\vec u+\vec v)=\lambda\vec u+\lambda\vec v$, $(\lambda+\mu)\vec v=\lambda\vec v+\mu\vec v$ und $1\cdot\vec v=\vec v$.",
+          "Diese Axiome sind nicht Willkür, sondern fassen die Rechenregeln zusammen, die wir schon bei $\mathbb{R}^n$ genutzt haben — jetzt aber für beliebige Objekte.",
+          "Der Nullvektor $\vec 0$ ist eindeutig durch $\vec v+\vec 0=\vec v$ festgelegt, ebenso der Gegenvektor $-\vec v$.",
+          "Dieser Schritt — vom konkreten Pfeil zum axiomatischen Vektorraum — ist ein klassischer Schwerpunkt der Linearen Algebra 1 an der Universität Freiburg; die Axiome und der sichere Umgang mit ihnen stehen regelmäßig am Anfang von Klausuren (siehe Altklausuren der Fachschaft Mathematik)."
         ],
-        example: "Die Maschine T(x, y) = (2x, 3y) ist linear: Sie verdoppelt die x-Richtung und verdreifacht die y-Richtung. T(x, y) = (x+1, y) ist NICHT linear, weil die +1 die Regeln verletzt.",
-        exercise: "Prüfe, ob T(x, y) = (2x + y, x - y) eine lineare Abbildung ist.",
-        hint: "Teste die zwei Regeln: Was passiert bei Addition und bei Multiplikation mit einer Zahl?",
-        solution: "Wir prüfen die zwei Linearitätsregeln.\nRegel 1 (Additivität):\n$T((x_1, y_1) + (x_2, y_2)) = T(x_1+x_2, y_1+y_2) = (2(x_1+x_2) + (y_1+y_2),\\ (x_1+x_2) - (y_1+y_2))$\n$= (2x_1+2x_2+y_1+y_2,\\ x_1+x_2-y_1-y_2)$\n$T(x_1, y_1) + T(x_2, y_2) = (2x_1+y_1,\\ x_1-y_1) + (2x_2+y_2,\\ x_2-y_2) = (2x_1+y_1+2x_2+y_2,\\ x_1-y_1+x_2-y_2)$\nBeide Ausdrücke stimmen überein. ✓\nRegel 2 (Homogenität):\n$T(k\\cdot(x, y)) = T(kx, ky) = (2kx+ky,\\ kx-ky) = k\\cdot(2x+y,\\ x-y) = k\\cdot T(x, y)$ ✓\nBeide Regeln gelten — $T$ ist linear.",
+        example: "$\mathbb{R}^n$ über $\mathbb{R}$ ist ein Vektorraum. Auch $\mathbb{C}$ ist ein $\mathbb{R}$-Vektorraum (Skalare reell) und ein $\mathbb{C}$-Vektorraum (Skalare komplex).",
+        exercise: "Zeige: in jedem Vektorraum gilt $\lambda\vec 0=\vec 0$ für alle $\lambda\in K$.",
+        hint: "Nutze $\vec 0=\vec 0+\vec 0$ und die Distributivität.",
+        solution: "Es gilt $\vec 0=\vec 0+\vec 0$. Multipliziere mit $\lambda$:\n$\lambda\vec 0=\lambda(\vec 0+\vec 0)=\lambda\vec 0+\lambda\vec 0$.\nSubtrahiere $\lambda\vec 0$ auf beiden Seiten: $\vec 0=\lambda\vec 0$.",
         quiz: {
-          question: "Welche Abbildung ist linear?",
-          options: ["T(x) = x + 5 (Verschiebung)", "T(x) = x² (Quadrieren)", "T(x, y) = (3x, 3y) (Strecken)", "T(x) = |x| (Betrag)"],
-          answerIndex: 2,
-          explanation: "Nur das Strecken T(x, y) = (3x, 3y) befolgt beide Regeln einer linearen Abbildung."
+          question: "Welche Axiome definieren einen Vektorraum?",
+          options: ["Nur Addition von Vektoren", "Addition und skalare Multiplikation mit Rechenregeln wie Distributivität", "Multiplikation von Vektoren", "Existenz einer Norm"],
+          answerIndex: 1,
+          explanation: "Ein Vektorraum braucht Addition und skalare Multiplikation, die Assoziativität, Kommutativität und Distributivität erfüllen, mit $1\cdot\vec v=\vec v$."
         }
       },
       {
         id: "m7-l2",
-        title: "Kern und Bild",
+        title: "Unterräume",
         difficulty: "Fortgeschritten",
-        estimatedMinutes: 70,
+        estimatedMinutes: 50,
         theory: [
-          "Der Kern ist alles, was die Maschine zu null macht. Wenn man einen Vektor in die Maschine steckt und null herauskommt, gehört er zum Kern.",
-          "Das Bild ist alles, was die Maschine herstellen kann. Es ist die Menge aller möglichen Ergebnisse.",
-          "Der Kern zeigt, was verloren geht. Das Bild zeigt, was herauskommen kann."
+          "Eine Teilmenge $U\subseteq V$ heißt Unterraum, wenn sie selbst ein Vektorraum ist. Es reicht zu prüfen: $U\neq\emptyset$ und mit $\vec u,\vec w\in U$ liegt auch $\lambda\vec u+\mu\vec w\in U$ für alle $\lambda,\mu\in K$ (Unterraumkriterium).",
+          "Äquivalent: $\vec 0\in U$ und $U$ ist abgeschlossen unter Addition und skalaren Vielfachen.",
+          "Beispiele: jeder Vektorraum ist sein eigener Unterraum; $\{\vec 0\}$ ist der Nullraum; eine Gerade/Ebene durch den Ursprung im $\mathbb{R}^3$ ist ein Unterraum.",
+          "Eine Menge, die den Nullvektor nicht enthält, kann kein Unterraum sein — der erste Schnelltest."
         ],
-        example: "Eine Maschine, die alles auf die x-Achse projiziert: Kern = die y-Achse (alles, was auf der y-Achse liegt, wird zu null). Bild = die x-Achse (nur x-Werte kommen raus).",
-        exercise: "Finde Kern und Bild der Abbildung T(x, y, z) = (x, x, x). Was kommt raus, was wird zu null?",
-        hint: "Für den Kern: Wann ist (x, x, x) = (0, 0, 0)? Für das Bild: Was kann alles rauskommen?",
-        solution: "Kern — was wird zu null?\n$T(x, y, z) = (0, 0, 0)$ heißt $(x, x, x) = (0, 0, 0)$, also $x = 0$.\n$y$ und $z$ sind frei wählbar! Der Kern ist die Menge $\\{(0, y, z)\\}$ — das ist die $yz$-Ebene. Dimension des Kernels $= 2$.\nBild — was kommt raus?\nAlle möglichen Ausgaben haben die Form $(x, x, x)$. Das ist eine Gerade im 3D-Raum — die Diagonale. Dimension des Bildes $= 1$.\nProbe mit dem Rang-Nullitätssatz: $\\dim(\\text{Kern}) + \\dim(\\text{Bild}) = 2 + 1 = 3 = \\dim(\\text{Eingabe})$. ✓",
+        example: "Im $\mathbb{R}^2$ ist $U=\{\begin{pmatrix}x\\\\y\end{pmatrix}:y=2x\}$ ein Unterraum (eine Ursprungsgerade). Dagegen ist $\{\vec v:\lVert\vec v\rVert=1\}$ (Einheitskreis) keiner, da Addition die Länge ändert.",
+        exercise: "Ist $U=\{\begin{pmatrix}x\\\\y\\\\z\end{pmatrix}\in\mathbb{R}^3: x+y+z=0\}$ ein Unterraum?",
+        hint: "Prüfe, ob $\vec 0$ dabei liegt und ob mit zwei Lösungen auch jede Linearkombination Lösung ist.",
+        solution: "$\vec 0$ erfüllt $0+0+0=0$ ✓. Seien $\vec u,\vec w\in U$ mit $u_1+u_2+u_3=0$ und $w_1+w_2+w_3=0$. Dann für $\lambda\vec u+\mu\vec w$:\n$(\lambda u_1+\mu w_1)+(\lambda u_2+\mu w_2)+(\lambda u_3+\mu w_3)=\lambda\cdot0+\mu\cdot0=0$.\nAlso liegt die Linearkombination in $U$. $U$ ist Unterraum.",
         quiz: {
-          question: "Was bedeutet es, wenn der Kern nur aus dem Nullvektor besteht?",
-          options: ["Die Maschine funktioniert nicht", "Nichts geht verloren — die Maschine ist eindeutig (injektiv)", "Alles wird zu null", "Die Maschine ist sehr groß"],
-          answerIndex: 1,
-          explanation: "Wenn nur null zu null wird, geht keine Information verloren. Jede Eingabe gibt ein anderes Ergebnis."
+          question: "Was ist der schnellste Test, ob eine Menge kein Unterraum ist?",
+          options: ["Sie enthält $\vec 0$ nicht", "Sie hat mehr als zwei Elemente", "Sie ist nicht quadratisch", "Sie hat Determinante null"],
+          answerIndex: 0,
+          explanation: "Ohne den Nullvektor kann eine Menge kein Unterraum sein — das ist der einfachste Ausschluss-Test."
         }
       },
       {
         id: "m7-l3",
-        title: "Der Rang-Nullitätssatz",
+        title: "Funktionen- und Polynomräume",
         difficulty: "Fortgeschritten",
-        estimatedMinutes: 60,
+        estimatedMinutes: 55,
         theory: [
-          "Der Satz sagt etwas Einfaches: Was reingeht muss auch rauskommen. Die Dimension der Eingabe = Dimension des Kernels + Dimension des Bildes.",
-          "Stell dir vor: Du hast 5 Dimensionen Eingabe. Wenn der Kern 2 Dimensionen hat (das geht verloren), dann hat das Bild 3 Dimensionen.",
-          "Das ist wie ein Trichter: Was oben reingeht muss unten rauskommen — was im Kern verschwindet, fehlt beim Bild."
+          "Vektorräume sind nicht nur Pfeile. Die Menge aller Funktionen $f:\mathbb{R}\to\mathbb{R}$ mit punktweiser Addition $(f+g)(x)=f(x)+g(x)$ und $(\lambda f)(x)=\lambda f(x)$ ist ein Vektorraum.",
+          "Die Polynome $K[x]$ in einer Variablen bilden einen Vektorraum; die Monome $1,x,x^2,\dots$ sind ein natürliches Erzeugendensystem.",
+          "Die stetigen Funktionen, die differenzierbaren Funktionen und die $k$-mal stetig differenzierbaren Funktionen $C^k(\mathbb{R})$ sind jeweils Unterräume des Funktionenraums.",
+          "Diese Beispiele zeigen, dass Vektorräume unendlichdimensional sein können — der Begriff „Dimension“ muss später verallgemeinert werden.",
+          "Für die Lineare Algebra sind Polynomräume zentral: Differentialoperatoren und charakteristische Polynome leben hier."
         ],
-        example: "Wenn die Eingabe 7 Dimensionen hat und der Kern 2 Dimensionen, dann hat das Bild 7 - 2 = 5 Dimensionen.",
-        exercise: "Die Eingabe hat 6 Dimensionen, das Bild hat 4. Wie viele Dimensionen hat der Kern?",
-        hint: "Eingabe = Kern + Bild, also Kern = Eingabe - Bild.",
-        solution: "Rang-Nullitätssatz: $\\dim(\\text{Eingabe}) = \\dim(\\text{Kern}) + \\dim(\\text{Bild})$.\n$6 = \\dim(\\text{Kern}) + 4$\n$\\dim(\\text{Kern}) = 6 - 4 = 2$.\nDer Kern hat also 2 Dimensionen.",
+        example: "Sind $f(x)=x^2$ und $g(x)=\sin x$ im Funktionenraum, so ist $3f-2g$ die Funktion $x\mapsto 3x^2-2\sin x$ — wieder eine Funktion, also abgeschlossen.",
+        exercise: "Ist die Menge $U=\{f\in\mathbb{R}[x]:f(0)=0\}$ ein Unterraum von $\mathbb{R}[x]$?",
+        hint: "Prüfe $\vec 0$ (die Nullfunktion) und die Abgeschlossenheit unter Linearkombinationen über den Funktionswert an $0$.",
+        solution: "Nullfunktion $f\equiv0$ erfüllt $f(0)=0$ ✓. Seien $f,g\in U$ mit $f(0)=g(0)=0$. Für $\lambda f+\mu g$ gilt an der Stelle $0$:\n$(\lambda f+\mu g)(0)=\lambda f(0)+\mu g(0)=\lambda\cdot0+\mu\cdot0=0$.\nAlso $\lambda f+\mu g\in U$. $U$ ist Unterraum.",
         quiz: {
-          question: "Die Eingabe hat 7 Dimensionen, der Kern hat 2. Wie groß ist das Bild?",
-          options: ["9", "5", "2", "14"],
+          question: "Warum sind Polynome ein Vektorraum?",
+          options: ["Weil sie einen Grad haben", "Weil Addition und skalare Multiplikation wieder Polynome liefern und die Axiome erfüllen", "Weil sie nullstellbar sind", "Weil sie stetig sind"],
           answerIndex: 1,
-          explanation: "7 = 2 + Bild, also hat das Bild 7 - 2 = 5 Dimensionen."
+          explanation: "Summe und skalares Vielfaches von Polynomen sind wieder Polynome, und die Vektorraumaxiome gelten punktweise."
         }
       }
     ]
   },
   {
     id: "mod-8",
-    title: "Eigenwerte: Besondere Richtungen",
+    title: "Basis und Dimension",
     level: "Fortgeschritten",
-    targetHours: 13,
+    targetHours: 12,
     goals: [
-      "Verstehen, was Eigenwerte und Eigenvektoren sind",
-      "Das charakteristische Polynom nutzen",
-      "Diagonalisierbarkeit prüfen"
+      "Erzeugendensystem und lineare Unabhängigkeit definieren",
+      "Basen erkennen und das Austauschlemma anwenden",
+      "Den Dimensionsbegriff und endlichdimensionale Räume beherrschen"
     ],
     lessons: [
       {
         id: "m8-l1",
-        title: "Was sind Eigenwerte?",
+        title: "Erzeugendensystem und lineare Unabhängigkeit",
         difficulty: "Fortgeschritten",
-        estimatedMinutes: 65,
+        estimatedMinutes: 55,
         theory: [
-          "Stell dir vor, eine Matrix ist eine Verzerrung — sie zieht und streckt Dinge. In den meisten Richtungen ändert sich auch die Richtung. Aber in einigen besonderen Richtungen wird nur gestreckt — die Richtung bleibt gleich!",
-          "Diese besonderen Richtungen heißen Eigenvektoren. Der Streckfaktor heißt Eigenwert.",
-          "Die Formel lautet: A·v = λ·v. Das bedeutet: Die Matrix A angewendet auf den Vektor v gibt dasselbe wie v mit dem Faktor λ multipliziert."
+          "Eine Menge $E\subseteq V$ heißt Erzeugendensystem, wenn jeder Vektor als Linearkombination von $E$ geschrieben werden kann, also $\operatorname{span}(E)=V$.",
+          "Vektoren $\vec v_1,\dots,\vec v_k$ heißen linear unabhängig, wenn $\lambda_1\vec v_1+\dots+\lambda_k\vec v_k=\vec 0$ nur die triviale Lösung $\lambda_1=\dots=\lambda_k=0$ hat. Sonst sind sie linear abhängig.",
+          "Linear abhängig heißt: ein Vektor ist Linearkombination der anderen.",
+          "Im $\mathbb{R}^n$ sind höchstens $n$ Vektoren linear unabhängig. Mehr als $n$ sind automatisch abhängig."
         ],
-        example: "Die Matrix [[2, 0], [0, 3]] hat die Eigenwerte 2 und 3. Der Vektor (1, 0) ist ein Eigenvektor, weil A·(1,0) = (2,0) = 2·(1,0). Die Richtung bleibt gleich, nur gestreckt um Faktor 2.",
-        exercise: "Prüfe: Ist (1, 1) ein Eigenvektor der Matrix [[3, 0], [0, 3]? Welcher Eigenwert gehört dazu?",
-        hint: "Rechne A·(1, 1) aus und schau, ob das Ergebnis ein Vielfaches von (1, 1) ist.",
-        solution: "Wir rechnen $A\\cdot v$ mit $v = (1, 1)$:\n$\\begin{pmatrix} 3 & 0 \\\\ 0 & 3 \\end{pmatrix}\\begin{pmatrix} 1 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} 3\\cdot 1 + 0\\cdot 1 \\\\ 0\\cdot 1 + 3\\cdot 1 \\end{pmatrix} = \\begin{pmatrix} 3 \\\\ 3 \\end{pmatrix}$\nIst $(3, 3)$ ein Vielfaches von $(1, 1)$? Ja: $(3, 3) = 3\\cdot(1, 1)$.\nAlso ist $(1, 1)$ ein Eigenvektor zum Eigenwert $\\lambda = 3$.\nHinweis: Da $A = 3\\cdot I$ (die 3-fache Einheitsmatrix), ist JEDER Vektor ein Eigenvektor zum Eigenwert 3 — die Matrix streckt einfach alles um den Faktor 3.",
+        example: "Sind $\begin{pmatrix}1\\\\0\end{pmatrix},\begin{pmatrix}0\\\\1\end{pmatrix},\begin{pmatrix}1\\\\1\end{pmatrix}$ unabhängig? Nein: $\begin{pmatrix}1\\\\1\end{pmatrix}=\begin{pmatrix}1\\\\0\end{pmatrix}+\begin{pmatrix}0\\\\1\end{pmatrix}$, also abhängig.",
+        exercise: "Sind $\begin{pmatrix}1\\\\2\\\\3\end{pmatrix},\begin{pmatrix}2\\\\3\\\\4\end{pmatrix},\begin{pmatrix}3\\\\5\\\\7\end{pmatrix}$ linear unabhängig?",
+        hint: "Löse $\lambda_1\vec v_1+\lambda_2\vec v_2+\lambda_3\vec v_3=\vec 0$ als homogenes LGS.",
+        solution: "Homogenes System $\begin{pmatrix}1&2&3\\\\2&3&5\\\\3&4&7\end{pmatrix}\vec\lambda=\vec 0$.\nGauß: $Z_2-2Z_1$, $Z_3-3Z_1$ liefert $\begin{pmatrix}1&2&3\\\\0&-1&-1\\\\0&-2&-2\end{pmatrix}$, weiter $Z_3-2Z_2$: $\begin{pmatrix}1&2&3\\\\0&-1&-1\\\\0&0&0\end{pmatrix}$.\nDritte Spalte ohne Pivot $\Rightarrow$ freie Variable $\Rightarrow$ nichttriviale Lösung, z. B. $\lambda_3=1$, $\lambda_2=-1$, $\lambda_1=1$.\nAlso linear abhängig.",
         quiz: {
-          question: "Warum darf ein Eigenvektor nicht der Nullvektor (0, 0) sein?",
-          options: ["Weil Nullvektoren zu lang sind", "Weil sonst jede Zahl ein Eigenwert wäre (A·0 = λ·0 ist immer wahr)", "Weil nur positive Zahlen erlaubt sind", "Weil der Nullvektor keine Richtung hat"],
+          question: "Wann heißen Vektoren linear unabhängig?",
+          options: ["Wenn ihre Determinante null ist", "Wenn die Nullgleichung nur trivial lösbar ist", "Wenn sie gleich lang sind", "Wenn sie paarweise orthogonal sind"],
           answerIndex: 1,
-          explanation: "Wenn man 0 einsetzt, ist A·0 = λ·0 für jedes λ wahr. Das wäre nicht sinnvoll — jede Zahl wäre ein Eigenwert."
+          explanation: "Linear unabhängig bedeutet: $\lambda_1\vec v_1+\dots+\lambda_k\vec v_k=\vec 0$ hat nur die Lösung $\lambda_i=0$."
         }
       },
       {
         id: "m8-l2",
-        title: "Das charakteristische Polynom",
+        title: "Basis und Austauschlemma",
         difficulty: "Fortgeschritten",
-        estimatedMinutes: 70,
+        estimatedMinutes: 60,
         theory: [
-          "Um die Eigenwerte zu finden, löst man eine Gleichung: det(A - λ·I) = 0. Das ist das 'charakteristische Polynom'.",
-          "Die Nullstellen dieses Polynoms sind die Eigenwerte. Wie bei einer normalen Gleichung sucht man die Werte für λ, die Null ergeben.",
-          "Manchmal sind Eigenwerte komplexe Zahlen (mit i). Das kann selbst bei ganz normalen Matrizen passieren — zum Beispiel bei Drehungen.",
-          "Vollständiges 2×2-Beispiel — A = [[2, 1], [0, 3]]. Wir bilden A − λI = [[2−λ, 1], [0, 3−λ]]. Die Determinante: (2−λ)(3−λ) − 1·0 = (2−λ)(3−λ). Das char. Polynom ist also (2−λ)(3−λ) = 0 mit Nullstellen λ₁ = 2 und λ₂ = 3.",
-          "Vollständiges 3×3-Beispiel — A = [[2, 0, 0], [0, 3, 4], [0, 4, -3]]. Blockstruktur: Der linke obere Block [2] liefert direkt den Eigenwert λ = 2. Für den rechten 2×2-Block B = [[3, 4], [4, -3]] gilt det(B − λI) = (3−λ)(−3−λ) − 16 = λ² − 9 − 16 = λ² − 25.",
-          "Das gesamte char. Polynom: det(A − λI) = (2−λ)·(λ² − 25) = 0. Nullstellen: λ₁ = 2, λ₂ = 5, λ₃ = −5. Drei verschiedene reelle Eigenwerte — also ist A diagonalisierbar."
+          "Eine Basis ist ein Erzeugendensystem, das zugleich linear unabhängig ist. Die Standardbasis des $\mathbb{R}^n$ ist $\vec e_1,\dots,\vec e_n$.",
+          "Basisaustauschlemma (Steinitz): Ist $\{\vec v_1,\dots,\vec v_n\}$ eine Basis und $\vec w=\sum\mu_i\vec v_i$ mit $\mu_j\neq0$, so erhält man eine neue Basis, indem man $\vec v_j$ durch $\vec w$ ersetzt.",
+          "Daraus folgt der Basisergänzungssatz: jedes linear unabhängige System kann zu einer Basis ergänzt werden; jedes Erzeugendensystem enthält eine Basis.",
+          "Insbesondere haben je zwei Basen desselben Vektorraums gleich viele Elemente — das motiviert die Dimension."
         ],
-        example: "Für A = [[4, 0], [0, 5]] ist das Polynom (4-λ)(5-λ) = 0. Die Eigenwerte sind λ = 4 und λ = 5. Für A = [[2, 1], [0, 3]] rechnet man det(A − λI) = (2−λ)(3−λ) = 0, also λ = 2 und λ = 3.",
-        exercise: "Finde die Eigenwerte der Matrix [[2, 1], [0, 3]].",
-        hint: "Berechne det(A - λI) = (2-λ)(3-λ) - 0 = 0 und löse nach λ.",
-        solution: "Charakteristisches Polynom: $\\det(A - \\lambda I) = 0$.\n$A - \\lambda I = \\begin{pmatrix} 2-\\lambda & 1 \\\\ 0 & 3-\\lambda \\end{pmatrix}$\n$\\det = (2-\\lambda)(3-\\lambda) - 1\\cdot 0 = (2-\\lambda)(3-\\lambda)$\nNullstellen: $(2-\\lambda)(3-\\lambda) = 0$\n$\\lambda_1 = 2,\\quad \\lambda_2 = 3$.\nDie Matrix hat zwei verschiedene reelle Eigenwerte und ist deshalb diagonalisierbar.",
+        example: "Im $\mathbb{R}^2$ ist $\{\vec e_1,\vec e_2\}$ eine Basis. Mit $\vec w=\vec e_1+\vec e_2$ (Koeffizient von $\vec e_2$ ist $1\neq0$) ist auch $\{\vec e_1,\vec e_1+\vec e_2\}$ eine Basis.",
+        exercise: "Begründe, dass $\{\vec e_1,\vec e_1+\vec e_2\}$ eine Basis des $\mathbb{R}^2$ ist.",
+        hint: "Prüfe lineare Unabhängigkeit und dass jeder Vektor als Linearkombination geschrieben werden kann.",
+        solution: "Unabhängigkeit: $\lambda_1\vec e_1+\lambda_2(\vec e_1+\vec e_2)=\vec 0$ heißt $(\lambda_1+\lambda_2)\vec e_1+\lambda_2\vec e_2=\vec 0$, also $\lambda_2=0$ und $\lambda_1=0$. ✓\nErzeugend: zu $\begin{pmatrix}a\\\\b\end{pmatrix}$ wähle $\lambda_2=b$ und $\lambda_1=a-b$, dann $\lambda_1\vec e_1+\lambda_2(\vec e_1+\vec e_2)=\begin{pmatrix}a\\\\b\end{pmatrix}$.\nAlso Basis.",
         quiz: {
-          question: "Wie findet man die Eigenwerte einer Matrix?",
-          options: ["Man berechnet die Determinante", "Man löst det(A - λI) = 0 (das charakteristische Polynom)", "Man addiert alle Zahlen", "Man dividiert durch die Einheitsmatrix"],
+          question: "Was ist eine Basis?",
+          options: ["Ein Erzeugendensystem", "Ein linear unabhängiges Erzeugendensystem", "Die längsten Vektoren", "Eine orthogonale Menge"],
           answerIndex: 1,
-          explanation: "Man setzt det(A - λI) = 0 und sucht die Nullstellen. Diese sind die Eigenwerte. Für 3×3-Matrizen nutzt man oft Blockstruktur oder entwickelt nach einer Zeile."
+          explanation: "Eine Basis ist gleichzeitig Erzeugendensystem und linear unabhängig — minimal erzeugend, maximal unabhängig."
         }
       },
       {
         id: "m8-l3",
-        title: "Diagonalisierbarkeit",
+        title: "Dimension endlichdimensionaler Räume",
         difficulty: "Fortgeschritten",
-        estimatedMinutes: 70,
+        estimatedMinutes: 55,
         theory: [
-          "Eine Matrix ist diagonalisierbar, wenn man genug Eigenvektoren findet, um eine Basis zu bauen.",
-          "Wenn alle Eigenwerte verschieden sind, ist die Matrix automatisch diagonalisierbar.",
-          "Diagonalisierbar sein bedeutet: Man kann die Matrix in einer Form schreiben, wo nur die Diagonale Zahlen hat und sonst alles null ist. Das macht Rechnen viel einfacher."
+          "Die Dimension $\dim V$ ist die Anzahl der Vektoren in einer (und damit jeder) Basis. Der $\mathbb{R}^n$ hat Dimension $n$.",
+          "Für jeden Unterraum $U\subseteq V$ gilt $\dim U\leq\dim V$; Gleichheit liegt genau vor, wenn $U=V$.",
+          "Der Ergänzungssatz liefert: zu jedem Unterraum $U$ gibt es einen Komplementärraum $W$ mit $V=U\oplus W$ und $\dim V=\dim U+\dim W$.",
+          "Unendlichdimensionale Räume (wie $K[x]$) haben keine endliche Basis; ihre „Dimension“ wird später über Kardinalitäten von Hamel-Basen gefasst."
         ],
-        example: "Eine 3x3-Matrix mit drei verschiedenen Eigenwerten ist diagonalisierbar. Eine 2x2-Matrix mit nur einem Eigenwert ist es oft nicht (wenn der Eigenraum zu klein ist).",
-        exercise: "Eine 2x2-Matrix hat zwei verschiedene Eigenwerte. Ist sie diagonalisierbar?",
-        hint: "Verschiedene Eigenwerte bedeuten automatisch: genug Eigenvektoren für eine Basis.",
-        solution: "Ja. Verschiedene Eigenwerte garantieren, dass die zugehörigen Eigenvektoren linear unabhängig sind.\nBei einer $2\\times 2$-Matrix braucht man 2 unabhängige Eigenvektoren für eine Basis — und zwei verschiedene Eigenwerte liefern genau das.\nAlso ist die Matrix diagonalisierbar. Man kann sie schreiben als $A = P\\cdot D\\cdot P^{-1}$, wobei $D = \\operatorname{diag}(\\lambda_1, \\lambda_2)$.",
+        example: "Im $\mathbb{R}^3$ hat die $xy$-Ebene $U=\{z=0\}$ Dimension $2$; ein Komplementärraum ist die $z$-Achse mit Dimension $1$, und $2+1=3$.",
+        exercise: "Bestimme die Dimension von $U=\{\begin{pmatrix}x\\\\y\\\\z\end{pmatrix}:x+y+z=0\}\subseteq\mathbb{R}^3$.",
+        hint: "Löse $z=-x-y$, also zwei freie Parameter; gib eine Basis an.",
+        solution: "Aus $x+y+z=0$ folgt $z=-x-y$. Jeder Vektor hat die Form $\begin{pmatrix}x\\\\y\\\\-x-y\end{pmatrix}=x\begin{pmatrix}1\\\\0\\\\-1\end{pmatrix}+y\begin{pmatrix}0\\\\1\\\\-1\end{pmatrix}$.\nDie zwei Vektoren sind linear unabhängig, bilden also eine Basis. Damit $\dim U=2$.",
         quiz: {
-          question: "Wann ist eine Matrix sicher diagonalisierbar?",
-          options: ["Wenn die Determinante 1 ist", "Wenn alle Eigenwerte verschieden sind", "Wenn die Matrix nur positive Zahlen hat", "Wenn sie quadratisch ist"],
+          question: "Was ist die Dimension eines Vektorraums?",
+          options: ["Die Anzahl der Vektoren darin", "Die Anzahl der Vektoren in einer Basis", "Die Länge des längsten Vektors", "Die Determinante"],
           answerIndex: 1,
-          explanation: "Wenn alle n Eigenwerte verschieden sind, hat man automatisch n unabhängige Eigenvektoren — genug für eine Basis."
+          explanation: "Die Dimension ist die Anzahl der Basisvektoren — wohldefiniert, da alle Basen gleich lang sind."
         }
       }
     ]
   },
   {
     id: "mod-9",
-    title: "Skalarprodukt und Winkel",
+    title: "Lineare Abbildungen",
     level: "Fortgeschritten",
-    targetHours: 10,
+    targetHours: 12,
     goals: [
-      "Verstehen, was ein Skalarprodukt ist",
-      "Projektionen berechnen",
-      "Gram-Schmidt und QR kennenlernen"
+      "Lineare Abbildungen definieren und Kern/Bild berechnen",
+      "Den Rang-Nullitätssatz anwenden",
+      "Darstellungsmatrix und Basiswechsel beherrschen"
     ],
     lessons: [
       {
         id: "m9-l1",
-        title: "Das Skalarprodukt",
+        title: "Definition, Kern und Bild",
         difficulty: "Fortgeschritten",
         estimatedMinutes: 55,
         theory: [
-          "Das Skalarprodukt ist eine Art 'Ähnlichkeitsmessung' zwischen zwei Vektoren. Man multipliziert die Zahlen paarweise und addiert alles.",
-          "Beispiel: (1, 2) · (3, 4) = 1·3 + 2·4 = 3 + 8 = 11.",
-          "Wenn das Skalarprodukt null ist, stehen die Vektoren im rechten Winkel zueinander (orthogonal). Wie die x- und y-Achse."
+          "Eine Abbildung $f:V\to W$ heißt linear, wenn $f(\vec u+\vec v)=f(\vec u)+f(\vec v)$ und $f(\lambda\vec v)=\lambda f(\vec v)$ gelten — kurz $f(\lambda\vec u+\mu\vec v)=\lambda f(\vec u)+\mu f(\vec v)$.",
+          "Folge: $f(\vec 0)=\vec 0$. Eine lineare Abbildung ist vollständig durch die Bilder einer Basis festgelegt.",
+          "Der Kern $\ker f=\{\vec v\in V:f(\vec v)=\vec 0\}$ ist ein Unterraum von $V$; er misst, wie viel „verschwindet“.",
+          "Das Bild $\operatorname{im} f=\{f(\vec v):\vec v\in V\}$ ist ein Unterraum von $W$; es misst, wie viel „ankommt“."
         ],
-        example: "(1, 0) · (0, 1) = 1·0 + 0·1 = 0. Die Vektoren stehen senkrecht aufeinander — das Skalarprodukt ist null.",
-        exercise: "Berechne das Skalarprodukt von (2, 3) und (4, -1). Stehen sie senkrecht aufeinander?",
-        hint: "Zahlen paarweise multiplizieren und addieren: 2·4 + 3·(-1). Wenn das Ergebnis 0 ist, sind sie orthogonal.",
-        solution: "Skalarprodukt = paarweise multiplizieren und addieren:\n$(2, 3)\\cdot(4, -1) = 2\\cdot 4 + 3\\cdot(-1) = 8 - 3 = 5$\nDa das Skalarprodukt $5 \\neq 0$ ist, stehen die Vektoren NICHT senkrecht aufeinander.\n(Wäre das Skalarprodukt 0, wären sie orthogonal.)",
+        example: "Die Projektion $f(x,y)=(x,0)$ ist linear. Ihr Kern ist die $y$-Achse $\{(0,y)\}$, ihr Bild die $x$-Achse $\{(x,0)\}$.",
+        exercise: "Bestimme Kern und Bild von $f:\mathbb{R}^2\to\mathbb{R}^2$, $f(x,y)=(x+y,\,x+y)$.",
+        hint: "Kern: $f(x,y)=\vec 0$ lösen. Bild: welche Vektoren entstehen als $(x+y,x+y)$?",
+        solution: "Kern: $x+y=0\Rightarrow y=-x$, also $\ker f=\{(t,-t):t\in\mathbb{R}\}$, eine Gerade.\nBild: jeder Bildvektor hat die Form $(c,c)$ mit $c=x+y$, also $\operatorname{im} f=\{(c,c):c\in\mathbb{R}\}$, ebenfalls eine Gerade.",
         quiz: {
-          question: "Wann stehen zwei Vektoren im rechten Winkel (orthogonal) zueinander?",
-          options: ["Wenn sie gleich lang sind", "Wenn ihr Skalarprodukt null ist", "Wenn sie identisch sind", "Wenn beide positiv sind"],
+          question: "Was ist der Kern einer linearen Abbildung?",
+          options: ["Die Menge aller Bilder", "Die Menge der Vektoren, die auf $\vec 0$ abgebildet werden", "Die Determinante", "Die Länge des Bildes"],
           answerIndex: 1,
-          explanation: "Ein Skalarprodukt von null bedeutet: Die Vektoren stehen im 90-Grad-Winkel aufeinander — sie sind orthogonal."
+          explanation: "Der Kern $\ker f=\{\vec v:f(\vec v)=\vec 0\}$ ist ein Unterraum des Definitionsbereichs."
         }
       },
       {
         id: "m9-l2",
-        title: "Projektion: Schatten werfen",
+        title: "Rang-Nullitätssatz",
         difficulty: "Fortgeschritten",
-        estimatedMinutes: 65,
+        estimatedMinutes: 50,
         theory: [
-          "Eine Projektion ist wie ein Schatten: Man 'wirft' einen Vektor auf eine Linie oder Ebene, wie die Sonne einen Schatten wirft.",
-          "Die orthogonale Projektion findet den nächsten Punkt auf dieser Linie/Ebene. Der 'Fehler' (Abstand) steht dabei senkrecht darauf.",
-          "Die Formel für die Projektion von v auf einen Vektor u: proj = (v·u / u·u) · u."
+          "Der Rang $\operatorname{rang}(f)=\dim\operatorname{im} f$ und die Nullität $\operatorname{null}(f)=\dim\ker f$.",
+          "Rang-Nullitätssatz: für lineares $f:V\to W$ mit $\dim V<\infty$ gilt $\dim V=\dim\ker f+\dim\operatorname{im} f$.",
+          "Anschaulich: was im Kern verschwindet, fehlt im Bild; beides zusammen ergibt den Ausgangsraum.",
+          "Folgerung: ist $\dim V=\dim W$ und $f$ injektiv, so ist $f$ auch surjektiv (und umgekehrt) — bei gleichem Dimension ein zentraler Test."
         ],
-        example: "Stell dir vor, die Sonne scheint von der Seite. Der Schatten eines schrägen Vektors auf dem Boden ist seine Projektion auf die x-Achse.",
-        exercise: "Projiziere den Vektor (3, 1) auf den Vektor (1, 0) (also die x-Achse).",
-        hint: "Nutze die Formel: (v·u / u·u) · u. Hier: (3·1 + 1·0) / (1·1 + 0·0) · (1, 0).",
-        solution: "Formel: $\\operatorname{proj}_u(v) = \\frac{v\\cdot u}{u\\cdot u}\\cdot u$.\nHier $v = (3, 1)$, $u = (1, 0)$.\nSchritt 1 — Skalarprodukt $v\\cdot u$:\n$(3, 1)\\cdot(1, 0) = 3\\cdot 1 + 1\\cdot 0 = 3$\nSchritt 2 — Skalarprodukt $u\\cdot u$:\n$(1, 0)\\cdot(1, 0) = 1\\cdot 1 + 0\\cdot 0 = 1$\nSchritt 3 — Projektion:\n$\\operatorname{proj} = \\frac{3}{1}\\cdot(1, 0) = (3, 0)$\nDie Projektion von $(3, 1)$ auf die $x$-Achse ist $(3, 0)$ — der 'Schatten' fällt auf die $x$-Achse bei $x = 3$.\n(Die Visualisierung oben zeigt das mit dem Projektionspfeil.)",
-        visualization: {
-          type: "vector-plot",
-          mode: "dot",
-          u: [1, 0],
-          v: [3, 1]
-        },
+        example: "Für $f(x,y)=(x+y,x+y)$ (vorher) ist $\dim\ker f=1$ und $\dim\operatorname{im} f=1$, Summe $2=\dim\mathbb{R}^2$. ✓",
+        exercise: "Sei $f:\mathbb{R}^3\to\mathbb{R}^2$ linear mit $\dim\operatorname{im} f=2$. Bestimme $\dim\ker f$.",
+        hint: "Rang-Nullitätssatz: $\dim V=\dim\ker f+\dim\operatorname{im} f$.",
+        solution: "$\dim\ker f=\dim\mathbb{R}^3-\dim\operatorname{im} f=3-2=1$.\nDer Kern ist eine Gerade.",
         quiz: {
-          question: "Was ist eine Projektion?",
-          options: ["Eine Spiegelung", "Wie ein Schatten — man wirft einen Vektor auf eine Linie oder Ebene", "Eine Drehung", "Eine Vergrößerung"],
-          answerIndex: 1,
-          explanation: "Eine Projektion ist wie ein Schatten: Man wirft den Vektor auf eine Linie oder Ebene und findet den nächstgelegenen Punkt."
+          question: "Was besagt der Rang-Nullitätssatz?",
+          options: ["$\dim V=\dim\ker f+\dim\operatorname{im} f$", "$\det(f)=0$", "Kern und Bild sind gleich", "$f$ ist immer bijektiv"],
+          answerIndex: 0,
+          explanation: "Die Dimension des Ausgangsraums teilt sich auf in Kern und Bild: $\dim V=\dim\ker f+\dim\operatorname{im} f$."
         }
       },
       {
         id: "m9-l3",
-        title: "Gram-Schmidt: Senkrechte Basen bauen",
-        difficulty: "Fortgeschritten",
-        estimatedMinutes: 70,
+        title: "Darstellungsmatrix und Basiswechsel",
+        difficulty: "Fortgeschritten → Profi",
+        estimatedMinutes: 65,
         theory: [
-          "Das Gram-Schmidt-Verfahren macht aus beliebigen Vektoren senkrechte (orthogonale) Vektoren. Wie als würde man krumme Stäbe geradebiegen.",
-          "Wenn alle Vektoren senkrecht aufeinander stehen und die Länge 1 haben, nennt man das orthonormal. Das macht Rechnen viel einfacher.",
-          "Die QR-Zerlegung teilt eine Matrix in zwei Teile: Q (senkrechte Vektoren) und R (eine Dreiecksmatrix)."
+          "Ist $B$ eine Basis von $V$ und $C$ eine Basis von $W$, so wird jede lineare Abbildung $f:V\to W$ durch eine Matrix $M_C^B(f)$ beschrieben: ihre $j$-te Spalte ist die Koordinatendarstellung von $f(\vec b_j)$ bezüglich $C$.",
+          "Wechselt man die Basis in $V$ von $B$ nach $B'$, so transformiert sich die Matrix durch $M_C^{B'}(f)=M_C^B(f)\cdot S_{B'\to B}$, wobei $S$ die Basiswechselmatrix ist.",
+          "Bei Endomorphismen ($V=W$, $C=B$) lautet die Transformationsregel $A'=S^{-1}AS$ — ähnliche Matrizen beschreiben dieselbe Abbildung in verschiedenen Basen.",
+          "Ein Isomorphismus ist eine bijektive lineare Abbildung; endliche Vektorräume gleicher Dimension sind isomorph."
         ],
-        example: "Aus den Vektoren (1, 1) und (1, 0) macht Gram-Schmidt zwei senkrechte Vektoren: (1, 1) bleibt, und der zweite wird korrigiert, bis er senkrecht zum ersten steht.",
-        exercise: "Wende Gram-Schmidt auf (1, 0) und (1, 1) an, um zwei senkrechte Vektoren zu erhalten.",
-        hint: "Der erste Vektor bleibt. Beim zweiten: Ziehe die Projektion des zweiten auf den ersten ab.",
-        solution: "Wir nennen die Vektoren $u_1 = (1, 0)$ und $u_2 = (1, 1)$.\nSchritt 1 — erster Vektor bleibt:\n$v_1 = u_1 = (1, 0)$\nSchritt 2 — beim zweiten die Projektion auf den ersten abziehen:\n$v_2 = u_2 - \\operatorname{proj}_{v_1}(u_2)$\n$\\operatorname{proj}_{v_1}(u_2) = \\frac{u_2\\cdot v_1}{v_1\\cdot v_1}\\cdot v_1 = \\frac{(1, 1)\\cdot(1, 0)}{1}\\cdot(1, 0) = (1, 0)$\n$v_2 = (1, 1) - (1, 0) = (0, 1)$\nErgebnis: $v_1 = (1, 0)$ und $v_2 = (0, 1)$ — zwei senkrechte Vektoren.\nProbe: $v_1\\cdot v_2 = 1\\cdot 0 + 0\\cdot 1 = 0$ ✓ (orthogonal).\nBeide haben schon Länge 1, also sind sie bereits orthonormal.",
+        example: "Ist $A=\begin{pmatrix}2&0\\\\0&3\end{pmatrix}$ in der Standardbasis und $S=\begin{pmatrix}1&1\\\\0&1\end{pmatrix}$ die Basiswechselmatrix, so ist $A'=S^{-1}AS=\begin{pmatrix}2&1\\\\0&3\end{pmatrix}$ ähnlich zu $A$.",
+        exercise: "Prüfe: sind $A=\begin{pmatrix}1&0\\\\0&4\end{pmatrix}$ und $B=\begin{pmatrix}1&3\\\\0&4\end{pmatrix}$ ähnlich? Hinweis: $S=\begin{pmatrix}1&1\\\\0&1\end{pmatrix}$.",
+        hint: "Berechne $S^{-1}AS$ und vergleiche mit $B$.",
+        solution: "$S^{-1}=\begin{pmatrix}1&-1\\\\0&1\end{pmatrix}$.\n$S^{-1}AS=\begin{pmatrix}1&-1\\\\0&1\end{pmatrix}\begin{pmatrix}1&0\\\\0&4\end{pmatrix}\begin{pmatrix}1&1\\\\0&1\end{pmatrix}=\begin{pmatrix}1&-1\\\\0&1\end{pmatrix}\begin{pmatrix}1&1\\\\0&4\end{pmatrix}=\begin{pmatrix}1&-3\\\\0&4\end{pmatrix}$.\nDas ist nicht $B$. Mit $S=\begin{pmatrix}1&-1\\\\0&1\end{pmatrix}$ erhält man $S^{-1}AS=\begin{pmatrix}1&3\\\\0&4\end{pmatrix}=B$. Also sind $A$ und $B$ ähnlich.",
         quiz: {
-          question: "Was bedeutet 'orthonormal'?",
-          options: ["Alle Vektoren sind gleich lang", "Vektoren stehen senkrecht aufeinander und haben Länge 1", "Es gibt nur zwei Vektoren", "Die Determinante ist 1"],
+          question: "Wann heißen zwei Matrizen $A$ und $A'$ ähnlich?",
+          options: ["Wenn $\det A=\det A'$", "Wenn es invertierbares $S$ gibt mit $A'=S^{-1}AS$", "Wenn sie gleich groß sind", "Wenn beide symmetrisch sind"],
           answerIndex: 1,
-          explanation: "Orthonormal = orthogonal (senkrecht aufeinander) + normiert (jeder hat die Länge 1)."
+          explanation: "Ähnliche Matrizen beschreiben dieselbe lineare Abbildung in verschiedenen Basen: $A'=S^{-1}AS$."
         }
       }
     ]
   },
   {
     id: "mod-10",
-    title: "SVD und Datenanalyse",
-    level: "Fortgeschritten → Profi",
+    title: "Eigenwerte",
+    level: "Profi",
     targetHours: 12,
     goals: [
-      "Den Spektralsatz verstehen",
-      "Die SVD (Singulärwertzerlegung) kennenlernen",
-      "Ausgleichsrechnung verstehen"
+      "Eigenwerte und Eigenvektoren definieren und berechnen",
+      "Das charakteristische Polynom nutzen",
+      "Diagonalisierbarkeit und Vielfachheiten beurteilen"
     ],
     lessons: [
       {
         id: "m10-l1",
-        title: "Der Spektralsatz",
+        title: "Eigenwerte und Eigenvektoren",
         difficulty: "Profi",
-        estimatedMinutes: 60,
+        estimatedMinutes: 55,
         theory: [
-          "Der Spektralsatz ist eine gute Nachricht: Bei symmetrischen Matrizen (oben rechts = unten links) sind die Eigenwerte immer reelle Zahlen und die Eigenvektoren stehen senkrecht aufeinander.",
-          "Das bedeutet: Man kann eine symmetrische Matrix besonders einfach zerlegen — in senkrechte Richtungen mit Streckfaktoren.",
-          "Das ist nützlich für viele Anwendungen, zum Beispiel wenn man das 'wichtigste' Merkmal von Daten finden will."
+          "Eine Zahl $\lambda\in K$ heißt Eigenwert eines Endomorphismus $f:V\to V$, wenn ein Vektor $\vec v\neq\vec 0$ existiert mit $f(\vec v)=\lambda\vec v$. Dieser $\vec v$ heißt Eigenvektor.",
+          "Der Eigenraum zu $\lambda$ ist $E_\lambda=\ker(f-\lambda\,\mathrm{id})=\{\vec v:f(\vec v)=\lambda\vec v\}$ — ein Unterraum, der alle Eigenvektoren zu $\lambda$ (und $\vec 0$) enthält.",
+          "Eigenvektoren sind Richtungen, die unter $f$ nur gestreckt, nicht gedreht werden; der Skalar $\lambda$ ist der Streckfaktor.",
+          "Eigenwerte stehen in Freiburger LA1-Klausuren häufig im Zentrum — sicheres Berechnen des charakteristischen Polynoms und der Eigenräume ist Klausurstandard (siehe Altklausuren der Fachschaft Mathematik).",
+          "Sind $\lambda_1,\dots,\lambda_k$ paarweise verschiedene Eigenwerte, so sind zugehörige Eigenvektoren linear unabhängig."
         ],
-        example: "Die symmetrische Matrix [[2, 1], [1, 2]] hat die Eigenwerte 3 und 1. Die Eigenvektoren (1, 1) und (1, -1) stehen senkrecht aufeinander.",
-        exercise: "Prüfe, ob die Eigenvektoren von [[3, 1], [1, 3]] senkrecht aufeinander stehen.",
-        hint: "Berechne das Skalarprodukt der Eigenvektoren. Wenn es null ist, stehen sie senkrecht.",
-        solution: "Charakteristisches Polynom: $\\det\\begin{pmatrix} 3-\\lambda & 1 \\\\ 1 & 3-\\lambda \\end{pmatrix} = (3-\\lambda)^2 - 1 = 0$.\n$(3-\\lambda)^2 = 1 \\Rightarrow 3-\\lambda = \\pm 1 \\Rightarrow \\lambda_1 = 2,\\ \\lambda_2 = 4$.\nEigenvektor zu $\\lambda_1 = 2$:\n$(A - 2I)v = 0 \\Rightarrow \\begin{pmatrix} 1 & 1 \\\\ 1 & 1 \\end{pmatrix}v = 0 \\Rightarrow v = (1, -1)$.\nEigenvektor zu $\\lambda_2 = 4$:\n$(A - 4I)v = 0 \\Rightarrow \\begin{pmatrix} -1 & 1 \\\\ 1 & -1 \\end{pmatrix}v = 0 \\Rightarrow v = (1, 1)$.\nSkalarprodukt prüfen:\n$(1, -1)\\cdot(1, 1) = 1 - 1 = 0$ ✓\nDie Eigenvektoren stehen senkrecht aufeinander — genau wie der Spektralsatz für symmetrische Matrizen vorhersagt.",
+        example: "Für $A=\begin{pmatrix}2&0\\\\0&3\end{pmatrix}$ ist $\vec e_1$ Eigenvektor zum Eigenwert $2$ und $\vec e_2$ zum Eigenwert $3$, da $A\vec e_1=2\vec e_1$ und $A\vec e_2=3\vec e_2$.",
+        exercise: "Bestimme Eigenwerte und einen Eigenvektor von $A=\begin{pmatrix}1&2\\\\2&1\end{pmatrix}$.",
+        hint: "Löse $\det(A-\lambda I)=0$; dann pro Eigenwert $(A-\lambda I)\vec v=\vec 0$.",
+        solution: "$\det(A-\lambda I)=(1-\lambda)^2-4=\lambda^2-2\lambda-3=(\lambda-3)(\lambda+1)$.\nEigenwerte: $\lambda_1=3$, $\lambda_2=-1$.\nZu $\lambda_1=3$: $(A-3I)\vec v=\vec 0$ heißt $\begin{pmatrix}-2&2\\\\2&-2\end{pmatrix}\vec v=\vec 0$, also $\vec v=\begin{pmatrix}1\\\\1\end{pmatrix}$ (Eigenvektor).",
         quiz: {
-          question: "Für welche Matrizen gilt der Spektralsatz (Eigenwerte sind reell, Eigenvektoren senkrecht)?",
-          options: ["Für alle Matrizen", "Für symmetrische Matrizen (oben rechts = unten links)", "Nur für Diagonalmatrizen", "Nur für Nullmatrizen"],
+          question: "Was ist ein Eigenvektor von $A$ zum Eigenwert $\lambda$?",
+          options: ["Ein Vektor mit $A\vec v=\vec v$", "Ein Vektor $\vec v\neq\vec 0$ mit $A\vec v=\lambda\vec v$", "Ein Vektor der Länge $\lambda$", "Die Determinante von $A$"],
           answerIndex: 1,
-          explanation: "Der Spektralsatz gilt für symmetrische Matrizen: Die Eigenwerte sind reell und die Eigenvektoren stehen senkrecht aufeinander."
+          explanation: "Ein Eigenvektor wird durch $A$ nur um den Faktor $\lambda$ gestreckt: $A\vec v=\lambda\vec v$, $\vec v\neq\vec 0$."
         }
       },
       {
         id: "m10-l2",
-        title: "SVD: Matrizen zerlegen",
+        title: "Charakteristisches Polynom",
         difficulty: "Profi",
-        estimatedMinutes: 75,
+        estimatedMinutes: 60,
         theory: [
-          "SVD (Singulärwertzerlegung) zerlegt jede Matrix in drei Teile: A = U · Σ · Vᵀ. Das geht für JEDEN Matrix, nicht nur für symmetrische!",
-          "Σ enthält die 'Singulärwerte' — sie sagen, wie wichtig die einzelnen Richtungen sind. Große Werte = wichtig, kleine = unwichtig.",
-          "SVD wird viel in Datenanalyse und Bildkomprimierung verwendet: Man behält nur die wichtigsten Richtungen und wirft den Rest weg."
+          "Das charakteristische Polynom ist $\chi_A(\lambda)=\det(A-\lambda I)$. Seine Nullstellen sind genau die Eigenwerte.",
+          "Der Grad von $\chi_A$ ist $n$ bei einer $n\times n$-Matrix; über $\mathbb{C}$ gibt es also genau $n$ Eigenwerte (mit Vielfachheit).",
+          "Die algebraische Vielfachheit eines Eigenwerts ist seine Vielfachheit als Nullstelle von $\chi_A$.",
+          "Spur und Determinante liest man ab: $\operatorname{tr}(A)=\sum\lambda_i$ und $\det A=\prod\lambda_i$ (Summe bzw. Produkt über alle Eigenwerte mit Vielfachheit)."
         ],
-        example: "Stell dir ein Bild vor. SVD findet die 'wichtigsten' Muster. Wenn man nur die wichtigsten 10 behält, sieht das Bild immer noch ähnlich aus, braucht aber viel weniger Speicher.",
-        exercise: "Erkläre in eigenen Worten, warum große Singulärwerte 'wichtiger' sind als kleine.",
-        hint: "Denk an ein Foto: Die Hauptsache (große Singulärwerte) zeigt das Motiv, die Details (kleine) kann man oft weglassen.",
-        solution: "Die SVD zerlegt eine Matrix in Richtungen mit zugehörigen 'Gewichten' — den Singulärwerten in $\\Sigma$.\nEin großer Singulärwert bedeutet: In dieser Richtung trägt die Matrix viel zur Gesamtabbildung bei. Die meisten Informationen stecken in den Richtungen mit den größten Singulärwerten.\nEin kleiner Singulärwert bedeutet: Diese Richtung ist für die Matrix kaum bedeutsam — sie kann weggelassen werden, ohne viel Information zu verlieren.\nAnwendung — Bildkomprimierung: Behält man nur die 10 größten Singulärwerte (und die zugehörigen Richtungen), sieht das Bild immer noch ähnlich aus, braucht aber viel weniger Speicher.",
+        example: "$A=\begin{pmatrix}1&2\\\\2&1\end{pmatrix}$: $\chi_A=\lambda^2-2\lambda-3$, Spur $=2=3+(-1)$, $\det=-3=3\cdot(-1)$ — beides passt zu den Eigenwerten $3$ und $-1$.",
+        exercise: "Bestimme Eigenwerte, Spur und Determinante von $A=\begin{pmatrix}4&1\\\\2&3\end{pmatrix}$ über das charakteristische Polynom.",
+        hint: "$\chi_A=(4-\lambda)(3-\lambda)-2$; Spur $=a+d$, $\det=ad-bc$.",
+        solution: "$\chi_A=(4-\lambda)(3-\lambda)-2=\lambda^2-7\lambda+10=(\lambda-5)(\lambda-2)$.\nEigenwerte: $5$ und $2$.\nSpur $=4+3=7=5+2$ ✓. Determinante $=4\cdot3-1\cdot2=10=5\cdot2$ ✓.",
         quiz: {
-          question: "Für welche Matrizen gibt es eine SVD?",
-          options: ["Nur für quadratische Matrizen", "Für jede reelle Matrix", "Nur für symmetrische Matrizen", "Nur für invertierbare Matrizen"],
-          answerIndex: 1,
-          explanation: "Die SVD funktioniert für jede reelle Matrix — egal welche Form. Das ist ihre große Stärke."
+          question: "Wie findet man die Eigenwerte einer Matrix?",
+          options: ["Als Nullstellen des charakteristischen Polynoms $\det(A-\lambda I)$", "Als Zeilensummen", "Als Diagonaleinträge", "Als Rang"],
+          answerIndex: 0,
+          explanation: "Die Eigenwerte sind genau die Nullstellen von $\chi_A(\lambda)=\det(A-\lambda I)$."
         }
       },
       {
         id: "m10-l3",
-        title: "Ausgleichsrechnung (Least Squares)",
+        title: "Diagonalisierbarkeit und Vielfachheiten",
         difficulty: "Profi",
-        estimatedMinutes: 70,
+        estimatedMinutes: 65,
         theory: [
-          "Manchmal hat man mehr Gleichungen als Unbekannte — und keine exakte Lösung. Least Squares findet dann die bestmögliche Näherung.",
-          "Es minimiert den Fehler: Die Differenz zwischen Vorhersage und echten Werten wird so klein wie möglich gemacht.",
-          "Das ist genau das, was Excel macht, wenn du eine 'Trendlinie' in ein Diagramm einfügst!"
+          "Eine Matrix $A$ heißt diagonalisierbar, wenn es eine invertierbare Matrix $S$ gibt mit $S^{-1}AS=D$ diagonal. Die Diagonaleinträge von $D$ sind die Eigenwerte.",
+          "Die geometrische Vielfachheit eines Eigenwerts ist $\dim E_\lambda$. Es gilt stets $\dim E_\lambda\leq$ algebraische Vielfachheit.",
+          "Satz: $A$ ist genau dann diagonalisierbar, wenn für jeden Eigenwert geometrische und algebraische Vielfachheit übereinstimmen.",
+          "Über $\mathbb{C}$ ist jede Matrix mit $n$ paarweise verschiedenen Eigenwerten diagonalisierbar. Allgemeiner: ist $\chi_A$ in LA1 zerlegbar und fallen alle Vielfachheiten zusammen, so ist $A$ diagonalisierbar; sonst braucht man LA2 (Trigonalisierung, Jordan-Form)."
         ],
-        example: "Du hast 5 Messpunkte und willst eine Gerade durchlegen, die am besten passt. Least Squares findet diese Gerade — sie geht vielleicht durch keinen Punkt genau, aber der Gesamtabstand ist minimal.",
-        exercise: "Du hast die Punkte (0, 1), (1, 2), (2, 3). Welche Gerade y = a·x + b passt am besten?",
-        hint: "Die Punkte liegen fast auf der Geraden y = x + 1. Die Least-Squares-Lösung findet diese.",
-        solution: "Wir suchen $y = a\\cdot x + b$, sodass die Summe der Fehlerquadrate minimal ist.\nDie Punkte legen nahe: $y = x + 1$, also $a = 1, b = 1$.\nProbe — Fehlerquadrate:\nPunkt $(0, 1)$: Vorhersage $1$, Fehler $0$, Quadrat $0$\nPunkt $(1, 2)$: Vorhersage $2$, Fehler $0$, Quadrat $0$\nPunkt $(2, 3)$: Vorhersage $3$, Fehler $0$, Quadrat $0$\nSumme der Fehlerquadrate $= 0$ — die Punkte liegen exakt auf der Geraden!\nAlso ist $y = x + 1$ die exakte (und damit auch die Least-Squares-) Lösung.\nAllgemein stellt man das als überbestimmtes System $A\\begin{pmatrix} a \\\\ b \\end{pmatrix} = y$ auf mit $A = \\begin{pmatrix} 0 & 1 \\\\ 1 & 1 \\\\ 2 & 1 \\end{pmatrix}$, $y = (1, 2, 3)$. Die Normalgleichungen $A^T A\\begin{pmatrix} a \\\\ b \\end{pmatrix} = A^T y$ liefern $a = 1, b = 1$.",
+        example: "$A=\begin{pmatrix}1&1\\\\0&1\end{pmatrix}$ hat $\chi_A=(1-\lambda)^2$, also Eigenwert $1$ mit algebraischer Vielfachheit $2$. Aber $E_1=\ker(A-I)=\{\begin{pmatrix}t\\\\0\end{pmatrix}\}$ hat Dimension $1$. Also nicht diagonalisierbar.",
+        exercise: "Ist $A=\begin{pmatrix}2&0&0\\\\0&2&0\\\\0&0&3\end{pmatrix}$ diagonalisierbar?",
+        hint: "Eigenwerte ablesen, dann geometrische Vielfachheiten bestimmen.",
+        solution: "Eigenwerte: $2$ (alg. Vielfachheit $2$) und $3$ (alg. Vielfachheit $1$).\n$E_2=\ker(A-2I)$: $A-2I=\begin{pmatrix}0&0&0\\\\0&0&0\\\\0&0&1\end{pmatrix}$, also $\dim E_2=2$. ✓\n$E_3=\ker(A-3I)$: $\dim E_3=1$. ✓\nAlle Vielfachheiten stimmen überein, also ist $A$ diagonalisierbar (sie ist bereits diagonal).",
         quiz: {
-          question: "Was macht die Least-Squares-Methode?",
-          options: ["Sie findet die exakte Lösung", "Sie findet die bestmögliche Näherung, wenn es keine exakte Lösung gibt", "Sie teilt durch null", "Sie zeichnet ein Bild"],
+          question: "Wann ist eine Matrix diagonalisierbar?",
+          options: ["Wenn $\det A\neq0$", "Wenn geometrische und algebraische Vielfachheit jedes Eigenwerts übereinstimmen", "Wenn sie symmetrisch ist", "Wenn sie den Rang $n$ hat"],
           answerIndex: 1,
-          explanation: "Least Squares findet die Lösung mit dem kleinsten möglichen Fehler — die bestmögliche Näherung."
+          explanation: "Diagonalisierbarkeit liegt genau vor, wenn für jeden Eigenwert $\dim E_\lambda$ gleich der algebraischen Vielfachheit ist."
         }
       }
     ]
   },
   {
     id: "mod-11",
-    title: "Prüfungsvorbereitung und Tipps",
+    title: "Skalarprodukt und Orthogonalität",
     level: "Profi",
-    targetHours: 10,
+    targetHours: 11,
     goals: [
-      "Wissen verknüpfen statt auswendig lernen",
-      "Häufige Fehler vermeiden",
-      "Strategien für die Prüfung entwickeln"
+      "Skalarprodukte definieren und Cauchy-Schwarz anwenden",
+      "Orthogonale Projektionen und Gram-Schmidt berechnen",
+      "QR-Zerlegung und orthogonale Matrizen nutzen"
     ],
     lessons: [
       {
         id: "m11-l1",
-        title: "Wenn Matrizen nicht diagonalisierbar sind",
+        title: "Skalarprodukt und Cauchy-Schwarz",
         difficulty: "Profi",
-        estimatedMinutes: 65,
+        estimatedMinutes: 55,
         theory: [
-          "Nicht jede Matrix ist diagonalisierbar. Manchmal fehlen Eigenvektoren. Die Jordan-Normalform ist eine Möglichkeit, auch diese Matrizen zu vereinfachen.",
-          "Statt echter Eigenvektoren verwendet man 'verallgemeinerte Eigenvektoren'. Das ist wie ein Ersatzbaustein, wenn der echte fehlt.",
-          "Für die meisten Anwendungen reicht es zu wissen, dass dieser Fall existiert — die Details lernt man, wenn man sie braucht."
+          "Das Standardskalarprodukt auf $\mathbb{R}^n$ ist $\langle\vec u,\vec v\rangle=\sum_{i=1}^n u_iv_i$. Es liefert eine Zahl (Skalar), keinen Vektor.",
+          "Eigenschaften: symmetrisch $\langle\vec u,\vec v\rangle=\langle\vec v,\vec u\rangle$, linear im ersten Argument, positiv definit $\langle\vec v,\vec v\rangle\geq0$ mit Gleichheit nur für $\vec v=\vec 0$.",
+          "Die Norm ist $\lVert\vec v\rVert=\sqrt{\langle\vec v,\vec v\rangle}$. Zwei Vektoren heißen orthogonal, wenn $\langle\vec u,\vec v\rangle=0$.",
+          "Die Cauchy-Schwarzsche Ungleichung besagt $|\langle\vec u,\vec v\rangle|\leq\lVert\vec u\rVert\,\lVert\vec v\rVert$; damit ist der Winkel $\cos\varphi=\tfrac{\langle\vec u,\vec v\rangle}{\lVert\vec u\rVert\lVert\vec v\rVert}$ wohldefiniert."
         ],
-        example: "Die Matrix [[1, 1], [0, 1]] hat nur einen Eigenwert (1) und nur einen Eigenvektor. Sie lässt sich nicht diagonalisieren — aber man kann die Jordan-Form verwenden.",
-        exercise: "Erkläre in eigenen Worten, warum eine Matrix nicht diagonalisierbar sein kann.",
-        hint: "Es hat mit zu wenigen Eigenvektoren zu tun — nicht genug Bausteine für eine Basis.",
-        solution: "Eine $n\\times n$-Matrix ist diagonalisierbar, wenn es $n$ linear unabhängige Eigenvektoren gibt — genug für eine Basis.\nIst das nicht der Fall, fehlen Eigenvektoren. Der Eigenraum zu einem Eigenwert ist dann kleiner, als die algebraische Vielfachheit des Eigenwerts vermuten lässt.\nBeispiel: $\\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix}$ hat nur den Eigenwert $\\lambda = 1$ (algebraische Vielfachheit 2). Der Eigenraum dazu ist aber nur 1-dimensional: $(A - I)v = \\begin{pmatrix} 0 & 1 \\\\ 0 & 0 \\end{pmatrix}v = 0$ liefert nur $v = (1, 0)$ (bis auf Skalare).\nEs fehlt ein zweiter Eigenvektor, also ist die Matrix nicht diagonalisierbar — sie ist 'defekt'. In solchen Fällen hilft die Jordan-Normalform als Ersatz.",
+        example: "$\langle(1,2),(3,4)\rangle=1\cdot3+2\cdot4=11$. Die Normen sind $\sqrt5$ und $5$, also ist $11\leq\sqrt5\cdot5\approx11{,}18$ (Cauchy-Schwarz).",
+        exercise: "Berechne $\langle(2,3),(4,-1)\rangle$ und prüfe Orthogonalität.",
+        hint: "Paarweise multiplizieren und addieren; null bedeutet orthogonal.",
+        solution: "$\langle(2,3),(4,-1)\rangle=2\cdot4+3\cdot(-1)=8-3=5$.\nDa $5\neq0$, sind die Vektoren nicht orthogonal.",
         quiz: {
-          question: "Wann ist eine Matrix 'defekt' (nicht diagonalisierbar)?",
-          options: ["Wenn die Determinante 1 ist", "Wenn es zu wenige unabhängige Eigenvektoren gibt", "Wenn alle Eigenwerte verschieden sind", "Wenn die Matrix symmetrisch ist"],
+          question: "Wann stehen zwei Vektoren orthogonal zueinander?",
+          options: ["Wenn sie gleich lang sind", "Wenn ihr Skalarprodukt null ist", "Wenn sie parallel sind", "Wenn ihre Summe null ist"],
           answerIndex: 1,
-          explanation: "Wenn es nicht genug unabhängige Eigenvektoren für eine Basis gibt, ist die Matrix defekt — sie lässt sich nicht diagonalisieren."
+          explanation: "Orthogonalität heißt $\langle\vec u,\vec v\rangle=0$ — ein verschwindendes Skalarprodukt."
         }
       },
       {
         id: "m11-l2",
-        title: "Rundungsfehler und Stabilität",
+        title: "Projektion und Gram-Schmidt",
         difficulty: "Profi",
-        estimatedMinutes: 60,
+        estimatedMinutes: 65,
         theory: [
-          "Computer können nicht unendlich genau rechnen — es gibt immer kleine Rundungsfehler. Bei manchen Rechnungen werden diese Fehler groß, bei anderen klein.",
-          "Die 'Konditionszahl' sagt, wie empfindlich eine Rechnung ist. Eine hohe Konditionszahl bedeutet: Kleine Änderungen in den Daten können große Änderungen im Ergebnis bewirken.",
-          "Mit guten Verfahren (wie Pivotisierung beim Gauß-Verfahren) kann man Rundungsfehler klein halten."
+          "Die orthogonale Projektion von $\vec v$ auf $\vec u\neq\vec 0$ ist $\operatorname{proj}_{\vec u}(\vec v)=\tfrac{\langle\vec v,\vec u\rangle}{\langle\vec u,\vec u\rangle}\vec u$. Der Rest $\vec v-\operatorname{proj}_{\vec u}(\vec v)$ steht senkrecht auf $\vec u$.",
+          "Das Gram-Schmidt-Verfahren macht aus einer Basis $\vec v_1,\dots,\vec v_n$ eine orthogonale Basis $\vec u_1,\dots,\vec u_n$ durch schrittweises Abziehen der Projektionen: $\vec u_k=\vec v_k-\sum_{i<k}\operatorname{proj}_{\vec u_i}(\vec v_k)$.",
+          "Normiert man die $\vec u_i$ noch, erhält man eine Orthonormalbasis $\vec q_i=\vec u_i/\lVert\vec u_i\rVert$.",
+          "Eine Orthonormalbasis vereinfacht Rechnungen: Koeffizienten sind Skalarprodukte $c_i=\langle\vec v,\vec q_i\rangle$."
         ],
-        example: "Wenn eine Matrix fast eine Determinante von 0 hat, sind die Lösungen sehr empfindlich. Eine winzige Änderung der Eingabe kann das Ergebnis komplett verändern.",
-        exercise: "Erkläre, warum man beim Gauß-Verfahren die Zeile mit der größten Zahl als erste wählen sollte (Pivotisierung).",
-        hint: "Wenn man durch eine sehr kleine Zahl teilt, werden Rundungsfehler groß. Größere Zahlen sind sicherer.",
-        solution: "Beim Gauß-Verfahren teilt man oft durch das Pivot-Element (die Zahl an der Diagonalen).\nIst das Pivot sehr klein, wird der Divisor winzig — und Rundungsfehler im Computer werden riesig. Teilt man z.B. durch $0{,}0001$, kann das Ergebnis extrem empfindlich auf kleine Störungen reagieren.\nPivotisierung bedeutet: Man wählt die Zeile mit dem betragsgrößten Element in der aktuellen Spalte als Pivot-Zeile (durch Zeilentausch).\nSo teilt man durch möglichst große Zahlen — Rundungsfehler bleiben klein. Das macht das Verfahren numerisch stabil.",
+        example: "Gram-Schmidt auf $(1,0),(1,1)$: $\vec u_1=(1,0)$; $\vec u_2=(1,1)-\operatorname{proj}_{\vec u_1}(1,1)=(1,1)-(1,0)=(0,1)$. Schon orthonormal.",
+        exercise: "Wende Gram-Schmidt auf $\vec v_1=(1,1)$, $\vec v_2=(2,0)$ an.",
+        hint: "$\vec u_1=\vec v_1$; dann $\vec u_2=\vec v_2-\operatorname{proj}_{\vec u_1}\vec v_2$.",
+        solution: "$\vec u_1=(1,1)$.\n$\operatorname{proj}_{\vec u_1}\vec v_2=\tfrac{\langle(2,0),(1,1)\rangle}{\langle(1,1),(1,1)\rangle}(1,1)=\tfrac{2}{2}(1,1)=(1,1)$.\n$\vec u_2=(2,0)-(1,1)=(1,-1)$.\nProbe: $\langle(1,1),(1,-1)\rangle=1-1=0$ — orthogonal. ✓\nOrthonormalbasis nach Normierung: $\tfrac{1}{\sqrt2}(1,1)$, $\tfrac{1}{\sqrt2}(1,-1)$.",
+        visualization: {
+          type: "vector-plot",
+          mode: "dot",
+          u: [1, 1],
+          v: [2, 0]
+        },
         quiz: {
-          question: "Was sagt die Konditionszahl aus?",
-          options: ["Wie schnell der Computer rechnet", "Wie empfindlich das Ergebnis auf kleine Änderungen reagiert", "Wie viele Nullen die Matrix hat", "Wie groß die Determinante ist"],
+          question: "Was leistet das Gram-Schmidt-Verfahren?",
+          options: ["Es diagonalisiert eine Matrix", "Es macht aus einer Basis eine orthogonale Basis", "Es berechnet die Determinante", "Es invertiert eine Matrix"],
           answerIndex: 1,
-          explanation: "Die Konditionszahl zeigt, wie stark kleine Störungen in den Daten das Ergebnis beeinflussen."
+          explanation: "Gram-Schmidt orthogonalisiert eine Basis durch schrittweises Abziehen der Projektionen."
         }
       },
       {
         id: "m11-l3",
-        title: "Tipps für die Prüfung",
+        title: "QR-Zerlegung und orthogonale Matrizen",
+        difficulty: "Profi",
+        estimatedMinutes: 60,
+        theory: [
+          "Eine Matrix $Q$ mit orthonormalen Spalten heißt orthogonal; es gilt $Q^{\,T}Q=I$ und damit $Q^{-1}=Q^{\,T}$.",
+          "Die QR-Zerlegung schreibt eine Matrix $A$ (voller Spaltenrang) als $A=QR$ mit orthonormalem $Q$ und oberer Dreiecksmatrix $R$; sie entsteht direkt aus Gram-Schmidt.",
+          "Orthogonale Abbildungen erhalten Längen und Winkel: $\lVert Q\vec v\rVert=\lVert\vec v\rVert$ und $\det Q=\pm1$.",
+          "In $\mathbb{C}$ ersetzt man Transposition durch Adjungierung $A^*=\overline{A^{\,T}}$ und spricht von unitären Matrizen ($U^*U=I$)."
+        ],
+        example: "Mit $\vec q_1=\tfrac{1}{\sqrt2}(1,1)$, $\vec q_2=\tfrac{1}{\sqrt2}(1,-1)$ ist $Q=\tfrac{1}{\sqrt2}\begin{pmatrix}1&1\\\\1&-1\end{pmatrix}$ orthogonal, denn $Q^{\,T}Q=I$.",
+        exercise: "Es sei $A=\begin{pmatrix}1&2\\\\1&0\end{pmatrix}$. Gib eine QR-Zerlegung an, ausgehend von der orthonormalen Basis $\vec q_1=\tfrac{1}{\sqrt2}(1,1)$, $\vec q_2=\tfrac{1}{\sqrt2}(1,-1)$.",
+        hint: "Spalten von $Q$ sind $\vec q_1,\vec q_2$; $R=Q^{\,T}A$.",
+        solution: "$Q=\tfrac{1}{\sqrt2}\begin{pmatrix}1&1\\\\1&-1\end{pmatrix}$.\n$R=Q^{\,T}A=\tfrac{1}{\sqrt2}\begin{pmatrix}1&1\\\\1&-1\end{pmatrix}\begin{pmatrix}1&2\\\\1&0\end{pmatrix}=\tfrac{1}{\sqrt2}\begin{pmatrix}2&2\\\\0&2\end{pmatrix}=\begin{pmatrix}\sqrt2&\sqrt2\\\\0&\sqrt2\end{pmatrix}$.\nProbe: $QR=A$. ✓",
+        quiz: {
+          question: "Was zeichnet eine orthogonale Matrix $Q$ aus?",
+          options: ["$Q^{\,T}Q=I$", "$\det Q=0$", "$Q$ ist symmetrisch", "$Q$ hat nur positive Einträge"],
+          answerIndex: 0,
+          explanation: "Ortogonale Matrizen haben $Q^{\,T}Q=I$, also ist $Q^{-1}=Q^{\,T}$ — sie erhalten Längen und Winkel."
+        }
+      }
+    ]
+  },
+  {
+    id: "mod-12",
+    title: "Struktur von Vektorräumen (LA2)",
+    level: "Profi",
+    targetHours: 12,
+    goals: [
+      "Direkte Summen und Quotientenräume bilden",
+      "Dualraum und Dualabbildung verstehen",
+      "Den Annihilator einsetzen"
+    ],
+    lessons: [
+      {
+        id: "m12-l1",
+        title: "Direkte Summen und Komplemente",
         difficulty: "Profi",
         estimatedMinutes: 55,
         theory: [
-          "Fang mit den Aufgaben an, die du sofort verstehst. Das gibt Sicherheit und Punkte.",
-          "Schreib jeden Zwischenschritt auf. Auch wenn das Endergebnis falsch ist, gibt es für richtige Zwischenschritte Punkte.",
-          "Prüfe am Ende: Stimmen die Dimensionen? Ist das Ergebnis plausibel? Ein schneller Dimensionscheck findet viele Flüchtigkeitsfehler.",
-          "Die beste Vorbereitung auf die Klausur sind echte Altklausuren. Rechne sie unter realen Bedingungen: 90 Minuten, keine Hilfsmittel, kein Handy. Wer schon einmal eine echte Klausur timed durchgerechnet hat, ist in der Prüfung deutlich ruhiger.",
-          "In den Quellen unten findest du frei verfügbare Altklausuren der Universität Freiburg (Lineare Algebra I und II). Wähle eine recent Klausur aus, drucke sie aus und rechne sie komplett — und vergleiche danach mit deinen Notizen."
+          "Die Summe $U+W=\{\vec u+\vec w:\vec u\in U,\vec w\in W\}$ zweier Unterräume ist wieder ein Unterraum.",
+          "Die Summe heißt direkt ($U\oplus W$), wenn $U\cap W=\{\vec 0\}$. Dann ist jeder Vektor eindeutig als $\vec u+\vec w$ zerlegbar und $\dim(U\oplus W)=\dim U+\dim W$.",
+          "Ein Komplementärraum $W$ zu $U\subseteq V$ erfüllt $V=U\oplus W$. Über Körpern existiert stets ein Komplement (per Basisergänzung); es ist im Allgemeinen nicht eindeutig.",
+          "Die Dimensionsformel für beliebige Summen lautet $\dim(U+W)=\dim U+\dim W-\dim(U\cap W)$."
         ],
-        example: "Wenn du eine 2x2-Matrix mit einer 3x2-Matrix multiplizierst und das Ergebnis eine 3x3-Matrix sein soll — das kann nicht stimmen! Ein Dimensionscheck entdeckt das sofort.",
-        exercise: "Stell dir vor, du hast 90 Minuten Zeit für 4 Aufgaben. Wie teilst du die Zeit ein?",
-        hint: "Ungefähr 20 Minuten pro Aufgabe und 10 Minuten am Ende für Kontrolle.",
-        solution: "Strategie:\n1. Erste 5 Minuten: Alle Aufgaben überfliegen, leichte und schwere erkennen.\n2. Etwa 20 Minuten pro Aufgabe = 80 Minuten für die Bearbeitung. Mit den leichten Aufgaben beginnen — das gibt Sicherheit und Punkte.\n3. Letzte 10 Minuten: Antworten kontrollieren (Dimensionscheck, Vorzeichen, Plausibilität).\nTipp: Bei jeder Aufgabe erst die Lösungsskizze hinschreiben, bevor man in Details versinkt — so gibt es auch bei Zeitmangel Punkte für den richtigen Ansatz.",
+        example: "Im $\mathbb{R}^3$ mit $U=\{z=0\}$ (Ebene) und $W=\{(0,0,z)\}$ ($z$-Achse) gilt $U\cap W=\{\vec0\}$ und $\mathbb{R}^3=U\oplus W$.",
+        exercise: "Sei $U=\operatorname{span}\!\left(\begin{pmatrix}1\\\\1\\\\0\end{pmatrix}\right)\subseteq\mathbb{R}^3$. Gib einen Komplementärraum $W$ an mit $\mathbb{R}^3=U\oplus W$.",
+        hint: "Ergänze $\begin{pmatrix}1\\\\1\\\\0\end{pmatrix}$ zu einer Basis des $\mathbb{R}^3$; die beiden neuen Vektoren spannen $W$ auf.",
+        solution: "Wähle $\vec e_2'=\begin{pmatrix}0\\\\1\\\\0\end{pmatrix}$ und $\vec e_3=\begin{pmatrix}0\\\\0\\\\1\end{pmatrix}$. Die Matrix $\begin{pmatrix}1&0&0\\\\1&1&0\\\\0&0&1\end{pmatrix}$ hat Determinante $1\neq0$, also sind die drei Vektoren eine Basis.\n$W=\operatorname{span}\!\left(\begin{pmatrix}0\\\\1\\\\0\end{pmatrix},\begin{pmatrix}0\\\\0\\\\1\end{pmatrix}\right)$ und $\mathbb{R}^3=U\oplus W$ (denn $U\cap W=\{\vec0\}$, Dimensionen $1+2=3$).",
         quiz: {
-          question: "Was ist der schnellste Plausibilitätscheck in einer Prüfung?",
-          options: ["Alle Rechnungen neu rechnen", "Prüfen, ob die Dimensionen (Zeilen/Spalten) bei jeder Rechnung zusammenpassen", "Nur das Vorzeichen kontrollieren", "Das Ergebnis abschätzen"],
+          question: "Wann heißt eine Summe $U+W$ direkt?",
+          options: ["Wenn $U=W$", "Wenn $U\cap W=\{\vec 0\}$", "Wenn $\dim U=\dim W$", "Wenn beide null sind"],
           answerIndex: 1,
-          explanation: "Ein Dimensionscheck ist schnell und findet sofort viele Fehler — wenn die Dimensionen nicht passen, ist etwas falsch."
+          explanation: "Direktheit heißt $U\cap W=\{\vec 0\}$; dann ist die Zerlegung eindeutig und die Dimensionen addieren sich."
+        }
+      },
+      {
+        id: "m12-l2",
+        title: "Quotientenräume",
+        difficulty: "Profi",
+        estimatedMinutes: 60,
+        theory: [
+          "Für einen Unterraum $U\subseteq V$ definieren wir die Nebenklasse $\vec v+U=\{\vec v+\vec u:\vec u\in U\}$. Man rechnet mit Nebenklassen wie mit Vektoren: $(\vec v+U)+(\vec w+U)=(\vec v+\vec w)+U$ und $\lambda(\vec v+U)=\lambda\vec v+U$.",
+          "Der Quotientenraum $V/U$ ist die Menge aller Nebenklassen; er ist selbst ein Vektorraum mit $\dim(V/U)=\dim V-\dim U$ (für $\dim V<\infty$).",
+          "Die Quotientenabbildung $\pi:V\to V/U$, $\vec v\mapsto\vec v+U$, ist linear und surjektiv mit $\ker\pi=U$.",
+          "Quotientenräume erlauben es, Information „modulo $U$“ zu betrachten — ein zentrales Werkzeug für die Konstruktion von Normalformen."
+        ],
+        example: "Ist $V=\mathbb{R}^2$ und $U$ die $x$-Achse, so fasst $V/U$ Vektoren zusammen, die sich nur in der $y$-Komponente unterscheiden. Jede Nebenklasse ist eine horizontale Gerade; $\dim(V/U)=1$.",
+        exercise: "Bestimme $\dim(\mathbb{R}^4/U)$ für $U=\{\vec x\in\mathbb{R}^4:x_1=x_2=x_3=x_4\}$.",
+        hint: "Bestimme $\dim U$ (eine Ursprungsgerade) und nutze $\dim(V/U)=\dim V-\dim U$.",
+        solution: "$U=\{\vec x:t(1,1,1,1):t\in\mathbb{R}\}$ ist eine Ursprungsgerade, also $\dim U=1$.\n$\dim(\mathbb{R}^4/U)=4-1=3$.",
+        quiz: {
+          question: "Was ist $V/U$?",
+          options: ["Der Schnitt von $V$ und $U$", "Die Menge der Nebenklassen $\vec v+U$, ein Vektorraum", "Das Komplement von $U$", "Die Determinante modulo $U$"],
+          answerIndex: 1,
+          explanation: "$V/U$ besteht aus den Nebenklassen $\vec v+U$ und ist ein Vektorraum mit $\dim V-\dim U$ (endlichdimensional)."
+        }
+      },
+      {
+        id: "m12-l3",
+        title: "Dualraum und Dualabbildung",
+        difficulty: "Profi",
+        estimatedMinutes: 65,
+        theory: [
+          "Der Dualraum $V^*=\operatorname{Hom}(V,K)$ ist die Menge aller linearen Abbildungen $\varphi:V\to K$ (Linearformen). Er ist selbst ein Vektorraum.",
+          "Ist $B=(\vec b_1,\dots,\vec b_n)$ eine Basis, so ist die duale Basis $B^*=(\vec b_1^*,\dots,\vec b_n^*)$ definiert durch $\vec b_i^*(\vec b_j)=\delta_{ij}$. Damit ist $\dim V^*=\dim V$ (endlichdimensional).",
+          "Zu linearem $f:V\to W$ ist die Dualabbildung $f^*:W^*\to V^*$ definiert durch $f^*(\varphi)=\varphi\circ f$. Sie kehrt die Richtung um.",
+          "Der Annihilator einer Menge $M\subseteq V$ ist $M^\circ=\{\varphi\in V^*:\varphi(\vec v)=0\;\forall\vec v\in M\}$ — ein Unterraum von $V^*$ mit $\dim M^\circ=\dim V-\dim\operatorname{span}(M)$."
+        ],
+        example: "Zur Standardbasis $\vec e_1,\vec e_2$ des $\mathbb{R}^2$ ist $\vec e_1^*(x,y)=x$ und $\vec e_2^*(x,y)=y$ — die Projektionen auf die Koordinaten.",
+        exercise: "Sei $V=\mathbb{R}^2$ und $\varphi(x,y)=2x-y\in V^*$. Gib $\varphi$ als Linearkombination der dualen Standardbasis an.",
+        hint: "Die duale Standardbasis ist $\vec e_1^*(x,y)=x$, $\vec e_2^*(x,y)=y$.",
+        solution: "$\varphi(x,y)=2x-y=2\,\vec e_1^*(x,y)-1\,\vec e_2^*(x,y)$.\nAlso $\varphi=2\vec e_1^*-\vec e_2^*$ in der dualen Standardbasis.",
+        quiz: {
+          question: "Was ist der Dualraum $V^*$?",
+          options: ["Die Menge der Vektoren in $V$", "Die Menge der linearen Abbildungen $V\to K$", "Das Komplement von $V$", "Die Inverse von $V$"],
+          answerIndex: 1,
+          explanation: "$V^*=\operatorname{Hom}(V,K)$ umfasst alle Linearformen auf $V$; endlichdimensional ist $\dim V^*=\dim V$."
+        }
+      }
+    ]
+  },
+  {
+    id: "mod-13",
+    title: "Normalformen von Endomorphismen (LA2)",
+    level: "Profi",
+    targetHours: 14,
+    goals: [
+      "Invariante Unterräume und Cayley-Hamilton nutzen",
+      "Minimalpolynom und seine Beziehung zum charakteristischen Polynom",
+      "Jordan-Normalform und rationale Normalform bestimmen"
+    ],
+    lessons: [
+      {
+        id: "m13-l1",
+        title: "Invariante Unterräume und Cayley-Hamilton",
+        difficulty: "Profi",
+        estimatedMinutes: 60,
+        theory: [
+          "Ein Unterraum $U\subseteq V$ heißt $f$-invariant, wenn $f(U)\subseteq U$. Dann restrictiert $f$ zu einem Endomorphismus $f|_U:U\to U$.",
+          "Eigenräume sind invariant; allgemeiner sind die Haupträume $\ker(f-\lambda\,\mathrm{id})^k$ invariant und wachsen mit $k$ bis zur algebraischen Vielfachheit.",
+          "Satz von Cayley-Hamilton: jedes Endomorphismus erfüllt sein charakteristisches Polynom, d. h. $\chi_A(A)=0$ als Matrixgleichung.",
+          "Folgerung: das Minimalpolynom $m_A$ teilt das charakteristische Polynom $\chi_A$, und beide haben dieselben Nullstellen (dieselben Eigenwerte).",
+          "Beweis-Skizze (über $\mathbb{C}$, bei diagonalisierbarem $A$): ist $A=SDS^{-1}$ mit $D=\operatorname{diag}(\lambda_1,\dots,\lambda_n)$, so ist $\chi_A(A)=S\,\chi_A(D)\,S^{-1}$. Da $\chi_A(D)=\operatorname{diag}(\chi_A(\lambda_1),\dots,\chi_A(\lambda_n))=0$ (jeder Eigenwert nullt sein eigenes Polynom), folgt $\chi_A(A)=0$. Den allgemeinen Fall erhält man durch Dichtheit der diagonalisierbaren Matrizen oder über Triangularisierung: $A=TDT^{-1}$ obere Dreiecksmatrix, dann steht $\chi_A(A)$ selbst in Dreiecksgestalt mit Null-Diagonale, ist also nilpotent und insgesamt null.",
+          "Kürzer: das Polynom $t\mapsto\chi_A(t)$ annulliert $A$ per Definition des Minimalpolynoms — Cayley-Hamilton besagt, dass $\chi_A$ ein annullierendes Polynom ist, also $m_A\mid\chi_A$."
+        ],
+        example: "Für $A=\begin{pmatrix}1&1\\\\0&1\end{pmatrix}$ ist $\chi_A=(\lambda-1)^2$ und $\chi_A(A)=(A-I)^2=\begin{pmatrix}0&1\\\\0&0\end{pmatrix}^2=0$. Cayley-Hamilton bestätigt.",
+        exercise: "Bestätige Cayley-Hamilton für $A=\begin{pmatrix}2&1\\\\0&3\end{pmatrix}$.",
+        hint: "Berechne $\chi_A(\lambda)=(2-\lambda)(3-\lambda)$ und werte $\chi_A(A)=(2I-A)(3I-A)$ aus.",
+        solution: "$\chi_A=(2-\lambda)(3-\lambda)=\lambda^2-5\lambda+6$.\n$A^2=\begin{pmatrix}2&1\\\\0&3\end{pmatrix}^2=\begin{pmatrix}4&5\\\\0&9\end{pmatrix}$.\n$\chi_A(A)=A^2-5A+6I=\begin{pmatrix}4&5\\\\0&9\end{pmatrix}-5\begin{pmatrix}2&1\\\\0&3\end{pmatrix}+6\begin{pmatrix}1&0\\\\0&1\end{pmatrix}=\begin{pmatrix}4-10+6&5-5+0\\\\0&9-15+6\end{pmatrix}=\begin{pmatrix}0&0\\\\0&0\end{pmatrix}$. ✓",
+        quiz: {
+          question: "Was besagt der Satz von Cayley-Hamilton?",
+          options: ["$\det A=0$", "Jede Matrix erfüllt ihr charakteristisches Polynom: $\chi_A(A)=0$", "$A$ ist diagonalisierbar", "Das Minimalpolynom ist konstant"],
+          answerIndex: 1,
+          explanation: "Setzt man die Matrix $A$ in ihr eigenes charakteristisches Polynom ein, so erhält man die Nullmatrix."
+        }
+      },
+      {
+        id: "m13-l2",
+        title: "Minimalpolynom",
+        difficulty: "Profi",
+        estimatedMinutes: 60,
+        theory: [
+          "Das Minimalpolynom $m_A$ ist das normierte Polynom kleinsten Grades mit $m_A(A)=0$. Es teilt jedes Polynom $p$ mit $p(A)=0$, insbesondere $\chi_A$.",
+          "Eigenwerte sind genau die Nullstellen von $m_A$, und die Vielfachheit von $\lambda$ in $m_A$ ist die Größe des größten Jordan-Kästchens zu $\lambda$.",
+          "Kriterium: $A$ ist genau dann diagonalisierbar, wenn $m_A$ in paarweise verschiedene Linearfaktoren zerfällt.",
+          "Teilen sich $\chi_A$ und $m_A$ die Vielfachheiten, so heißt $A$ zyklisch; dann ist die rationale Normalform besonders einfach."
+        ],
+        example: "Für $A=\begin{pmatrix}1&1\\\\0&1\end{pmatrix}$ ist $\chi_A=(\lambda-1)^2$ und $m_A=(\lambda-1)^2$ (denn $A-I\neq0$). Da $m_A$ einen mehrfachen Faktor hat, ist $A$ nicht diagonalisierbar.",
+        exercise: "Bestimme Minimal- und charakteristisches Polynom von $A=\begin{pmatrix}2&0&0\\\\0&2&1\\\\0&0&2\end{pmatrix}$ und entscheide über Diagonalisierbarkeit.",
+        hint: "Eigenwert $2$; prüfe $(A-2I)$ und $(A-2I)^2$.",
+        solution: "Eigenwert: $\lambda=2$ mit algebraischer Vielfachheit $3$.\n$A-2I=\begin{pmatrix}0&0&0\\\\0&0&1\\\\0&0&0\end{pmatrix}\neq0$, also $m_A\neq(\lambda-2)$.\n$(A-2I)^2=0$, also $m_A=(\lambda-2)^2$.\n$\chi_A=(\lambda-2)^3$.\nDa $m_A$ einen mehrfachen Linearfaktor hat, ist $A$ nicht diagonalisierbar.",
+        quiz: {
+          question: "Wann ist $A$ diagonalisierbar (über das Minimalpolynom formuliert)?",
+          options: ["Wenn $m_A$ konstant ist", "Wenn $m_A$ in paarweise verschiedene Linearfaktoren zerfällt", "Wenn $\deg m_A=n$", "Wenn $m_A=\chi_A$"],
+          answerIndex: 1,
+          explanation: "Diagonalisierbarkeit ist äquivalent dazu, dass das Minimalpolynom nur einfache Linearfaktoren hat."
+        }
+      },
+      {
+        id: "m13-l3",
+        title: "Jordan-Normalform und rationale Normalform",
+        difficulty: "Profi",
+        estimatedMinutes: 70,
+        theory: [
+          "Die Jordan-Normalform ist ein zentrales Thema der Linearen Algebra 2 in Freiburg; typische Klausuraufgaben (siehe LA2-Altklausuren der Fachschaft) verlangen, aus charakteristischem und Minimalpolynom die Kästchenstruktur abzulesen.",
+          "Über einem algebraisch abgeschlossenen Körper (z. B. $\mathbb{C}$) ist jede Matrix ähnlich zu einer Blockdiagonalmatrix aus Jordan-Kästchen $J_k(\lambda)=\begin{pmatrix}\lambda&1&&\\\\&\lambda&\ddots&\\\\&&\ddots&1\\\\&&&\lambda\end{pmatrix}$ — der Jordan-Normalform.",
+          "Pro Eigenwert $\lambda$ gibt es so viele Jordan-Kästchen wie die geometrische Vielfachheit $\dim E_\lambda$; die Summe der Kästchengrößen ist die algebraische Vielfachheit.",
+          "Das größte Kästchen zu $\lambda$ hat die Größe gleich der Vielfachheit von $\lambda$ im Minimalpolynom.",
+          "Ist der Körper nicht algebraisch abgeschlossen (oder will man rein rational arbeiten), liefert die rationale (Frobenius-)Normalform Begleitmatrizen der irreduziblen Faktoren — sie existiert über jedem Körper."
+        ],
+        example: "$A=\begin{pmatrix}1&1\\\\0&1\end{pmatrix}$ ist schon ein Jordan-Kästchen $J_2(1)$. Die Jordan-Normalform ist $A$ selbst.",
+        exercise: "Gib die Jordan-Normalform einer $3\times3$-Matrix mit Eigenwert $\lambda=5$, algebraischer Vielfachheit $3$ und geometrischer Vielfachheit $2$ an.",
+        hint: "Anzahl Kästchen $=$ geometrische Vielfachheit $=2$; ihre Größen summieren sich zur algebraischen Vielfachheit $3$. Welche zwei positiven Zahlen summieren sich zu $3$?",
+        solution: "Anzahl Jordan-Kästchen $=$ geometrische Vielfachheit $=2$. Ihre Größen summieren sich zur algebraischen Vielfachheit $3$. Die einzige Möglichkeit mit zwei positiven Kästchengrößen ist $2+1$.\nJordan-Normalform: $J=\begin{pmatrix}5&1&0\\\\0&5&0\\\\0&0&5\end{pmatrix}$ (ein $J_2(5)$ und ein $J_1(5)$).\nAm Rande: das größte Kästchen hat Größe $2$, daher wäre die Vielfachheit von $5$ im (hier nicht gegebenen) Minimalpolynom ebenfalls $2$.",
+        quiz: {
+          question: "Wie viele Jordan-Kästchen gehören zu einem Eigenwert $\lambda$?",
+          options: ["Die algebraische Vielfachheit", "Die geometrische Vielfachheit $\dim E_\lambda$", "Den Rang", "Die Determinante"],
+          answerIndex: 1,
+          explanation: "Die Anzahl der Jordan-Kästchen zu $\lambda$ ist die geometrische Vielfachheit; ihre Größen summieren sich zur algebraischen."
+        }
+      }
+    ]
+  },
+  {
+    id: "mod-14",
+    title: "Bilinearformen und Geometrie (LA2)",
+    level: "Profi",
+    targetHours: 13,
+    goals: [
+      "Bilinear- und Sesquilinearformen mit Darstellungsmatrix beschreiben",
+      "Symmetrische Formen, Signatur und den Satz von Sylvester anwenden",
+      "Orthogonale, unitäre und symplektische Gruppen einordnen"
+    ],
+    lessons: [
+      {
+        id: "m14-l1",
+        title: "Bilinear- und Sesquilinearformen",
+        difficulty: "Profi",
+        estimatedMinutes: 60,
+        theory: [
+          "Eine Bilinearform auf $V$ ist eine Abbildung $b:V\times V\to K$, die in jedem Argument linear ist: $b(\lambda\vec u+\mu\vec v,\vec w)=\lambda b(\vec u,\vec w)+\mu b(\vec v,\vec w)$ und entsprechend im zweiten.",
+          "Ist $B$ eine Basis, so ist $A=(b(\vec b_i,\vec b_j))$ die Darstellungsmatrix, und $b(\vec x,\vec y)=\vec x^{\,T}A\vec y$ in Koordinaten. Bei Basiswechsel transformiert sich $A\mapsto S^{\,T}AS$.",
+          "Eine Sesquilinearform über $\mathbb{C}$ ist im ersten Argument semilinear (komplex-konjugiert linear) und im zweiten linear; ihre Darstellung ist $b(\vec x,\vec y)=\vec x^*A\vec y$.",
+          "Die Form heißt symmetrisch (bzw. hermitesch), wenn $b(\vec x,\vec y)=b(\vec y,\vec x)$ (bzw. $=\overline{b(\vec y,\vec x)}$); dann ist $A=A^{\,T}$ (bzw. $A=A^*$)."
+        ],
+        example: "Das Standardskalarprodukt auf $\mathbb{R}^n$ ist die Bilinearform mit Darstellungsmatrix $I$. Auf $\mathbb{C}^n$ ist das Standardskalarprodukt hermitesch mit $A=I$.",
+        exercise: "Bestimme die Darstellungsmatrix von $b(\vec x,\vec y)=2x_1y_1+x_1y_2+x_2y_1+3x_2y_2$ bezüglich der Standardbasis.",
+        hint: "Eintrag $a_{ij}=b(\vec e_i,\vec e_j)$.",
+        solution: "$a_{11}=b(\vec e_1,\vec e_1)=2$, $a_{12}=b(\vec e_1,\vec e_2)=1$, $a_{21}=b(\vec e_2,\vec e_1)=1$, $a_{22}=b(\vec e_2,\vec e_2)=3$.\n$A=\begin{pmatrix}2&1\\\\1&3\end{pmatrix}$. Symmetrisch, da $a_{12}=a_{21}$.",
+        quiz: {
+          question: "Wie transformiert sich die Darstellungsmatrix $A$ einer Bilinearform bei Basiswechsel $S$?",
+          options: ["$A\mapsto S^{-1}AS$", "$A\mapsto S^{\,T}AS$", "$A\mapsto SAS^{-1}$", "$A\mapsto A$"],
+          answerIndex: 1,
+          explanation: "Bilinearformen transformieren kongruent: $A\mapsto S^{\,T}AS$ (im Gegensatz zur Ähnlichkeit $S^{-1}AS$)."
+        }
+      },
+      {
+        id: "m14-l2",
+        title: "Signatur und Satz von Sylvester",
+        difficulty: "Profi",
+        estimatedMinutes: 65,
+        theory: [
+          "Eine symmetrische Bilinearform kann man diagonalisieren: es gibt eine Basis mit $b(\vec x,\vec y)=\lambda_1 x_1y_1+\dots+\lambda_nx_ny_n$.",
+          "Sylvesterscher Trägheitssatz: die Anzahlen $p$ positiver, $q$ negativer und $r$ null-freier Diagonalkoeffizienten sind invariant — unabhängig von der Diagonalisierung.",
+          "Das Tripel $(p,q,r)$ heißt Signatur; $(p,q)$ kennzeichnet die Form bis auf Kongruenz. Rang $=p+q$.",
+          "Eine Form ist positiv definit, wenn $q=0$ und $r=0$ — dann ist sie ein Skalarprodukt. Das Hauptachsenverfahren diagonalisiert reellsymmetrische Matrizen orthogonal.",
+          "Bilinearformen und der Trägheitssatz gehören zum Kern von Lineare Algebra 2; in Freiburger Klausuren (siehe LA2-Altklausuren der Fachschaft) werden häufig Signatur und Diagonalisierung einer Form verlangt.",
+          "Beweis-Skizze des Trägheitssatzes: sei $V=V_+\oplus V_-\oplus V_0$ eine Diagonalisierung mit $\dim V_+=p$, $\dim V_-=q$ ($b$ positiv/negativ definit auf den Summanden) und $V_0$ dem Radikal. Für eine andere Diagonalisierung mit $p'$ gilt $p\leq p'$: auf $V_+\oplus V_+'$ ist $b$ positiv semidefinit, und $V_+\cap(V_+'\oplus V_0')=\{0\}$ liefert $\dim V_+\leq\dim V_+'$. Symmetrie ergibt $p=p'$, analog $q=q'$, und $r=n-p-q$."
+        ],
+        example: "$A=\begin{pmatrix}1&0\\\\0&-1\end{pmatrix}$ hat Signatur $(1,1,0)$: ein positiver, ein negativer Koeffizient. Das ist die Minkowski-Form der speziellen Relativitätstheorie.",
+        exercise: "Bestimme die Signatur von $b$ mit Darstellungsmatrix $A=\begin{pmatrix}1&2\\\\2&1\end{pmatrix}$.",
+        hint: "Diagonalisiere per Vervollständigung des Quadrats oder konkretes Kongruenzverfahren.",
+        solution: "Vervollständige das Quadrat: $x_1^2+4x_1x_2+x_2^2=(x_1+2x_2)^2-3x_2^2$.\nAlso Diagonaldarstellung mit Koeffizienten $1$ und $-3$: ein positives, ein negatives.\nSignatur $(1,1,0)$, Rang $2$.",
+        quiz: {
+          question: "Was besagt der Satz von Sylvester (Trägheitssatz)?",
+          options: ["Die Determinante ist invariant", "Die Anzahlen positiver/negativer/null-freier Diagonalkoeffizienten sind invariant", "Jede Matrix ist diagonalisierbar", "Der Rang ist null"],
+          answerIndex: 1,
+          explanation: "Die Signatur $(p,q,r)$ ist unabhängig von der gewählten Diagonalisierung — das macht sie zur Kongruenz-Invariante."
+        }
+      },
+      {
+        id: "m14-l3",
+        title: "Klassische Gruppen und selbstadjungierte Operatoren",
+        difficulty: "Profi",
+        estimatedMinutes: 65,
+        theory: [
+          "Die orthogonale Gruppe $O_n=\{Q\in\mathbb{R}^{n\times n}:Q^{\,T}Q=I\}$ erhält das Standardskalarprodukt; $\det Q=\pm1$. Die $SO_n$ hat Determinante $1$.",
+          "Die unitäre Gruppe $U_n=\{U\in\mathbb{C}^{n\times n}:U^*U=I\}$ erhält das hermitesche Skalarprodukt. Die symplektische Gruppe $Sp_{2n}$ erhält eine nicht-ausgeartete schiefe Form.",
+          "Zu einem Endomorphismus $f$ auf einem Skalarproduktraum ist der Adjungierte $f^*$ durch $\langle f\vec x,\vec y\rangle=\langle\vec x,f^*\vec y\rangle$ definiert; in Orthonormalbasis ist die Matrix die Adjungierte (transponiert/konjugiert).",
+          "Ein Operator heißt selbstadjungiert ($f=f^*$, hermitesch) bzw. normal ($ff^*=f^*f$). Der Spektralsatz: selbstadjungierte Operatoren sind orthonormal diagonalisierbar mit reellen Eigenwerten."
+        ],
+        example: "Eine reelle symmetrische Matrix ist selbstadjungiert; nach dem Spektralsatz gibt es ein orthogonales $Q$ mit $Q^{\,T}AQ=D$ diagonal. Etwa $A=\begin{pmatrix}1&2\\\\2&1\end{pmatrix}$ hat Eigenwerte $3,-1$ und orthonormale Eigenvektoren $\tfrac{1}{\sqrt2}(1,1)$, $\tfrac{1}{\sqrt2}(1,-1)$.",
+        exercise: "Ist $A=\begin{pmatrix}0&1\\\\-1&0\end{pmatrix}$ normal? Begründe über $AA^{\,T}$ und $A^{\,T}A$.",
+        hint: "Berechne $A^{\,T}=\begin{pmatrix}0&-1\\\\1&0\end{pmatrix}$ und vergleiche $AA^{\,T}$ mit $A^{\,T}A$.",
+        solution: "$AA^{\,T}=\begin{pmatrix}0&1\\\\-1&0\end{pmatrix}\begin{pmatrix}0&-1\\\\1&0\end{pmatrix}=\begin{pmatrix}1&0\\\\0&1\end{pmatrix}$.\n$A^{\,T}A=\begin{pmatrix}0&-1\\\\1&0\end{pmatrix}\begin{pmatrix}0&1\\\\-1&0\end{pmatrix}=\begin{pmatrix}1&0\\\\0&1\end{pmatrix}$.\nEs gilt $AA^{\,T}=A^{\,T}A=I$, also ist $A$ normal (sogar orthogonal).",
+        quiz: {
+          question: "Was besagt der Spektralsatz für selbstadjungierte Operatoren?",
+          options: ["Sie sind nie diagonalisierbar", "Sie sind orthonormal diagonalisierbar mit reellen Eigenwerten", "Sie haben nur komplexe Eigenwerte", "Ihre Determinante ist null"],
+          answerIndex: 1,
+          explanation: "Selbstadjungierte (hermitesche) Operatoren lassen sich orthonormal diagonalisieren; alle Eigenwerte sind reell."
+        }
+      }
+    ]
+  },
+  {
+    id: "mod-15",
+    title: "Moduln über Hauptidealringen (LA2)",
+    level: "Profi",
+    targetHours: 13,
+    goals: [
+      "Ringe, Ideale und Moduln als Verallgemeinerung von Vektorräumen verstehen",
+      "Freie Moduln und den Struktursatz über Hauptidealringen anwenden",
+      "Normalformen als Modul-Quotient über $K[x]$ interpretieren"
+    ],
+    lessons: [
+      {
+        id: "m15-l1",
+        title: "Ringe und Ideale",
+        difficulty: "Profi",
+        estimatedMinutes: 60,
+        theory: [
+          "Ein Ring $R$ ist eine Menge mit Addition und Multiplikation, wobei die Addition eine abelsche Gruppe bildet, die Multiplikation assoziativ ist und das Distributivgesetz gilt. Besitzt die Multiplikation ein Einselement, heißt $R$ Ring mit Eins.",
+          "Beispiele: $\mathbb{Z}$, $K[x]$ (Polynomring über einem Körper), $\mathbb{Z}/n\mathbb{Z}$. Ein Körper ist ein Ring, in dem jedes von null verschiedene Element invertierbar ist.",
+          "Ein Ideal $I\subseteq R$ ist eine additive Untergruppe mit $rI\subseteq I$ für alle $r\in R$. Das von $a$ erzeugte Hauptideal ist $(a)=aR$.",
+          "Ein Integritätsring heißt Hauptidealring (HIR), wenn jedes Ideal ein Hauptideal ist. $\mathbb{Z}$ und $K[x]$ sind Hauptidealringe; in ihnen gibt es eine Division mit Rest."
+        ],
+        example: "In $R=\mathbb{Z}$ ist $(6)=6\mathbb{Z}=\{\dots,-12,-6,0,6,12,\dots\}$ ein Hauptideal. In $K[x]$ ist $(x^2+1)$ das Ideal aller Vielfachen von $x^2+1$.",
+        exercise: "Begründe, warum $I=\{2a+3b:a,b\in\mathbb{Z}\}$ ein Hauptideal in $\mathbb{Z}$ ist.",
+        hint: "Zeige $I=(d)$ für einen Erzeuger $d=\operatorname{ggT}(2,3)$.",
+        solution: "$I$ ist die Menge aller Linearkombinationen von $2$ und $3$. Da $\operatorname{ggT}(2,3)=1$ und sich $1$ als $2\cdot(-1)+3\cdot1=1$ schreiben lässt, ist $1\in I$, also $I=\mathbb{Z}=(1)$.\nDaher ist $I$ das Hauptideal $(1)$.",
+        quiz: {
+          question: "Was ist ein Hauptidealring?",
+          options: ["Ein Ring, in dem jedes Ideal ein Hauptideal ist", "Ein Ring ohne Eins", "Ein Körper", "Ein Ring mit nur einem Element"],
+          answerIndex: 0,
+          explanation: "In einem Hauptidealring ist jedes Ideal von einem einzigen Element erzeugt, z. B. $\mathbb{Z}$ oder $K[x]$."
+        }
+      },
+      {
+        id: "m15-l2",
+        title: "Moduln und der Struktursatz",
+        difficulty: "Profi",
+        estimatedMinutes: 65,
+        theory: [
+          "Ein $R$-Modul $M$ verallgemeinert den Vektorraum: die Skalare stammen aus einem Ring $R$ statt aus einem Körper. Damit entfallen Divisionen — Moduln sind deutlich flexibler.",
+          "Beispiel: $\mathbb{Z}^n$ ist ein $\mathbb{Z}$-Modul; jedes $\mathbb{Z}$-Modul ist eine abelsche Gruppe. Ein freier Modul hat eine Basis (wie ein Vektorraum).",
+          "Struktursatz über Hauptidealringen: jeder endlich erzeugte Modul über einem HIR ist isomorph zu $R^r\oplus R/(d_1)\oplus\dots\oplus R/(d_k)$ mit $d_1\mid d_2\mid\dots\mid d_k$.",
+          "Die $d_i$ heißen Elementarteiler; sie sind bis auf Einheiten eindeutig. Dieser Satz vereint die Klassifikation endlich erzeugter abelscher Gruppen und die Normalformen-Sätze der Linearen Algebra.",
+          "Beweis-Skizze: Wähle eine surjektive Abbildung $\varphi:R^n\to M$ (möglich, da $M$ endlich erzeugt). Ihr Kern $\ker\varphi$ ist ein Untermodul von $R^n$; über einem HIR ist jeder Untermodul von $R^n$ endlich erzeugt, etwa $\ker\varphi=A\cdot R^m$. Mit dem Elementarteiler-Satz (Smith-Algorithmus: Zeilen-/Spaltenoperationen via ggT) bringt man die Matrix $A$ in Diagonalform $\operatorname{diag}(d_1,\dots,d_k,0,\dots,0)$ mit $d_1\mid\dots\mid d_k$. Der Isomorphiesatz liefert $M\cong R^n/\operatorname{Bild}(A)\cong R^r\oplus R/(d_1)\oplus\dots\oplus R/(d_k)$. Die Eindeutigkeit folgt aus der Invarianz der Determinantenideale $(d_1\cdots d_j)$."
+        ],
+        example: "Endlich erzeugte abelsche Gruppen sind $\mathbb{Z}$-Moduln. Der chinesische Restsatz zerlegt $\mathbb{Z}/6\mathbb{Z}\cong\mathbb{Z}/2\mathbb{Z}\oplus\mathbb{Z}/3\mathbb{Z}$, weil $6=2\cdot3$ mit teilerfremden Faktoren. In invariant-Faktor-Form ($d_1\mid d_2$) ist $\mathbb{Z}/6\mathbb{Z}$ hingegen bereits zyklisch mit $d_1=6$ — zwei verschiedene Normalformen derselben Gruppe.",
+        exercise: "Zerlege $\mathbb{Z}/12\mathbb{Z}$ nach dem chinesischen Restsatz in eine direkte Summe und gib zusätzlich die invariant-Faktor-Form an.",
+        hint: "CRT: $12=4\cdot3$ mit $\operatorname{ggT}(4,3)=1$. Invariant-Faktor-Form: ein einzelner Teiler $d_1$.",
+        solution: "Chinesischer Restsatz (Primteiler-Zerlegung in teilerfremde Faktoren): da $12=4\cdot3$ mit $\operatorname{ggT}(4,3)=1$, gilt\n$\mathbb{Z}/12\mathbb{Z}\cong\mathbb{Z}/4\mathbb{Z}\oplus\mathbb{Z}/3\mathbb{Z}$.\nInvariant-Faktor-Form ($d_1\mid d_2\mid\dots$): $\mathbb{Z}/12\mathbb{Z}$ ist zyklisch, hat also nur einen invarianten Faktor $d_1=12$.\nBeide Beschreibungen sind korrekt — sie sind nur verschiedene Normalformen derselben Gruppe. Die CRT-Form nutzt teilerfremde Zerlegung (Prim potenz-Anteile), die invariant-Faktor-Form die Teilbarkeitskette.",
+        quiz: {
+          question: "Was verallgemeinert der Begriff „Modul“ gegenüber dem Vektorraum?",
+          options: ["Die Skalare stammen aus einem Ring statt einem Körper", "Es gibt keine Addition", "Es gibt nur endlich viele Vektoren", "Es gibt keine Null"],
+          answerIndex: 0,
+          explanation: "Ein Modul ist wie ein Vektorraum, aber mit Skalaren aus einem Ring — damit entfällt die Division."
+        }
+      },
+      {
+        id: "m15-l3",
+        title: "Normalformen als Modul über K[x]",
+        difficulty: "Profi",
+        estimatedMinutes: 70,
+        theory: [
+          "Fixiert ein Endomorphismus $f$ auf $V$ die Wirkung von $x$, so wird $V$ zu einem $K[x]$-Modul mit $x\cdot\vec v=f(\vec v)$. Da $K[x]$ ein Hauptidealring ist, greift der Struktursatz.",
+          "Die Elementarteiler dieses $K[x]$-Moduls sind genau die invarianten Teiler von $f$; aus ihnen liest man die rationale Normalform ab.",
+          "Zerlegt man stattdessen in Prim potenz-Anteile (Elementarteiler $p(x)^e$), so erhält man die Jordan-Normalform (für $p(x)=x-\lambda$).",
+          "Damit werden Jordan- und rationale Normalform zu Spezialfällen eines einzigen Satzes — ein Höhepunkt der Linearen Algebra, der LA1 und LA2 verbindet."
+        ],
+        example: "Ist $\chi_A=(x-\lambda_1)^2(x-\lambda_2)$ mit Minimalpolynom $(x-\lambda_1)^2(x-\lambda_2)$, so ist der $K[x]$-Modul $V\cong K[x]/((x-\lambda_1)^2)\oplus K[x]/(x-\lambda_2)$ — ein $J_2(\lambda_1)$-Kästchen und ein $J_1(\lambda_2)$-Kästchen.",
+        exercise: "Ein $3\times3$-Endomorphismus habe Minimalpolynom $(x-2)^2$ und charakteristisches Polynom $(x-2)^3$. Welche Jordan-Normalform entspricht dem $K[x]$-Modul?",
+        hint: "Ein Elementarteiler $(x-2)^2$ und einer $(x-2)^1$; Kästchengrößen $2$ und $1$.",
+        solution: "Aus $m_A=(x-2)^2$ und $\chi_A=(x-2)^3$ folgen die Elementarteiler $(x-2)^2$ und $(x-2)^1$.\nAls $K[x]$-Modul: $V\cong K[x]/((x-2)^2)\oplus K[x]/(x-2)$.\nJordan-Normalform: ein Kästchen $J_2(2)$ und ein Kästchen $J_1(2)$, also $J=\begin{pmatrix}2&1&0\\\\0&2&0\\\\0&0&2\end{pmatrix}$.",
+        quiz: {
+          question: "Welcher Satz vereinheitlicht Jordan- und rationale Normalform?",
+          options: ["Der Satz von Sylvester", "Der Struktursatz für Moduln über Hauptidealringen", "Der Rang-Nullitätssatz", "Der Fundamentalsatz der Algebra"],
+          answerIndex: 1,
+          explanation: "Über $K[x]$ als Hauptidealring liefert der Struktursatz die invarianten Teiler (rationale Form) bzw. Elementarteiler (Jordan-Form) in einem Abwaschgang."
+        }
+      }
+    ]
+  },
+  {
+    id: "mod-16",
+    title: "Freiburg: Klausurtraining",
+    level: "Profi",
+    targetHours: 12,
+    goals: [
+      "Typische LA1-Klausuraufgaben sicher erkennen",
+      "Typische LA2-Klausuraufgaben lösen",
+      "Prüfungsstrategie und Freiburg-Dozentenbezug nutzen"
+    ],
+    lessons: [
+      {
+        id: "m16-l1",
+        title: "Typische LA1-Aufgaben",
+        difficulty: "Profi",
+        estimatedMinutes: 60,
+        theory: [
+          "Lineare Algebra 1 in Freiburg prüft klassisch: Gauß-Verfahren auf einem LGS, Bestimmung von Rang und Lösbarkeit, lineare (Un-)Abhängigkeit und Basen.",
+          "Häufig sind Endomorphismen gegeben mit den Aufgaben: Eigenwerte berechnen, Diagonalisierbarkeit prüfen, gegebenenfalls eine Basis wechseln.",
+          "Determinantenaufgaben verlangen oft Kofaktorentwicklung und Rechenregeln; Skalarprodukt-Aufgaben testen Projektion, Gram-Schmidt und orthogonale Matrizen.",
+          "Strategie: zuerst Übersicht verschaffen, welche Konzepte verlangt sind; dann Standardschritte (charakteristisches Polynom, Gauß, Basiswechsel) der Reihe nach aufschreiben. Saubere Notation bewahrt Punkte."
+        ],
+        example: "Ein LA1-Klassiker: zu $A=\begin{pmatrix}2&1\\\\0&2\end{pmatrix}$ Eigenwerte, Eigenräume und Diagonalisierbarkeit bestimmen. Lösung: Eigenwert $2$ (alg. Vielfachheit $2$), Eigenraum $E_2=\operatorname{span}(1,0)^{\,T}$, geometrische Vielfachheit $1<2$, also nicht diagonalisierbar.",
+        exercise: "Gegeben $A=\begin{pmatrix}3&1\\\\0&3\end{pmatrix}$. Bestimme Eigenwerte, Eigenräume und entscheide über Diagonalisierbarkeit wie in einer Klausur.",
+        hint: "Charakteristisches Polynom, dann $(A-\lambda I)\vec v=\vec 0$ lösen und Vielfachheiten vergleichen.",
+        solution: "$\chi_A=(3-\lambda)^2$, Eigenwert $\lambda=3$ (algebraische Vielfachheit $2$).\n$A-3I=\begin{pmatrix}0&1\\\\0&0\end{pmatrix}$, also $E_3=\ker(A-3I)=\operatorname{span}\!\begin{pmatrix}1\\\\0\end{pmatrix}$, geometrische Vielfachheit $1$.\nDa $1<2$, ist $A$ nicht diagonalisierbar. (Jordan-Normalform: $J_2(3)$.)",
+        quiz: {
+          question: "Was ist ein typischer erster Schritt in einer LA1-Eigenwertaufgabe?",
+          options: ["Determinante aller Einträge berechnen", "Das charakteristische Polynom $\det(A-\lambda I)$ aufstellen", "Die Inverse berechnen", "Gauß auf der rechten Seite"],
+          answerIndex: 1,
+          explanation: "Eigenwerte sind die Nullstellen von $\chi_A(\lambda)=\det(A-\lambda I)$ — das ist der Standardstart."
+        }
+      },
+      {
+        id: "m16-l2",
+        title: "Typische LA2-Aufgaben",
+        difficulty: "Profi",
+        estimatedMinutes: 65,
+        theory: [
+          "Lineare Algebra 2 in Freiburg prüft: Jordan-Normalform (Kästchen bestimmen, Minimalpolynom ablesen), rationale Normalform, invariante Unterräume.",
+          "Bilinearformen-Aufgaben verlangen: Darstellungsmatrix, Signatur nach Sylvester, Diagonalisierung der Form, Klassifikation (positiv definit?).",
+          "Moduln und Dualraum: Quotientenräume berechnen, Dualabbildung angeben, Annihilator bestimmen, endlich erzeugte Moduln über Hauptidealringen klassifizieren.",
+          "Strategie: zuerst das Minimalpolynom bestimmen — es liefert Kästchengrößen und Vielfachheiten auf einen Blick. Bei Bilinearformen die Signatur als invarianten Fingerabdruck nutzen."
+        ],
+        example: "Eine LA2-Aufgabe: zu $A$ mit $\chi_A=(x-1)^3(x-2)$ und $m_A=(x-1)^2(x-2)$ die Jordan-Normalform angeben. Lösung: zum Eigenwert $1$ ein $J_2(1)$ und ein $J_1(1)$, zum Eigenwert $2$ ein $J_1(2)$.",
+        exercise: "Bestimme die Jordan-Normalform eines $4\times4$-Endomorphismus mit $\chi_A=(x-1)^3(x-2)$ und $m_A=(x-1)^2(x-2)$.",
+        hint: "Eigenwert $1$: alg. Vielfachheit $3$, größtes Kästchen Größe $2$ (aus $m_A$). Eigenwert $2$: alg. Vielfachheit $1$.",
+        solution: "Eigenwert $1$: algebraische Vielfachheit $3$, größtes Kästchen Größe $2$ (Vielfachheit in $m_A$). Also Kästchen $J_2(1)$ und $J_1(1)$.\nEigenwert $2$: algebraische Vielfachheit $1$, also ein Kästchen $J_1(2)$.\nJordan-Normalform:\n$J=\begin{pmatrix}1&1&0&0\\\\0&1&0&0\\\\0&0&1&0\\\\0&0&0&2\end{pmatrix}$.",
+        quiz: {
+          question: "Was liefert das Minimalpolynom für die Jordan-Normalform?",
+          options: ["Die Determinante", "Die Größe des größten Jordan-Kästchens pro Eigenwert", "Den Rang", "Die Spur"],
+          answerIndex: 1,
+          explanation: "Die Vielfachheit von $\lambda$ im Minimalpolynom ist die Größe des größten Jordan-Kästchens zu $\lambda$."
+        }
+      },
+      {
+        id: "m16-l3",
+        title: "Prüfungsstrategie und Freiburg-Dozenten",
+        difficulty: "Profi",
+        estimatedMinutes: 55,
+        theory: [
+          "Die Freiburger Fachschaft sammelt Altklausuren (LA1: über 60, LA2: 9) — das beste Training. Rechnen Sie mehrere Klausuren vollständig durch, nicht nur Aufgabenränder.",
+          "Dozenten-Schwerpunkte (orientiert an Freiburger Prüfenden): Kebekus und Huber-Klawitter betonen oft saubere Beweisführung und Struktur; Goette und Wendland stellen gerne geometrische und formenbezogene Aufgaben; Mildenberger und Soergel prüfen oft Normalformen und Moduln.",
+          "Zeitmanagement: in 90 Minuten Klausur pro Aufgabe ~20 Minuten. Erst Lösbare vollständig, dann Rest. Teilpunkte durch saubere Teilschritte sichern.",
+          "Hilfsmittel absichern: welche Sätze man ohne Beweis nutzen darf, variiert — in der Klausur explizit klären. Beweise, die im Skript verlangt wurden, können drankommen."
+        ],
+        example: "Eine typische Strategie: bei einer Eigenwert-Aufgabe erst $\chi_A$ und $m_A$ vollständig ausschreiben, Vielfachheiten vergleichen, dann Jordan-Form — das sichert selbst bei Rechenfehlern Strukturpunkte.",
+        exercise: "Du hast $\chi_A=(x-3)^4$ und $m_A=(x-3)^2$ mit $\dim E_3=2$. Bestimme die Jordan-Normalform.",
+        hint: "Algebraische Vielfachheit $4$, geometrische Vielfachheit $2$ (Anzahl Kästchen), größtes Kästchen Größe $2$ (aus $m_A$).",
+        solution: "Eigenwert $3$: algebraische Vielfachheit $4$, Anzahl Kästchen $=\dim E_3=2$, größtes Kästchen Größe $2$.\nMögliche Kästchengrößen, die sich zu $4$ ergänzen mit Maximum $2$ und zwei Kästchen: $2+2$.\nJordan-Normalform: $J_2(3)\oplus J_2(3)=\begin{pmatrix}3&1&0&0\\\\0&3&0&0\\\\0&0&3&1\\\\0&0&0&3\end{pmatrix}$.",
+        quiz: {
+          question: "Was ist die effektivste Klausurvorbereitung laut Fachschaft?",
+          options: ["Nur Theorie lesen", "Mehrere Altklausuren vollständig rechnen", "Nur Videos schauen", "Formeln auswendig lernen"],
+          answerIndex: 1,
+          explanation: "Die Freiburger Altklausuren sind das beste Training — vollständig gerechnet, nicht nur überflogen."
         }
       }
     ]
@@ -961,205 +1404,271 @@ window.LEARNING_PATH = Object.freeze([
 
 window.LEARNING_REFERENCES = Object.freeze({
   "m0-l1": [
-    { label: "Komplexe Zahlen — Wikipedia", url: "https://de.wikipedia.org/wiki/Komplexe_Zahl", source: "Wikipedia" },
-    { label: "Imaginäre Einheit — Wikipedia", url: "https://de.wikipedia.org/wiki/Imaginäre_Zahl", source: "Wikipedia" },
-    { label: "Komplexe Zahlen (Video) — MIT OCW 18.06", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" }
+    { label: "Ganze Zahl — Wikipedia", url: "https://de.wikipedia.org/wiki/Ganze_Zahl", source: "Wikipedia" },
+    { label: "Betrag (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Betragsfunktion", source: "Wikipedia" }
   ],
   "m0-l2": [
-    { label: "Komplexe Zahlen — Rechenregeln (Wikipedia)", url: "https://de.wikipedia.org/wiki/Komplexe_Zahl#Rechenregeln", source: "Wikipedia" },
-    { label: "Konjugiert komplexe Zahl — Wikipedia", url: "https://de.wikipedia.org/wiki/Konjugiert_komplexe_Zahl", source: "Wikipedia" },
-    { label: "MIT OpenCourseWare 18.06 — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" }
+    { label: "Bruchrechnung — Wikipedia", url: "https://de.wikipedia.org/wiki/Bruchrechnung", source: "Wikipedia" },
+    { label: "Dezimalzahl — Wikipedia", url: "https://de.wikipedia.org/wiki/Dezimalzahl", source: "Wikipedia" }
   ],
   "m0-l3": [
-    { label: "Eigenwertproblem — Wikipedia", url: "https://de.wikipedia.org/wiki/Eigenwertproblem", source: "Wikipedia" },
-    { label: "Drehmatrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Drehmatrix", source: "Wikipedia" },
-    { label: "Gilbert Strang — Wikipedia", url: "https://de.wikipedia.org/wiki/Gilbert_Strang", source: "Prof. Gilbert Strang, MIT" }
+    { label: "Binomische Formeln — Wikipedia", url: "https://de.wikipedia.org/wiki/Binomische_Formeln", source: "Wikipedia" },
+    { label: "Distributivgesetz — Wikipedia", url: "https://de.wikipedia.org/wiki/Distributivgesetz", source: "Wikipedia" }
   ],
   "m1-l1": [
-    { label: "Term (Algebra) — Wikipedia", url: "https://de.wikipedia.org/wiki/Term", source: "Wikipedia" },
-    { label: "Distributivgesetz — Wikipedia", url: "https://de.wikipedia.org/wiki/Distributivgesetz", source: "Wikipedia" },
-    { label: "Khan Academy — Algebra Basics", url: "https://www.khanacademy.org/math/algebra", source: "Khan Academy" }
+    { label: "Quadratische Gleichung — Wikipedia", url: "https://de.wikipedia.org/wiki/Quadratische_Gleichung", source: "Wikipedia" },
+    { label: "Lineare Gleichung — Wikipedia", url: "https://de.wikipedia.org/wiki/Lineare_Gleichung", source: "Wikipedia" }
   ],
   "m1-l2": [
-    { label: "Funktion (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Funktion_(Mathematik)", source: "Wikipedia" },
-    { label: "Gleichung — Wikipedia", url: "https://de.wikipedia.org/wiki/Gleichung", source: "Wikipedia" },
-    { label: "Lineare Funktion — Wikipedia", url: "https://de.wikipedia.org/wiki/Lineare_Funktion", source: "Wikipedia" }
+    { label: "Menge (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Menge_(Mathematik)", source: "Wikipedia" },
+    { label: "Bijektive Funktion — Wikipedia", url: "https://de.wikipedia.org/wiki/Bijektion", source: "Wikipedia" },
+    { label: "Quantor — Wikipedia", url: "https://de.wikipedia.org/wiki/Quantor", source: "Wikipedia" }
   ],
   "m1-l3": [
     { label: "Summenzeichen — Wikipedia", url: "https://de.wikipedia.org/wiki/Summenzeichen", source: "Wikipedia" },
-    { label: "Beweis (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Beweis_(Mathematik)", source: "Wikipedia" },
-    { label: "Widerspruchsbeweis — Wikipedia", url: "https://de.wikipedia.org/wiki/Widerspruchsbeweis", source: "Wikipedia" }
+    { label: "Vollständige Induktion — Wikipedia", url: "https://de.wikipedia.org/wiki/Vollst%C3%A4ndige_Induktion", source: "Wikipedia" },
+    { label: "Gaußsche Summenformel — Wikipedia", url: "https://de.wikipedia.org/wiki/Gau%C3%9Fsche_Summenformel", source: "Wikipedia" }
   ],
   "m2-l1": [
-    { label: "Vektor — Wikipedia", url: "https://de.wikipedia.org/wiki/Vektor", source: "Wikipedia" },
-    { label: "Vektorraum — Wikipedia", url: "https://de.wikipedia.org/wiki/Vektorraum", source: "Wikipedia" },
+    { label: "Komplexe Zahlen — Wikipedia", url: "https://de.wikipedia.org/wiki/Komplexe_Zahl", source: "Wikipedia" },
+    { label: "Imaginäre Einheit — Wikipedia", url: "https://de.wikipedia.org/wiki/Imagin%C3%A4re_Einheit", source: "Wikipedia" },
+    { label: "Carl Friedrich Gauß — Wikipedia", url: "https://de.wikipedia.org/wiki/Carl_Friedrich_Gau%C3%9F", source: "Universität Göttingen" },
     { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" },
-    { label: "MIT OCW 18.06 — Vectors", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
   ],
   "m2-l2": [
-    { label: "Vektoraddition — Wikipedia", url: "https://de.wikipedia.org/wiki/Vektor#Addition_und_Subtraktion", source: "Wikipedia" },
-    { label: "Euklidische Norm — Wikipedia", url: "https://de.wikipedia.org/wiki/Euklidische_Norm", source: "Wikipedia" },
-    { label: "Satz des Pythagoras — Wikipedia", url: "https://de.wikipedia.org/wiki/Satz_des_Pythagoras", source: "Wikipedia" },
-    { label: "MIT OCW 18.06 — Lengths & Dot Products", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+    { label: "Komplexe Zahlen — Rechenregeln — Wikipedia", url: "https://de.wikipedia.org/wiki/Komplexe_Zahl", source: "Wikipedia" },
+    { label: "Konjugiert komplexe Zahl — Wikipedia", url: "https://de.wikipedia.org/wiki/Konjugiert_komplexe_Zahl", source: "Wikipedia" }
   ],
   "m2-l3": [
-    { label: "Linearkombination — Wikipedia", url: "https://de.wikipedia.org/wiki/Linearkombination", source: "Wikipedia" },
-    { label: "Lineare Unabhängigkeit — Wikipedia", url: "https://de.wikipedia.org/wiki/Lineare_Unabhängigkeit", source: "Wikipedia" },
-    { label: "Spann (Vektorraum) — Wikipedia", url: "https://de.wikipedia.org/wiki/Spann_(Vektorraum)", source: "Wikipedia" },
-    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" }
+    { label: "Polarkoordinaten komplexer Zahlen — Wikipedia", url: "https://de.wikipedia.org/wiki/Polarkoordinaten", source: "Wikipedia" },
+    { label: "Eulersche Formel — Wikipedia", url: "https://de.wikipedia.org/wiki/Eulersche_Formel", source: "Wikipedia" },
+    { label: "Fundamentalsatz der Algebra — Wikipedia", url: "https://de.wikipedia.org/wiki/Fundamentalsatz_der_Algebra", source: "Wikipedia" },
+    { label: "Leonhard Euler — Wikipedia", url: "https://de.wikipedia.org/wiki/Leonhard_Euler", source: "Universität Sankt Petersburg" },
+    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" },
   ],
   "m3-l1": [
-    { label: "Matrix (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Matrix_(Mathematik)", source: "Wikipedia" },
-    { label: "Einheitsmatrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Einheitsmatrix", source: "Wikipedia" },
-    { label: "Nullmatrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Nullmatrix", source: "Wikipedia" },
-    { label: "MIT OCW 18.06 — Matrices", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" }
+    { label: "Vektor — Wikipedia", url: "https://de.wikipedia.org/wiki/Vektor", source: "Wikipedia" },
+    { label: "Euklidische Norm — Wikipedia", url: "https://de.wikipedia.org/wiki/Euklidische_Norm", source: "Wikipedia" },
+    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" },
   ],
   "m3-l2": [
-    { label: "Matrizenmultiplikation — Wikipedia", url: "https://de.wikipedia.org/wiki/Matrizenmultiplikation", source: "Wikipedia" },
-    { label: "Kommutativität bei Matrizen — Wikipedia", url: "https://de.wikipedia.org/wiki/Matrizenmultiplikation#Nichtkommutativität", source: "Wikipedia" },
-    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" }
+    { label: "Vektorraum — Wikipedia", url: "https://de.wikipedia.org/wiki/Vektorraum", source: "Wikipedia" },
+    { label: "Skalarmultiplikation — Wikipedia", url: "https://de.wikipedia.org/wiki/Skalarmultiplikation", source: "Wikipedia" },
+    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" },
   ],
   "m3-l3": [
-    { label: "Inverse Matrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Inverse_Matrix", source: "Wikipedia" },
-    { label: "Reguläre Matrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Reguläre_Matrix", source: "Wikipedia" },
-    { label: "MIT OCW 18.06 — Inverse Matrices", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+    { label: "Linearkombination — Wikipedia", url: "https://de.wikipedia.org/wiki/Linearkombination", source: "Wikipedia" },
+    { label: "Lineare Hülle — Wikipedia", url: "https://de.wikipedia.org/wiki/Lineare_H%C3%BClle", source: "Wikipedia" },
+    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" },
+    { label: "MIT OCW 18.06sc — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" },
   ],
   "m4-l1": [
-    { label: "Lineares Gleichungssystem — Wikipedia", url: "https://de.wikipedia.org/wiki/Lineares_Gleichungssystem", source: "Wikipedia" },
-    { label: "Koeffizientenmatrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Koeffizientenmatrix", source: "Wikipedia" },
-    { label: "Triviale Lösung — Wikipedia", url: "https://de.wikipedia.org/wiki/Triviale_Lösung", source: "Wikipedia" }
+    { label: "Matrix (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Matrix_(Mathematik)", source: "Wikipedia" },
+    { label: "Transponierte Matrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Transponierte_Matrix", source: "Wikipedia" },
+    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" },
+    { label: "MIT OCW 18.06 — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" },
   ],
   "m4-l2": [
-    { label: "Gaußsches Eliminationsverfahren — Wikipedia", url: "https://de.wikipedia.org/wiki/Gaußsches_Eliminationsverfahren", source: "Wikipedia" },
-    { label: "Carl Friedrich Gauß — Wikipedia", url: "https://de.wikipedia.org/wiki/Carl_Friedrich_Gauß", source: "Universität Göttingen" },
-    { label: "Treppenform — Wikipedia", url: "https://de.wikipedia.org/wiki/Treppenform", source: "Wikipedia" },
-    { label: "MIT OCW 18.06 — Elimination", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" }
+    { label: "Matrizenmultiplikation — Wikipedia", url: "https://de.wikipedia.org/wiki/Matrizenmultiplikation", source: "Wikipedia" },
+    { label: "Einheitsmatrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Einheitsmatrix", source: "Wikipedia" },
+    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" },
+    { label: "MIT OCW 18.06sc — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" },
   ],
   "m4-l3": [
-    { label: "Rang (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Rang_(Mathematik)", source: "Wikipedia" },
-    { label: "Rang-Defekt — Wikipedia", url: "https://de.wikipedia.org/wiki/Rangsatz", source: "Wikipedia" },
-    { label: "Freie Variable — Wikipedia", url: "https://de.wikipedia.org/wiki/Freie_Variable", source: "Wikipedia" },
-    { label: "MIT OCW 18.06 — Rank & Solvability", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+    { label: "Inverse Matrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Regul%C3%A4re_Matrix", source: "Wikipedia" },
+    { label: "Elementare Zeilenumformung — Wikipedia", url: "https://de.wikipedia.org/wiki/Elementare_Matrizen", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" },
   ],
   "m5-l1": [
-    { label: "Determinante — Wikipedia", url: "https://de.wikipedia.org/wiki/Determinante", source: "Wikipedia" },
-    { label: "Regel von Sarrus — Wikipedia", url: "https://de.wikipedia.org/wiki/Regel_von_Sarrus", source: "Wikipedia" },
-    { label: "Entwicklungssatz von Laplace — Wikipedia", url: "https://de.wikipedia.org/wiki/Laplacer_Entwicklungssatz", source: "Wikipedia" },
-    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" }
+    { label: "Lineares Gleichungssystem — Wikipedia", url: "https://de.wikipedia.org/wiki/Lineares_Gleichungssystem", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" },
   ],
   "m5-l2": [
-    { label: "Determinante — Rechenregeln (Wikipedia)", url: "https://de.wikipedia.org/wiki/Determinante#Rechenregeln", source: "Wikipedia" },
-    { label: "Multilinearität — Wikipedia", url: "https://de.wikipedia.org/wiki/Multilinearität", source: "Wikipedia" },
-    { label: "MIT OCW 18.06 — Determinants", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+    { label: "Gaußsches Eliminationsverfahren — Wikipedia", url: "https://de.wikipedia.org/wiki/Gau%C3%9Fsches_Eliminationsverfahren", source: "Wikipedia" },
+    { label: "Carl Friedrich Gauß — Wikipedia", url: "https://de.wikipedia.org/wiki/Carl_Friedrich_Gau%C3%9F", source: "Universität Göttingen" },
+    { label: "MIT OCW 18.06 — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" },
   ],
   "m5-l3": [
-    { label: "Determinante als Volumenfaktor — Wikipedia", url: "https://de.wikipedia.org/wiki/Determinante#Geometrische_Interpretation", source: "Wikipedia" },
-    { label: "Orientierung (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Orientierung_(Mathematik)", source: "Wikipedia" },
-    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" }
+    { label: "Rang (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Rang_(Mathematik)", source: "Wikipedia" },
+    { label: "Kronecker-Capelli-Theorem — Wikipedia", url: "https://de.wikipedia.org/wiki/Kronecker-Capelli-Theorem", source: "Wikipedia" },
+    { label: "MIT OCW 18.06sc — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" },
   ],
   "m6-l1": [
-    { label: "Vektorraum — Wikipedia", url: "https://de.wikipedia.org/wiki/Vektorraum", source: "Wikipedia" },
-    { label: "Unterraum — Wikipedia", url: "https://de.wikipedia.org/wiki/Unterraum", source: "Wikipedia" },
-    { label: "Körper (Algebra) — Wikipedia", url: "https://de.wikipedia.org/wiki/Körper_(Algebra)", source: "Wikipedia" },
-    { label: "MIT OCW 18.06 — Vector Spaces", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+    { label: "Determinante — Wikipedia", url: "https://de.wikipedia.org/wiki/Determinante", source: "Wikipedia" },
+    { label: "MIT OCW 18.06sc — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" },
   ],
   "m6-l2": [
-    { label: "Basis (Vektorraum) — Wikipedia", url: "https://de.wikipedia.org/wiki/Basis_(Vektorraum)", source: "Wikipedia" },
-    { label: "Erzeugendensystem — Wikipedia", url: "https://de.wikipedia.org/wiki/Erzeugendensystem", source: "Wikipedia" },
-    { label: "Hermann Grassmann — Wikipedia", url: "https://de.wikipedia.org/wiki/Hermann_Graßmann", source: "Wikipedia" }
+    { label: "Determinante — Rechenregeln — Wikipedia", url: "https://de.wikipedia.org/wiki/Determinante", source: "Wikipedia" },
+    { label: "Multiplikationssatz der Determinante — Wikipedia", url: "https://de.wikipedia.org/wiki/Determinante", source: "Wikipedia" },
+    { label: "MIT OCW 18.06sc — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" },
   ],
   "m6-l3": [
-    { label: "Dimension (Vektorraum) — Wikipedia", url: "https://de.wikipedia.org/wiki/Dimension_(Mathematik)", source: "Wikipedia" },
-    { label: "Basiswechsel — Wikipedia", url: "https://de.wikipedia.org/wiki/Basiswechsel", source: "Wikipedia" },
-    { label: "Koordinaten (Vektorraum) — Wikipedia", url: "https://de.wikipedia.org/wiki/Koordinaten_(Vektorraum)", source: "Wikipedia" }
+    { label: "Determinante als Volumen — Wikipedia", url: "https://de.wikipedia.org/wiki/Determinante", source: "Wikipedia" },
+    { label: "Orientierung (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Orientierung_(Mathematik)", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" },
+  ],
+  "m6-l4": [
+    { label: "Vektorraum — Wikipedia", url: "https://de.wikipedia.org/wiki/Vektorraum", source: "Wikipedia" },
+    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" },
   ],
   "m7-l1": [
-    { label: "Lineare Abbildung — Wikipedia", url: "https://de.wikipedia.org/wiki/Lineare_Abbildung", source: "Wikipedia" },
-    { label: "Linearität — Wikipedia", url: "https://de.wikipedia.org/wiki/Linearität", source: "Wikipedia" },
-    { label: "Abbildungsmatrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Abbildungsmatrix", source: "Wikipedia" },
-    { label: "MIT OCW 18.06 — Linear Transformations", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+    { label: "Vektorraum — Wikipedia", url: "https://de.wikipedia.org/wiki/Vektorraum", source: "Wikipedia" },
+    { label: "Körper (Algebra) — Wikipedia", url: "https://de.wikipedia.org/wiki/K%C3%B6rper_(Algebra)", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" },
+    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" },
   ],
   "m7-l2": [
-    { label: "Kern (Algebra) — Wikipedia", url: "https://de.wikipedia.org/wiki/Kern_(Algebra)", source: "Wikipedia" },
-    { label: "Bild (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Bild_(Mathematik)", source: "Wikipedia" },
-    { label: "Injektivität — Wikipedia", url: "https://de.wikipedia.org/wiki/Injektive_Funktion", source: "Wikipedia" }
+    { label: "Unterraum — Wikipedia", url: "https://de.wikipedia.org/wiki/Unterraum", source: "Wikipedia" },
+    { label: "MIT OCW 18.06sc — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" },
   ],
   "m7-l3": [
-    { label: "Rang-Nullitätssatz — Wikipedia", url: "https://de.wikipedia.org/wiki/Rang-Nullitätssatz", source: "Wikipedia" },
-    { label: "Dimensionssatz — Wikipedia", url: "https://de.wikipedia.org/wiki/Dimensionssatz", source: "Wikipedia" },
-    { label: "MIT OCW 18.06 — Rank & Nullity", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" }
+    { label: "Polynomring — Wikipedia", url: "https://de.wikipedia.org/wiki/Polynomring", source: "Wikipedia" },
+    { label: "Funktionenraum — Wikipedia", url: "https://de.wikipedia.org/wiki/Funktionenraum", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" },
   ],
   "m8-l1": [
-    { label: "Eigenwertproblem — Wikipedia", url: "https://de.wikipedia.org/wiki/Eigenwertproblem", source: "Wikipedia" },
-    { label: "Eigenvektor — Wikipedia", url: "https://de.wikipedia.org/wiki/Eigenvektor", source: "Wikipedia" },
-    { label: "Essence of Linear Algebra — Eigenvalues — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" },
-    { label: "MIT OCW 18.06 — Eigenvalues", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+    { label: "Lineare Unabhängigkeit — Wikipedia", url: "https://de.wikipedia.org/wiki/Lineare_Unabh%C3%A4ngigkeit", source: "Wikipedia" },
+    { label: "Erzeugendensystem — Wikipedia", url: "https://de.wikipedia.org/wiki/Erzeugendensystem", source: "Wikipedia" },
+    { label: "MIT OCW 18.06sc — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" },
   ],
   "m8-l2": [
-    { label: "Charakteristisches Polynom — Wikipedia", url: "https://de.wikipedia.org/wiki/Charakteristisches_Polynom", source: "Wikipedia" },
-    { label: "Nullstelle — Wikipedia", url: "https://de.wikipedia.org/wiki/Nullstelle", source: "Wikipedia" },
-    { label: "Fundamentalsatz der Algebra — Wikipedia", url: "https://de.wikipedia.org/wiki/Fundamentalsatz_der_Algebra", source: "Wikipedia" }
+    { label: "Basis (Vektorraum) — Wikipedia", url: "https://de.wikipedia.org/wiki/Basis_(Vektorraum)", source: "Wikipedia" },
+    { label: "Austauschsatz von Steinitz — Wikipedia", url: "https://de.wikipedia.org/wiki/Austauschsatz_von_Steinitz", source: "Wikipedia" },
+    { label: "Ernst Steinitz — Wikipedia", url: "https://de.wikipedia.org/wiki/Ernst_Steinitz", source: "Universität Kiel" },
+    { label: "MIT OCW 18.06 — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" },
   ],
   "m8-l3": [
-    { label: "Diagonalisierbarkeit — Wikipedia", url: "https://de.wikipedia.org/wiki/Diagonalisierbarkeit", source: "Wikipedia" },
-    { label: "Diagonalmatrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Diagonalmatrix", source: "Wikipedia" },
-    { label: "Algebraische Vielfachheit — Wikipedia", url: "https://de.wikipedia.org/wiki/Algebraische_Vielfachheit", source: "Wikipedia" },
-    { label: "MIT OCW 18.06 — Diagonalization", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" }
+    { label: "Dimension (Vektorraum) — Wikipedia", url: "https://de.wikipedia.org/wiki/Dimension_(Vektorraum)", source: "Wikipedia" },
+    { label: "Direkte Summe — Wikipedia", url: "https://de.wikipedia.org/wiki/Direkte_Summe", source: "Wikipedia" },
+    { label: "MIT OCW 18.06sc — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" },
   ],
   "m9-l1": [
-    { label: "Skalarprodukt — Wikipedia", url: "https://de.wikipedia.org/wiki/Skalarprodukt", source: "Wikipedia" },
-    { label: "Orthogonalität — Wikipedia", url: "https://de.wikipedia.org/wiki/Orthogonalität", source: "Wikipedia" },
-    { label: "Cauchy-Schwarzsche Ungleichung — Wikipedia", url: "https://de.wikipedia.org/wiki/Cauchy-Schwarzsche_Ungleichung", source: "Wikipedia" },
-    { label: "MIT OCW 18.06 — Dot Product", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+    { label: "Lineare Abbildung — Wikipedia", url: "https://de.wikipedia.org/wiki/Lineare_Abbildung", source: "Wikipedia" },
+    { label: "Kern (Algebra) — Wikipedia", url: "https://de.wikipedia.org/wiki/Kern_(Algebra)", source: "Wikipedia" },
+    { label: "Bild (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Bildmenge", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" },
+    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" },
   ],
   "m9-l2": [
-    { label: "Projektion (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Projektion_(Mathematik)", source: "Wikipedia" },
-    { label: "Orthogonale Projektion — Wikipedia", url: "https://de.wikipedia.org/wiki/Orthogonale_Projektion", source: "Wikipedia" },
-    { label: "MIT OCW 18.06 — Projections", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+    { label: "Rang-Defekt-Satz — Wikipedia", url: "https://de.wikipedia.org/wiki/Rangsatz", source: "Wikipedia" },
+    { label: "MIT OCW 18.06sc — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" },
   ],
   "m9-l3": [
-    { label: "Gram-Schmidtsches Orthogonalisierungsverfahren — Wikipedia", url: "https://de.wikipedia.org/wiki/Gram-Schmidtsches_Orthogonalisierungsverfahren", source: "Wikipedia" },
-    { label: "Jørgen Pedersen Gram — Wikipedia", url: "https://de.wikipedia.org/wiki/Jørgen_Pedersen_Gram", source: "Wikipedia" },
-    { label: "Erhard Schmidt (Mathematiker) — Wikipedia", url: "https://de.wikipedia.org/wiki/Erhard_Schmidt_(Mathematiker)", source: "Universität Berlin" },
-    { label: "QR-Zerlegung — Wikipedia", url: "https://de.wikipedia.org/wiki/QR-Zerlegung", source: "Wikipedia" }
+    { label: "Darstellungsmatrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Darstellungsmatrix", source: "Wikipedia" },
+    { label: "Basiswechsel — Wikipedia", url: "https://de.wikipedia.org/wiki/Basiswechselmatrix", source: "Wikipedia" },
+    { label: "Ähnliche Matrizen — Wikipedia", url: "https://de.wikipedia.org/wiki/%C3%84hnlichkeit_(Matrix)", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" },
   ],
   "m10-l1": [
-    { label: "Spektralsatz — Wikipedia", url: "https://de.wikipedia.org/wiki/Spektralsatz", source: "Wikipedia" },
-    { label: "Symmetrische Matrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Symmetrische_Matrix", source: "Wikipedia" },
-    { label: "Hilbertraum — Wikipedia", url: "https://de.wikipedia.org/wiki/Hilbertraum", source: "Wikipedia" },
-    { label: "MIT OCW 18.06 — Symmetric Matrices", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" }
+    { label: "Eigenwert — Wikipedia", url: "https://de.wikipedia.org/wiki/Eigenwertproblem", source: "Wikipedia" },
+    { label: "Eigenraum — Wikipedia", url: "https://de.wikipedia.org/wiki/Eigenraum", source: "Wikipedia" },
+    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" },
+    { label: "MIT OCW 18.06 — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" },
   ],
   "m10-l2": [
-    { label: "Singulärwertzerlegung — Wikipedia", url: "https://de.wikipedia.org/wiki/Singulärwertzerlegung", source: "Wikipedia" },
-    { label: "Singulärwert — Wikipedia", url: "https://de.wikipedia.org/wiki/Singulärwert", source: "Wikipedia" },
-    { label: "Essence of Linear Algebra — SVD — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" },
-    { label: "MIT OCW 18.06 — SVD", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+    { label: "Charakteristisches Polynom — Wikipedia", url: "https://de.wikipedia.org/wiki/Charakteristisches_Polynom", source: "Wikipedia" },
+    { label: "Spur (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Spur_(Mathematik)", source: "Wikipedia" },
+    { label: "MIT OCW 18.06sc — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" },
   ],
   "m10-l3": [
-    { label: "Methode der kleinsten Quadrate — Wikipedia", url: "https://de.wikipedia.org/wiki/Methode_der_kleinsten_Quadrate", source: "Wikipedia" },
-    { label: "Gauss-Markow-Theorem — Wikipedia", url: "https://de.wikipedia.org/wiki/Gauss-Markow-Theorem", source: "Wikipedia" },
-    { label: "Ausgleichsrechnung — Wikipedia", url: "https://de.wikipedia.org/wiki/Ausgleichungsrechnung", source: "Wikipedia" },
-    { label: "MIT OCW 18.06 — Least Squares", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" }
+    { label: "Diagonalisierbarkeit — Wikipedia", url: "https://de.wikipedia.org/wiki/Diagonalisierbarkeit", source: "Wikipedia" },
+    { label: "Algebraische und geometrische Vielfachheit — Wikipedia", url: "https://de.wikipedia.org/wiki/Algebraische_Vielfachheit", source: "Wikipedia" },
+    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" },
+    { label: "MIT OCW 18.06 — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" },
   ],
   "m11-l1": [
-    { label: "Jordan-Normalform — Wikipedia", url: "https://de.wikipedia.org/wiki/Jordan-Normalform", source: "Wikipedia" },
-    { label: "Verallgemeinerter Eigenvektor — Wikipedia", url: "https://de.wikipedia.org/wiki/Verallgemeinerter_Eigenvektor", source: "Wikipedia" },
-    { label: "Camille Jordan — Wikipedia", url: "https://de.wikipedia.org/wiki/Camille_Jordan", source: "Wikipedia" }
+    { label: "Skalarprodukt — Wikipedia", url: "https://de.wikipedia.org/wiki/Skalarprodukt", source: "Wikipedia" },
+    { label: "Cauchy-Schwarzsche Ungleichung — Wikipedia", url: "https://de.wikipedia.org/wiki/Cauchy-Schwarzsche_Ungleichung", source: "Wikipedia" },
+    { label: "Augustin-Louis Cauchy — Wikipedia", url: "https://de.wikipedia.org/wiki/Augustin-Louis_Cauchy", source: "École Polytechnique" },
+    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" },
+    { label: "MIT OCW 18.06 — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" },
   ],
   "m11-l2": [
-    { label: "Konditionszahl (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Konditionszahl_(Mathematik)", source: "Wikipedia" },
-    { label: "Pivotisierung — Wikipedia", url: "https://de.wikipedia.org/wiki/Pivotisierung", source: "Wikipedia" },
-    { label: "Rundungsfehler — Wikipedia", url: "https://de.wikipedia.org/wiki/Rundungsfehler", source: "Wikipedia" },
-    { label: "Numerische Mathematik — Wikipedia", url: "https://de.wikipedia.org/wiki/Numerische_Mathematik", source: "Wikipedia" }
+    { label: "Orthogonale Projektion — Wikipedia", url: "https://de.wikipedia.org/wiki/Orthogonale_Projektion", source: "Wikipedia" },
+    { label: "Gram-Schmidtsches Orthogonalisierungsverfahren — Wikipedia", url: "https://de.wikipedia.org/wiki/Gram-Schmidtsches_Orthogonalisierungsverfahren", source: "Wikipedia" },
+    { label: "Jørgen Pedersen Gram — Wikipedia", url: "https://de.wikipedia.org/wiki/J%C3%B8rgen_Pedersen_Gram", source: "Wikipedia" },
+    { label: "Erhard Schmidt — Wikipedia", url: "https://de.wikipedia.org/wiki/Erhard_Schmidt_(Mathematiker)", source: "Universität Berlin" },
+    { label: "Essence of Linear Algebra — 3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab", source: "Grant Sanderson, 3Blue1Brown" },
+    { label: "MIT OCW 18.06sc — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/", source: "Prof. Gilbert Strang, MIT" },
   ],
   "m11-l3": [
-    { label: "Klausur (Prüfung) — Lernstrategien", url: "https://de.wikipedia.org/wiki/Lernen", source: "Wikipedia" },
-    { label: "Dimensionsprüfung — Wikipedia", url: "https://de.wikipedia.org/wiki/Dimension_(Mathematik)", source: "Wikipedia" },
-    { label: "MIT OCW 18.06 — Review", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" },
+    { label: "QR-Zerlegung — Wikipedia", url: "https://de.wikipedia.org/wiki/QR-Zerlegung", source: "Wikipedia" },
+    { label: "Orthogonale Matrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Orthogonale_Matrix", source: "Wikipedia" },
+    { label: "Unitäre Matrix — Wikipedia", url: "https://de.wikipedia.org/wiki/Unit%C3%A4re_Matrix", source: "Wikipedia" },
+    { label: "MIT OCW 18.06 — Linear Algebra", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", source: "Prof. Gilbert Strang, MIT" },
+  ],
+  "m12-l1": [
+    { label: "Direkte Summe — Wikipedia", url: "https://de.wikipedia.org/wiki/Direkte_Summe", source: "Wikipedia" },
+    { label: "Komplementärraum — Wikipedia", url: "https://de.wikipedia.org/wiki/Komplement%C3%A4rraum", source: "Wikipedia" }
+  ],
+  "m12-l2": [
+    { label: "Quotientenraum (Vektorraum) — Wikipedia", url: "https://de.wikipedia.org/wiki/Quotientenraum_(Vektorraum)", source: "Wikipedia" },
+    { label: "Nebenklasse — Wikipedia", url: "https://de.wikipedia.org/wiki/Nebenklasse", source: "Wikipedia" }
+  ],
+  "m12-l3": [
+    { label: "Dualraum — Wikipedia", url: "https://de.wikipedia.org/wiki/Dualraum", source: "Wikipedia" },
+    { label: "Duale Abbildung — Wikipedia", url: "https://de.wikipedia.org/wiki/Duale_Abbildung", source: "Wikipedia" },
+    { label: "Annihilator (Algebra) — Wikipedia", url: "https://de.wikipedia.org/wiki/Annihilator_(Mathematik)", source: "Wikipedia" }
+  ],
+  "m13-l1": [
+    { label: "Invarianter Unterraum — Wikipedia", url: "https://de.wikipedia.org/wiki/Invarianter_Unterraum", source: "Wikipedia" },
+    { label: "Satz von Cayley-Hamilton — Wikipedia", url: "https://de.wikipedia.org/wiki/Satz_von_Cayley-Hamilton", source: "Wikipedia" },
+    { label: "Arthur Cayley — Wikipedia", url: "https://de.wikipedia.org/wiki/Arthur_Cayley", source: "Universität Cambridge" },
+    { label: "William Rowan Hamilton — Wikipedia", url: "https://de.wikipedia.org/wiki/William_Rowan_Hamilton", source: "Universität Dublin" }
+  ],
+  "m13-l2": [
+    { label: "Minimalpolynom — Wikipedia", url: "https://de.wikipedia.org/wiki/Minimalpolynom", source: "Wikipedia" }
+  ],
+  "m13-l3": [
+    { label: "Jordan-Normalform — Wikipedia", url: "https://de.wikipedia.org/wiki/Jordan-Normalform", source: "Wikipedia" },
+    { label: "Rationale Normalform — Wikipedia", url: "https://de.wikipedia.org/wiki/Rationale_Normalform", source: "Wikipedia" },
+    { label: "Camille Jordan — Wikipedia", url: "https://de.wikipedia.org/wiki/Camille_Jordan", source: "Universität Lyon" },
+    { label: "Ferdinand Georg Frobenius — Wikipedia", url: "https://de.wikipedia.org/wiki/Ferdinand_Georg_Frobenius", source: "Universität Berlin" }
+  ],
+  "m14-l1": [
+    { label: "Bilinearform — Wikipedia", url: "https://de.wikipedia.org/wiki/Bilinearform", source: "Wikipedia" },
+    { label: "Sesquilinearform — Wikipedia", url: "https://de.wikipedia.org/wiki/Sesquilinearform", source: "Wikipedia" }
+  ],
+  "m14-l2": [
+    { label: "Trägheitssatz von Sylvester — Wikipedia", url: "https://de.wikipedia.org/wiki/Tr%C3%A4gheitssatz_von_Sylvester", source: "Wikipedia" },
+    { label: "Signatur (quadratische Form) — Wikipedia", url: "https://de.wikipedia.org/wiki/Signatur_(quadratische_Form)", source: "Wikipedia" },
+    { label: "James Joseph Sylvester — Wikipedia", url: "https://de.wikipedia.org/wiki/James_Joseph_Sylvester", source: "Universität Oxford" }
+  ],
+  "m14-l3": [
+    { label: "Orthogonale Gruppe — Wikipedia", url: "https://de.wikipedia.org/wiki/Orthogonale_Gruppe", source: "Wikipedia" },
+    { label: "Unitäre Gruppe — Wikipedia", url: "https://de.wikipedia.org/wiki/Unit%C3%A4re_Gruppe", source: "Wikipedia" },
+    { label: "Symplektische Gruppe — Wikipedia", url: "https://de.wikipedia.org/wiki/Symplektische_Gruppe", source: "Wikipedia" },
+    { label: "Spektralsatz — Wikipedia", url: "https://de.wikipedia.org/wiki/Spektralsatz", source: "Wikipedia" }
+  ],
+  "m15-l1": [
+    { label: "Ring (Algebra) — Wikipedia", url: "https://de.wikipedia.org/wiki/Ring_(Algebra)", source: "Wikipedia" },
+    { label: "Ideal (Ringtheorie) — Wikipedia", url: "https://de.wikipedia.org/wiki/Ideal_(Ringtheorie)", source: "Wikipedia" },
+    { label: "Hauptidealring — Wikipedia", url: "https://de.wikipedia.org/wiki/Hauptidealring", source: "Wikipedia" }
+  ],
+  "m15-l2": [
+    { label: "Modul (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Modul_(Mathematik)", source: "Wikipedia" },
+    { label: "Struktursatz für endlich erzeugte Moduln — Wikipedia", url: "https://de.wikipedia.org/wiki/Struktursatz_f%C3%BCr_endlich_erzeugte_Moduln_%C3%BCber_einem_Hauptidealring", source: "Wikipedia" }
+  ],
+  "m15-l3": [
+    { label: "Frobenius-Normalform — Wikipedia", url: "https://de.wikipedia.org/wiki/Rationale_Normalform", source: "Wikipedia" },
+    { label: "Modul (Mathematik) — Wikipedia", url: "https://de.wikipedia.org/wiki/Modul_(Mathematik)", source: "Wikipedia" }
+  ],
+  "m16-l1": [
     { label: "Altklausuren Lineare Algebra I — Uni Freiburg", url: "https://fachschaft.mathematik.uni-freiburg.de/protokolle/k/s/la1.html", source: "Fachschaft Mathematik, Universität Freiburg" },
-    { label: "Altklausuren Lineare Algebra II — Uni Freiburg", url: "https://fachschaft.mathematik.uni-freiburg.de/protokolle/k/s/la2.html", source: "Fachschaft Mathematik, Universität Freiburg" },
     { label: "Klausur LA I, WS 21/22 (Mildenberger) — PDF", url: "https://fachschaft.mathematik.uni-freiburg.de/protokolle/data/2022/023.pdf", source: "Prof. Dr. Heike Mildenberger, Universität Freiburg" },
     { label: "Klausur LA I, WS 20/21 (Kebekus) — PDF", url: "https://fachschaft.mathematik.uni-freiburg.de/protokolle/data/2020/003.pdf", source: "Prof. Dr. Stefan Kebekus, Universität Freiburg" },
     { label: "Klausur LA I, WS 18/19 (Huber-Klawitter) — PDF", url: "https://fachschaft.mathematik.uni-freiburg.de/protokolle/data/2019/003.pdf", source: "Prof. Dr. Annette Huber-Klawitter, Universität Freiburg" }
+  ],
+  "m16-l2": [
+    { label: "Altklausuren Lineare Algebra II — Uni Freiburg", url: "https://fachschaft.mathematik.uni-freiburg.de/protokolle/k/s/la2.html", source: "Fachschaft Mathematik, Universität Freiburg" },
+    { label: "Klausur LA II (Goette) — PDF", url: "https://fachschaft.mathematik.uni-freiburg.de/protokolle/data/2017/046.pdf", source: "Prof. Dr. Sebastian Goette, Universität Freiburg" },
+    { label: "Klausur LA II (Mildenberger) — PDF", url: "https://fachschaft.mathematik.uni-freiburg.de/protokolle/data/2022/003.pdf", source: "Prof. Dr. Heike Mildenberger, Universität Freiburg" },
+    { label: "Klausur LA II (Wendland) — PDF", url: "https://fachschaft.mathematik.uni-freiburg.de/protokolle/data/2011/006.pdf", source: "Prof. Dr. Katrin Wendland, Universität Freiburg" }
+  ],
+  "m16-l3": [
+    { label: "Altklausuren Lineare Algebra I — Uni Freiburg", url: "https://fachschaft.mathematik.uni-freiburg.de/protokolle/k/s/la1.html", source: "Fachschaft Mathematik, Universität Freiburg" },
+    { label: "Altklausuren Lineare Algebra II — Uni Freiburg", url: "https://fachschaft.mathematik.uni-freiburg.de/protokolle/k/s/la2.html", source: "Fachschaft Mathematik, Universität Freiburg" },
+    { label: "Fachschaft Mathematik Freiburg — Protokolle", url: "https://fachschaft.mathematik.uni-freiburg.de/protokolle/", source: "Fachschaft Mathematik, Universität Freiburg" },
+    { label: "Mathematisches Institut Freiburg — Lehre", url: "https://www.mathematik.uni-freiburg.de/", source: "Universität Freiburg" }
   ]
 });

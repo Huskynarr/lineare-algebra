@@ -12,8 +12,8 @@
   const lessonById = new Map(allLessons.map((lesson) => [lesson.id, lesson]));
   const LEARNING_REFERENCES = (window.LEARNING_REFERENCES && typeof window.LEARNING_REFERENCES === "object") ? window.LEARNING_REFERENCES : {};
   const STORAGE_KEY = "lineare-algebra-savegame-v1";
-  const SAVEGAME_VERSION = 1;
-  const SW_VERSION = 17;
+  const SAVEGAME_VERSION = 2;
+  const SW_VERSION = 19;
   const WARMUP_COUNT = 10;
   const LESSON_GAME_COUNT = 5;
   const LESSON_GAME_PASS_PCT = 60;
@@ -73,6 +73,15 @@
     gaussInput: document.getElementById("gauss-input"),
     calcGauss: document.getElementById("calc-gauss"),
     gaussOutput: document.getElementById("gauss-output"),
+    eigInput: document.getElementById("eig-input"),
+    calcEig: document.getElementById("calc-eig"),
+    eigOutput: document.getElementById("eig-output"),
+    jordanInput: document.getElementById("jordan-input"),
+    calcJordan: document.getElementById("calc-jordan"),
+    jordanOutput: document.getElementById("jordan-output"),
+    bilfInput: document.getElementById("bilf-input"),
+    calcBilf: document.getElementById("calc-bilf"),
+    bilfOutput: document.getElementById("bilf-output"),
     warmupArea: document.getElementById("warmup-area"),
     themeDark: document.getElementById("theme-dark"),
     themeLight: document.getElementById("theme-light")
@@ -261,6 +270,9 @@
     elements.calcMul.addEventListener("click", calculateMatrixMultiply);
     elements.calcInv.addEventListener("click", calculateInverse2x2);
     elements.calcGauss.addEventListener("click", calculateGauss);
+    elements.calcEig.addEventListener("click", calculateEigenvalues);
+    elements.calcJordan.addEventListener("click", calculateJordanForm);
+    elements.calcBilf.addEventListener("click", calculateBilinearForm);
 
     elements.warmupArea.addEventListener("click", (event) => {
       const checkBtn = event.target.closest("#warmup-check");
@@ -1120,7 +1132,7 @@
       quizTextChecked: {},
       reviewQueue: [],
       lessonGames: {},
-      certificate: { unlocked: false, name: "", shownAt: null }
+      certificate: { unlocked: false, name: "", shownAt: null, stages: { la1: false, la2: false } }
     };
   }
 
@@ -1143,6 +1155,13 @@
     }
 
     const candidate = isObject(source.progress) ? source.progress : source;
+    // Der Lernpfad wurde für LA1+LA2 vollständig neu aufgebaut (SAVEGAME_VERSION 2).
+    // Alte v1-Fortschritte beziehen sich auf andere Lektionen/Inhalte und werden
+    // verworfen — es gibt keine sinnvolle ID-Korrespondenz für eine Migration.
+    const incomingVersion = typeof candidate.version === "number" ? candidate.version : 0;
+    if (incomingVersion < SAVEGAME_VERSION) {
+      return defaultProgress();
+    }
     const base = defaultProgress();
     const sanitized = {
       version: SAVEGAME_VERSION,
@@ -1199,12 +1218,17 @@
 
   function sanitizeCertificate(source) {
     if (!isObject(source)) {
-      return { unlocked: false, name: "", shownAt: null };
+      return { unlocked: false, name: "", shownAt: null, stages: { la1: false, la2: false } };
     }
+    const stagesIn = isObject(source.stages) ? source.stages : {};
     return {
       unlocked: source.unlocked === true,
       name: typeof source.name === "string" ? source.name.slice(0, 80) : "",
-      shownAt: typeof source.shownAt === "string" ? source.shownAt : null
+      shownAt: typeof source.shownAt === "string" ? source.shownAt : null,
+      stages: {
+        la1: stagesIn.la1 === true,
+        la2: stagesIn.la2 === true
+      }
     };
   }
 
@@ -1395,6 +1419,343 @@
       elements.gaussOutput.textContent = `x = (${x.map(fmt).join(", ")})`;
     } catch (error) {
       elements.gaussOutput.textContent = error.message;
+    }
+  }
+
+  // ---- Lineare Algebra 2: Eigenwerte, Jordan-Normalform, Bilinearformen ----
+
+  // Determinante einer n×n-Matrix (Laplace-Entwicklung).
+  function detNxN(m) {
+    const n = m.length;
+    if (n === 1) return m[0][0];
+    if (n === 2) return m[0][0] * m[1][1] - m[0][1] * m[1][0];
+    let sum = 0;
+    for (let j = 0; j < n; j++) {
+      const minor = m.slice(1).map((row) => row.filter((_, c) => c !== j));
+      sum += (j % 2 === 0 ? 1 : -1) * m[0][j] * detNxN(minor);
+    }
+    return sum;
+  }
+
+  // Spur einer quadratischen Matrix.
+  function traceM(m) {
+    let t = 0;
+    for (let i = 0; i < m.length; i++) t += m[i][i];
+    return t;
+  }
+
+  // Summe aller 2×2-Hauptminoren (für n=3 char. Polynom: e2).
+  function sumPrincipal2Minors(m) {
+    const n = m.length;
+    let s = 0;
+    for (let i = 0; i < n; i++) {
+      for (let j = i + 1; j < n; j++) {
+        s += m[i][i] * m[j][j] - m[i][j] * m[j][i];
+      }
+    }
+    return s;
+  }
+
+  // Summe aller 3×3-Hauptminoren (für n=4 char. Polynom: e3).
+  function sumPrincipal3Minors(m) {
+    const n = m.length;
+    let s = 0;
+    for (let i = 0; i < n; i++) {
+      for (let j = i + 1; j < n; j++) {
+        for (let k = j + 1; k < n; k++) {
+          const sub = [
+            [m[i][i], m[i][j], m[i][k]],
+            [m[j][i], m[j][j], m[j][k]],
+            [m[k][i], m[k][j], m[k][k]]
+          ];
+          s += detNxN(sub);
+        }
+      }
+    }
+    return s;
+  }
+
+  // Koeffizienten des charakteristischen Polynoms chi_A(lambda) = lambda^n - e1 lambda^{n-1} + e2 ... + (-1)^n det
+  // Rückgabe als Array [c0, c1, ..., cn] mit chi = sum c_k lambda^k (c_n = 1).
+  function charPolynomialCoeffs(m) {
+    const n = m.length;
+    const e1 = traceM(m);
+    const det = detNxN(m);
+    const coeffs = new Array(n + 1).fill(0);
+    coeffs[n] = 1;
+    if (n === 1) {
+      coeffs[0] = -det;
+      return coeffs;
+    }
+    if (n === 2) {
+      const e2 = det;
+      coeffs[1] = -e1;
+      coeffs[0] = e2;
+      return coeffs;
+    }
+    if (n === 3) {
+      const e2 = sumPrincipal2Minors(m);
+      coeffs[2] = -e1;
+      coeffs[1] = e2;
+      coeffs[0] = -det;
+      return coeffs;
+    }
+    if (n === 4) {
+      const e2 = sumPrincipal2Minors(m);
+      const e3 = sumPrincipal3Minors(m);
+      const e4 = det;
+      coeffs[3] = -e1;
+      coeffs[2] = e2;
+      coeffs[1] = -e3;
+      coeffs[0] = e4;
+      return coeffs;
+    }
+    throw new Error("Charakteristisches Polynom nur bis 4×4 unterstützt.");
+  }
+
+  function polyEval(coeffs, x) {
+    let v = 0;
+    for (let k = coeffs.length - 1; k >= 0; k--) v = v * x + coeffs[k];
+    return v;
+  }
+
+  // Nullstellen eines Polynoms (Grad 1–3 exakt, Grad 4 numerisch per Bisektion/Newton über reeller Suche).
+  function polyRoots(coeffs) {
+    const deg = coeffs.length - 1;
+    const roots = [];
+    const tol = 1e-7;
+    if (deg === 1) {
+      roots.push(-coeffs[0] / coeffs[1]);
+      return roots;
+    }
+    if (deg === 2) {
+      const a = coeffs[2], b = coeffs[1], c = coeffs[0];
+      const disc = b * b - 4 * a * c;
+      if (disc < -tol) return roots; // komplexe Eigenwerte
+      const sq = Math.sqrt(Math.max(0, disc));
+      const r1 = (-b + sq) / (2 * a);
+      const r2 = (-b - sq) / (2 * a);
+      roots.push(r1);
+      // Bei Doppelwurzel (disc ≈ 0) beide zählen, sonst die zweite nur wenn verschieden.
+      if (sq > tol) roots.push(r2);
+      else roots.push(r1);
+      return roots;
+    }
+    if (deg === 3) {
+      // Kubik: trigonometrische Formel (drei reelle Wurzeln) für D ≥ 0, sonst Cardano-Einzelwurzel + Deflation.
+      const a = coeffs[3];
+      const p = coeffs[2] / a, q = coeffs[1] / a, r = coeffs[0] / a;
+      const p3 = p / 3;
+      const Q = (p * p - 3 * q) / 9;
+      const R = (2 * p * p * p - 9 * p * q + 27 * r) / 54;
+      const D = Q * Q * Q - R * R;
+      if (D >= -tol) {
+        // Drei reelle Wurzeln (auch bei Mehrfachwurzeln numerisch stabil).
+        const Qc = Math.max(Q, 0);
+        const Rc = Math.max(-1, Math.min(1, R / Math.sqrt(Qc * Qc * Qc || 1)));
+        const th = Math.acos(Rc);
+        const sqrtQ = Math.sqrt(Qc);
+        for (let k = 0; k < 3; k++) {
+          roots.push(-2 * sqrtQ * Math.cos((th + 2 * Math.PI * k) / 3) - p3);
+        }
+        return roots;
+      }
+      // Einer reelle Wurzel via Cardano, dann Deflation + quadratisch.
+      const s = Math.cbrt(R + Math.sqrt(-D));
+      const t = Math.cbrt(R - Math.sqrt(-D));
+      const x1 = s + t - p3;
+      roots.push(x1);
+      const b2 = a;
+      const b1 = coeffs[2] + b2 * x1;
+      const b0 = coeffs[1] + b1 * x1;
+      const quad = [b0, b1, b2];
+      polyRoots(quad).forEach((rt) => roots.push(rt));
+      return roots;
+    }
+    // Grad 4: numerische reelle Nullstellen-Suche über Intervall-Scan + Newton.
+    const bound = 1 + Math.max(...coeffs.slice(0, deg).map((c) => Math.abs(c) / Math.abs(coeffs[deg])));
+    const step = bound / 1000;
+    let prev = polyEval(coeffs, -bound);
+    for (let x = -bound + step; x <= bound; x += step) {
+      const cur = polyEval(coeffs, x);
+      if (prev === 0) { roots.push(x - step); }
+      else if (prev * cur < 0) {
+        let lo = x - step, hi = x;
+        for (let it = 0; it < 60; it++) {
+          const mid = (lo + hi) / 2;
+          const fm = polyEval(coeffs, mid);
+          if (Math.abs(fm) < tol) { lo = hi = mid; break; }
+          if (polyEval(coeffs, lo) * fm < 0) hi = mid; else lo = mid;
+        }
+        roots.push((lo + hi) / 2);
+      }
+      prev = cur;
+    }
+    return roots;
+  }
+
+  function formatNum(n) {
+    const r = Math.round(n * 1000) / 1000;
+    return Number.isInteger(r) ? String(r) : String(r);
+  }
+
+  function calculateEigenvalues() {
+    try {
+      const A = parseMatrix(elements.eigInput.value);
+      const n = A.length;
+      if (n < 1 || n > 4 || A.some((row) => row.length !== n)) {
+        throw new Error("Bitte quadratische Matrix bis 4×4 eingeben.");
+      }
+      const coeffs = charPolynomialCoeffs(A);
+      const polyStr = coeffs.map((c, k) => {
+        if (c === 0) return "";
+        const sign = c < 0 ? "−" : "+";
+        const mag = formatNum(Math.abs(c));
+        if (k === 0) return `${sign}${mag}`;
+        if (k === 1) return `${sign}${mag}λ`;
+        return `${sign}${mag}λ^${k}`;
+      }).filter(Boolean).reverse().join("");
+      const roots = polyRoots(coeffs).map(formatNum);
+      const det = detNxN(A);
+      const tr = traceM(A);
+      let out = `χ_A(λ) = λ^${n} ${polyStr}\n`;
+      out += `Spur = ${formatNum(tr)}, det = ${formatNum(det)}\n`;
+      out += roots.length ? `Eigenwerte (reell): ${roots.join(", ")}` : "Keine reellen Eigenwerte (komplex).";
+      elements.eigOutput.textContent = out;
+    } catch (error) {
+      elements.eigOutput.textContent = error.message;
+    }
+  }
+
+  // Rang einer Matrix über Gauß.
+  function rankM(m) {
+    const A = m.map((row) => row.slice());
+    const rows = A.length, cols = A[0].length;
+    let r = 0;
+    for (let c = 0; c < cols && r < rows; c++) {
+      let piv = -1;
+      for (let i = r; i < rows; i++) if (Math.abs(A[i][c]) > 1e-9) { piv = i; break; }
+      if (piv < 0) continue;
+      [A[r], A[piv]] = [A[piv], A[r]];
+      for (let i = 0; i < rows; i++) {
+        if (i === r) continue;
+        const f = A[i][c] / A[r][c];
+        for (let j = c; j < cols; j++) A[i][j] -= f * A[r][j];
+      }
+      r++;
+    }
+    return r;
+  }
+
+  // (A - lambda I) für ganzzahlige Matrix und reelles lambda.
+  function subtractLambdaI(A, lambda) {
+    return A.map((row, i) => row.map((v, j) => v - (i === j ? lambda : 0)));
+  }
+
+  function calculateJordanForm() {
+    try {
+      const A = parseMatrix(elements.jordanInput.value);
+      const n = A.length;
+      if (n < 1 || n > 4 || A.some((row) => row.length !== n)) {
+        throw new Error("Bitte quadratische Matrix bis 4×4 eingeben.");
+      }
+      const coeffs = charPolynomialCoeffs(A);
+      const roots = polyRoots(coeffs);
+      if (!roots.length) {
+        elements.jordanOutput.textContent = "Keine reellen Eigenwerte — Jordan-Form über ℝ nicht vorhanden (gebrauche ℂ).";
+        return;
+      }
+      // Eigenwerte mit algebraischer Vielfachheit bündeln.
+      const evs = [];
+      roots.sort((a, b) => a - b);
+      roots.forEach((r) => {
+        const last = evs[evs.length - 1];
+        if (last && Math.abs(last.value - r) < 1e-6) last.alg++;
+        else evs.push({ value: r, alg: 1 });
+      });
+      // Geometrische Vielfachheit = n - rang(A - lambda I).
+      let parts = [];
+      let minimalFactors = [];
+      evs.forEach((ev) => {
+        const geom = n - rankM(subtractLambdaI(A, ev.value));
+        ev.geom = geom;
+        // Größtes Jordan-Kästchen = kleinste k mit rang((A-lambda I)^k) = n - alg.
+        let k = 1;
+        let power = subtractLambdaI(A, ev.value);
+        while (rankM(power) > n - ev.alg && k <= n) {
+          power = matMul(power, subtractLambdaI(A, ev.value));
+          k++;
+        }
+        ev.maxBlock = k;
+        minimalFactors.push(`(λ−${formatNum(ev.value)})^${k}`);
+        // Partition der Kästchen: alg = geom*? — Verteilung mit maxBlock als größtem Kästchen.
+        const blocks = partitionBlocks(ev.alg, ev.geom, ev.maxBlock);
+        parts.push(`λ=${formatNum(ev.value)}: alg=${ev.alg}, geom=${ev.geom}, Kästchen ${blocks.join("+") || "—"}, maxBlock=${ev.maxBlock}`);
+      });
+      let out = `Eigenwerte: ${evs.map((e) => formatNum(e.value)).join(", ")}\n`;
+      out += parts.join("\n") + "\n";
+      out += `Minimalpolynom: ${minimalFactors.join("·")}`;
+      elements.jordanOutput.textContent = out;
+    } catch (error) {
+      elements.jordanOutput.textContent = error.message;
+    }
+  }
+
+  // Partition von `alg` in `geom` Kästchen mit Maximalkästchen `maxBlock`.
+  function partitionBlocks(alg, geom, maxBlock) {
+    const blocks = [];
+    let remaining = alg;
+    let count = geom;
+    // Greedy: größte Kästchen zuerst, beschränkt durch maxBlock und Restbedarf.
+    let size = maxBlock;
+    while (remaining > 0 && count > 0) {
+      const take = Math.min(size, remaining - (count - 1)); // mindestens 1 für restliche Kästchen
+      const s = Math.max(1, take);
+      blocks.push(s);
+      remaining -= s;
+      count--;
+      size = Math.min(size, s);
+    }
+    return blocks.sort((a, b) => b - a);
+  }
+
+  function matMul(A, B) {
+    const n = A.length, m = B[0].length, p = B.length;
+    const R = Array.from({ length: n }, () => new Array(m).fill(0));
+    for (let i = 0; i < n; i++)
+      for (let j = 0; j < m; j++)
+        for (let k = 0; k < p; k++) R[i][j] += A[i][k] * B[k][j];
+    return R;
+  }
+
+  function calculateBilinearForm() {
+    try {
+      const A = parseMatrix(elements.bilfInput.value);
+      const n = A.length;
+      if (n < 1 || n > 4 || A.some((row) => row.length !== n)) {
+        throw new Error("Bitte quadratische Matrix bis 4×4 eingeben.");
+      }
+      // Symmetrie prüfen (für Signatur relevant).
+      const sym = A.every((row, i) => row.every((v, j) => Math.abs(v - A[j][i]) < 1e-9));
+      const rang = rankM(A);
+      // Eigenwerte bestimmen (symmetrisch ⇒ reell); über char. Polynom.
+      const coeffs = charPolynomialCoeffs(A);
+      const roots = polyRoots(coeffs);
+      let p = 0, q = 0;
+      roots.forEach((r) => {
+        if (r > 1e-6) p++;
+        else if (r < -1e-6) q++;
+      });
+      const r = n - p - q;
+      let out = `Rang = ${rang}\n`;
+      out += `Symmetrisch: ${sym ? "ja" : "nein — Signatur nur für symmetrische Formen definiert"}\n`;
+      if (sym) {
+        out += `Signatur (p, q, r) = (${p}, ${q}, ${r})\n`;
+        out += `Klassifikation: ${q === 0 && r === 0 ? "positiv definit (Skalarprodukt)" : q === n ? "negativ definit" : "indefinit oder semidefinit"}`;
+      }
+      elements.bilfOutput.textContent = out;
+    } catch (error) {
+      elements.bilfOutput.textContent = error.message;
     }
   }
 
@@ -2458,37 +2819,69 @@
 
   /* ===================== Zertifikat ===================== */
 
-  function certificateAvailable() {
-    const allDone = allLessons.length > 0 && allLessons.every((l) => isCompleted(l.id));
-    if (!allDone) return false;
-    return computeMastery() >= CERTIFICATE_MASTERY_THRESHOLD;
+  // Lernpfad-Phasen: LA1 = mod-0 … mod-11, LA2 = mod-12 … mod-16.
+  // mod-6 enthält die optionale Brücken-Lektion m6-l4 und gehört zu LA1.
+  const LA1_MODULE_IDS = ["mod-0","mod-1","mod-2","mod-3","mod-4","mod-5","mod-6","mod-7","mod-8","mod-9","mod-10","mod-11"];
+  const LA2_MODULE_IDS = ["mod-12","mod-13","mod-14","mod-15","mod-16"];
+
+  function lessonsOfModules(ids) {
+    const set = new Set(ids);
+    return allLessons.filter((l) => set.has(l.moduleId));
   }
 
-  function computeMastery() {
-    const total = allLessons.length;
-    const completed = allLessons.filter((l) => isCompleted(l.id)).length;
-    const completionRate = total > 0 ? completed / total : 0;
-    const quizCorrect = allLessons.reduce((count, l) => {
+  function computeMasteryFor(lessons) {
+    if (!lessons.length) return 0;
+    const total = lessons.length;
+    const completed = lessons.filter((l) => isCompleted(l.id)).length;
+    const completionRate = completed / total;
+    const quizCorrect = lessons.reduce((count, l) => {
       const a = state.progress.quizAnswers[l.id];
       if (typeof a === "number" && a === l.quiz.answerIndex) return count + 1;
       return count;
     }, 0);
-    const quizRate = total > 0 ? quizCorrect / total : 0;
+    const quizRate = quizCorrect / total;
     return Math.round((completionRate * 0.7 + quizRate * 0.3) * 100);
   }
 
+  function allLessonsDone(lessons) {
+    return lessons.length > 0 && lessons.every((l) => isCompleted(l.id));
+  }
+
+  // Höchste erreichbare Zertifikatsstufe: "la2" (gesamter Pfad) > "la1" > null.
+  function certificateStage() {
+    const all = allLessons;
+    if (allLessonsDone(all) && computeMasteryFor(all) >= CERTIFICATE_MASTERY_THRESHOLD) return "la2";
+    const la1 = lessonsOfModules(LA1_MODULE_IDS);
+    if (allLessonsDone(la1) && computeMasteryFor(la1) >= CERTIFICATE_MASTERY_THRESHOLD) return "la1";
+    return null;
+  }
+
+  function certificateAvailable() {
+    return certificateStage() !== null;
+  }
+
+  function computeMastery() {
+    return computeMasteryFor(allLessons);
+  }
+
   function renderCertificateBanner() {
-    if (!certificateAvailable()) return;
+    const stage = certificateStage();
+    if (!stage) return;
     if (document.querySelector(".certificate-banner")) return;
     const content = document.querySelector(".content");
     if (!content) return;
+    const isLa2 = stage === "la2";
+    const headline = isLa2 ? "LA2-Zertifikat freigeschaltet!" : "LA1-Zertifikat freigeschaltet!";
+    const text = isLa2
+      ? `Du hast den gesamten Lernpfad (LA1 + LA2) abgeschlossen und ${CERTIFICATE_MASTERY_THRESHOLD}% Mastery erreicht. Hol dir dein Abschluss-Zertifikat.`
+      : `Du hast Lineare Algebra 1 (Modul 0–11) abgeschlossen und ${CERTIFICATE_MASTERY_THRESHOLD}% Mastery erreicht. Hol dir dein LA1-Zertifikat — LA2 geht weiter.`;
     const banner = document.createElement("div");
     banner.className = "certificate-banner";
     banner.innerHTML = `
       <div class="certificate-banner__emoji" aria-hidden="true">🎓</div>
       <div class="certificate-banner__body">
-        <h2>Zertifikat freigeschaltet!</h2>
-        <p>Du hast alle Lektionen abgeschlossen und ${CERTIFICATE_MASTERY_THRESHOLD}% Mastery erreicht. Hol dir dein Zertifikat.</p>
+        <h2>${headline}</h2>
+        <p>${text}</p>
       </div>
       <div class="certificate-banner__actions">
         <button id="certificate-open" type="button">Zertifikat anzeigen</button>
@@ -2499,15 +2892,18 @@
   }
 
   function openCertificate() {
-    if (!certificateAvailable()) {
+    const stage = certificateStage();
+    if (!stage) {
       showStatus("Zertifikat ist noch nicht freigeschaltet.", true);
       return;
     }
-    if (!state.progress.certificate) state.progress.certificate = { unlocked: false, name: "", shownAt: null };
+    if (!state.progress.certificate) state.progress.certificate = { unlocked: false, name: "", shownAt: null, stages: { la1: false, la2: false } };
+    if (!state.progress.certificate.stages) state.progress.certificate.stages = { la1: false, la2: false };
+    state.progress.certificate.stages[stage] = true;
     state.progress.certificate.unlocked = true;
     state.progress.certificate.shownAt = new Date().toISOString();
     persistProgress();
-    state.certificateOpen = true;
+    state.certificateOpen = stage;
     renderCertificateModal();
   }
 
@@ -2525,7 +2921,7 @@
       showStatus("Bitte einen Namen eingeben.", true);
       return;
     }
-    if (!state.progress.certificate) state.progress.certificate = { unlocked: false, name: "", shownAt: null };
+    if (!state.progress.certificate) state.progress.certificate = { unlocked: false, name: "", shownAt: null, stages: { la1: false, la2: false } };
     state.progress.certificate.name = name;
     persistProgress();
     renderCertificateModal();
@@ -2534,16 +2930,25 @@
   function renderCertificateModal() {
     const existing = document.getElementById("certificate-modal");
     if (existing) existing.remove();
-    if (!state.certificateOpen) return;
+    const stage = state.certificateOpen;
+    if (!stage) return;
 
-    const mastery = computeMastery();
-    const completed = allLessons.filter((l) => isCompleted(l.id)).length;
-    const total = allLessons.length;
+    const isLa2 = stage === "la2";
+    const stageLessons = isLa2 ? allLessons : lessonsOfModules(LA1_MODULE_IDS);
+    const mastery = computeMasteryFor(stageLessons);
+    const completed = stageLessons.filter((l) => isCompleted(l.id)).length;
+    const total = stageLessons.length;
     const name = state.progress.certificate?.name || "";
     const date = new Date().toLocaleDateString("de-DE", { day: "2-digit", month: "long", year: "numeric" });
     const nameHtml = name
       ? `<div class="cert-name">${escapeHtml(name)}</div>`
       : `<div class="cert-name-entry"><label for="certificate-name-input">Dein Name:</label><input type="text" id="certificate-name-input" placeholder="Vor- und Nachname" maxlength="80"><button id="certificate-save-name" type="button">Speichern</button></div>`;
+
+    const title = isLa2 ? "Abschluss-Zertifikat LA1 + LA2" : "Zertifikat Lineare Algebra 1";
+    const eyebrow = isLa2 ? "Lineare Algebra 1 + 2" : "Lineare Algebra 1";
+    const bodyText = isLa2
+      ? `hat erfolgreich alle ${total} Lektionen des gesamten Lernpfads abgeschlossen und damit Lineare Algebra 1 und 2 durchlaufen.`
+      : `hat erfolgreich alle ${total} Lektionen von Lineare Algebra 1 (Modul 0–11) abgeschlossen und damit die LA1-Phase durchlaufen.`;
 
     const modal = document.createElement("div");
     modal.id = "certificate-modal";
@@ -2554,10 +2959,10 @@
         <button id="certificate-close" type="button" class="certificate-close" aria-label="Zertifikat schließen">✕</button>
         <div class="certificate-sheet__inner">
           <div class="certificate-sheet__seal">🏆</div>
-          <p class="certificate-sheet__eyebrow">Lineare Algebra Trainer</p>
-          <h2 class="certificate-sheet__title">Zertifikat</h2>
+          <p class="certificate-sheet__eyebrow">${eyebrow}</p>
+          <h2 class="certificate-sheet__title">${title}</h2>
           ${nameHtml}
-          <p class="certificate-sheet__text">hat erfolgreich alle ${total} Lektionen abgeschlossen und damit den Lernpfad zur Linearen Algebra durchlaufen.</p>
+          <p class="certificate-sheet__text">${bodyText}</p>
           <div class="certificate-sheet__stats">
             <div><strong>${completed}/${total}</strong><span>Lektionen</span></div>
             <div><strong>${mastery}%</strong><span>Mastery</span></div>
