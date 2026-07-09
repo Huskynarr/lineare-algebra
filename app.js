@@ -123,8 +123,6 @@
   LA.state = state;
   LA.elements = elements;
 
-  init();
-
   function init() {
     if (!allLessons.length) {
       elements.lessonDetail.innerHTML = "<h2>Keine Inhalte gefunden</h2><p>Bitte prüfe data/learningPath.js.</p>";
@@ -964,4 +962,9 @@
   LA.WARMUP_TYPES = WARMUP_TYPES;
   LA.LESSON_GAME_COUNT = LESSON_GAME_COUNT;
   LA.LESSON_GAME_PASS_PCT = LESSON_GAME_PASS_PCT;
+
+  // init() bewusst ans Ende der IIFE: die LA.*-Helfer (shuffle, randInt, …)
+  // müssen zugewiesen sein, bevor init → initWarmup → LA.quiz.generateWarmupQuestions
+  // sie aufruft. defer stellt DOM-Readiness ohnehin sicher.
+  init();
 })();
