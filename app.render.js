@@ -3,13 +3,6 @@ window.LA = window.LA || {};
 LA.render = LA.render || {};
 
 // Render-lokale Helfer (nicht Teil der öffentlichen LA.render-API).
-function computeStars(pct) {
-  if (pct >= 90) return 3;
-  if (pct >= 60) return 2;
-  if (pct >= 30) return 1;
-  return 0;
-}
-
 function starString(stars) {
   return [0, 1, 2].map((i) => (i < stars ? "&#9733;" : "&#9734;")).join(" ");
 }
@@ -526,7 +519,7 @@ LA.render.renderLessonGameSummary = function (lesson, game, best) {
   const correct = game.answers.filter((ans, i) => ans === game.questions[i]?.answerIndex).length;
   const total = game.questions.length;
   const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
-  const stars = computeStars(pct);
+  const stars = LA.computeStars(pct);
   const passed = pct >= LA.LESSON_GAME_PASS_PCT;
   return `
       <div class="warmup-done">
