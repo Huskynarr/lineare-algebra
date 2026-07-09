@@ -20,6 +20,14 @@
   const LESSON_GAME_PASS_PCT = 60;
   const CERTIFICATE_MASTERY_THRESHOLD = 80;
 
+  // Konstanten/Daten, die das Fortschritts-Modul schon beim Aufbau von `state`
+  // (loadProgress -> sanitizeProgress) benötigt — daher vor `state` exponieren.
+  LA.allLessons = allLessons;
+  LA.lessonById = lessonById;
+  LA.STORAGE_KEY = STORAGE_KEY;
+  LA.SAVEGAME_VERSION = SAVEGAME_VERSION;
+  LA.CERTIFICATE_MASTERY_THRESHOLD = CERTIFICATE_MASTERY_THRESHOLD;
+
   const WARMUP_TYPES = ["simplify", "equation", "fraction", "decimal"];
 
   const I18N = {
@@ -91,7 +99,7 @@
   const state = {
     selectedLessonId: allLessons[0]?.id || null,
     lessonStarted: false,
-    progress: loadProgress(),
+    progress: LA.progress.loadProgress(),
     warmup: {
       questions: [],
       currentIndex: 0,
@@ -108,6 +116,10 @@
     certificateOpen: false,
     shareModuleId: null
   };
+
+  // Fortschritts-Modul (app.progress.js) greift über LA auf Core-State/Konstanten zu.
+  LA.state = state;
+  LA.elements = elements;
 
   init();
 
@@ -262,9 +274,9 @@
       }
     });
 
-    elements.exportProgress.addEventListener("click", exportSavegame);
-    elements.importProgress.addEventListener("change", importSavegame);
-    elements.resetProgress.addEventListener("click", resetProgress);
+    elements.exportProgress.addEventListener("click", LA.progress.exportSavegame);
+    elements.importProgress.addEventListener("change", LA.progress.importSavegame);
+    elements.resetProgress.addEventListener("click", LA.progress.resetProgress);
 
     elements.calcDot.addEventListener("click", calculateDotProduct);
     elements.calcDet.addEventListener("click", calculateDeterminant2x2);
@@ -907,7 +919,7 @@
       state.progress.completedLessons[lessonId] = true;
       showStatus("Lektion als erledigt markiert.");
     }
-    persistProgress();
+    LA.progress.persistProgress();
     render();
   }
 
@@ -930,7 +942,7 @@
       addToReviewQueue(lesson.id);
       showStatus("Nicht ganz. Erklärung beachten und erneut probieren.", true);
     }
-    persistProgress();
+    LA.progress.persistProgress();
     renderLessonDetail();
     renderProgressSummary();
     if (answer === lesson.quiz.answerIndex) {
@@ -967,7 +979,7 @@
       addToReviewQueue(lesson.id);
       showStatus("Nicht ganz. Erklärung beachten und erneut probieren.", true);
     }
-    persistProgress();
+    LA.progress.persistProgress();
     renderLessonDetail();
     renderProgressSummary();
   }
@@ -1061,7 +1073,7 @@
     const lesson = lessonById.get(state.selectedLessonId);
     if (lesson && !isCompleted(lesson.id)) {
       state.progress.completedLessons[lesson.id] = true;
-      persistProgress();
+      LA.progress.persistProgress();
       checkModuleCompletion(lesson.moduleId);
     }
     const next = getNeighborLesson(1);
@@ -1118,180 +1130,6 @@
 
   function isCompleted(lessonId) {
     return Boolean(state.progress.completedLessons[lessonId]);
-  }
-
-  function defaultProgress() {
-    const now = new Date().toISOString();
-    return {
-      version: SAVEGAME_VERSION,
-      startedAt: now,
-      updatedAt: now,
-      warmupCompleted: false,
-      completedLessons: {},
-      quizAnswers: {},
-      quizTextAnswers: {},
-      quizTextChecked: {},
-      reviewQueue: [],
-      lessonGames: {},
-      certificate: { unlocked: false, name: "", shownAt: null, stages: { la1: false, la2: false } }
-    };
-  }
-
-  function loadProgress() {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) {
-      return defaultProgress();
-    }
-    try {
-      const parsed = JSON.parse(raw);
-      return sanitizeProgress(parsed);
-    } catch (_error) {
-      return defaultProgress();
-    }
-  }
-
-  function sanitizeProgress(source) {
-    if (!isObject(source)) {
-      return defaultProgress();
-    }
-
-    const candidate = isObject(source.progress) ? source.progress : source;
-    // Der Lernpfad wurde für LA1+LA2 vollständig neu aufgebaut (SAVEGAME_VERSION 2).
-    // Alte v1-Fortschritte beziehen sich auf andere Lektionen/Inhalte und werden
-    // verworfen — es gibt keine sinnvolle ID-Korrespondenz für eine Migration.
-    const incomingVersion = typeof candidate.version === "number" ? candidate.version : 0;
-    if (incomingVersion < SAVEGAME_VERSION) {
-      return defaultProgress();
-    }
-    const base = defaultProgress();
-    const sanitized = {
-      version: SAVEGAME_VERSION,
-      startedAt: typeof candidate.startedAt === "string" ? candidate.startedAt : base.startedAt,
-      updatedAt: typeof candidate.updatedAt === "string" ? candidate.updatedAt : base.updatedAt,
-      warmupCompleted: candidate.warmupCompleted === true,
-      completedLessons: {},
-      quizAnswers: {},
-      quizTextAnswers: {},
-      quizTextChecked: {},
-      reviewQueue: Array.isArray(candidate.reviewQueue) ? candidate.reviewQueue.filter((id) => typeof id === "string") : [],
-      lessonGames: {},
-      certificate: sanitizeCertificate(candidate.certificate)
-    };
-
-    if (isObject(candidate.completedLessons)) {
-      for (const lessonId of Object.keys(candidate.completedLessons)) {
-        if (lessonById.has(lessonId) && candidate.completedLessons[lessonId] === true) {
-          sanitized.completedLessons[lessonId] = true;
-        }
-      }
-    }
-
-    if (isObject(candidate.quizAnswers)) {
-      for (const lessonId of Object.keys(candidate.quizAnswers)) {
-        const answer = candidate.quizAnswers[lessonId];
-        const lesson = lessonById.get(lessonId);
-        if (
-          lesson &&
-          Number.isInteger(answer) &&
-          answer >= 0 &&
-          answer < lesson.quiz.options.length
-        ) {
-          sanitized.quizAnswers[lessonId] = answer;
-        }
-      }
-    }
-
-    if (isObject(candidate.lessonGames)) {
-      for (const lessonId of Object.keys(candidate.lessonGames)) {
-        if (!lessonById.has(lessonId)) continue;
-        const g = candidate.lessonGames[lessonId];
-        if (!isObject(g)) continue;
-        sanitized.lessonGames[lessonId] = {
-          bestPct: typeof g.bestPct === "number" && isFinite(g.bestPct) ? Math.max(0, Math.round(g.bestPct)) : 0,
-          bestStars: typeof g.bestStars === "number" && isFinite(g.bestStars) ? Math.max(0, Math.min(3, Math.round(g.bestStars))) : 0,
-          attempts: typeof g.attempts === "number" && isFinite(g.attempts) ? Math.max(0, Math.round(g.attempts)) : 0
-        };
-      }
-    }
-
-    return sanitized;
-  }
-
-  function sanitizeCertificate(source) {
-    if (!isObject(source)) {
-      return { unlocked: false, name: "", shownAt: null, stages: { la1: false, la2: false } };
-    }
-    const stagesIn = isObject(source.stages) ? source.stages : {};
-    return {
-      unlocked: source.unlocked === true,
-      name: typeof source.name === "string" ? source.name.slice(0, 80) : "",
-      shownAt: typeof source.shownAt === "string" ? source.shownAt : null,
-      stages: {
-        la1: stagesIn.la1 === true,
-        la2: stagesIn.la2 === true
-      }
-    };
-  }
-
-  function persistProgress() {
-    state.progress.updatedAt = new Date().toISOString();
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.progress));
-  }
-
-  function exportSavegame() {
-    const payload = {
-      app: "lineare-algebra-trainer",
-      version: SAVEGAME_VERSION,
-      exportedAt: new Date().toISOString(),
-      progress: state.progress
-    };
-    const data = JSON.stringify(payload, null, 2);
-    const blob = new Blob([data], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const anchor = document.createElement("a");
-    const stamp = new Date().toISOString().slice(0, 10);
-    anchor.href = url;
-    anchor.download = `lineare-algebra-savegame-${stamp}.json`;
-    document.body.appendChild(anchor);
-    anchor.click();
-    anchor.remove();
-    URL.revokeObjectURL(url);
-    showStatus("Savegame wurde heruntergeladen.");
-  }
-
-  function importSavegame(event) {
-    const [file] = event.target.files || [];
-    if (!file) {
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      try {
-        const text = String(reader.result || "");
-        const parsed = JSON.parse(text);
-        state.progress = sanitizeProgress(parsed);
-        persistProgress();
-        render();
-        showStatus("Savegame erfolgreich geladen.");
-      } catch (_error) {
-        showStatus("Import fehlgeschlagen: Datei ist kein gültiges Savegame.", true);
-      } finally {
-        elements.importProgress.value = "";
-      }
-    };
-
-    reader.readAsText(file, "utf-8");
-  }
-
-  function resetProgress() {
-    const accepted = window.confirm("Möchtest du den gesamten Fortschritt wirklich löschen?");
-    if (!accepted) {
-      return;
-    }
-    state.progress = defaultProgress();
-    persistProgress();
-    window.location.reload();
   }
 
   function calculateDotProduct() {
@@ -1543,10 +1381,6 @@
       .replaceAll(">", "&gt;")
       .replaceAll('"', "&quot;")
       .replaceAll("'", "&#39;");
-  }
-
-  function isObject(value) {
-    return value !== null && typeof value === "object" && !Array.isArray(value);
   }
 
   /* ===================== Warmup: Algebra-Basics ===================== */
@@ -1865,7 +1699,7 @@
       state.warmup.finished = true;
       state.progress.warmupCompleted = true;
       state.lessonStarted = true;
-      persistProgress();
+      LA.progress.persistProgress();
       renderWarmup();
       render();
       showStatus("Warmup abgeschlossen — viel Erfolg bei der Linearen Algebra!");
@@ -2520,7 +2354,7 @@
       addToReviewQueue(lesson.id);
     }
 
-    persistProgress();
+    LA.progress.persistProgress();
     game.finished = true;
     render();
     showStatus(
@@ -2543,43 +2377,12 @@
     return allLessons.filter((l) => set.has(l.moduleId));
   }
 
-  function computeMasteryFor(lessons) {
-    if (!lessons.length) return 0;
-    const total = lessons.length;
-    const completed = lessons.filter((l) => isCompleted(l.id)).length;
-    const completionRate = completed / total;
-    const quizCorrect = lessons.reduce((count, l) => {
-      const a = state.progress.quizAnswers[l.id];
-      if (typeof a === "number" && a === l.quiz.answerIndex) return count + 1;
-      return count;
-    }, 0);
-    const quizRate = quizCorrect / total;
-    return Math.round((completionRate * 0.7 + quizRate * 0.3) * 100);
-  }
-
   function allLessonsDone(lessons) {
     return lessons.length > 0 && lessons.every((l) => isCompleted(l.id));
   }
 
-  // Höchste erreichbare Zertifikatsstufe: "la2" (gesamter Pfad) > "la1" > null.
-  function certificateStage() {
-    const all = allLessons;
-    if (allLessonsDone(all) && computeMasteryFor(all) >= CERTIFICATE_MASTERY_THRESHOLD) return "la2";
-    const la1 = lessonsOfModules(LA1_MODULE_IDS);
-    if (allLessonsDone(la1) && computeMasteryFor(la1) >= CERTIFICATE_MASTERY_THRESHOLD) return "la1";
-    return null;
-  }
-
-  function certificateAvailable() {
-    return certificateStage() !== null;
-  }
-
-  function computeMastery() {
-    return computeMasteryFor(allLessons);
-  }
-
   function renderCertificateBanner() {
-    const stage = certificateStage();
+    const stage = LA.progress.certificateStage();
     if (!stage) return;
     if (document.querySelector(".certificate-banner")) return;
     const content = document.querySelector(".content");
@@ -2606,7 +2409,7 @@
   }
 
   function openCertificate() {
-    const stage = certificateStage();
+    const stage = LA.progress.certificateStage();
     if (!stage) {
       showStatus("Zertifikat ist noch nicht freigeschaltet.", true);
       return;
@@ -2616,7 +2419,7 @@
     state.progress.certificate.stages[stage] = true;
     state.progress.certificate.unlocked = true;
     state.progress.certificate.shownAt = new Date().toISOString();
-    persistProgress();
+    LA.progress.persistProgress();
     state.certificateOpen = stage;
     renderCertificateModal();
   }
@@ -2637,7 +2440,7 @@
     }
     if (!state.progress.certificate) state.progress.certificate = { unlocked: false, name: "", shownAt: null, stages: { la1: false, la2: false } };
     state.progress.certificate.name = name;
-    persistProgress();
+    LA.progress.persistProgress();
     renderCertificateModal();
   }
 
@@ -2649,7 +2452,7 @@
 
     const isLa2 = stage === "la2";
     const stageLessons = isLa2 ? allLessons : lessonsOfModules(LA1_MODULE_IDS);
-    const mastery = computeMasteryFor(stageLessons);
+    const mastery = LA.progress.computeMasteryFor(stageLessons);
     const completed = stageLessons.filter((l) => isCompleted(l.id)).length;
     const total = stageLessons.length;
     const name = state.progress.certificate?.name || "";
@@ -2701,4 +2504,13 @@
     if (!best || best.bestStars <= 0) return "";
     return ` <span class="lesson-stars" aria-label="${best.bestStars} Sterne">${starString(best.bestStars)}</span>`;
   }
+
+  // Vom Fortschritts-Modul genutzte Core-Helfer (Functions sind gehoben, LA1_MODULE_IDS
+  // ist weiter oben als const definiert). render bleibt in Core bis Task 6.
+  LA.isCompleted = isCompleted;
+  LA.allLessonsDone = allLessonsDone;
+  LA.lessonsOfModules = lessonsOfModules;
+  LA.LA1_MODULE_IDS = LA1_MODULE_IDS;
+  LA.showStatus = showStatus;
+  LA.renderFn = render;
 })();
