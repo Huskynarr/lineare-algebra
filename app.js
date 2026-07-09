@@ -1296,8 +1296,8 @@
 
   function calculateDotProduct() {
     try {
-      const vectorA = parseVector(elements.vectorA.value);
-      const vectorB = parseVector(elements.vectorB.value);
+      const vectorA = LA.math.parseVector(elements.vectorA.value);
+      const vectorB = LA.math.parseVector(elements.vectorB.value);
       if (vectorA.length !== vectorB.length) {
         throw new Error("Die Vektoren müssen gleich viele Komponenten haben.");
       }
@@ -1315,7 +1315,7 @@
 
   function calculateDeterminant2x2() {
     try {
-      const matrix = parse2x2Matrix(elements.matrix2x2.value);
+      const matrix = LA.math.parse2x2Matrix(elements.matrix2x2.value);
       const det = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
       elements.detOutput.textContent = `det(A) = ${det}`;
     } catch (error) {
@@ -1323,34 +1323,17 @@
     }
   }
 
-  function parseMatrix(input) {
-    const rows = input.split(";").map((r) => r.trim()).filter((r) => r.length > 0);
-    if (rows.length === 0) {
-      throw new Error("Bitte Matrix eingeben, Zeilen mit ';' trennen.");
-    }
-    const matrix = rows.map((row) => row.split(",").map((v) => Number(v.trim())));
-    const cols = matrix[0].length;
-    if (matrix.some((row) => row.length !== cols || row.some((v) => !Number.isFinite(v)))) {
-      throw new Error("Matrix ungültig. Zahlen mit Komma, Zeilen mit Semikolon trennen.");
-    }
-    return matrix;
-  }
-
-  function formatMatrix(m) {
-    return "[" + m.map((row) => row.join(", ")).join("; ") + "]";
-  }
-
   function calculateMatrixMultiply() {
     try {
-      const A = parseMatrix(elements.matrixA.value);
-      const B = parseMatrix(elements.matrixB2.value);
+      const A = LA.math.parseMatrix(elements.matrixA.value);
+      const B = LA.math.parseMatrix(elements.matrixB2.value);
       if (A[0].length !== B.length) {
         throw new Error(`Spalten von A (${A[0].length}) müssen Zeilen von B (${B.length}) entsprechen.`);
       }
       const result = A.map((row) =>
         B[0].map((_, j) => row.reduce((sum, val, i) => sum + val * B[i][j], 0))
       );
-      elements.mulOutput.textContent = `A · B = ${formatMatrix(result)}`;
+      elements.mulOutput.textContent = `A · B = ${LA.math.formatMatrix(result)}`;
     } catch (error) {
       elements.mulOutput.textContent = error.message;
     }
@@ -1358,7 +1341,7 @@
 
   function calculateInverse2x2() {
     try {
-      const m = parse2x2Matrix(elements.matrixInv.value);
+      const m = LA.math.parse2x2Matrix(elements.matrixInv.value);
       const det = m[0][0] * m[1][1] - m[0][1] * m[1][0];
       if (det === 0) {
         elements.invOutput.textContent = "Matrix ist nicht invertierbar (det = 0).";
@@ -1381,7 +1364,7 @@
       if (parts.length !== 2) {
         throw new Error("Format: a,b;c,d|e,f (Matrix|Vektor)");
       }
-      const A = parseMatrix(parts[0]);
+      const A = LA.math.parseMatrix(parts[0]);
       const b = parts[1].split(",").map((v) => Number(v.trim()));
       if (A.length !== b.length) {
         throw new Error("Anzahl Zeilen muss Anzahl Ergebnisse entsprechen.");
@@ -1423,204 +1406,28 @@
     }
   }
 
-  // ---- Lineare Algebra 2: Eigenwerte, Jordan-Normalform, Bilinearformen ----
-
-  // Determinante einer n×n-Matrix (Laplace-Entwicklung).
-  function detNxN(m) {
-    const n = m.length;
-    if (n === 1) return m[0][0];
-    if (n === 2) return m[0][0] * m[1][1] - m[0][1] * m[1][0];
-    let sum = 0;
-    for (let j = 0; j < n; j++) {
-      const minor = m.slice(1).map((row) => row.filter((_, c) => c !== j));
-      sum += (j % 2 === 0 ? 1 : -1) * m[0][j] * detNxN(minor);
-    }
-    return sum;
-  }
-
-  // Spur einer quadratischen Matrix.
-  function traceM(m) {
-    let t = 0;
-    for (let i = 0; i < m.length; i++) t += m[i][i];
-    return t;
-  }
-
-  // Summe aller 2×2-Hauptminoren (für n=3 char. Polynom: e2).
-  function sumPrincipal2Minors(m) {
-    const n = m.length;
-    let s = 0;
-    for (let i = 0; i < n; i++) {
-      for (let j = i + 1; j < n; j++) {
-        s += m[i][i] * m[j][j] - m[i][j] * m[j][i];
-      }
-    }
-    return s;
-  }
-
-  // Summe aller 3×3-Hauptminoren (für n=4 char. Polynom: e3).
-  function sumPrincipal3Minors(m) {
-    const n = m.length;
-    let s = 0;
-    for (let i = 0; i < n; i++) {
-      for (let j = i + 1; j < n; j++) {
-        for (let k = j + 1; k < n; k++) {
-          const sub = [
-            [m[i][i], m[i][j], m[i][k]],
-            [m[j][i], m[j][j], m[j][k]],
-            [m[k][i], m[k][j], m[k][k]]
-          ];
-          s += detNxN(sub);
-        }
-      }
-    }
-    return s;
-  }
-
-  // Koeffizienten des charakteristischen Polynoms chi_A(lambda) = lambda^n - e1 lambda^{n-1} + e2 ... + (-1)^n det
-  // Rückgabe als Array [c0, c1, ..., cn] mit chi = sum c_k lambda^k (c_n = 1).
-  function charPolynomialCoeffs(m) {
-    const n = m.length;
-    const e1 = traceM(m);
-    const det = detNxN(m);
-    const coeffs = new Array(n + 1).fill(0);
-    coeffs[n] = 1;
-    if (n === 1) {
-      coeffs[0] = -det;
-      return coeffs;
-    }
-    if (n === 2) {
-      const e2 = det;
-      coeffs[1] = -e1;
-      coeffs[0] = e2;
-      return coeffs;
-    }
-    if (n === 3) {
-      const e2 = sumPrincipal2Minors(m);
-      coeffs[2] = -e1;
-      coeffs[1] = e2;
-      coeffs[0] = -det;
-      return coeffs;
-    }
-    if (n === 4) {
-      const e2 = sumPrincipal2Minors(m);
-      const e3 = sumPrincipal3Minors(m);
-      const e4 = det;
-      coeffs[3] = -e1;
-      coeffs[2] = e2;
-      coeffs[1] = -e3;
-      coeffs[0] = e4;
-      return coeffs;
-    }
-    throw new Error("Charakteristisches Polynom nur bis 4×4 unterstützt.");
-  }
-
-  function polyEval(coeffs, x) {
-    let v = 0;
-    for (let k = coeffs.length - 1; k >= 0; k--) v = v * x + coeffs[k];
-    return v;
-  }
-
-  // Nullstellen eines Polynoms (Grad 1–3 exakt, Grad 4 numerisch per Bisektion/Newton über reeller Suche).
-  function polyRoots(coeffs) {
-    const deg = coeffs.length - 1;
-    const roots = [];
-    const tol = 1e-7;
-    if (deg === 1) {
-      roots.push(-coeffs[0] / coeffs[1]);
-      return roots;
-    }
-    if (deg === 2) {
-      const a = coeffs[2], b = coeffs[1], c = coeffs[0];
-      const disc = b * b - 4 * a * c;
-      if (disc < -tol) return roots; // komplexe Eigenwerte
-      const sq = Math.sqrt(Math.max(0, disc));
-      const r1 = (-b + sq) / (2 * a);
-      const r2 = (-b - sq) / (2 * a);
-      roots.push(r1);
-      // Bei Doppelwurzel (disc ≈ 0) beide zählen, sonst die zweite nur wenn verschieden.
-      if (sq > tol) roots.push(r2);
-      else roots.push(r1);
-      return roots;
-    }
-    if (deg === 3) {
-      // Kubik: trigonometrische Formel (drei reelle Wurzeln) für D ≥ 0, sonst Cardano-Einzelwurzel + Deflation.
-      const a = coeffs[3];
-      const p = coeffs[2] / a, q = coeffs[1] / a, r = coeffs[0] / a;
-      const p3 = p / 3;
-      const Q = (p * p - 3 * q) / 9;
-      const R = (2 * p * p * p - 9 * p * q + 27 * r) / 54;
-      const D = Q * Q * Q - R * R;
-      if (D >= -tol) {
-        // Drei reelle Wurzeln (auch bei Mehrfachwurzeln numerisch stabil).
-        const Qc = Math.max(Q, 0);
-        const Rc = Math.max(-1, Math.min(1, R / Math.sqrt(Qc * Qc * Qc || 1)));
-        const th = Math.acos(Rc);
-        const sqrtQ = Math.sqrt(Qc);
-        for (let k = 0; k < 3; k++) {
-          roots.push(-2 * sqrtQ * Math.cos((th + 2 * Math.PI * k) / 3) - p3);
-        }
-        return roots;
-      }
-      // Einer reelle Wurzel via Cardano, dann Deflation + quadratisch.
-      const s = Math.cbrt(R + Math.sqrt(-D));
-      const t = Math.cbrt(R - Math.sqrt(-D));
-      const x1 = s + t - p3;
-      roots.push(x1);
-      const b2 = a;
-      const b1 = coeffs[2] + b2 * x1;
-      const b0 = coeffs[1] + b1 * x1;
-      const quad = [b0, b1, b2];
-      polyRoots(quad).forEach((rt) => roots.push(rt));
-      return roots;
-    }
-    // Grad 4: numerische reelle Nullstellen-Suche über Intervall-Scan + Newton.
-    const bound = 1 + Math.max(...coeffs.slice(0, deg).map((c) => Math.abs(c) / Math.abs(coeffs[deg])));
-    const step = bound / 1000;
-    let prev = polyEval(coeffs, -bound);
-    for (let x = -bound + step; x <= bound; x += step) {
-      const cur = polyEval(coeffs, x);
-      if (prev === 0) { roots.push(x - step); }
-      else if (prev * cur < 0) {
-        let lo = x - step, hi = x;
-        for (let it = 0; it < 60; it++) {
-          const mid = (lo + hi) / 2;
-          const fm = polyEval(coeffs, mid);
-          if (Math.abs(fm) < tol) { lo = hi = mid; break; }
-          if (polyEval(coeffs, lo) * fm < 0) hi = mid; else lo = mid;
-        }
-        roots.push((lo + hi) / 2);
-      }
-      prev = cur;
-    }
-    return roots;
-  }
-
-  function formatNum(n) {
-    const r = Math.round(n * 1000) / 1000;
-    return Number.isInteger(r) ? String(r) : String(r);
-  }
 
   function calculateEigenvalues() {
     try {
-      const A = parseMatrix(elements.eigInput.value);
+      const A = LA.math.parseMatrix(elements.eigInput.value);
       const n = A.length;
       if (n < 1 || n > 4 || A.some((row) => row.length !== n)) {
         throw new Error("Bitte quadratische Matrix bis 4×4 eingeben.");
       }
-      const coeffs = charPolynomialCoeffs(A);
+      const coeffs = LA.math.charPolynomialCoeffs(A);
       const polyStr = coeffs.map((c, k) => {
         if (c === 0) return "";
         const sign = c < 0 ? "−" : "+";
-        const mag = formatNum(Math.abs(c));
+        const mag = LA.math.formatNum(Math.abs(c));
         if (k === 0) return `${sign}${mag}`;
         if (k === 1) return `${sign}${mag}λ`;
         return `${sign}${mag}λ^${k}`;
       }).filter(Boolean).reverse().join("");
-      const roots = polyRoots(coeffs).map(formatNum);
-      const det = detNxN(A);
-      const tr = traceM(A);
+      const roots = LA.math.polyRoots(coeffs).map(LA.math.formatNum);
+      const det = LA.math.detNxN(A);
+      const tr = LA.math.traceM(A);
       let out = `χ_A(λ) = λ^${n} ${polyStr}\n`;
-      out += `Spur = ${formatNum(tr)}, det = ${formatNum(det)}\n`;
+      out += `Spur = ${LA.math.formatNum(tr)}, det = ${LA.math.formatNum(det)}\n`;
       out += roots.length ? `Eigenwerte (reell): ${roots.join(", ")}` : "Keine reellen Eigenwerte (komplex).";
       elements.eigOutput.textContent = out;
     } catch (error) {
@@ -1628,40 +1435,15 @@
     }
   }
 
-  // Rang einer Matrix über Gauß.
-  function rankM(m) {
-    const A = m.map((row) => row.slice());
-    const rows = A.length, cols = A[0].length;
-    let r = 0;
-    for (let c = 0; c < cols && r < rows; c++) {
-      let piv = -1;
-      for (let i = r; i < rows; i++) if (Math.abs(A[i][c]) > 1e-9) { piv = i; break; }
-      if (piv < 0) continue;
-      [A[r], A[piv]] = [A[piv], A[r]];
-      for (let i = 0; i < rows; i++) {
-        if (i === r) continue;
-        const f = A[i][c] / A[r][c];
-        for (let j = c; j < cols; j++) A[i][j] -= f * A[r][j];
-      }
-      r++;
-    }
-    return r;
-  }
-
-  // (A - lambda I) für ganzzahlige Matrix und reelles lambda.
-  function subtractLambdaI(A, lambda) {
-    return A.map((row, i) => row.map((v, j) => v - (i === j ? lambda : 0)));
-  }
-
   function calculateJordanForm() {
     try {
-      const A = parseMatrix(elements.jordanInput.value);
+      const A = LA.math.parseMatrix(elements.jordanInput.value);
       const n = A.length;
       if (n < 1 || n > 4 || A.some((row) => row.length !== n)) {
         throw new Error("Bitte quadratische Matrix bis 4×4 eingeben.");
       }
-      const coeffs = charPolynomialCoeffs(A);
-      const roots = polyRoots(coeffs);
+      const coeffs = LA.math.charPolynomialCoeffs(A);
+      const roots = LA.math.polyRoots(coeffs);
       if (!roots.length) {
         elements.jordanOutput.textContent = "Keine reellen Eigenwerte — Jordan-Form über ℝ nicht vorhanden (gebrauche ℂ).";
         return;
@@ -1678,22 +1460,22 @@
       let parts = [];
       let minimalFactors = [];
       evs.forEach((ev) => {
-        const geom = n - rankM(subtractLambdaI(A, ev.value));
+        const geom = n - LA.math.rankM(LA.math.subtractLambdaI(A, ev.value));
         ev.geom = geom;
         // Größtes Jordan-Kästchen = kleinste k mit rang((A-lambda I)^k) = n - alg.
         let k = 1;
-        let power = subtractLambdaI(A, ev.value);
-        while (rankM(power) > n - ev.alg && k <= n) {
-          power = matMul(power, subtractLambdaI(A, ev.value));
+        let power = LA.math.subtractLambdaI(A, ev.value);
+        while (LA.math.rankM(power) > n - ev.alg && k <= n) {
+          power = LA.math.matMul(power, LA.math.subtractLambdaI(A, ev.value));
           k++;
         }
         ev.maxBlock = k;
-        minimalFactors.push(`(λ−${formatNum(ev.value)})^${k}`);
+        minimalFactors.push(`(λ−${LA.math.formatNum(ev.value)})^${k}`);
         // Partition der Kästchen: alg = geom*? — Verteilung mit maxBlock als größtem Kästchen.
-        const blocks = partitionBlocks(ev.alg, ev.geom, ev.maxBlock);
-        parts.push(`λ=${formatNum(ev.value)}: alg=${ev.alg}, geom=${ev.geom}, Kästchen ${blocks.join("+") || "—"}, maxBlock=${ev.maxBlock}`);
+        const blocks = LA.math.partitionBlocks(ev.alg, ev.geom, ev.maxBlock);
+        parts.push(`λ=${LA.math.formatNum(ev.value)}: alg=${ev.alg}, geom=${ev.geom}, Kästchen ${blocks.join("+") || "—"}, maxBlock=${ev.maxBlock}`);
       });
-      let out = `Eigenwerte: ${evs.map((e) => formatNum(e.value)).join(", ")}\n`;
+      let out = `Eigenwerte: ${evs.map((e) => LA.math.formatNum(e.value)).join(", ")}\n`;
       out += parts.join("\n") + "\n";
       out += `Minimalpolynom: ${minimalFactors.join("·")}`;
       elements.jordanOutput.textContent = out;
@@ -1702,46 +1484,19 @@
     }
   }
 
-  // Partition von `alg` in `geom` Kästchen mit Maximalkästchen `maxBlock`.
-  function partitionBlocks(alg, geom, maxBlock) {
-    const blocks = [];
-    let remaining = alg;
-    let count = geom;
-    // Greedy: größte Kästchen zuerst, beschränkt durch maxBlock und Restbedarf.
-    let size = maxBlock;
-    while (remaining > 0 && count > 0) {
-      const take = Math.min(size, remaining - (count - 1)); // mindestens 1 für restliche Kästchen
-      const s = Math.max(1, take);
-      blocks.push(s);
-      remaining -= s;
-      count--;
-      size = Math.min(size, s);
-    }
-    return blocks.sort((a, b) => b - a);
-  }
-
-  function matMul(A, B) {
-    const n = A.length, m = B[0].length, p = B.length;
-    const R = Array.from({ length: n }, () => new Array(m).fill(0));
-    for (let i = 0; i < n; i++)
-      for (let j = 0; j < m; j++)
-        for (let k = 0; k < p; k++) R[i][j] += A[i][k] * B[k][j];
-    return R;
-  }
-
   function calculateBilinearForm() {
     try {
-      const A = parseMatrix(elements.bilfInput.value);
+      const A = LA.math.parseMatrix(elements.bilfInput.value);
       const n = A.length;
       if (n < 1 || n > 4 || A.some((row) => row.length !== n)) {
         throw new Error("Bitte quadratische Matrix bis 4×4 eingeben.");
       }
       // Symmetrie prüfen (für Signatur relevant).
       const sym = A.every((row, i) => row.every((v, j) => Math.abs(v - A[j][i]) < 1e-9));
-      const rang = rankM(A);
+      const rang = LA.math.rankM(A);
       // Eigenwerte bestimmen (symmetrisch ⇒ reell); über char. Polynom.
-      const coeffs = charPolynomialCoeffs(A);
-      const roots = polyRoots(coeffs);
+      const coeffs = LA.math.charPolynomialCoeffs(A);
+      const roots = LA.math.polyRoots(coeffs);
       let p = 0, q = 0;
       roots.forEach((r) => {
         if (r > 1e-6) p++;
@@ -1758,33 +1513,6 @@
     } catch (error) {
       elements.bilfOutput.textContent = error.message;
     }
-  }
-
-  function parseVector(input) {
-    const parts = input
-      .split(",")
-      .map((value) => value.trim())
-      .filter((value) => value.length > 0);
-    if (parts.length === 0) {
-      throw new Error("Bitte Vektor als kommagetrennte Zahlen eingeben, z. B. 1,2,3.");
-    }
-    const values = parts.map((value) => Number(value));
-    if (values.some((value) => !Number.isFinite(value))) {
-      throw new Error("Ungültiger Vektor. Bitte nur Zahlen verwenden.");
-    }
-    return values;
-  }
-
-  function parse2x2Matrix(input) {
-    const rows = input.split(";").map((row) => row.trim());
-    if (rows.length !== 2) {
-      throw new Error("Bitte genau zwei Zeilen mit ';' trennen.");
-    }
-    const matrix = rows.map((row) => row.split(",").map((value) => Number(value.trim())));
-    if (matrix.some((row) => row.length !== 2 || row.some((value) => !Number.isFinite(value)))) {
-      throw new Error("Format ungültig. Bitte a,b;c,d verwenden.");
-    }
-    return matrix;
   }
 
   function registerServiceWorker() {
@@ -1937,7 +1665,7 @@
       const d2 = pick([3, 4, 5, 6]);
       const n1 = randInt(1, d1 - 1);
       const n2 = randInt(1, d2 - 1);
-      const lcm = (d1 * d2) / gcd(d1, d2);
+      const lcm = (d1 * d2) / LA.math.gcd(d1, d2);
       const resultNum = n1 * (lcm / d1) + n2 * (lcm / d2);
       const question = `Berechne: ${n1}/${d1} + ${n2}/${d2}`;
       const answer = `${resultNum}/${lcm}`;
@@ -1954,13 +1682,6 @@
         explanation: `Hauptnenner ist ${lcm}. Umgerechnet: ${n1 * (lcm / d1)}/${lcm} + ${n2 * (lcm / d2)}/${lcm} = ${resultNum}/${lcm}.`
       };
     }
-  }
-
-  function gcd(a, b) {
-    while (b) {
-      [a, b] = [b, a % b];
-    }
-    return a;
   }
 
   function genDecimal(level) {
@@ -2182,21 +1903,13 @@
     };
   }
 
-  function fmtComplex(a, b) {
-    if (a === 0 && b === 0) return "0";
-    const imPart = (val) => (val === 1 ? "i" : val === -1 ? "-i" : val + "i");
-    if (a === 0) return imPart(b);
-    if (b === 0) return String(a);
-    return b > 0 ? `${a} + ${imPart(b)}` : `${a} - ${imPart(-b)}`;
-  }
-
   function genComplex() {
     const subtype = randInt(0, 4);
     if (subtype === 0) {
       const a = randInt(-9, 9);
       const b = randInt(-9, 9);
       return mcq(
-        `Was ist der Realteil von $z = ${fmtComplex(a, b)}$?`,
+        `Was ist der Realteil von $z = ${LA.math.fmtComplex(a, b)}$?`,
         String(a),
         [String(a + randInt(1, 3) * (Math.random() < 0.5 ? -1 : 1)), String(b), String(a - 1)],
         `Der Realteil ist die Zahl ohne $i$: also ${a}.`
@@ -2206,7 +1919,7 @@
       const a = randInt(-9, 9);
       const b = randInt(-9, 9);
       return mcq(
-        `Was ist der Imaginärteil von $z = ${fmtComplex(a, b)}$?`,
+        `Was ist der Imaginärteil von $z = ${LA.math.fmtComplex(a, b)}$?`,
         String(b),
         [String(b + randInt(1, 3) * (Math.random() < 0.5 ? -1 : 1)), String(a), String(-b)],
         `Der Imaginärteil ist die Zahl vor dem $i$ (mit Vorzeichen): also ${b}.`
@@ -2217,9 +1930,9 @@
       const c = randInt(-4, 4), d = randInt(-4, 4);
       const re = a + c, im = b + d;
       return mcq(
-        `Berechne $(${fmtComplex(a, b)}) + (${fmtComplex(c, d)})$.`,
-        fmtComplex(re, im),
-        [fmtComplex(a + d, b + c), fmtComplex(re + 1, im), fmtComplex(re, im + 1)],
+        `Berechne $(${LA.math.fmtComplex(a, b)}) + (${LA.math.fmtComplex(c, d)})$.`,
+        LA.math.fmtComplex(re, im),
+        [LA.math.fmtComplex(a + d, b + c), LA.math.fmtComplex(re + 1, im), LA.math.fmtComplex(re, im + 1)],
         `Realteile und Imaginärteile einzeln addieren: ${a}+${c}=${re}, ${b}+${d}=${im}.`
       );
     }
@@ -2228,17 +1941,17 @@
       const c = randInt(-3, 3), d = randInt(-3, 3);
       const re = a * c - b * d, im = a * d + b * c;
       return mcq(
-        `Berechne $(${fmtComplex(a, b)}) \\cdot (${fmtComplex(c, d)})$.`,
-        fmtComplex(re, im),
-        [fmtComplex(a * c + b * d, a * d - b * c), fmtComplex(re + 1, im), fmtComplex(re, im + 1)],
+        `Berechne $(${LA.math.fmtComplex(a, b)}) \\cdot (${LA.math.fmtComplex(c, d)})$.`,
+        LA.math.fmtComplex(re, im),
+        [LA.math.fmtComplex(a * c + b * d, a * d - b * c), LA.math.fmtComplex(re + 1, im), LA.math.fmtComplex(re, im + 1)],
         `Ausmultiplizieren mit $i^2 = -1$: Real ${a}·${c}-${b}·${d}=${re}, Imag ${a}·${d}+${b}·${c}=${im}.`
       );
     }
     const a = randInt(-6, 6), b = randInt(-6, 6);
     return mcq(
-      `Wie lautet die konjugiert komplexe Zahl zu $z = ${fmtComplex(a, b)}$?`,
-      fmtComplex(a, -b),
-      [fmtComplex(-a, b), fmtComplex(-a, -b), fmtComplex(a + 1, b)],
+      `Wie lautet die konjugiert komplexe Zahl zu $z = ${LA.math.fmtComplex(a, b)}$?`,
+      LA.math.fmtComplex(a, -b),
+      [LA.math.fmtComplex(-a, b), LA.math.fmtComplex(-a, -b), LA.math.fmtComplex(a + 1, b)],
       `Konjugiert bedeutet: das Vorzeichen des Imaginärteils umdrehen.`
     );
   }
