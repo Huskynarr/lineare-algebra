@@ -1755,10 +1755,8 @@
   LA.shuffle = shuffle;
   LA.getNeighborLesson = getNeighborLesson;
   LA.checkModuleCompletion = checkModuleCompletion;
-  LA.computeStars = computeStars;
   LA.finishLessonGame = finishLessonGame;
   LA.WARMUP_COUNT = WARMUP_COUNT;
   LA.WARMUP_TYPES = WARMUP_TYPES;
   LA.LESSON_GAME_COUNT = LESSON_GAME_COUNT;
-  LA.LESSON_GAME_PASS_PCT = LESSON_GAME_PASS_PCT;
 })();

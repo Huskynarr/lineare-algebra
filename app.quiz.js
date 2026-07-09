@@ -597,7 +597,7 @@
     return mcq(
       "Was ändert sich bei einem Basiswechsel?",
       "Nur die Koordinaten ändern sich, der Vektor bleibt derselbe.",
-      ["Die Vektoren ändert sich", "Der Raum wird kleiner", "Gar nichts, auch Koordinaten nicht"],
+      ["Die Vektoren ändern sich", "Der Raum wird kleiner", "Gar nichts, auch Koordinaten nicht"],
         "Der Vektor bleibt, nur seine Beschreibung durch Koordinaten ändert sich."
     );
   };
