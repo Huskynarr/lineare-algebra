@@ -419,16 +419,36 @@
     }
   }
 
-  function render() {
+  // Render-Orchestrierung, entprellt über requestAnimationFrame: mehrere
+  // schnell aufeinanderfolgende render()-Aufrufe (z.B. Quiz + Status) werden
+  // zu einem einzigen Rahmen gebündelt. renderNow() erzwingt eine synchrone
+  // Ausführung für Aufrufstellen, die den DOM sofort benötigen (z.B. vor
+  // einem nachfolgenden scrollIntoView auf ein dynamisches Element).
+  let renderQueued = false;
+  function runRenderSteps() {
     LA.render.renderModuleList();
     LA.render.renderLessonDetail();
     LA.render.renderProgressSummary();
-    LA.render.renderMath();
+    // renderMath ist auf lessonDetail begrenzt: renderLessonDetail() ruft es
+    // bereits intern mit LA.elements.lessonDetail auf, daher hier kein zweiter
+    // body-weiter Scan (vermeidet doppeltes KaTeX-Durchlaufen).
     LA.viz.setupVisualizations();
     LA.render.renderReviewBanner();
     LA.render.renderShareBanner();
     LA.render.renderCertificateBanner();
   }
+  function render() {
+    if (renderQueued) return;
+    renderQueued = true;
+    requestAnimationFrame(() => {
+      renderQueued = false;
+      runRenderSteps();
+    });
+  }
+  LA.renderNow = function () {
+    renderQueued = false;
+    runRenderSteps();
+  };
 
   function checkModuleCompletion(moduleId) {
     if (!moduleId) return;

@@ -2,6 +2,13 @@
 window.LA = window.LA || {};
 LA.render = LA.render || {};
 
+// Memoisierung: nachdem die Modulliste einmal vollständig gerendert wurde,
+// aktualisieren spätere Renders nur noch Abschluss-Klassen/Sterne auf den
+// bestehenden Karten (patch), statt das gesamte innerHTML neu aufzubauen.
+// Zurückgesetzt wird das Flag bei reset/import (siehe app.progress.js), damit
+// die Liste die neue Savegame-Realität vollständig neu aufbaut.
+LA.render.moduleListRendered = false;
+
 // Render-lokale Helfer (nicht Teil der öffentlichen LA.render-API).
 function starString(stars) {
   return [0, 1, 2].map((i) => (i < stars ? "&#9733;" : "&#9734;")).join(" ");
@@ -23,6 +30,10 @@ LA.render.renderMath = function (scope) {
 };
 
 LA.render.renderModuleList = function () {
+  if (LA.render.moduleListRendered) {
+    LA.render._patchModuleCompletion();
+    return;
+  }
   const html = LA.learningPath
     .map((module) => {
       const doneInModule = module.lessons.filter((lesson) => LA.isCompleted(lesson.id)).length;
@@ -63,6 +74,60 @@ LA.render.renderModuleList = function () {
     .join("");
 
   LA.elements.moduleList.innerHTML = html;
+  LA.render.moduleListRendered = true;
+};
+
+// Patch-Pfad: aktualisiert Abschluss-Klasse, Badge-Text/Klasse und Sterne auf
+// den bestehenden Karten, ohne das Listen-innerHTML neu aufzubauen. Spiegelt
+// exakt die Markup-Logik des vollständigen Builds (gleiche Klassen/Texte).
+LA.render._patchModuleCompletion = function () {
+  // Lektions-Index je id bestimmen. Der Vollbuild nutzt lessonIndex aus
+  // module.lessons.map((lesson, lessonIndex) => …) — also pro Modul ab 0.
+  const indexById = {};
+  LA.learningPath.forEach((module) => {
+    module.lessons.forEach((lesson, lessonIndex) => {
+      indexById[lesson.id] = lessonIndex;
+    });
+  });
+
+  const cards = document.querySelectorAll("[data-lesson-id]");
+  cards.forEach((card) => {
+    const id = card.getAttribute("data-lesson-id");
+    const done = LA.isCompleted(id);
+    const active = id === LA.state.selectedLessonId;
+
+    // Klassen exakt wie im Vollbuild: is-active + is-done.
+    card.classList.toggle("is-active", active);
+    card.classList.toggle("is-done", done);
+
+    // Badge: <span class="badge[ done]">{✓ | index+1}</span>
+    const badge = card.querySelector(".badge");
+    if (badge) {
+      badge.classList.toggle("done", done);
+      badge.textContent = done ? "✓" : String(indexById[id] + 1);
+    }
+
+    // Sterne innerhalb des ersten <span> aktualisieren.
+    // Vollbuild bettet renderLessonGameStars(lesson.id) als direktes Kind des
+    // Titel-<span> ein (ein <span class="lesson-stars">…</span> oder "").
+    const labelSpan = card.querySelector("span:not(.badge)");
+    if (labelSpan) {
+      const existingStars = labelSpan.querySelector(".lesson-stars");
+      const starsHtml = LA.render.renderLessonGameStars(id);
+      if (starsHtml) {
+        const tmp = document.createElement("template");
+        tmp.innerHTML = starsHtml.trim();
+        const newNode = tmp.content.firstChild;
+        if (existingStars) {
+          existingStars.replaceWith(newNode);
+        } else {
+          labelSpan.appendChild(newNode);
+        }
+      } else if (existingStars) {
+        existingStars.remove();
+      }
+    }
+  });
 };
 
 LA.render.renderLessonDetail = function () {

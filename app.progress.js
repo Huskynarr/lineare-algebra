@@ -161,6 +161,8 @@ LA.progress.importSavegame = function (event) {
       const parsed = JSON.parse(text);
       LA.state.progress = LA.progress.sanitizeProgress(parsed);
       LA.progress.persistProgress();
+      // Import kann beliebige Abschluss-Sterne/Klassen ändern — Liste neu aufbauen.
+      if (LA.render) LA.render.moduleListRendered = false;
       LA.renderFn();
       LA.showStatus("Savegame erfolgreich geladen.");
     } catch (_error) {
@@ -180,6 +182,9 @@ LA.progress.resetProgress = function () {
   }
   LA.state.progress = LA.progress.defaultProgress();
   LA.progress.persistProgress();
+  // Nach Reset soll die Liste beim nächsten Render neu aufgebaut werden
+  // (window.location.reload() lädt ohnehin neu, aber defensiv gesetzt).
+  if (LA.render) LA.render.moduleListRendered = false;
   window.location.reload();
 };
 
