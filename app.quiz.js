@@ -27,13 +27,8 @@
     }
     const answer = Number(selected.value);
     state.progress.quizAnswers[lesson.id] = answer;
-    if (answer === lesson.quiz.answerIndex) {
-      LA.quiz.removeFromReviewQueue(lesson.id);
-      LA.showStatus("Richtig! Stark.");
-    } else {
-      LA.quiz.addToReviewQueue(lesson.id);
-      LA.showStatus("Nicht ganz. Erklärung beachten und erneut probieren.", true);
-    }
+    if (answer === lesson.quiz.answerIndex) LA.quiz.removeFromReviewQueue(lesson.id);
+    else LA.quiz.addToReviewQueue(lesson.id);
     LA.progress.persistProgress();
     LA.renderFn();
     if (answer === lesson.quiz.answerIndex) {
@@ -259,7 +254,7 @@
         const a = randInt(1, 5 + level);
         const b = randInt(1, 5 + level);
         const op = level <= 4 ? "+" : "-";
-        const result = op === "+" ? a + b : Math.abs(a - b);
+        const result = op === "+" ? a + b : a - b;
         const decA = (a / 10).toString().replace(".", ",");
         const decB = (b / 10).toString().replace(".", ",");
         return {
@@ -747,7 +742,7 @@
   LA.quiz.genExam = function () {
     const randInt = LA.randInt;
     const mcq = LA.quiz.mcq;
-    const subtype = randInt(0, 2);
+    const subtype = randInt(0, 4);
     if (subtype === 0) {
       return mcq(
         "Was ist der schnellste Plausibilitätscheck in einer Prüfung?",
@@ -764,29 +759,101 @@
         "Hohe Konditionszahl = kleine Störungen → große Ergebnisänderung."
       );
     }
-    return mcq(
-      "Wann ist eine Matrix 'defekt' (nicht diagonalisierbar)?",
-      "Wenn es zu wenige unabhängige Eigenvektoren gibt.",
-      ["Wenn die Determinante 1 ist", "Wenn alle Eigenwerte verschieden sind", "Wenn die Matrix symmetrisch ist"],
+    if (subtype === 2) {
+      return mcq(
+        "Wann ist eine Matrix 'defekt' (nicht diagonalisierbar)?",
+        "Wenn es zu wenige unabhängige Eigenvektoren gibt.",
+        ["Wenn die Determinante 1 ist", "Wenn alle Eigenwerte verschieden sind", "Wenn die Matrix symmetrisch ist"],
         "Zu wenige Eigenvektoren → keine Basis → nicht diagonalisierbar (Jordan-Form hilft)."
+      );
+    }
+    if (subtype === 3) {
+      return mcq(
+        "Was solltest du vor einer längeren Rechnung aus der Aufgabe notieren?",
+        "Gegebenes, Gesuchtes und den passenden Satz.",
+        ["Nur das Endergebnis", "Alle Formeln auswendig", "Zuerst eine beliebige Matrix"],
+        "Eine kurze Struktur verhindert, dass du am Auftrag vorbeirechnest."
+      );
+    }
+    return mcq(
+      "Wie gehst du mit einer festgefahrenen Klausuraufgabe um?",
+      "Zwischenergebnisse sichern, markieren und später zurückkehren.",
+      ["Die restliche Klausur abbrechen", "Das Blatt leer lassen", "Ohne Begründung raten"],
+      "So sammelst du Teilpunkte und schützt die Zeit für lösbare Aufgaben."
     );
   };
+
+  LA.quiz.fromQuestionBank = function (bank) {
+    const entry = LA.pick(bank);
+    return LA.quiz.mcq(entry[0], entry[1], entry[2], entry[3]);
+  };
+
+  const PROOF_BANK = [
+    ["Was bedeutet ∀x?", "Die Aussage gilt für jedes x.", ["Die Aussage gilt für genau ein x.", "Es gibt kein x.", "x ist immer null."], "∀ liest man als: für alle."],
+    ["Wie widerlegt man eine Aussage der Form „Für alle x gilt …“?", "Ein einziges Gegenbeispiel genügt.", ["Mit zehn passenden Beispielen", "Nur durch Induktion", "Gar nicht"], "Eine Allaussage ist bereits durch ein Gegenbeispiel falsch."],
+    ["Womit beginnt eine vollständige Induktion?", "Mit dem Induktionsanfang.", ["Mit der Schlussformel", "Mit einem Gegenbeispiel", "Mit einer Matrix"], "Zuerst prüft man den kleinsten zugelassenen Wert."],
+    ["Was ist die Negation von „Alle Zahlen sind positiv“?", "Mindestens eine Zahl ist nicht positiv.", ["Alle Zahlen sind negativ.", "Keine Zahl ist positiv.", "Mindestens eine Zahl ist positiv."], "Die Negation von „alle“ lautet „es gibt mindestens eine, für die es nicht gilt“."],
+    ["Was beschreibt eine Funktion?", "Jedem Element des Definitionsbereichs wird genau ein Wert zugeordnet.", ["Jeder Wert hat zwei Bilder.", "Nur Zahlen dürfen eingesetzt werden.", "Definitions- und Zielmenge müssen gleich sein."], "Eindeutige Zuordnung ist das Kernmerkmal einer Funktion."]
+  ];
+
+  const STRUCTURE_BANK = [
+    ["Wann ist V = U ⊕ W eine direkte Summe?", "Wenn V = U + W und U ∩ W = {0} gilt.", ["Wenn U = W gilt.", "Wenn U ∩ W = V gilt.", "Wenn beide Räume leer sind."], "Direktheit bedeutet eine eindeutige Zerlegung; dafür darf der Schnitt nur den Nullvektor enthalten."],
+    ["Was fasst ein Quotientenraum V/U zusammen?", "Vektoren, die sich nur um einen Vektor aus U unterscheiden.", ["Nur Vektoren der Länge 1", "Alle Basen von V", "Nur den Nullvektor"], "Im Quotientenraum werden Nebenklassen v+U betrachtet."],
+    ["Woraus besteht der Dualraum V*?", "Aus den linearen Abbildungen V → K.", ["Aus allen Unterräumen von V", "Aus Matrizen mit Determinante 1", "Nur aus Vektoren von V"], "Elemente des Dualraums sind lineare Funktionale."],
+    ["Welche Dimension hat V/U bei endlichdimensionalem V?", "dim(V) − dim(U)", ["dim(V) + dim(U)", "dim(U) − dim(V)", "Immer 0"], "Die Richtungen aus U werden im Quotientenraum zu null."],
+    ["Was ist der Annihilator einer Teilmenge?", "Die Funktionale, die auf ihr verschwinden.", ["Ihre orthogonale Matrix", "Ihre längsten Vektoren", "Ihr Komplement als Menge"], "Der Annihilator sammelt lineare Funktionale mit Wert null auf der Teilmenge."]
+  ];
+
+  const NORMAL_FORM_BANK = [
+    ["Was sagt Cayley-Hamilton?", "Jede quadratische Matrix erfüllt ihr eigenes charakteristisches Polynom.", ["Jede Matrix ist diagonal.", "Jede Determinante ist 1.", "Alle Eigenwerte sind verschieden."], "Setzt man A in χ_A ein, erhält man die Nullmatrix."],
+    ["Wann ist eine Matrix diagonalisierbar?", "Wenn es eine Basis aus Eigenvektoren gibt.", ["Wenn sie nur Nullen enthält.", "Wenn ihre Spur null ist.", "Wenn sie rechteckig ist."], "Eine Eigenvektorbasis macht die Darstellungsmatrix diagonal."],
+    ["Was verrät der größte Jordanblock zu λ?", "Den Exponenten von (x−λ) im Minimalpolynom.", ["Die Determinante der Matrix", "Die Anzahl der Zeilen", "Die Spur des Dualraums"], "Die Blocklänge entspricht der nötigen Potenz im Minimalpolynom."],
+    ["Was ist bei verschiedenen Eigenwerten immer richtig?", "Eigenvektoren zu verschiedenen Eigenwerten sind linear unabhängig.", ["Die Eigenvektoren sind gleich.", "Die Matrix ist singulär.", "Alle Eigenwerte sind null."], "Verschiedene Eigenwerte liefern unabhängige Eigenrichtungen."],
+    ["Wozu dient die rationale Normalform?", "Sie beschreibt Endomorphismen auch ohne Zerfall des Polynoms in Linearfaktoren.", ["Sie ersetzt jede Matrix durch I.", "Sie berechnet Winkel.", "Sie gilt nur über ℝ."], "Invariantenfaktoren funktionieren über dem Grundkörper ohne alle Eigenwerte zu kennen."]
+  ];
+
+  const BILINEAR_BANK = [
+    ["Wann ist eine Bilinearform symmetrisch?", "Wenn b(v,w) = b(w,v) für alle v,w gilt.", ["Wenn b(v,v)=0 gilt.", "Wenn ihre Matrix rechteckig ist.", "Wenn sie nur positive Werte hat."], "Symmetrie bedeutet, dass die Argumente vertauscht werden dürfen."],
+    ["Was zählt die Signatur (p,q,r)?", "Positive, negative und verschwindende Quadratrichtungen.", ["Zeilen, Spalten und Rang", "Eigenvektoren, Basen und Dimension", "Nur positive Eigenwerte"], "Bei einer symmetrischen Form zählt die Signatur die Vorzeichen der Eigenwerte."],
+    ["Was bleibt bei einem Basiswechsel einer reellen symmetrischen Form erhalten?", "Die Anzahlen positiver und negativer Quadrate.", ["Jeder einzelne Matrixeintrag", "Die konkrete Basis", "Die Reihenfolge der Zeilen"], "Das ist der Trägheitssatz von Sylvester."],
+    ["Welche Matrizen erfüllen QᵀQ = I?", "Orthogonale Matrizen.", ["Alle Diagonalmatrizen", "Nur Nullmatrizen", "Alle symmetrischen Matrizen"], "Orthogonale Matrizen erhalten Längen und Winkel."],
+    ["Was garantiert der Spektralsatz für reelle symmetrische Matrizen?", "Eine orthonormale Basis aus Eigenvektoren.", ["Nur komplexe Eigenwerte", "Determinante null", "Keine Diagonalisierbarkeit"], "Symmetrische Matrizen sind orthogonal diagonalisierbar."]
+  ];
+
+  const MODULE_BANK = [
+    ["Was ist ein Modul im Vergleich zu einem Vektorraum?", "Wie ein Vektorraum, aber die Skalare kommen aus einem Ring.", ["Eine Matrix ohne Einträge", "Immer eine Gruppe mit genau einem Element", "Ein Vektorraum nur über ℝ"], "Moduln verallgemeinern Vektorräume, indem ein Ring statt eines Körpers wirkt."],
+    ["Was zeichnet einen Hauptidealring aus?", "Jedes Ideal wird von einem einzigen Element erzeugt.", ["Er hat nur ein Ideal.", "Jedes Element ist null.", "Er ist immer ein Körper."], "In einem Hauptidealring hat jedes Ideal die Form (a)."],
+    ["Welches bekannte Beispiel ist ein Hauptidealring?", "Die ganzen Zahlen ℤ.", ["Alle quadratischen Matrizen", "Die natürlichen Zahlen ohne 0", "Jeder Vektorraum"], "Jedes Ideal in ℤ hat die Form nℤ."],
+    ["Was beschreibt der Struktursatz für endlich erzeugte Moduln über einem HIR?", "Eine Zerlegung in freien Anteil und Torsionsanteile.", ["Nur die Dimension eines Vektorraums", "Eine Winkelmessung", "Die Ableitung eines Polynoms"], "Der Satz zerlegt den Modul in gut verständliche Bausteine."],
+    ["Wie hängen rationale Normalform und K[x]-Modul zusammen?", "Eine lineare Abbildung lässt x wie die Abbildung selbst wirken.", ["x wird immer zu null.", "Matrizen werden addiert statt multipliziert.", "Es gibt keinen Zusammenhang."], "Durch x·v = A(v) wird der Vektorraum zum K[x]-Modul."]
+  ];
+
+  LA.quiz.genProofs = () => LA.quiz.fromQuestionBank(PROOF_BANK);
+  LA.quiz.genStructure = () => LA.quiz.fromQuestionBank(STRUCTURE_BANK);
+  LA.quiz.genNormalForms = () => LA.quiz.fromQuestionBank(NORMAL_FORM_BANK);
+  LA.quiz.genBilinear = () => LA.quiz.fromQuestionBank(BILINEAR_BANK);
+  LA.quiz.genModules = () => LA.quiz.fromQuestionBank(MODULE_BANK);
 
   // ---- Lektions-Spiel ----
 
   LA.quiz.LESSON_GAME_GENERATORS = {
-    "mod-0": LA.quiz.genComplex,
-    "mod-1": LA.quiz.genBasics,
-    "mod-2": LA.quiz.genVectors,
-    "mod-3": LA.quiz.genMatrices,
-    "mod-4": LA.quiz.genLGS,
-    "mod-5": LA.quiz.genDeterminant,
-    "mod-6": LA.quiz.genVectorSpace,
-    "mod-7": LA.quiz.genLinearMap,
-    "mod-8": LA.quiz.genEigen,
-    "mod-9": LA.quiz.genDot,
-    "mod-10": LA.quiz.genSVD,
-    "mod-11": LA.quiz.genExam
+    "mod-0": LA.quiz.genBasics,
+    "mod-1": LA.quiz.genProofs,
+    "mod-2": LA.quiz.genComplex,
+    "mod-3": LA.quiz.genVectors,
+    "mod-4": LA.quiz.genMatrices,
+    "mod-5": LA.quiz.genLGS,
+    "mod-6": LA.quiz.genDeterminant,
+    "mod-7": LA.quiz.genVectorSpace,
+    "mod-8": LA.quiz.genVectorSpace,
+    "mod-9": LA.quiz.genLinearMap,
+    "mod-10": LA.quiz.genEigen,
+    "mod-11": LA.quiz.genDot,
+    "mod-12": LA.quiz.genStructure,
+    "mod-13": LA.quiz.genNormalForms,
+    "mod-14": LA.quiz.genBilinear,
+    "mod-15": LA.quiz.genModules,
+    "mod-16": LA.quiz.genExam
   };
 
   LA.quiz.generateLessonGameQuestions = function (moduleId) {

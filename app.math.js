@@ -119,79 +119,100 @@ LA.math.polyEval = function (coeffs, x) {
   return v;
 };
 
-// Nullstellen eines Polynoms (Grad 1–3 exakt, Grad 4 numerisch per Bisektion/Newton über reeller Suche).
+// Reelle Nullstellen eines Polynoms bis Grad 4, mit algebraischer Vielfachheit.
+// Durand-Kerner berechnet zunächst alle komplexen Nullstellen gleichzeitig;
+// anschließend werden numerisch reelle Ergebnisse gefiltert und stabilisiert.
 LA.math.polyRoots = function (coeffs) {
-  const deg = coeffs.length - 1;
-  const roots = [];
-  const tol = 1e-7;
-  if (deg === 1) {
-    roots.push(-coeffs[0] / coeffs[1]);
-    return roots;
+  const values = coeffs.slice();
+  while (values.length > 1 && Math.abs(values[values.length - 1]) < 1e-14) values.pop();
+  const degree = values.length - 1;
+  if (degree < 1 || degree > 4) return [];
+  if (degree === 1) return [-values[0] / values[1]];
+  if (degree === 2) {
+    const [constant, linear, quadratic] = values;
+    const discriminant = linear * linear - 4 * quadratic * constant;
+    if (discriminant < -1e-12) return [];
+    const root = Math.sqrt(Math.max(0, discriminant));
+    return [(-linear - root) / (2 * quadratic), (-linear + root) / (2 * quadratic)];
   }
-  if (deg === 2) {
-    const a = coeffs[2], b = coeffs[1], c = coeffs[0];
-    const disc = b * b - 4 * a * c;
-    if (disc < -tol) return roots; // komplexe Eigenwerte
-    const sq = Math.sqrt(Math.max(0, disc));
-    const r1 = (-b + sq) / (2 * a);
-    const r2 = (-b - sq) / (2 * a);
-    roots.push(r1);
-    // Bei Doppelwurzel (disc ≈ 0) beide zählen, sonst die zweite nur wenn verschieden.
-    if (sq > tol) roots.push(r2);
-    else roots.push(r1);
-    return roots;
-  }
-  if (deg === 3) {
-    // Kubik: trigonometrische Formel (drei reelle Wurzeln) für D ≥ 0, sonst Cardano-Einzelwurzel + Deflation.
-    const a = coeffs[3];
-    const p = coeffs[2] / a, q = coeffs[1] / a, r = coeffs[0] / a;
-    const p3 = p / 3;
-    const Q = (p * p - 3 * q) / 9;
-    const R = (2 * p * p * p - 9 * p * q + 27 * r) / 54;
-    const D = Q * Q * Q - R * R;
-    if (D >= -tol) {
-      // Drei reelle Wurzeln (auch bei Mehrfachwurzeln numerisch stabil).
-      const Qc = Math.max(Q, 0);
-      const Rc = Math.max(-1, Math.min(1, R / Math.sqrt(Qc * Qc * Qc || 1)));
-      const th = Math.acos(Rc);
-      const sqrtQ = Math.sqrt(Qc);
-      for (let k = 0; k < 3; k++) {
-        roots.push(-2 * sqrtQ * Math.cos((th + 2 * Math.PI * k) / 3) - p3);
-      }
-      return roots;
+
+  const leading = values[degree];
+  const monic = values.map((value) => value / leading);
+  const bound = 1 + Math.max(...monic.slice(0, degree).map(Math.abs));
+  const multiply = (a, b) => ({ re: a.re * b.re - a.im * b.im, im: a.re * b.im + a.im * b.re });
+  const divide = (a, b) => {
+    const denominator = b.re * b.re + b.im * b.im;
+    return {
+      re: (a.re * b.re + a.im * b.im) / denominator,
+      im: (a.im * b.re - a.re * b.im) / denominator
+    };
+  };
+  const evaluate = (root) => {
+    let result = { re: monic[degree], im: 0 };
+    for (let power = degree - 1; power >= 0; power--) {
+      result = multiply(result, root);
+      result.re += monic[power];
     }
-    // Einer reelle Wurzel via Cardano, dann Deflation + quadratisch.
-    const s = Math.cbrt(R + Math.sqrt(-D));
-    const t = Math.cbrt(R - Math.sqrt(-D));
-    const x1 = s + t - p3;
-    roots.push(x1);
-    const b2 = a;
-    const b1 = coeffs[2] + b2 * x1;
-    const b0 = coeffs[1] + b1 * x1;
-    const quad = [b0, b1, b2];
-    LA.math.polyRoots(quad).forEach((rt) => roots.push(rt));
-    return roots;
+    return result;
+  };
+
+  let roots = Array.from({ length: degree }, (_, index) => {
+    const angle = (2 * Math.PI * index) / degree + 0.37;
+    const radius = bound * (1 + index * 0.01);
+    return { re: radius * Math.cos(angle), im: radius * Math.sin(angle) };
+  });
+
+  for (let iteration = 0; iteration < 10000; iteration++) {
+    let maxChange = 0;
+    const next = roots.map((root, index) => {
+      let denominator = { re: 1, im: 0 };
+      roots.forEach((other, otherIndex) => {
+        if (index !== otherIndex) {
+          denominator = multiply(denominator, { re: root.re - other.re, im: root.im - other.im });
+        }
+      });
+      const correction = divide(evaluate(root), denominator);
+      maxChange = Math.max(maxChange, Math.hypot(correction.re, correction.im));
+      return { re: root.re - correction.re, im: root.im - correction.im };
+    });
+    roots = next;
+    if (maxChange < 1e-12) break;
   }
-  // Grad 4: numerische reelle Nullstellen-Suche über Intervall-Scan + Newton.
-  const bound = 1 + Math.max(...coeffs.slice(0, deg).map((c) => Math.abs(c) / Math.abs(coeffs[deg])));
-  const step = bound / 1000;
-  let prev = LA.math.polyEval(coeffs, -bound);
-  for (let x = -bound + step; x <= bound; x += step) {
-    const cur = LA.math.polyEval(coeffs, x);
-    if (prev === 0) { roots.push(x - step); }
-    else if (prev * cur < 0) {
-      let lo = x - step, hi = x;
-      for (let it = 0; it < 60; it++) {
-        const mid = (lo + hi) / 2;
-        const fm = LA.math.polyEval(coeffs, mid);
-        if (Math.abs(fm) < tol) { lo = hi = mid; break; }
-        if (LA.math.polyEval(coeffs, lo) * fm < 0) hi = mid; else lo = mid;
-      }
-      roots.push((lo + hi) / 2);
+
+  const realRoots = roots
+    .filter((root) =>
+      Math.abs(root.im) <= 1e-5 * Math.max(1, Math.abs(root.re)) ||
+      (Math.abs(root.im) < 1e-2 && Math.abs(LA.math.polyEval(values, root.re)) < 1e-8)
+    )
+    .map((root) => root.re)
+    .sort((a, b) => a - b);
+  for (let index = 0; index < realRoots.length;) {
+    let end = index + 1;
+    while (end < realRoots.length && Math.abs(realRoots[end] - realRoots[index]) < 1e-4) end++;
+    const average = realRoots.slice(index, end).reduce((sum, value) => sum + value, 0) / (end - index);
+    for (let current = index; current < end; current++) realRoots[current] = average;
+    index = end;
+  }
+
+  const derivativeOf = (polynomial) => polynomial.slice(1).map((coefficient, index) => coefficient * (index + 1));
+  const derivative = derivativeOf(values);
+  const scale = Math.max(1, values.reduce((sum, value) => sum + Math.abs(value), 0));
+  const criticalRoots = LA.math.polyRoots(derivative).filter((value, index, list) => index === 0 || Math.abs(value - list[index - 1]) > 1e-5);
+  criticalRoots.forEach((candidate) => {
+    if (Math.abs(LA.math.polyEval(values, candidate)) > 1e-8 * scale) return;
+    let multiplicity = 1;
+    let currentDerivative = derivative;
+    while (currentDerivative.length > 1 && Math.abs(LA.math.polyEval(currentDerivative, candidate)) <= 1e-7 * scale) {
+      multiplicity++;
+      currentDerivative = derivativeOf(currentDerivative);
     }
-    prev = cur;
-  }
-  return roots;
+    for (let index = realRoots.length - 1; index >= 0; index--) {
+      if (Math.abs(realRoots[index] - candidate) < 1e-2) realRoots.splice(index, 1);
+    }
+    for (let count = 0; count < multiplicity; count++) realRoots.push(candidate);
+  });
+  realRoots.sort((a, b) => a - b);
+  return realRoots;
 };
 
 LA.math.formatNum = function (n) {

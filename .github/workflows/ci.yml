@@ -6,9 +6,13 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,9 +25,29 @@ jobs:
       - name: Validate JavaScript syntax
         run: |
           node --check app.js
+          node --check app.math.js
+          node --check app.tools.js
+          node --check app.progress.js
+          node --check app.quiz.js
+          node --check app.viz.js
+          node --check app.render.js
           node --check service-worker.js
           node --check data/learningPath.js
+          node --check tools/gen-llms.js
+          node --check tools/validate-content.js
+
+      - name: Validate learning content
+        run: node tools/validate-content.js
 
       - name: Validate web manifest
         run: |
           node -e "const fs=require('fs'); JSON.parse(fs.readFileSync('manifest.webmanifest','utf8'));"
+
+      - name: Validate JSON-LD
+        run: |
+          node -e "const fs=require('fs'); const html=fs.readFileSync('index.html','utf8'); [...html.matchAll(/<script type=\"application\\/ld\\+json\"[^>]*>([\\s\\S]*?)<\\/script>/g)].forEach((match)=>JSON.parse(match[1]));"
+
+      - name: Verify generated LLM content
+        run: |
+          node tools/gen-llms.js
+          git diff --exit-code -- llms.txt llms-full.txt

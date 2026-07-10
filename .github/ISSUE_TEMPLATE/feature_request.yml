@@ -1,0 +1,35 @@
+name: Verbesserung vorschlagen
+description: Schlage eine didaktische, inhaltliche oder technische Verbesserung vor.
+title: "feat: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: Lernproblem oder Bedarf
+      description: Welches konkrete Problem soll die Verbesserung lösen?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Vorschlag
+      description: Beschreibe die gewünschte Lösung möglichst anschaulich.
+    validations:
+      required: true
+  - type: dropdown
+    id: audience
+    attributes:
+      label: Zielgruppe
+      options:
+        - Schulische Grundlagen
+        - Lineare Algebra 1
+        - Lineare Algebra 2
+        - Alle Lernstufen
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternativen oder Beispiele
+      description: Gibt es gute Referenzen, Skizzen oder ähnliche Lernangebote?

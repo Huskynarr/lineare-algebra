@@ -1,0 +1,39 @@
+name: Fehler melden
+description: Melde einen reproduzierbaren Fehler in Inhalt oder Anwendung.
+title: "fix: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Danke für die Meldung. Sicherheitslücken bitte ausschließlich gemäß SECURITY.md privat melden.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Fehlerbeschreibung
+      description: Was ist passiert und was hast du erwartet?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Schritte zur Reproduktion
+      placeholder: "1. Öffne …\n2. Wähle …\n3. Beobachte …"
+    validations:
+      required: true
+  - type: input
+    id: lesson
+    attributes:
+      label: Ansicht oder Lektion
+      placeholder: "z. B. Lernen → Gauß-Verfahren"
+  - type: input
+    id: environment
+    attributes:
+      label: Browser und Gerät
+      placeholder: "z. B. Firefox 128, Android 15"
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Screenshots oder Konsolenausgabe
+      description: Entferne persönliche Daten, bevor du Dateien anhängst.

@@ -1,5 +1,5 @@
 // app.progress.js
-// Savegame / Fortschritt / Mastery — liest und schreibt localStorage und LA.state,
+// Savegame / Fortschritt / Lernstand — liest und schreibt localStorage und LA.state,
 // führt kein DOM-Rendering aus. Render-Aufrufe erfolgen über LA.renderFn().
 window.LA = window.LA || {};
 LA.progress = LA.progress || {};
@@ -27,7 +27,12 @@ LA.progress.isObject = function (value) {
 };
 
 LA.progress.loadProgress = function () {
-  const raw = localStorage.getItem(LA.STORAGE_KEY);
+  let raw = null;
+  try {
+    raw = localStorage.getItem(LA.STORAGE_KEY);
+  } catch (_error) {
+    return LA.progress.defaultProgress();
+  }
   if (!raw) {
     return LA.progress.defaultProgress();
   }
@@ -62,7 +67,9 @@ LA.progress.sanitizeProgress = function (source) {
     quizAnswers: {},
     quizTextAnswers: {},
     quizTextChecked: {},
-    reviewQueue: Array.isArray(candidate.reviewQueue) ? candidate.reviewQueue.filter((id) => typeof id === "string") : [],
+    reviewQueue: Array.isArray(candidate.reviewQueue)
+      ? [...new Set(candidate.reviewQueue.filter((id) => typeof id === "string" && LA.lessonById.has(id)))]
+      : [],
     lessonGames: {},
     certificate: LA.progress.sanitizeCertificate(candidate.certificate)
   };
@@ -81,11 +88,23 @@ LA.progress.sanitizeProgress = function (source) {
       const lesson = LA.lessonById.get(lessonId);
       if (
         lesson &&
+        Array.isArray(lesson.quiz.options) &&
         Number.isInteger(answer) &&
         answer >= 0 &&
         answer < lesson.quiz.options.length
       ) {
         sanitized.quizAnswers[lessonId] = answer;
+      }
+    }
+  }
+
+  if (LA.progress.isObject(candidate.quizTextAnswers)) {
+    for (const lessonId of Object.keys(candidate.quizTextAnswers)) {
+      const lesson = LA.lessonById.get(lessonId);
+      const answer = candidate.quizTextAnswers[lessonId];
+      if (lesson?.quiz?.inputType === "text" && typeof answer === "string") {
+        sanitized.quizTextAnswers[lessonId] = answer.slice(0, 500);
+        sanitized.quizTextChecked[lessonId] = candidate.quizTextChecked?.[lessonId] === true;
       }
     }
   }
@@ -96,7 +115,7 @@ LA.progress.sanitizeProgress = function (source) {
       const g = candidate.lessonGames[lessonId];
       if (!LA.progress.isObject(g)) continue;
       sanitized.lessonGames[lessonId] = {
-        bestPct: typeof g.bestPct === "number" && isFinite(g.bestPct) ? Math.max(0, Math.round(g.bestPct)) : 0,
+        bestPct: typeof g.bestPct === "number" && isFinite(g.bestPct) ? Math.max(0, Math.min(100, Math.round(g.bestPct))) : 0,
         bestStars: typeof g.bestStars === "number" && isFinite(g.bestStars) ? Math.max(0, Math.min(3, Math.round(g.bestStars))) : 0,
         attempts: typeof g.attempts === "number" && isFinite(g.attempts) ? Math.max(0, Math.round(g.attempts)) : 0
       };
@@ -124,7 +143,15 @@ LA.progress.sanitizeCertificate = function (source) {
 
 LA.progress.persistProgress = function () {
   LA.state.progress.updatedAt = new Date().toISOString();
-  localStorage.setItem(LA.STORAGE_KEY, JSON.stringify(LA.state.progress));
+  try {
+    localStorage.setItem(LA.STORAGE_KEY, JSON.stringify(LA.state.progress));
+    return true;
+  } catch (_error) {
+    if (typeof LA.showStatus === "function") {
+      LA.showStatus("Fortschritt konnte in diesem Browser nicht gespeichert werden.", true);
+    }
+    return false;
+  }
 };
 
 LA.progress.exportSavegame = function () {
@@ -193,13 +220,21 @@ LA.progress.computeMasteryFor = function (lessons) {
   const total = lessons.length;
   const completed = lessons.filter((l) => LA.isCompleted(l.id)).length;
   const completionRate = completed / total;
-  const quizCorrect = lessons.reduce((count, l) => {
-    const a = LA.state.progress.quizAnswers[l.id];
-    if (typeof a === "number" && a === l.quiz.answerIndex) return count + 1;
-    return count;
-  }, 0);
+  const quizCorrect = lessons.filter((lesson) => LA.progress.isQuizCorrect(lesson)).length;
   const quizRate = quizCorrect / total;
   return Math.round((completionRate * 0.7 + quizRate * 0.3) * 100);
+};
+
+LA.progress.isQuizCorrect = function (lesson) {
+  if (!lesson?.quiz) return false;
+  if (lesson.quiz.inputType === "text") {
+    if (LA.state.progress.quizTextChecked?.[lesson.id] !== true) return false;
+    const answer = LA.state.progress.quizTextAnswers?.[lesson.id];
+    const accepted = lesson.quiz.acceptAnswers || [lesson.quiz.correctAnswer];
+    const normalize = (value) => String(value || "").trim().toLowerCase().replace(/\s+/g, " ").replace(",", ".");
+    return accepted.some((value) => normalize(answer) === normalize(value));
+  }
+  return LA.state.progress.quizAnswers[lesson.id] === lesson.quiz.answerIndex;
 };
 
 // Höchste erreichbare Zertifikatsstufe: "la2" (gesamter Pfad) > "la1" > null.

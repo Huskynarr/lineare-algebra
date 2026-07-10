@@ -7,7 +7,7 @@
   "orientation": "any",
   "background_color": "#0b1220",
   "theme_color": "#0b1220",
-  "description": "Kostenloser interaktiver Trainer für Lineare Algebra: 11 Module, Theorie, Übungen, Quiz. Offline nutzbar.",
+  "description": "Interaktiver Mathe-Trainer mit 17 Modulen vom Hauptschulniveau bis zum Bachelor. Mit Übungen, Quiz, Visualisierungen und Offline-Modus.",
   "lang": "de-DE",
   "categories": ["education", "productivity"],
   "icons": [
@@ -21,27 +21,27 @@
       "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ],
   "shortcuts": [
     {
       "name": "Aufwärmen",
-      "short_name": "Warmup",
+      "short_name": "Start",
       "description": "10 Algebra-Aufgaben zum Reinkommen",
-      "url": "./#warmup-panel"
+      "url": "./#start"
     },
     {
       "name": "Lernpfad",
       "short_name": "Module",
-      "description": "Alle 11 Module und Lektionen",
-      "url": "./#nav-toggle"
+      "description": "Alle 17 Module und 52 Lektionen",
+      "url": "./#lernen"
     }
   ]
 }

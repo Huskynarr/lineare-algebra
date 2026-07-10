@@ -29,7 +29,8 @@ Alle Token leben in `styles.css`. Dark-Theme in `:root` (Zeile 1), Light-Theme i
 | `--accent` | `#38bdf8` | `#0284c7` | Primärakzent, Links, Buttons |
 | `--accent-2` | `#22c55e` | `#16a34a` | Sekundärakzent |
 | `--forest` | `#22c55e` | `#16a34a` | "Erledigt"-Farbe |
-| `--warning` | `#fb7185` | `#e11d48` | Fehler, "Falsch"-Feedback |
+| `--warning` | `#f59e0b` | `#d97706` | Ruhiges Warn-/"Falsch"-Feedback |
+| `--viz-result` | `#c084fc` | `#7c3aed` | Neutrale Resultate in Visualisierungen |
 | `--border` | `#243151` | `#cbd5e1` | Standardrahmen |
 | `--border-soft` | `#2d4368` | `#e2e8f0` | Dezente Rahmen |
 | `--input-border` | `#314165` | `#cbd5e1` | Eingaberahmen |
@@ -44,7 +45,7 @@ Alle Token leben in `styles.css`. Dark-Theme in `:root` (Zeile 1), Light-Theme i
 | `--btn-text` | `#0f172a` | `#ffffff` | Text auf Primary-Buttons |
 | `--output-text` | `#bae6fd` | `#0369a1` | Tool-Ergebnisausgabe |
 | `--success-text` | `#86efac` | `#15803d` | "Richtig"-Feedback |
-| `--error-text` | `#fda4af` | `#be123c` | "Falsch"-Feedback |
+| `--error-text` | `#fbbf24` | `#92400e` | "Falsch"-Feedback ohne Alarmrot |
 | `--status-text` | `#bbf7d0` | `#15803d` | Statusmeldungen |
 
 ### Effekte & Geometrie
@@ -53,7 +54,6 @@ Alle Token leben in `styles.css`. Dark-Theme in `:root` (Zeile 1), Light-Theme i
 |---|---|---|
 | `--shadow` | `0 10px 28px rgb(0 0 0 / 28%)` | Panel-Schatten (Light: `0 10px 28px rgb(15 23 42 / 8%)`) |
 | `--hover-overlay` | `rgba(255,255,255,.08)` | Hover-Overlay (Light: `rgba(15,23,42,.06)`) |
-| `--overlay-dim` | `rgba(0,0,0,.5)` | Overlay-Abdunklung |
 | `--radius` | `0.8rem` | Standard-Radius für Panels/Karten |
 
 Button-Radius ist fest `0.6rem` (nicht via Token) — bewusst etwas enger als Panel-Radius.
@@ -69,13 +69,15 @@ Button-Radius ist fest `0.6rem` (nicht via Token) — bewusst etwas enger als Pa
 
 ### Hauptstruktur
 
-```
-body
-└── .topbar            (sticky, z-index:100, backdrop-filter:blur)
-└── .layout            (CSS Grid, 3 Spalten desktop)
-    ├── .sidebar-left  (Lernpfad, kollabierbar)
-    ├── .content       (Hauptinhalt)
-    └── .sidebar-right (Einstellungen/Tools, kollabierbar)
+```text
+body[data-view]
+├── .topbar + .app-nav (Start / Lernen / Werkzeuge / Fortschritt)
+├── .home-view         (nur Start)
+├── .layout            (pro Ansicht gezielt reduziert)
+│   ├── .sidebar-left  (Lernpfad oder Lernplan)
+│   ├── .content       (aktive Lektion oder Warmup)
+│   └── .sidebar-right (nur Werkzeuge)
+├── #progress-panel    (nur Fortschritt)
 └── .footer
 ```
 
@@ -83,9 +85,9 @@ body
 
 | Breakpoint | Verhalten |
 |---|---|
-| `> 1024px` | Drei-Spalten-Grid, beide Sidebars sichtbar |
-| `≤ 1024px` | Sidebars werden Off-Canvas-Overlays (`.nav-overlay`, `.tools-overlay`), Burger-Button steuert sie |
-| `≤ 640px` | Einspaltig, reduzierte Padding-Werte |
+| `> 760px` | Lernansicht zweispaltig, andere Ansichten einspaltig bzw. Tool-Grid |
+| `≤ 760px` | Einspaltig, kompakte Hauptnavigation, Lernpfad klappt nach Auswahl zu |
+| `≤ 640px` | Reduzierte Padding-Werte und einspaltige Karten |
 | `641–1024px` | Übergangsregeln für mittlere Viewports |
 
 ### Safe Areas
@@ -119,7 +121,7 @@ Die Topbar nutzt `env(safe-area-inset-*)` für Notch-kompatibles Padding. Bei ne
 ### Quiz
 
 - `.quiz` — Panel mit Options-Liste.
-- `.quiz-feedback` — grün/rot je nach Antwort (`--success-text` / `--error-text`).
+- `.quiz-feedback` — grün/amber je nach Antwort (`--success-text` / `--error-text`).
 - `.quiz-solution` / `.quiz-solution__body` — ausklappbare Lösung.
 
 ### Referenzen & FAQ (neu)
@@ -139,12 +141,12 @@ Die Topbar nutzt `env(safe-area-inset-*)` für Notch-kompatibles Padding. Bei ne
 - `.warmup-*` — Week-0-Warmup-Phase mit Fragen und Sternen.
 - `.lesson-game` / `.game-btn` — Lektions-Spielmodus.
 - `.lesson-stars` — Sterne-Rating.
-- `.certificate-banner` — Zertifikats-Anzeige ab 80 % Mastery.
+- `.certificate-banner` — Zertifikats-Anzeige ab 80 % Lernstand.
 
 ## Visuelle Sprache
 
-- **Ton:** ruhig, akademisch, aber freundlich. Keine verspielten Illustrationen, keine Emojis in der UI-Oberfläche (nur in Banner-Texten wie Share/Certificate).
-- **Farbsemantik:** Blau = Akzent/Aktion, Grün = Erfolg/Erledigt, Rot = Fehler/Warnung. Diese Zuordnung nicht mischen.
+- **Ton:** ruhig, akademisch, aber freundlich. Emojis nur sparsam zur Orientierung oder in Bannern einsetzen.
+- **Farbsemantik:** Blau = Akzent/Aktion, Grün = Erfolg/Erledigt, Amber = Hinweis oder Fehlerfeedback. Diese Zuordnung nicht mischen.
 - **Dichte:** großzügiges Padding, klare Trennlinien (`--line`/`--border`), keine Schatten-Hierarchie über mehrere Ebenen (nur eine Shadow-Ebene auf Top-Level-Panels).
 - **Animationen:** dezent, ≤ `0.15s` für Hover/Übergänge. Keine Page-Transitions.
 

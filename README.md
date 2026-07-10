@@ -3,23 +3,26 @@
 [![Deploy to GitHub Pages](https://github.com/Huskynarr/lineare-algebra/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/Huskynarr/lineare-algebra/actions/workflows/deploy-pages.yml)
 [![CI](https://github.com/Huskynarr/lineare-algebra/actions/workflows/ci.yml/badge.svg)](https://github.com/Huskynarr/lineare-algebra/actions/workflows/ci.yml)
 
-Interaktive Lernplattform für den Wiedereinstieg in die Lineare Algebra — von den absoluten Grundlagen bis zum fortgeschrittenen Bachelor-Niveau.
+Interaktive Lernplattform für Mathematik und Lineare Algebra — verständlich ab Hauptschulniveau bis zum fortgeschrittenen Bachelor-Niveau.
 
 **Live:** <https://huskynarr.is-a.dev/lineare-algebra/>
 
-**Zielgruppe:** Studierende, die bei Null starten und systematisch auf Prüfungsniveau kommen wollen.
+**Zielgruppe:** Schülerinnen, Schüler und Studierende, die passend zu ihrem Vorwissen einsteigen und systematisch Bachelor-Niveau erreichen wollen.
 
 ## Features
 
 - **17 Module, 52 Lektionen** (Einsteiger → Profi): Schul-Basics & Beweise, komplexe Zahlen, Vektoren, Matrizen, LGS, Determinanten, Vektorräume, lineare Abbildungen, Eigenwerte, Skalarprodukt — und in **Lineare Algebra 2**: abstrakte Vektorräume, Jordan-/rationale Normalform, Bilinearformen, Moduln über Hauptidealringen, Freiburg-Klausurtraining
 - **Pro Lektion:** Theorie, Beispiel, Übungsaufgabe mit Tipp, Mini-Quiz (Multiple-Choice oder Freitext), Spielmodus
-- **Fortschrittsanzeige** + Mastery-Score (70 % Bearbeitung + 30 % Quiz korrekt)
+- **Drei Einstiegsrouten** für Grundlagencheck, vollständigen Aufbau oder direkten LA1-Start
+- **Klarer App-Flow** mit getrennten Ansichten für Start, Lernen, Werkzeuge und Fortschritt
+- **Interaktive Visualisierungen** für Zahlenstrahl, Vektoren, Linearkombinationen, Projektionen und Matrixabbildungen
+- **Fortschrittsanzeige** + Lernstand (70 % Bearbeitung + 30 % Quiz korrekt)
 - **Savegame-System:** Fortschritt lokal speichern, als JSON exportieren/importieren
 - **Offline-Lernen** via Service Worker + Cache API
 - **Rechenwerkzeuge:** Skalarprodukt & Winkel, Determinante 2×2, Matrix-Multiplikation, Inverse 2×2, Gauß-Verfahren 2×2 — sowie für LA2: Eigenwert-Rechner (char. Polynom + Eigenwerte bis 4×4), Jordan-Normalform-Rechner (Kästchen & Minimalpolynom), Bilinearform-Rechner (Rang, Signatur, Klassifikation)
 - **Quellen & Referenzen** pro Lektion (Wikipedia, historische Mathematiker-Artikel, Freiburger Altklausuren der Fachschaft Mathematik)
 - **Dark / Light Theme** umschaltbar
-- **Zertifikat** ab 80 % Mastery
+- **Zertifikat** ab 80 % Lernstand
 
 ## Lokale Nutzung
 
@@ -70,11 +73,18 @@ Ziel-URL: <https://huskynarr.is-a.dev/lineare-algebra/>
 ```text
 .
 ├── .github/workflows/
-│   ├── ci.yml                 # node --check Syntax-Validierung
+│   ├── ci.yml                 # Syntax-, Inhalts- und Metadatenprüfung
 │   └── deploy-pages.yml       # rsync -> site/ -> GitHub Pages
 ├── data/learningPath.js        # Lernpfad + LEARNING_REFERENCES (Inhalts-Quelle)
 ├── tools/gen-llms.js           # Generator für llms.txt / llms-full.txt (nicht deployed)
-├── app.js                      # Single-IIFE App-Logik + Renderer
+├── tools/validate-content.js   # Schema- und LaTeX-Inhaltsprüfung
+├── app.js                      # Start, Zustand und UI-Orchestrierung
+├── app.math.js                 # Mathematische Kernfunktionen
+├── app.tools.js                # Interaktive Rechenwerkzeuge
+├── app.quiz.js                 # Quiz, Warmup und Spielmodus
+├── app.progress.js             # Savegame und Lernstand
+├── app.render.js               # HTML-Renderer
+├── app.viz.js                  # Canvas-Visualisierungen
 ├── index.html                  # SEO, OG, JSON-LD, HTML-Gerüst
 ├── service-worker.js           # Offline-Caching (cache-then-network)
 ├── styles.css                  # Design-Token, Layout, Komponenten
@@ -88,13 +98,14 @@ Ziel-URL: <https://huskynarr.is-a.dev/lineare-algebra/>
 ├── AGENTS.md                   # Build- & Architektur-Regeln für Agenten
 ├── DESIGN.md                   # Design-System & visuelle Sprache
 ├── CONTRIBUTING.md
+├── SECURITY.md
 ├── CODE_OF_CONDUCT.md
 └── LICENSE
 ```
 
 ## Mitmachen
 
-Siehe [`CONTRIBUTING.md`](CONTRIBUTING.md). Beitragsrichtlinien und Commit-Stil dort.
+Siehe [`CONTRIBUTING.md`](CONTRIBUTING.md). Sicherheitslücken bitte nicht öffentlich melden; der Ablauf steht in [`SECURITY.md`](SECURITY.md).
 
 ## Lizenz
 

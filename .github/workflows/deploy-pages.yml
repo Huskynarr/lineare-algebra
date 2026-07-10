@@ -18,12 +18,35 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Validate deploy source
+        run: |
+          node --check app.js
+          node --check app.math.js
+          node --check app.tools.js
+          node --check app.progress.js
+          node --check app.quiz.js
+          node --check app.viz.js
+          node --check app.render.js
+          node --check service-worker.js
+          node --check data/learningPath.js
+          node tools/validate-content.js
+          node -e "JSON.parse(require('fs').readFileSync('manifest.webmanifest','utf8'))"
+          node -e "const fs=require('fs'); const html=fs.readFileSync('index.html','utf8'); [...html.matchAll(/<script type=\"application\\/ld\\+json\"[^>]*>([\\s\\S]*?)<\\/script>/g)].forEach((match)=>JSON.parse(match[1]));"
+          node tools/gen-llms.js
+          git diff --exit-code -- llms.txt llms-full.txt
 
       - name: Build static artifact
         run: |
@@ -44,6 +67,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: build
     steps:
       - name: Deploy to GitHub Pages

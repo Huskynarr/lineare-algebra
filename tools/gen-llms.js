@@ -33,19 +33,10 @@ function loadLearningPath() {
   };
 }
 
-function stripLatex(s) {
+function formatContent(s) {
   if (typeof s !== "string") return "";
-  // $...$ entfernen, aber Inhalt behalten (Inline-Math für LLMs lesbar lassen).
-  return s
-    .replace(/\\n/g, " ")
-    .replace(/\\\\/g, "\\")
-    .replace(/\\begin\{[^}]*\}/g, "")
-    .replace(/\\end\{[^}]*\}/g, "")
-    .replace(/\\text\{([^}]*)\}/g, "$1")
-    .replace(/\\,/g, " ")
-    .replace(/\\;/g, " ")
-    .replace(/\\!/g, "")
-    .replace(/\\:/g, " ");
+  // LaTeX bleibt erhalten, damit Formeln und Matrizen maschinenlesbar sind.
+  return s.replace(/\r?\n/g, " ").replace(/\s{2,}/g, " ").trim();
 }
 
 function quizAnswer(quiz) {
@@ -127,22 +118,22 @@ function buildFull(lp, refs) {
       if (Array.isArray(l.theory) && l.theory.length) {
         lines.push("#### Theorie");
         lines.push("");
-        l.theory.forEach((t) => lines.push(`- ${stripLatex(t)}`));
+        l.theory.forEach((t) => lines.push(`- ${formatContent(t)}`));
         lines.push("");
       }
 
       if (l.example) {
         lines.push("#### Beispiel");
         lines.push("");
-        lines.push(stripLatex(l.example));
+        lines.push(formatContent(l.example));
         lines.push("");
       }
 
       if (l.exercise) {
         lines.push("#### Übungsaufgabe");
         lines.push("");
-        lines.push(stripLatex(l.exercise));
-        if (l.hint) lines.push(`\n*Tipp: ${stripLatex(l.hint)}*`);
+        lines.push(formatContent(l.exercise));
+        if (l.hint) lines.push(`\n*Tipp: ${formatContent(l.hint)}*`);
         lines.push("");
       }
 
@@ -150,9 +141,9 @@ function buildFull(lp, refs) {
         const ans = quizAnswer(l.quiz);
         lines.push("#### Mini-Quiz (Q&A)");
         lines.push("");
-        lines.push(`**F:** ${stripLatex(l.quiz.question)}`);
+        lines.push(`**F:** ${formatContent(l.quiz.question)}`);
         lines.push("");
-        lines.push(`**A:** ${stripLatex(ans)}`);
+        lines.push(`**A:** ${formatContent(ans)}`);
         lines.push("");
       }
 

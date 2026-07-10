@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
   <!-- Core SEO -->
-  <title>Lineare Algebra Trainer — kostenlos lernen & üben | 17 Module, 52 Lektionen, Quiz, offline</title>
-  <meta name="description" content="Kostenloser, interaktiver Lineare-Algebra-Trainer: 17 Module, 52 Lektionen mit Theorie, Beispielen, Übungen, Mini-Quiz und Spielfortschritt. Von Schul-Basics über Lineare Algebra 1 bis Lineare Algebra 2 (Normalformen, Bilinearformen, Moduln). Offline nutzbar, mit Rechenwerkzeugen — ideal zur Klausurvorbereitung an der Uni Freiburg.">
+  <title>Lineare Algebra Trainer — von Schulmathe bis Bachelor</title>
+  <meta name="description" content="Kostenloser, interaktiver Lineare-Algebra-Trainer: verständlich ab Hauptschulniveau bis Bachelor. 17 Module und 52 Lektionen mit Übungen, Quiz, Spielen und steuerbaren Visualisierungen. Offline nutzbar.">
   <meta name="keywords" content="Lineare Algebra, Lineare Algebra 1, Lineare Algebra 2, Vektoren, Matrizen, Determinanten, Eigenwerte, Vektorräume, Lineare Abbildungen, Jordan-Normalform, Bilinearformen, Moduln, Skalarprodukt, Gram-Schmidt, Gauß-Verfahren, LGS, Uni Freiburg, Klausur, Studium, kostenlos, offline">
   <meta name="author" content="Huskynarr">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
@@ -48,9 +48,9 @@
   <meta name="twitter:image" content="https://huskynarr.is-a.dev/lineare-algebra/og-image.svg">
   <meta name="twitter:image:alt" content="Lineare Algebra Trainer — 17 Module, 52 Lektionen, LA1 + LA2">
   <meta name="twitter:label1" content="Module">
-  <meta name="twitter:data1" content="11">
+  <meta name="twitter:data1" content="17">
   <meta name="twitter:label2" content="Lektionen">
-  <meta name="twitter:data2" content="36">
+  <meta name="twitter:data2" content="52">
 
   <!-- PWA / mobile -->
   <meta name="theme-color" content="#0b1220">
@@ -68,11 +68,7 @@
   <link rel="alternate" type="text/plain" href="llms-full.txt" title="Vollständiger LLM-Inhalt">
   <meta name="llm-opt-in" content="indexing, summarization, citation">
 
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
   <link rel="preload" href="data/learningPath.js" as="script">
   <link rel="preload" href="app.js" as="script">
 
@@ -112,7 +108,8 @@
     "description": "Kostenloser, interaktiver Lineare-Algebra-Kurs mit 17 Modulen und 52 Lektionen: Schul-Basics, komplexe Zahlen, Vektoren, Matrizen, Gleichungssysteme, Determinanten, Vektorräume, lineare Abbildungen, Eigenwerte, Skalarprodukt, abstrakte Vektorräume, Jordan-Normalform, Bilinearformen, Moduln und Freiburg-Klausurtraining. Inklusive Theorie, Beispielen, Übungen, Mini-Quiz und Spielfortschritt.",
     "url": "https://huskynarr.is-a.dev/lineare-algebra/",
     "inLanguage": "de",
-    "educationalLevel": ["Anfänger", "Fortgeschritten", "Profi"],
+    "educationalLevel": ["Hauptschulniveau", "Sekundarstufe", "Bachelor"],
+    "audience": {"@type": "EducationalAudience", "educationalRole": "student"},
     "provider": {
       "@type": "EducationalOrganization",
       "name": "Lineare Algebra Trainer",
@@ -180,7 +177,7 @@
       {
         "@type": "Question",
         "name": "Für welche Zielgruppe ist der Trainer geeignet?",
-        "acceptedAnswer": {"@type": "Answer", "text": "Für Anfänger ohne Vorkenntnisse bis hin zu Studierenden, die sich auf eine Lineare-Algebra-Klausur vorbereiten. Die Lektionen sind in die Schwierigkeitsgrade Einsteiger, Aufbau, Fortgeschritten und Profi eingeteilt."}
+        "acceptedAnswer": {"@type": "Answer", "text": "Für Lernende ab Hauptschulniveau, Schülerinnen und Schüler der Sekundarstufe sowie Studierende bis zum Bachelor. Drei Einstiegsrouten helfen dabei, passende Vorkenntnisse nicht vorauszusetzen."}
       },
       {
         "@type": "Question",
@@ -202,65 +199,84 @@
     })();
   </script>
 </head>
-<body>
-  <a href="#warmup-panel" class="skip-link">Zum Inhalt springen</a>
-  <input type="checkbox" id="nav-toggle" aria-hidden="true">
-  <input type="checkbox" id="tools-toggle" aria-hidden="true">
+<body data-view="start">
+  <a href="#home-view" class="skip-link">Zum Inhalt springen</a>
 
   <header class="topbar">
-    <label for="nav-toggle" class="topbar__burger" role="button" tabindex="0" aria-label="Einstellungen öffnen" aria-controls="sidebar" aria-expanded="false" title="Einstellungen">
-      <span></span><span></span><span></span>
-    </label>
     <div class="topbar__brand">
       <h1 data-i18n="app.title">Lineare Algebra</h1>
     </div>
-    <div class="topbar__stats" aria-label="Fortschrittsübersicht">
-      <span class="stat"><span class="stat__label" data-i18n="stat.progress">Fortschritt</span> <strong id="progress-percent">0 %</strong></span>
-      <span class="stat"><span class="stat__label" data-i18n="stat.mastery">Mastery</span> <strong id="mastery-score">0 %</strong></span>
-      <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Gesamtfortschritt"><span id="progress-bar-fill"></span></div>
-    </div>
-    <label for="tools-toggle" class="topbar__tools-btn" role="button" tabindex="0" aria-label="Rechenwerkzeuge öffnen" title="Rechenwerkzeuge">🧮</label>
+    <nav class="app-nav" aria-label="Hauptnavigation">
+      <a href="#start" data-view-link="start" aria-current="page">Start</a>
+      <a href="#lernen" data-view-link="lernen">Lernen</a>
+      <a href="#werkzeuge" data-view-link="werkzeuge">Werkzeuge</a>
+      <a href="#fortschritt" data-view-link="fortschritt">Fortschritt</a>
+    </nav>
   </header>
 
-  <label for="nav-toggle" class="nav-overlay" aria-hidden="true"></label>
-  <label for="tools-toggle" class="tools-overlay" aria-hidden="true"></label>
+  <p id="status-message" role="status" aria-live="polite"></p>
 
-  <aside class="sidebar" id="sidebar" aria-label="Einstellungen" role="navigation">
+  <section class="sidebar" id="progress-panel" aria-labelledby="progress-title">
     <div class="sidebar__head">
-      <h2>Einstellungen</h2>
-      <label for="nav-toggle" class="sidebar__close" role="button" aria-label="Einstellungen schließen">✕</label>
+      <h2 id="progress-title">Fortschritt</h2>
     </div>
-    <p class="sidebar__hint">Design und Fortschritt</p>
+    <p class="sidebar__hint">Dein Lernstand auf einen Blick</p>
+
+    <div class="progress-dashboard" role="group" aria-label="Lernfortschritt">
+      <div><span>Lektionen</span><strong id="progress-view-completed">0 / 52</strong></div>
+      <div><span>Bearbeitet</span><strong id="progress-view-percent">0 %</strong></div>
+      <div><span>Lernstand</span><strong id="progress-view-mastery">0 %</strong></div>
+    </div>
 
     <section class="settings-block">
-      <h3 class="settings-block__title">Design</h3>
+      <h3 class="settings-block__title">Darstellung</h3>
       <div class="theme-switch" role="group" aria-label="Farbschema wählen">
-        <button type="button" id="theme-dark" class="theme-switch__btn is-active" aria-pressed="true" aria-label="Dunkles Design aktivieren">🌙 Dark</button>
-        <button type="button" id="theme-light" class="theme-switch__btn" aria-pressed="false" aria-label="Helles Design aktivieren">☀️ White</button>
+        <button type="button" id="theme-dark" class="theme-switch__btn is-active" aria-pressed="true" aria-label="Dunkles Design aktivieren">🌙 Dunkel</button>
+        <button type="button" id="theme-light" class="theme-switch__btn" aria-pressed="false" aria-label="Helles Design aktivieren">☀️ Hell</button>
       </div>
     </section>
 
     <section class="settings-block">
       <h3 class="settings-block__title">Fortschritt verwalten</h3>
       <div class="manage-actions">
-        <button id="export-progress" type="button">Savegame herunterladen</button>
-        <label class="button-like" for="import-progress">Savegame laden</label>
+        <button id="export-progress" type="button">Lernstand herunterladen</button>
+        <label class="button-like" for="import-progress">Lernstand laden</label>
         <input id="import-progress" type="file" accept="application/json">
         <button id="reset-progress" type="button" class="ghost" aria-label="Fortschritt zurücksetzen">Zurücksetzen</button>
       </div>
-      <p id="status-message" role="status" aria-live="polite"></p>
     </section>
-  </aside>
+  </section>
+
+  <main class="home-view" id="home-view" aria-labelledby="home-title">
+    <section class="home-hero">
+      <div class="home-hero__copy">
+        <p class="eyebrow">Von Schulmathe bis Bachelor</p>
+        <h2 id="home-title">Mathe verstehen, nicht nur auswendig lernen.</h2>
+        <p>Wähle einen Einstieg. Danach siehst du immer nur den nächsten sinnvollen Schritt — mit kurzen Erklärungen, Übungen und interaktiven Bildern.</p>
+      </div>
+      <div class="learning-routes" role="group" aria-label="Einstieg wählen">
+        <button id="jump-warmup" type="button" class="learning-route">
+          <span aria-hidden="true">🌱</span><strong>Grundlagen prüfen</strong><small>10 kurze Aufgaben zu Zahlen, Brüchen und Termen</small>
+        </button>
+        <button type="button" class="learning-route" data-start-lesson="m0-l1">
+          <span aria-hidden="true">🧭</span><strong>Ganz vorne starten</strong><small>Vom Schulstoff Schritt für Schritt zu LA1</small>
+        </button>
+        <button type="button" class="learning-route" data-start-lesson="m3-l1">
+          <span aria-hidden="true">🚀</span><strong>Direkt zu Vektoren</strong><small>Wenn Gleichungen und Brüche bereits sicher sitzen</small>
+        </button>
+      </div>
+      <button type="button" class="continue-button ghost" id="continue-learning">Dort weitermachen, wo ich war</button>
+    </section>
+  </main>
 
   <div class="layout">
     <aside class="sidebar-left" aria-label="Lernpfad und Lernplan">
-      <details class="panel panel--path">
+      <details class="panel panel--path" open>
         <summary class="panel__summary">
           <h2>Lernpfad</h2>
         </summary>
         <p class="panel__description">Module und Lektionen</p>
         <nav id="module-list" class="module-list" aria-label="Lektionsliste"></nav>
-        <span class="hidden-completed" id="completed-lessons" aria-hidden="true">0 / 0</span>
       </details>
 
       <details class="panel panel--plan">
@@ -269,98 +285,98 @@
         </summary>
         <ol class="plan-list">
           <li class="plan-card plan-card--warmup">
-            <span class="plan-card__weeks" aria-label="Woche 0 — Aufwärmen">0</span>
+            <span class="plan-card__weeks">0</span>
             <div class="plan-card__body">
               <h3>Aufwärmen: Algebra-Basics</h3>
               <p>Terme, Gleichungen, Brüche und Zahlen auffrischen — 10 Kurzaufgaben zum Reinkommen</p>
             </div>
           </li>
           <li class="plan-card">
-            <span class="plan-card__weeks" aria-label="Woche 1">1</span>
+            <span class="plan-card__weeks">1</span>
             <div class="plan-card__body">
               <h3>Rechnen &amp; Terme (m0)</h3>
               <p>Vorzeichen, Brüche, binomische Formeln sicher beherrschen</p>
             </div>
           </li>
           <li class="plan-card">
-            <span class="plan-card__weeks" aria-label="Woche 2">2</span>
+            <span class="plan-card__weeks">2</span>
             <div class="plan-card__body">
               <h3>Gleichungen, Mengen &amp; Beweise (m1)</h3>
               <p>Quadratische Gleichungen, Quantoren, vollständige Induktion</p>
             </div>
           </li>
           <li class="plan-card">
-            <span class="plan-card__weeks" aria-label="Woche 3">3</span>
+            <span class="plan-card__weeks">3</span>
             <div class="plan-card__body">
               <h3>Komplexe Zahlen (m2)</h3>
               <p>Gauß-Ebene, Rechnen, Polardarstellung, Fundamentalsatz</p>
             </div>
           </li>
           <li class="plan-card">
-            <span class="plan-card__weeks" aria-label="Wochen 4 bis 5">4–5</span>
+            <span class="plan-card__weeks">4–5</span>
             <div class="plan-card__body">
               <h3>Vektoren &amp; Matrizen (m3, m4)</h3>
               <p>Pfeile, Linearkombinationen, Matrizenmultiplikation, Inverse</p>
             </div>
           </li>
           <li class="plan-card">
-            <span class="plan-card__weeks" aria-label="Wochen 6 bis 7">6–7</span>
+            <span class="plan-card__weeks">6–7</span>
             <div class="plan-card__body">
               <h3>LGS &amp; Determinanten (m5, m6)</h3>
               <p>Gauß-Verfahren, Rang, Lösbarkeit, Determinante als Volumen</p>
             </div>
           </li>
           <li class="plan-card">
-            <span class="plan-card__weeks" aria-label="Wochen 8 bis 9">8–9</span>
+            <span class="plan-card__weeks">8–9</span>
             <div class="plan-card__body">
               <h3>Vektorräume (m7, m8, Brücke)</h3>
               <p>Axiome, Unterräume, Basis/Dimension — und der bewusste Sprung zur Abstraktion</p>
             </div>
           </li>
           <li class="plan-card">
-            <span class="plan-card__weeks" aria-label="Woche 10">10</span>
+            <span class="plan-card__weeks">10</span>
             <div class="plan-card__body">
               <h3>Lineare Abbildungen (m9)</h3>
               <p>Kern/Bild, Rang-Nullität, Darstellungsmatrix, Basiswechsel</p>
             </div>
           </li>
           <li class="plan-card">
-            <span class="plan-card__weeks" aria-label="Wochen 11 bis 12">11–12</span>
+            <span class="plan-card__weeks">11–12</span>
             <div class="plan-card__body">
               <h3>Eigenwerte &amp; Skalarprodukt (m10, m11)</h3>
               <p>char. Polynom, Diagonalisierbarkeit, Gram-Schmidt, QR — LA1-Abschluss</p>
             </div>
           </li>
           <li class="plan-card">
-            <span class="plan-card__weeks" aria-label="Woche 13">13</span>
+            <span class="plan-card__weeks">13</span>
             <div class="plan-card__body">
               <h3>LA2: Struktur von Vektorräumen (m12)</h3>
               <p>Direkte Summen, Quotientenräume, Dualraum &amp; Annihilator</p>
             </div>
           </li>
           <li class="plan-card">
-            <span class="plan-card__weeks" aria-label="Wochen 14 bis 15">14–15</span>
+            <span class="plan-card__weeks">14–15</span>
             <div class="plan-card__body">
               <h3>LA2: Normalformen (m13)</h3>
               <p>Cayley-Hamilton, Minimalpolynom, Jordan- &amp; rationale Normalform</p>
             </div>
           </li>
           <li class="plan-card">
-            <span class="plan-card__weeks" aria-label="Woche 16">16</span>
+            <span class="plan-card__weeks">16</span>
             <div class="plan-card__body">
               <h3>LA2: Bilinearformen (m14)</h3>
               <p>Darstellungsmatrix, Sylvester/Signatur, Spektralsatz, klassische Gruppen</p>
             </div>
           </li>
           <li class="plan-card">
-            <span class="plan-card__weeks" aria-label="Woche 17">17</span>
+            <span class="plan-card__weeks">17</span>
             <div class="plan-card__body">
               <h3>LA2: Moduln über HIR (m15)</h3>
               <p>Ringe/Ideale, Struktursatz, Normalformen als $K[x]$-Modul</p>
             </div>
           </li>
           <li class="plan-card">
-            <span class="plan-card__weeks" aria-label="Woche 18">18</span>
+            <span class="plan-card__weeks">18</span>
             <div class="plan-card__body">
               <h3>Freiburg-Klausurtraining (m16)</h3>
               <p>Typische LA1/LA2-Aufgaben, Dozentenbezug, alte Klausuren rechnen</p>
@@ -370,25 +386,24 @@
       </details>
     </aside>
 
-    <main class="content" id="warmup-panel">
-      <section class="panel panel--warmup">
-        <h2 data-i18n="warmup.title">Aufwärmen: Algebra-Basics</h2>
-        <p class="panel__description" data-i18n="warmup.description">10 zufällige Aufgaben zum Reinkommen — Terme, Gleichungen, Brüche und Zahlen.</p>
-        <div id="warmup-area"></div>
-      </section>
-
+    <main class="content" id="main-content" aria-labelledby="lesson-title" hidden>
       <section class="panel panel--lesson">
         <article id="lesson-detail">
           <h2 id="lesson-title">Lektion laden …</h2>
           <p>Bitte wähle eine Lektion aus dem Lernpfad.</p>
         </article>
       </section>
+
+      <section class="panel panel--warmup" id="warmup-panel">
+        <h2 data-i18n="warmup.title">Aufwärmen: Algebra-Basics</h2>
+        <p class="panel__description" data-i18n="warmup.description">10 zufällige Aufgaben zum Reinkommen — Terme, Gleichungen, Brüche und Zahlen.</p>
+        <div id="warmup-area"></div>
+      </section>
     </main>
 
     <aside class="sidebar-right" id="tools-panel" aria-label="Rechenwerkzeuge">
       <div class="sidebar-right__head">
         <h2>Rechenwerkzeuge</h2>
-        <label for="tools-toggle" class="sidebar-right__close" role="button" aria-label="Rechenwerkzeuge schließen">✕</label>
       </div>
       <div class="tool-stack">
         <details class="tool" open>
@@ -473,9 +488,9 @@
 
   <footer class="footer">
     <p>
-      Made with <span class="footer__heart" aria-label="love">&#10084;</span>
-      from <span class="footer__forest">Blackforest</span>
-      by <a href="https://huskynarr.de" class="footer__link">Huskynarr</a>
+          Mit <span class="footer__heart" aria-hidden="true">&#10084;</span><span class="visually-hidden">Liebe</span>
+          im <span class="footer__forest">Schwarzwald</span>
+          von <a href="https://huskynarr.de" class="footer__link">Huskynarr</a>
     </p>
     <p class="footer__links">
       <a href="https://huskynarr.de/impressum">Impressum</a> ·
@@ -486,6 +501,7 @@
 
   <script defer src="data/learningPath.js"></script>
   <script defer src="app.math.js"></script>
+  <script defer src="app.tools.js"></script>
   <script defer src="app.progress.js"></script>
   <script defer src="app.quiz.js"></script>
   <script defer src="app.viz.js"></script>

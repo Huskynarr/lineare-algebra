@@ -9,6 +9,70 @@ LA.render = LA.render || {};
 // die Liste die neue Savegame-Realität vollständig neu aufbaut.
 LA.render.moduleListRendered = false;
 
+const MATH_ASSETS = {
+  stylesheet: {
+    url: "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css",
+    integrity: "sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV"
+  },
+  katex: {
+    url: "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js",
+    integrity: "sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8"
+  },
+  autoRender: {
+    url: "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js",
+    integrity: "sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+  }
+};
+let mathLoaderPromise = null;
+
+function appendMathStylesheet(asset) {
+  return new Promise((resolve, reject) => {
+    const existing = document.querySelector(`link[href="${asset.url}"]`);
+    if (existing) {
+      if (existing.sheet) resolve();
+      else {
+        existing.addEventListener("load", resolve, { once: true });
+        existing.addEventListener("error", reject, { once: true });
+      }
+      return;
+    }
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = asset.url;
+    link.integrity = asset.integrity;
+    link.crossOrigin = "anonymous";
+    link.addEventListener("load", resolve, { once: true });
+    link.addEventListener("error", reject, { once: true });
+    document.head.appendChild(link);
+  });
+}
+
+function appendMathScript(asset) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = asset.url;
+    script.integrity = asset.integrity;
+    script.crossOrigin = "anonymous";
+    script.addEventListener("load", resolve, { once: true });
+    script.addEventListener("error", reject, { once: true });
+    document.head.appendChild(script);
+  });
+}
+
+LA.render.ensureMathRenderer = function () {
+  if (typeof renderMathInElement === "function") return Promise.resolve();
+  if (!mathLoaderPromise) {
+    mathLoaderPromise = Promise.all([
+      appendMathStylesheet(MATH_ASSETS.stylesheet),
+      appendMathScript(MATH_ASSETS.katex).then(() => appendMathScript(MATH_ASSETS.autoRender))
+    ]).catch((error) => {
+      mathLoaderPromise = null;
+      throw error;
+    });
+  }
+  return mathLoaderPromise;
+};
+
 // Render-lokale Helfer (nicht Teil der öffentlichen LA.render-API).
 function starString(stars) {
   return [0, 1, 2].map((i) => (i < stars ? "&#9733;" : "&#9734;")).join(" ");
@@ -16,6 +80,12 @@ function starString(stars) {
 
 LA.render.renderMath = function (scope) {
   if (typeof renderMathInElement !== "function") {
+    const needsMath = document.body.dataset.view === "lernen" || document.body.classList.contains("show-warmup");
+    if (needsMath) {
+      LA.render.ensureMathRenderer()
+        .then(() => LA.render.renderMath(scope))
+        .catch(() => {});
+    }
     return;
   }
   const root = scope || document.querySelector(".content") || document.body;
@@ -34,8 +104,7 @@ LA.render.renderModuleList = function () {
     LA.render._patchModuleCompletion();
     return;
   }
-  const html = LA.learningPath
-    .map((module) => {
+  const renderModule = (module) => {
       const doneInModule = module.lessons.filter((lesson) => LA.isCompleted(lesson.id)).length;
       const moduleProgress = Math.round((doneInModule / module.lessons.length) * 100);
       const lessonsHtml = module.lessons
@@ -47,6 +116,7 @@ LA.render.renderModuleList = function () {
                 type="button"
                 class="lesson-link${active ? " is-active" : ""}${done ? " is-done" : ""}"
                 data-lesson-id="${LA.escapeHtml(lesson.id)}"
+                ${active ? 'aria-current="page"' : ""}
               >
                 <span>
                   ${LA.escapeHtml(lesson.title)}
@@ -59,19 +129,37 @@ LA.render.renderModuleList = function () {
         })
         .join("");
 
+      const activeModule = module.lessons.some((lesson) => lesson.id === LA.state.selectedLessonId);
       return `
-          <article class="module-card">
-            <h3>${LA.escapeHtml(module.title)}</h3>
+          <details class="module-card" ${activeModule ? "open" : ""}>
+            <summary><h3>${LA.escapeHtml(module.title)}</h3><span>${moduleProgress}%</span></summary>
             <div class="module-meta">
-              <span>Level: ${LA.escapeHtml(module.level)}</span>
+              <span>Niveau: ${LA.escapeHtml(module.level)}</span>
               <span>Zielzeit: ${LA.escapeHtml(module.targetHours.toString())} h</span>
               <span>Modulfortschritt: ${moduleProgress}%</span>
             </div>
             <div class="module-lessons">${lessonsHtml}</div>
-          </article>
+          </details>
         `;
-    })
-    .join("");
+  };
+  const phases = [
+    { title: "Grundlagen", description: "Schulmathe & komplexe Zahlen", modules: LA.learningPath.slice(0, 3) },
+    { title: "Lineare Algebra 1", description: "Vektoren bis Orthogonalität", modules: LA.learningPath.slice(3, 12) },
+    { title: "Lineare Algebra 2", description: "Strukturen & Normalformen", modules: LA.learningPath.slice(12, 16) },
+    { title: "Prüfung", description: "Klausurtraining", modules: LA.learningPath.slice(16) }
+  ];
+  const html = phases.map((phase) => {
+    const activePhase = phase.modules.some((module) => module.lessons.some((lesson) => lesson.id === LA.state.selectedLessonId));
+    const lessonCount = phase.modules.reduce((count, module) => count + module.lessons.length, 0);
+    return `
+      <details class="path-phase" ${activePhase ? "open" : ""}>
+        <summary>
+          <span><strong>${phase.title}</strong><small>${phase.description}</small></span>
+          <span>${lessonCount} Lektionen</span>
+        </summary>
+        <div class="path-phase__modules">${phase.modules.map(renderModule).join("")}</div>
+      </details>`;
+  }).join("");
 
   LA.elements.moduleList.innerHTML = html;
   LA.render.moduleListRendered = true;
@@ -99,6 +187,12 @@ LA.render._patchModuleCompletion = function () {
     // Klassen exakt wie im Vollbuild: is-active + is-done.
     card.classList.toggle("is-active", active);
     card.classList.toggle("is-done", done);
+    if (active) {
+      card.setAttribute("aria-current", "page");
+      card.closest(".module-card")?.setAttribute("open", "");
+    } else {
+      card.removeAttribute("aria-current");
+    }
 
     // Badge: <span class="badge[ done]">{✓ | index+1}</span>
     const badge = card.querySelector(".badge");
@@ -129,8 +223,8 @@ LA.render._patchModuleCompletion = function () {
     }
   });
 
-  // Modulfortschritt pro Modul aktualisieren. Der Vollbuild bettet in jedes
-  // <article class="module-card"> ein <div class="module-meta"> mit drei
+  // Modulfortschritt pro Modul aktualisieren. Der Vollbuild bettet in jede
+  // .module-card ein <div class="module-meta"> mit drei
   // <span>s ein; das dritte ist "Modulfortschritt: X%". Die Karten werden in
   // LA.learningPath-Reihenfolge ausgegeben, sodass die N-te .module-card zum
   // Modul LA.learningPath[N] gehört (die Karte trägt kein data-Attribut).
@@ -160,16 +254,12 @@ LA.render.renderLessonDetail = function () {
 
   if (!LA.state.lessonStarted) {
     LA.elements.lessonDetail.innerHTML = `
-        <h2>Willkommen beim Lineare-Algebra-Trainer</h2>
-        <p>Du möchtest Lineare Algebra lernen — super! Damit es sanft startet,
-        wärmen wir uns erst mit ein paar Mathe-Basics auf: Terme, Gleichungen,
-        Brüche und Zahlen. Wenn du bereit bist, starte das Aufwärmen oben.</p>
-        <p><strong>Tipp:</strong> Alternativ kannst du direkt eine Lektion aus dem
-        Lernpfad in der Seitenleiste auswählen.</p>
-        <p class="lesson-actions">
-          <button id="jump-warmup" type="button" class="ghost">Zum Aufwärmen springen</button>
-          <button id="start-first-lesson" type="button">Lektion 1 direkt öffnen</button>
-        </p>`;
+        <div class="empty-state">
+          <span aria-hidden="true">📘</span>
+          <h2>Wähle eine Lektion aus dem Lernpfad</h2>
+          <p>Oder gehe zurück zum Start und wähle einen passenden Einstieg.</p>
+          <button type="button" class="ghost" data-view-target="start">Zum Start</button>
+        </div>`;
     return;
   }
 
@@ -239,7 +329,7 @@ LA.render.renderLessonDetail = function () {
 LA.render.renderReferences = function (lesson) {
   const refs = Array.isArray(lesson.references) && lesson.references.length > 0
     ? lesson.references
-    : (Array.isArray(LEARNING_REFERENCES[lesson.id]) ? LEARNING_REFERENCES[lesson.id] : []);
+    : (Array.isArray(LA.learningReferences[lesson.id]) ? LA.learningReferences[lesson.id] : []);
   if (refs.length === 0) return "";
   const items = refs.map((ref) => {
     const url = LA.escapeHtml(ref.url || "");
@@ -326,6 +416,7 @@ LA.render.renderQuiz = function (lesson, userAnswer, hasAnswer, isCorrect, quizB
       : `<button id="check-quiz-text" type="button">Antwort prüfen</button>`;
     return `
         <p>${LA.escapeHtml(quiz.question)}</p>
+        <label class="visually-hidden" for="quiz-text-input">Antwort auf die Quizfrage</label>
         <input type="text" id="quiz-text-input" placeholder="${LA.escapeHtml(quiz.placeholder || "Deine Antwort...")}" value="${LA.escapeHtml(textAnswer || "")}" ${textChecked ? "disabled" : ""}>
         ${textButton}
         ${feedback}
@@ -361,28 +452,18 @@ LA.render.renderProgressSummary = function () {
   const total = LA.allLessons.length;
   const completed = LA.allLessons.filter((lesson) => LA.isCompleted(lesson.id)).length;
   const completionRate = total > 0 ? completed / total : 0;
-  const quizCorrectCount = LA.allLessons.reduce((count, lesson) => {
-    const answer = LA.state.progress.quizAnswers[lesson.id];
-    if (typeof answer === "number" && answer === lesson.quiz.answerIndex) {
-      return count + 1;
-    }
-    return count;
-  }, 0);
+  const quizCorrectCount = LA.allLessons.filter((lesson) => LA.progress.isQuizCorrect(lesson)).length;
   const quizRate = total > 0 ? quizCorrectCount / total : 0;
   const mastery = Math.round((completionRate * 0.7 + quizRate * 0.3) * 100);
   const percent = Math.round(completionRate * 100);
 
-  LA.elements.completedLessons.textContent = `${completed} / ${total}`;
-  LA.elements.progressPercent.textContent = `${percent} %`;
-  LA.elements.masteryScore.textContent = `${mastery} %`;
-  LA.elements.progressBarFill.style.width = `${percent}%`;
-  const bar = LA.elements.progressBarFill.closest(".progress-bar");
-  if (bar) {
-    bar.setAttribute("aria-valuenow", String(percent));
-  }
+  if (LA.elements.progressViewCompleted) LA.elements.progressViewCompleted.textContent = `${completed} / ${total}`;
+  if (LA.elements.progressViewPercent) LA.elements.progressViewPercent.textContent = `${percent} %`;
+  if (LA.elements.progressViewMastery) LA.elements.progressViewMastery.textContent = `${mastery} %`;
 };
 
 LA.render.renderReviewBanner = function () {
+  document.querySelectorAll(".review-banner").forEach((banner) => banner.remove());
   const queue = LA.state.progress.reviewQueue || [];
   if (queue.length === 0) {
     return;
@@ -405,6 +486,7 @@ LA.render.renderReviewBanner = function () {
 };
 
 LA.render.renderShareBanner = function () {
+  document.querySelectorAll(".share-banner").forEach((banner) => banner.remove());
   if (!LA.state.shareModuleId) return;
   const module = LA.learningPath.find((entry) => entry.id === LA.state.shareModuleId);
   if (!module) {
@@ -545,7 +627,7 @@ LA.render.renderLessonGameSection = function (lesson) {
     ? `<p class="game-best">Dein bestes Ergebnis: <strong>${best.bestPct}%</strong> ${starString(best.bestStars)} (in ${best.attempts} Versuch${best.attempts === 1 ? "" : "en"})</p>`
     : `<p class="game-best">Noch nicht gespielt — starte dein erstes Spiel!</p>`;
   return `
-      <p class="game-intro">Spiele ${LA.LESSON_GAME_COUNT} zufällige Aufgaben zum Thema «${LA.escapeHtml(lesson.title)}» und sammle Sterne. Mindestens ${LA.LESSON_GAME_PASS_PCT}% richtig schließt die Lektion ab.</p>
+      <p class="game-intro">Spiele ${LA.LESSON_GAME_COUNT} zufällige Aufgaben aus diesem Modul und sammle Sterne. Mindestens ${LA.LESSON_GAME_PASS_PCT}% richtig schließt die Lektion ab.</p>
       ${bestHtml}
       <button id="game-start" type="button" class="game-btn">Spiel starten</button>
     `;
@@ -628,8 +710,8 @@ LA.render.renderCertificateBanner = function () {
   const isLa2 = stage === "la2";
   const headline = isLa2 ? "LA2-Zertifikat freigeschaltet!" : "LA1-Zertifikat freigeschaltet!";
   const text = isLa2
-    ? `Du hast den gesamten Lernpfad (LA1 + LA2) abgeschlossen und ${LA.CERTIFICATE_MASTERY_THRESHOLD}% Mastery erreicht. Hol dir dein Abschluss-Zertifikat.`
-    : `Du hast Lineare Algebra 1 (Modul 0–11) abgeschlossen und ${LA.CERTIFICATE_MASTERY_THRESHOLD}% Mastery erreicht. Hol dir dein LA1-Zertifikat — LA2 geht weiter.`;
+    ? `Du hast den gesamten Lernpfad (LA1 + LA2) abgeschlossen und ${LA.CERTIFICATE_MASTERY_THRESHOLD}% Lernstand erreicht. Hol dir dein Abschluss-Zertifikat.`
+    : `Du hast Lineare Algebra 1 (Modul 0–11) abgeschlossen und ${LA.CERTIFICATE_MASTERY_THRESHOLD}% Lernstand erreicht. Hol dir dein LA1-Zertifikat — LA2 geht weiter.`;
   const banner = document.createElement("div");
   banner.className = "certificate-banner";
   banner.innerHTML = `
@@ -673,18 +755,18 @@ LA.render.renderCertificateModal = function () {
   modal.id = "certificate-modal";
   modal.className = "certificate-modal";
   modal.innerHTML = `
-      <div class="certificate-modal__backdrop" id="certificate-close" aria-hidden="true"></div>
-      <div class="certificate-sheet" role="dialog" aria-modal="true" aria-label="Zertifikat">
-        <button id="certificate-close" type="button" class="certificate-close" aria-label="Zertifikat schließen">✕</button>
+      <div class="certificate-modal__backdrop" data-certificate-close aria-hidden="true"></div>
+      <div class="certificate-sheet" role="dialog" aria-modal="true" aria-labelledby="certificate-title">
+        <button type="button" class="certificate-close" data-certificate-close aria-label="Zertifikat schließen">✕</button>
         <div class="certificate-sheet__inner">
           <div class="certificate-sheet__seal">🏆</div>
           <p class="certificate-sheet__eyebrow">${eyebrow}</p>
-          <h2 class="certificate-sheet__title">${title}</h2>
+          <h2 class="certificate-sheet__title" id="certificate-title">${title}</h2>
           ${nameHtml}
           <p class="certificate-sheet__text">${bodyText}</p>
           <div class="certificate-sheet__stats">
             <div><strong>${completed}/${total}</strong><span>Lektionen</span></div>
-            <div><strong>${mastery}%</strong><span>Mastery</span></div>
+            <div><strong>${mastery}%</strong><span>Lernstand</span></div>
           </div>
           <p class="certificate-sheet__date">Ausgestellt am ${date}</p>
           <div class="certificate-sheet__signature">
@@ -693,7 +775,7 @@ LA.render.renderCertificateModal = function () {
           </div>
           <div class="certificate-sheet__actions">
             <button id="certificate-print" type="button">Drucken / als PDF</button>
-            <button id="certificate-close" type="button" class="ghost">Schließen</button>
+            <button type="button" class="ghost" data-certificate-close>Schließen</button>
           </div>
         </div>
       </div>

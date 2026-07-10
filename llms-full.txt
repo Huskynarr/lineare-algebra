@@ -21,7 +21,7 @@ Dieser Text ist eine maschinenlesbare Inhaltsübersicht für LLM-Crawler und Suc
 
 - Wir rechnen mit ganzen Zahlen, Brüchen und Dezimalzahlen. Wichtig sind die Vorzeichen: eine negative Zahl hat ein Minus davor, zum Beispiel $-3$.
 - Beim Addieren gilt: gleichnamige Vorzeichen werden addiert, unterschiedliche voneinander abgezogen. $(-5)+(-3)=-8$, aber $(-5)+3=-2$.
-- Beim Multiplizieren gilt die Vorzeichenregel: minus mal minus gibt plus. $(-4)cdot(-3)=12$, dagegen $(-4)cdot 3=-12$.
+- Beim Multiplizieren gilt die Vorzeichenregel: minus mal minus gibt plus. $(-4)\cdot(-3)=12$, dagegen $(-4)\cdot 3=-12$.
 - Der Betrag $|a|$ macht jede Zahl positiv: $|-7|=7$ und $|7|=7$.
 
 #### Beispiel
@@ -30,15 +30,15 @@ $(-2)+5-(-3)=-2+5+3=6$. Schritt für Schritt: erst $-2+5=3$, dann $3-(-3)=3+3=6$
 
 #### Übungsaufgabe
 
-Berechne $(-7)cdot(-2)+(-3)$.
+Berechne $(-7)\cdot(-2)+(-3)$.
 
 *Tipp: Erst multiplizieren (minus mal minus gibt plus), dann addieren.*
 
 #### Mini-Quiz (Q&A)
 
-**F:** Was ergibt $(-6)cdot(-4)$?
+**F:** Was ergibt $(-6)\cdot(-4)$?
 
-**A:** Richtig ist: $24$. Minus mal minus gibt plus: $(-6)cdot(-4)=24$.
+**A:** Richtig ist: $24$. Minus mal minus gibt plus: $(-6)\cdot(-4)=24$.
 
 #### Quellen & weiterführende Links
 
@@ -56,16 +56,16 @@ Berechne $(-7)cdot(-2)+(-3)$.
 
 - Ein Bruch $\tfrac{a}{b}$ besteht aus Zähler $a$ und Nenner $b$. Erweitern heißt Zähler und Nenner mit derselben Zahl multiplizieren, Kürzen heißt durch dieselbe Zahl teilen.
 - Brüche werden addiert, indem man sie auf einen gemeinsamen Nenner bringt: $\tfrac{1}{2}+\tfrac{1}{3}=\tfrac{3}{6}+\tfrac{2}{6}=\tfrac{5}{6}$.
-- Multipliziert wird Zähler mal Zähler, Nenner mal Nenner: $\tfrac{2}{3}cdot\tfrac{4}{5}=\tfrac{8}{15}$. Division durch einen Bruch ist Multiplikation mit dem Kehrwert: $\tfrac{a}{b}:\tfrac{c}{d}=\tfrac{a}{b}cdot\tfrac{d}{c}$.
-- Eine Dezimalzahl wie $0{,}75$ ist derselbe Wert wie der Bruch $\tfrac{3}{4}$.-periodische Dezimalzahlen (z. B. $0{,}\overline{3}=\tfrac{1}{3}$) entsprechen stets einem Bruch.
+- Multipliziert wird Zähler mal Zähler, Nenner mal Nenner: $\tfrac{2}{3}\cdot\tfrac{4}{5}=\tfrac{8}{15}$. Division durch einen Bruch ist Multiplikation mit dem Kehrwert: $\tfrac{a}{b}:\tfrac{c}{d}=\tfrac{a}{b}\cdot\tfrac{d}{c}$.
+- Eine Dezimalzahl wie $0{,}75$ ist derselbe Wert wie der Bruch $\tfrac{3}{4}$. Periodische Dezimalzahlen (z. B. $0{,}\overline{3}=\tfrac{1}{3}$) entsprechen stets einem Bruch.
 
 #### Beispiel
 
-$\tfrac{2}{5}+\tfrac{1}{4}=\tfrac{8}{20}+\tfrac{5}{20}=\tfrac{13}{20}$. Gemeinsamer Nenner ist $20$, da $20=5cdot 4$.
+$\tfrac{2}{5}+\tfrac{1}{4}=\tfrac{8}{20}+\tfrac{5}{20}=\tfrac{13}{20}$. Gemeinsamer Nenner ist $20$, da $20=5\cdot 4$.
 
 #### Übungsaufgabe
 
-Berechne $\tfrac{3}{4}cdot\tfrac{2}{9}$ und kürze das Ergebnis.
+Berechne $\tfrac{3}{4}\cdot\tfrac{2}{9}$ und kürze das Ergebnis.
 
 *Tipp: Zähler mal Zähler, Nenner mal Nenner, dann kürzen: $\tfrac{6}{36}$.*
 
@@ -73,7 +73,7 @@ Berechne $\tfrac{3}{4}cdot\tfrac{2}{9}$ und kürze das Ergebnis.
 
 **F:** Wie teilt man $\tfrac{2}{3}$ durch $\tfrac{4}{5}$?
 
-**A:** Richtig ist: $\tfrac{5}{6}$. Division durch einen Bruch ist Multiplikation mit dem Kehrwert: $\tfrac{2}{3}cdot\tfrac{5}{4}=\tfrac{10}{12}=\tfrac{5}{6}$.
+**A:** Richtig ist: $\tfrac{5}{6}$. Division durch einen Bruch ist Multiplikation mit dem Kehrwert: $\tfrac{2}{3}\cdot\tfrac{5}{4}=\tfrac{10}{12}=\tfrac{5}{6}$.
 
 #### Quellen & weiterführende Links
 
@@ -130,16 +130,14 @@ Vereinfache $(2x+1)^2-(2x-1)(2x+1)$.
 
 #### Theorie
 
-- Eine lineare Gleichung hat die Form $ax+b=0$. Man isoliert $x$: $ax+b=0Rightarrow ax=-bRightarrow x=-	frac{b}{a}$ (für $a
-eq 0$).
-- Eine quadratische Gleichung $x^2+px+q=0$ löst man mit der pq-Formel: $x_{1,2}=-	frac{p}{2}pmsqrt{	frac{p^2}{4}-q}$. Die Zahl unter der Wurzel heißt Diskriminante; ist sie negativ, gibt es keine reelle Lösung.
-- Allgemeiner: $ax^2+bx+c=0$ mit $x_{1,2}=	frac{-bpmsqrt{b^2-4ac}}{2a}$ für $a
-eq 0$.
+- Eine lineare Gleichung hat die Form $ax+b=0$. Man isoliert $x$: $ax+b=0\Rightarrow ax=-b\Rightarrow x=-\tfrac{b}{a}$ (für $a\neq 0$).
+- Eine quadratische Gleichung $x^2+px+q=0$ löst man mit der pq-Formel: $x_{1,2}=-\tfrac{p}{2}\pm\sqrt{\tfrac{p^2}{4}-q}$. Die Zahl unter der Wurzel heißt Diskriminante; ist sie negativ, gibt es keine reelle Lösung.
+- Allgemeiner: $ax^2+bx+c=0$ mit $x_{1,2}=\tfrac{-b\pm\sqrt{b^2-4ac}}{2a}$ für $a\neq 0$.
 - Wichtig: jede Umformung muss auf beiden Seiten gleichzeitig erfolgen. Eine Gleichung bleibt wahr, wenn man beide Seiten mit derselben Zahl addiert, subtrahiert, multipliziert oder durch dieselbe von null verschiedene Zahl teilt.
 
 #### Beispiel
 
-$x^2-5x+6=0$. Mit $p=-5$, $q=6$: $x_{1,2}=	frac{5}{2}pmsqrt{	frac{25}{4}-6}=	frac{5}{2}pmsqrt{	frac{1}{4}}=	frac{5}{2}pm	frac{1}{2}$, also $x_1=3$, $x_2=2$.
+$x^2-5x+6=0$. Mit $p=-5$, $q=6$: $x_{1,2}=\tfrac{5}{2}\pm\sqrt{\tfrac{25}{4}-6}=\tfrac{5}{2}\pm\sqrt{\tfrac{1}{4}}=\tfrac{5}{2}\pm\tfrac{1}{2}$, also $x_1=3$, $x_2=2$.
 
 #### Übungsaufgabe
 
@@ -167,26 +165,24 @@ Löse $2x^2-4x+2=0$.
 
 #### Theorie
 
-- Eine Menge ist eine Zusammenfassung von Elementen, geschrieben als ${a,b,c}$. Die leere Menge heißt $emptyset$. Die Notation $xin M$ bedeutet „$x$ ist Element von $M$“.
-- Eine Abbildung (Funktion) $f:A	o B$ ordnet jedem Element von $A$ (Definitionsbereich) genau ein Element von $B$ (Zielbereich) zu. Sie heißt injektiv, wenn verschiedene Elemente verschiedene Bilder haben, surjektiv, wenn das Ziel ganz getroffen wird, und bijektiv, wenn beides gilt.
-- In der Mathematik formuliert man Aussagen mit Quantoren: $orall$ (für alle) und $exists$ (es existiert). „Für alle $x$ existiert ein $y$“ heißt $orall x;exists y$.
-- Der Beweis durch Kontraposition nutzt: die Aussage „Aus $A$ folgt $B$“ ist äquivalent zu „Aus $
-eg B$ folgt $
-eg A$“.
+- Eine Menge ist eine Zusammenfassung von Elementen, geschrieben als ${a,b,c}$. Die leere Menge heißt $\emptyset$. Die Notation $x\in M$ bedeutet „$x$ ist Element von $M$“.
+- Eine Abbildung (Funktion) $f:A\to B$ ordnet jedem Element von $A$ (Definitionsbereich) genau ein Element von $B$ (Zielbereich) zu. Sie heißt injektiv, wenn verschiedene Elemente verschiedene Bilder haben, surjektiv, wenn das Ziel ganz getroffen wird, und bijektiv, wenn beides gilt.
+- In der Mathematik formuliert man Aussagen mit Quantoren: $\forall$ (für alle) und $\exists$ (es existiert). „Für alle $x$ existiert ein $y$“ heißt $\forall x\;\exists y$.
+- Der Beweis durch Kontraposition nutzt: die Aussage „Aus $A$ folgt $B$“ ist äquivalent zu „Aus $\neg B$ folgt $\neg A$“.
 
 #### Beispiel
 
-$f:mathbb{R}	omathbb{R}$, $f(x)=x^2$ ist nicht injektiv (denn $f(2)=f(-2)=4$) und nicht surjektiv (negativen Zahlen werden nie getroffen). Dagegen ist $g:mathbb{R}	o[0,infty)$, $g(x)=x^2$ surjektiv.
+$f:\mathbb{R}\to\mathbb{R}$, $f(x)=x^2$ ist nicht injektiv (denn $f(2)=f(-2)=4$) und nicht surjektiv (negativen Zahlen werden nie getroffen). Dagegen ist $g:\mathbb{R}\to[0,\infty)$, $g(x)=x^2$ surjektiv.
 
 #### Übungsaufgabe
 
-Ist $f:mathbb{R}	omathbb{R}$, $f(x)=2x+1$ bijektiv? Begründe.
+Ist $f:\mathbb{R}\to\mathbb{R}$, $f(x)=2x+1$ bijektiv? Begründe.
 
-*Tipp: Prüfe Injektivität (verschiedene Eingaben $Rightarrow$ verschiedene Ausgaben) und Surjektivität (kann man jedes $y$ erreichen?).*
+*Tipp: Prüfe Injektivität (verschiedene Eingaben $\Rightarrow$ verschiedene Ausgaben) und Surjektivität (kann man jedes $y$ erreichen?).*
 
 #### Mini-Quiz (Q&A)
 
-**F:** Wann heißt eine Abbildung $f:A	o B$ bijektiv?
+**F:** Wann heißt eine Abbildung $f:A\to B$ bijektiv?
 
 **A:** Richtig ist: Wenn sie injektiv und surjektiv ist. Bijektiv bedeutet injektiv (verschiedene Elemente haben verschiedene Bilder) und surjektiv (das Ziel wird vollständig getroffen) zugleich.
 
@@ -205,20 +201,20 @@ Ist $f:mathbb{R}	omathbb{R}$, $f(x)=2x+1$ bijektiv? Begründe.
 
 #### Theorie
 
-- Das Summenzeichen fasst eine Summe zusammen: $sum_{i=1}^{n} a_i=a_1+a_2+dots+a_n$. Der Index $i$ läuft von $1$ bis $n$.
-- Ein wichtiger Spezialfall ist die Gaußsche Summe: $sum_{i=1}^{n} i=	frac{n(n+1)}{2}$, also $1+2+dots+n$.
-- Die vollständige Induktion beweist eine Aussage $A(n)$ für alle $ngeq n_0$ in zwei Schritten: Induktionsanfang (IA) zeige $A(n_0)$, Induktionsschluss (IS) zeige: gilt $A(n)$, so gilt auch $A(n+1)$.
+- Das Summenzeichen fasst eine Summe zusammen: $\sum_{i=1}^{n} a_i=a_1+a_2+\dots+a_n$. Der Index $i$ läuft von $1$ bis $n$.
+- Ein wichtiger Spezialfall ist die Gaußsche Summe: $\sum_{i=1}^{n} i=\tfrac{n(n+1)}{2}$, also $1+2+\dots+n$.
+- Die vollständige Induktion beweist eine Aussage $A(n)$ für alle $n\geq n_0$ in zwei Schritten: Induktionsanfang (IA) zeige $A(n_0)$, Induktionsschluss (IS) zeige: gilt $A(n)$, so gilt auch $A(n+1)$.
 - Die Annahme „$A(n)$ gilt“ heißt Induktionsvoraussetzung (IV). Im Schluss nutzt man IV, um von $n$ auf $n+1$ zu kommen.
 
 #### Beispiel
 
-Gaußsche Summe für $n=4$: $sum_{i=1}^{4} i=1+2+3+4=10=	frac{4cdot 5}{2}=10$.
+Gaußsche Summe für $n=4$: $\sum_{i=1}^{4} i=1+2+3+4=10=\tfrac{4\cdot 5}{2}=10$.
 
 #### Übungsaufgabe
 
-Zeige per Induktion: $sum_{i=1}^{n} i=	frac{n(n+1)}{2}$ für alle $ngeq 1$.
+Zeige per Induktion: $\sum_{i=1}^{n} i=\tfrac{n(n+1)}{2}$ für alle $n\geq 1$.
 
-*Tipp: IA: $n=1$. IS: schreibe $sum_{i=1}^{n+1} i = sum_{i=1}^{n} i + (n+1)$ und nutze die IV.*
+*Tipp: IA: $n=1$. IS: schreibe $\sum_{i=1}^{n+1} i = \sum_{i=1}^{n} i + (n+1)$ und nutze die IV.*
 
 #### Mini-Quiz (Q&A)
 
@@ -249,8 +245,8 @@ Zeige per Induktion: $sum_{i=1}^{n} i=	frac{n(n+1)}{2}$ für alle $ngeq 1$.
 
 - Manche Gleichungen haben keine reelle Lösung, z. B. $x^2=-1$, da Quadrate reeller Zahlen nie negativ sind.
 - Deshalb erweitert man die reellen Zahlen um die imaginäre Einheit $i$ mit der Eigenschaft $i^2=-1$.
-- Eine komplexe Zahl hat die Form $z=a+bi$ mit $a,binmathbb{R}$. Dabei heißt $a=operatorname{Re}(z)$ der Realteil und $b=operatorname{Im}(z)$ der Imaginärteil.
-- Die Menge aller komplexen Zahlen heißt $mathbb{C}$. In der Gaußschen Ebene wird $z=a+bi$ als Punkt $(a,b)$ dargestellt: die $x$-Achse ist der Realteil, die $y$-Achse der Imaginärteil.
+- Eine komplexe Zahl hat die Form $z=a+bi$ mit $a,b\in\mathbb{R}$. Dabei heißt $a=\operatorname{Re}(z)$ der Realteil und $b=\operatorname{Im}(z)$ der Imaginärteil.
+- Die Menge aller komplexen Zahlen heißt $\mathbb{C}$. In der Gaußschen Ebene wird $z=a+bi$ als Punkt $(a,b)$ dargestellt: die $x$-Achse ist der Realteil, die $y$-Achse der Imaginärteil.
 
 #### Beispiel
 
@@ -284,10 +280,10 @@ Bestimme Real- und Imaginärteil von $z=5-2i$.
 
 #### Theorie
 
-- Addition und Subtraktion erfolgen komponentenweise: $(a+bi)pm(c+di)=(apm c)+(bpm d)i$.
+- Addition und Subtraktion erfolgen komponentenweise: $(a+bi)\pm(c+di)=(a\pm c)+(b\pm d)i$.
 - Multiplikation: Klammern ausmultiplizieren und $i^2=-1$ verwenden. $(a+bi)(c+di)=(ac-bd)+(ad+bc)i$.
-- Die konjugiert komplexe Zahl zu $z=a+bi$ ist $ar z=a-bi$. Es gilt $zar z=a^2+b^2inmathbb{R}$.
-- Division: den Bruch mit $ar z$ erweitern, damit der Nenner reell wird: $	frac{w}{z}=	frac{war z}{zar z}$.
+- Die konjugiert komplexe Zahl zu $z=a+bi$ ist $\bar z=a-bi$. Es gilt $z\bar z=a^2+b^2\in\mathbb{R}$.
+- Division: den Bruch mit $\bar z$ erweitern, damit der Nenner reell wird: $\tfrac{w}{z}=\tfrac{w\bar z}{z\bar z}$.
 
 #### Beispiel
 
@@ -308,7 +304,7 @@ Berechne $(1+2i)(3-i)$.
 #### Quellen & weiterführende Links
 
 - [Komplexe Zahlen — Rechenregeln — Wikipedia](https://de.wikipedia.org/wiki/Komplexe_Zahl) — Wikipedia
-- [Konjugiert komplexe Zahl — Wikipedia](https://de.wikipedia.org/wiki/Konjugiert_komplexe_Zahl) — Wikipedia
+- [Komplexe Konjugation — Wikipedia](https://de.wikipedia.org/wiki/Komplexe_Konjugation) — Wikipedia
 
 ---
 
@@ -319,26 +315,26 @@ Berechne $(1+2i)(3-i)$.
 
 #### Theorie
 
-- Statt Koordinaten $(a,b)$ kann man $z$ durch Betrag $r=|z|=sqrt{a^2+b^2}$ und Winkel $arphi$ beschreiben: $z=r(cosarphi+isinarphi)$. Der Winkel $arphi$ heißt Argument.
-- Dank der Eulerschen Formel $e^{iarphi}=cosarphi+isinarphi$ schreibt man $z=r,e^{iarphi}$.
-- In Polardarstellung wird Multiplikation einfach: $r_1 e^{iarphi_1}cdot r_2 e^{iarphi_2}=r_1 r_2,e^{i(arphi_1+arphi_2)}$ — Beträge multiplizieren, Argumente addieren.
-- Der Fundamentalsatz der Algebra besagt: jedes nichtkonstante Polynom hat in $mathbb{C}$ eine Nullstelle. Damit zerfällt jedes Polynom vom Grad $n$ über $mathbb{C}$ in $n$ Linearfaktoren. Das ist der Grund, warum wir komplexe Zahlen für Eigenwerte brauchen.
+- Statt Koordinaten $(a,b)$ kann man $z$ durch Betrag $r=|z|=\sqrt{a^2+b^2}$ und Winkel $\varphi$ beschreiben: $z=r(\cos\varphi+i\sin\varphi)$. Der Winkel $\varphi$ heißt Argument.
+- Dank der Eulerschen Formel $e^{i\varphi}=\cos\varphi+i\sin\varphi$ schreibt man $z=r\,e^{i\varphi}$.
+- In Polardarstellung wird Multiplikation einfach: $r_1 e^{i\varphi_1}\cdot r_2 e^{i\varphi_2}=r_1 r_2\,e^{i(\varphi_1+\varphi_2)}$ — Beträge multiplizieren, Argumente addieren.
+- Der Fundamentalsatz der Algebra besagt: jedes nichtkonstante Polynom hat in $\mathbb{C}$ eine Nullstelle. Damit zerfällt jedes Polynom vom Grad $n$ über $\mathbb{C}$ in $n$ Linearfaktoren. Das ist der Grund, warum wir komplexe Zahlen für Eigenwerte brauchen.
 
 #### Beispiel
 
-Die Drehmatrix $egin{pmatrix}0&-1\1&0end{pmatrix}$ hat das charakteristische Polynom $lambda^2+1$ mit Nullstellen $lambda=pm i$. Diese sind komplex, obwohl die Matrix reell ist.
+Die Drehmatrix $\begin{pmatrix}0&-1\\1&0\end{pmatrix}$ hat das charakteristische Polynom $\lambda^2+1$ mit Nullstellen $\lambda=\pm i$. Diese sind komplex, obwohl die Matrix reell ist.
 
 #### Übungsaufgabe
 
-Gib $z=1+i$ in Polardarstellung $r,e^{iarphi}$ an (Betrags- und Winkelwert).
+Gib $z=1+i$ in Polardarstellung $r\,e^{i\varphi}$ an (Betrags- und Winkelwert).
 
-*Tipp: Betrag $r=sqrt{1^2+1^2}$, Winkel $arphi$ so, dass $cosarphi=	frac{a}{r}$, $sinarphi=	frac{b}{r}$.*
+*Tipp: Betrag $r=\sqrt{1^2+1^2}$, Winkel $\varphi$ so, dass $\cos\varphi=\tfrac{a}{r}$, $\sin\varphi=\tfrac{b}{r}$.*
 
 #### Mini-Quiz (Q&A)
 
 **F:** Was besagt der Fundamentalsatz der Algebra?
 
-**A:** Richtig ist: Jedes nichtkonstante Polynom hat in $mathbb{C}$ eine Nullstelle. Über $mathbb{C}$ hat jedes nichtkonstante Polynom mindestens eine Nullstelle, zerfällt also in Linearfaktoren.
+**A:** Richtig ist: Jedes nichtkonstante Polynom hat in $\mathbb{C}$ eine Nullstelle. Über $\mathbb{C}$ hat jedes nichtkonstante Polynom mindestens eine Nullstelle, zerfällt also in Linearfaktoren.
 
 #### Quellen & weiterführende Links
 
@@ -363,26 +359,26 @@ Gib $z=1+i$ in Polardarstellung $r,e^{iarphi}$ an (Betrags- und Winkelwert).
 
 #### Theorie
 
-- Ein Vektor hat eine Länge und eine Richtung. Man schreibt ihn als Spalte $ec v=egin{pmatrix}v_1\v_2\dots\v_nend{pmatrix}$; die Einträge $v_i$ heißen Komponenten.
-- Im $mathbb{R}^2$ ist $ec v=egin{pmatrix}3\2end{pmatrix}$ der Pfeil vom Ursprung zum Punkt $(3,2)$. Im $mathbb{R}^3$ kommt eine dritte Komponente hinzu.
-- Der Nullvektor $ec 0$ hat nur Nullen als Komponenten. Vektoren vergleicht man komponentenweise: gleich heißt, alle Komponenten stimmen überein.
-- Die Länge (Norm) ist $lVertec vVert=sqrt{v_1^2+dots+v_n^2}$, also der Satz des Pythagoras verallgemeinert.
+- Ein Vektor hat eine Länge und eine Richtung. Man schreibt ihn als Spalte $\vec v=\begin{pmatrix}v_1\\v_2\\\vdots\\v_n\end{pmatrix}$; die Einträge $v_i$ heißen Komponenten.
+- Im $\mathbb{R}^2$ ist $\vec v=\begin{pmatrix}3\\2\end{pmatrix}$ der Pfeil vom Ursprung zum Punkt $(3,2)$. Im $\mathbb{R}^3$ kommt eine dritte Komponente hinzu.
+- Der Nullvektor $\vec 0$ hat nur Nullen als Komponenten. Vektoren vergleicht man komponentenweise: gleich heißt, alle Komponenten stimmen überein.
+- Die Länge (Norm) ist $\lVert\vec v\rVert=\sqrt{v_1^2+\dots+v_n^2}$, also der Satz des Pythagoras verallgemeinert.
 
 #### Beispiel
 
-Die Länge von $ec v=egin{pmatrix}3\4end{pmatrix}$ ist $sqrt{3^2+4^2}=sqrt{25}=5$.
+Die Länge von $\vec v=\begin{pmatrix}3\\4\end{pmatrix}$ ist $\sqrt{3^2+4^2}=\sqrt{25}=5$.
 
 #### Übungsaufgabe
 
-Berechne die Länge von $ec v=egin{pmatrix}1\2\2end{pmatrix}$.
+Berechne die Länge von $\vec v=\begin{pmatrix}1\\2\\2\end{pmatrix}$.
 
-*Tipp: Quadrate addieren und die Wurzel ziehen: $sqrt{1^2+2^2+2^2}$.*
+*Tipp: Quadrate addieren und die Wurzel ziehen: $\sqrt{1^2+2^2+2^2}$.*
 
 #### Mini-Quiz (Q&A)
 
-**F:** Wie lang ist $egin{pmatrix}6\8end{pmatrix}$?
+**F:** Wie lang ist $\begin{pmatrix}6\\8\end{pmatrix}$?
 
-**A:** Die Länge ist $sqrt{6^2+8^2}=sqrt{36+64}=sqrt{100}=10$. Lösungsweg: Quadrate addieren: $6^2+8^2=100$, also Länge $sqrt{100}=10$.
+**A:** Die Länge ist $\sqrt{6^2+8^2}=\sqrt{36+64}=\sqrt{100}=10$. Lösungsweg: Quadrate addieren: $6^2+8^2=100$, also Länge $\sqrt{100}=10$.
 
 #### Quellen & weiterführende Links
 
@@ -399,26 +395,26 @@ Berechne die Länge von $ec v=egin{pmatrix}1\2\2end{pmatrix}$.
 
 #### Theorie
 
-- Vektoren werden komponentenweise addiert: $egin{pmatrix}a_1\a_2end{pmatrix}+egin{pmatrix}b_1\b_2end{pmatrix}=egin{pmatrix}a_1+b_1\a_2+b_2end{pmatrix}$. Geometrisch: Pfeile aneinanderlegen.
-- Ein skalares Vielfaches: $lambdaec v$ multipliziert jede Komponente mit $lambda$. Für $lambda>0$ bleibt die Richtung, für $lambda<0$ kehrt sie sich um; die Länge wird mit $|lambda|$ skaliert.
-- Der Gegenvektor ist $-ec v=(-1)ec v$. Damit ist Subtraktion $ec a-ec b=ec a+(-ec b)$.
-- Diese Operationen erfüllen vertraute Regeln: Kommutativität $ec a+ec b=ec b+ec a$, Distributivität $lambda(ec a+ec b)=lambdaec a+lambdaec b$.
+- Vektoren werden komponentenweise addiert: $\begin{pmatrix}a_1\\a_2\end{pmatrix}+\begin{pmatrix}b_1\\b_2\end{pmatrix}=\begin{pmatrix}a_1+b_1\\a_2+b_2\end{pmatrix}$. Geometrisch: Pfeile aneinanderlegen.
+- Ein skalares Vielfaches: $\lambda\vec v$ multipliziert jede Komponente mit $\lambda$. Für $\lambda>0$ bleibt die Richtung, für $\lambda<0$ kehrt sie sich um; die Länge wird mit $|\lambda|$ skaliert.
+- Der Gegenvektor ist $-\vec v=(-1)\vec v$. Damit ist Subtraktion $\vec a-\vec b=\vec a+(-\vec b)$.
+- Diese Operationen erfüllen vertraute Regeln: Kommutativität $\vec a+\vec b=\vec b+\vec a$, Distributivität $\lambda(\vec a+\vec b)=\lambda\vec a+\lambda\vec b$.
 
 #### Beispiel
 
-$2egin{pmatrix}1\3end{pmatrix}+egin{pmatrix}2\-1end{pmatrix}=egin{pmatrix}2\6end{pmatrix}+egin{pmatrix}2\-1end{pmatrix}=egin{pmatrix}4\5end{pmatrix}$.
+$2\begin{pmatrix}1\\3\end{pmatrix}+\begin{pmatrix}2\\-1\end{pmatrix}=\begin{pmatrix}2\\6\end{pmatrix}+\begin{pmatrix}2\\-1\end{pmatrix}=\begin{pmatrix}4\\5\end{pmatrix}$.
 
 #### Übungsaufgabe
 
-Berechne $3egin{pmatrix}1\2end{pmatrix}-2egin{pmatrix}2\1end{pmatrix}$.
+Berechne $3\begin{pmatrix}1\\2\end{pmatrix}-2\begin{pmatrix}2\\1\end{pmatrix}$.
 
 *Tipp: Erst die skalaren Vielfachen, dann komponentenweise subtrahieren.*
 
 #### Mini-Quiz (Q&A)
 
-**F:** Was bewirkt ein negatives skalares Vielfaches $lambdaec v$ mit $lambda<0$?
+**F:** Was bewirkt ein negatives skalares Vielfaches $\lambda\vec v$ mit $\lambda<0$?
 
-**A:** Richtig ist: Richtung kehrt sich um. Ein negativer Skalar dreht die Richtung um und skaliert die Länge mit $|lambda|$.
+**A:** Richtig ist: Richtung kehrt sich um. Ein negativer Skalar dreht die Richtung um und skaliert die Länge mit $|\lambda|$.
 
 #### Quellen & weiterführende Links
 
@@ -435,26 +431,26 @@ Berechne $3egin{pmatrix}1\2end{pmatrix}-2egin{pmatrix}2\1end{pmatrix}$.
 
 #### Theorie
 
-- Eine Linearkombination von Vektoren $ec v_1,dots,ec v_k$ ist $lambda_1ec v_1+dots+lambda_kec v_k$ mit Koeffizienten $lambda_iinmathbb{R}$.
-- Der Spann (Erzeugendensystem) ist die Menge aller Linearkombinationen: $operatorname{span}(ec v_1,dots,ec v_k)={lambda_1ec v_1+dots+lambda_kec v_k}$.
-- Im $mathbb{R}^2$ spannen zwei nichtparallele Vektoren die ganze Ebene auf; im $mathbb{R}^3$ spannen drei nicht in einer Ebene liegende Vektoren den ganzen Raum auf.
+- Eine Linearkombination von Vektoren $\vec v_1,\dots,\vec v_k$ ist $\lambda_1\vec v_1+\dots+\lambda_k\vec v_k$ mit Koeffizienten $\lambda_i\in\mathbb{R}$.
+- Der Spann (Erzeugendensystem) ist die Menge aller Linearkombinationen: $\operatorname{span}(\vec v_1,\dots,\vec v_k)={\lambda_1\vec v_1+\dots+\lambda_k\vec v_k}$.
+- Im $\mathbb{R}^2$ spannen zwei nichtparallele Vektoren die ganze Ebene auf; im $\mathbb{R}^3$ spannen drei nicht in einer Ebene liegende Vektoren den ganzen Raum auf.
 - Ist ein Vektor schon eine Linearkombination der anderen, liefert er nichts Neues — der Spann bleibt dann gleich.
 
 #### Beispiel
 
-Ist $egin{pmatrix}1\2end{pmatrix}$ in $operatorname{span}!left(egin{pmatrix}1\0end{pmatrix},egin{pmatrix}0\1end{pmatrix}ight)$? Ja: $egin{pmatrix}1\2end{pmatrix}=1egin{pmatrix}1\0end{pmatrix}+2egin{pmatrix}0\1end{pmatrix}$.
+Ist $\begin{pmatrix}1\\2\end{pmatrix}$ in $\operatorname{span}\!\left(\begin{pmatrix}1\\0\end{pmatrix},\begin{pmatrix}0\\1\end{pmatrix}\right)$? Ja: $\begin{pmatrix}1\\2\end{pmatrix}=1\begin{pmatrix}1\\0\end{pmatrix}+2\begin{pmatrix}0\\1\end{pmatrix}$.
 
 #### Übungsaufgabe
 
-Lässt sich $egin{pmatrix}4\6end{pmatrix}$ als Linearkombination von $ec v_1=egin{pmatrix}1\1end{pmatrix}$ und $ec v_2=egin{pmatrix}1\2end{pmatrix}$ schreiben? Bestimme die Koeffizienten.
+Lässt sich $\begin{pmatrix}4\\6\end{pmatrix}$ als Linearkombination von $\vec v_1=\begin{pmatrix}1\\1\end{pmatrix}$ und $\vec v_2=\begin{pmatrix}1\\2\end{pmatrix}$ schreiben? Bestimme die Koeffizienten.
 
-*Tipp: Löse $lambda_1egin{pmatrix}1\1end{pmatrix}+lambda_2egin{pmatrix}1\2end{pmatrix}=egin{pmatrix}4\6end{pmatrix}$, also $lambda_1+lambda_2=4$ und $lambda_1+2lambda_2=6$.*
+*Tipp: Löse $\lambda_1\begin{pmatrix}1\\1\end{pmatrix}+\lambda_2\begin{pmatrix}1\\2\end{pmatrix}=\begin{pmatrix}4\\6\end{pmatrix}$, also $\lambda_1+\lambda_2=4$ und $\lambda_1+2\lambda_2=6$.*
 
 #### Mini-Quiz (Q&A)
 
-**F:** Was ist der Spann $operatorname{span}(ec v_1,dots,ec v_k)$?
+**F:** Was ist der Spann $\operatorname{span}(\vec v_1,\dots,\vec v_k)$?
 
-**A:** Richtig ist: Die Menge aller Linearkombinationen der Vektoren. Der Spann umfasst alle Linearkombinationen $lambda_1ec v_1+dots+lambda_kec v_k$.
+**A:** Richtig ist: Die Menge aller Linearkombinationen der Vektoren. Der Spann umfasst alle Linearkombinationen $\lambda_1\vec v_1+\dots+\lambda_k\vec v_k$.
 
 #### Quellen & weiterführende Links
 
@@ -478,26 +474,26 @@ Lässt sich $egin{pmatrix}4\6end{pmatrix}$ als Linearkombination von $ec v_1=
 
 #### Theorie
 
-- Eine Matrix ist ein rechteckiges Zahlenschema. Eine $m	imes n$-Matrix hat $m$ Zeilen und $n$ Spalten: $A=(a_{ij})$ mit Eintrag $a_{ij}$ in Zeile $i$, Spalte $j$.
-- Ein Vektor $ec vinmathbb{R}^n$ ist eine $n	imes 1$-Matrix (Spaltenvektor); die Transponierte $ec v^{,T}$ ist ein Zeilenvektor.
-- Die Transponierte $A^{,T}$ entsteht durch Spiegeln an der Hauptdiagonalen: $(A^{,T})_{ij}=a_{ji}$. Eine quadratische Matrix mit $A^{,T}=A$ heißt symmetrisch.
+- Eine Matrix ist ein rechteckiges Zahlenschema. Eine $m\times n$-Matrix hat $m$ Zeilen und $n$ Spalten: $A=(a_{ij})$ mit Eintrag $a_{ij}$ in Zeile $i$, Spalte $j$.
+- Ein Vektor $\vec v\in\mathbb{R}^n$ ist eine $n\times 1$-Matrix (Spaltenvektor); die Transponierte $\vec v^{\,T}$ ist ein Zeilenvektor.
+- Die Transponierte $A^{\,T}$ entsteht durch Spiegeln an der Hauptdiagonalen: $(A^{\,T})_{ij}=a_{ji}$. Eine quadratische Matrix mit $A^{\,T}=A$ heißt symmetrisch.
 - Matrizen werden komponentenweise addiert; ein Skalar multipliziert jeden Eintrag.
 
 #### Beispiel
 
-Für $A=egin{pmatrix}1&2\3&4end{pmatrix}$ ist $A^{,T}=egin{pmatrix}1&3\2&4end{pmatrix}$ und $2A=egin{pmatrix}2&4\6&8end{pmatrix}$.
+Für $A=\begin{pmatrix}1&2\\3&4\end{pmatrix}$ ist $A^{\,T}=\begin{pmatrix}1&3\\2&4\end{pmatrix}$ und $2A=\begin{pmatrix}2&4\\6&8\end{pmatrix}$.
 
 #### Übungsaufgabe
 
-Bestimme $A^{,T}$ für $A=egin{pmatrix}1&0&2\3&1&4end{pmatrix}$.
+Bestimme $A^{\,T}$ für $A=\begin{pmatrix}1&0&2\\3&1&4\end{pmatrix}$.
 
-*Tipp: Zeilen werden zu Spalten und umgekehrt; die Transponierte ist $3	imes 2$.*
+*Tipp: Zeilen werden zu Spalten und umgekehrt; die Transponierte ist $3\times 2$.*
 
 #### Mini-Quiz (Q&A)
 
-**F:** Was bedeutet $A^{,T}=A$ für eine quadratische Matrix?
+**F:** Was bedeutet $A^{\,T}=A$ für eine quadratische Matrix?
 
-**A:** Richtig ist: Sie ist symmetrisch. Eine Matrix mit $A^{,T}=A$ heißt symmetrisch — sie ist an der Hauptdiagonalen gespiegelt.
+**A:** Richtig ist: Sie ist symmetrisch. Eine Matrix mit $A^{\,T}=A$ heißt symmetrisch — sie ist an der Hauptdiagonalen gespiegelt.
 
 #### Quellen & weiterführende Links
 
@@ -515,21 +511,20 @@ Bestimme $A^{,T}$ für $A=egin{pmatrix}1&0&2\3&1&4end{pmatrix}$.
 
 #### Theorie
 
-- Das Produkt $AB$ ist nur definiert, wenn die Spaltenzahl von $A$ gleich der Zeilenzahl von $B$ ist. Ist $A$ eine $m	imes n$- und $B$ eine $n	imes p$-Matrix, so ist $AB$ eine $m	imes p$-Matrix.
-- Der Eintrag $(AB)_{ij}$ ist das Skalarprodukt der $i$-ten Zeile von $A$ mit der $j$-ten Spalte von $B$: $(AB)_{ij}=sum_k a_{ik}b_{kj}$.
-- Die Matrizenmultiplikation ist assoziativ $(AB)C=A(BC)$ und distributiv, aber im Allgemeinen nicht kommutativ: $AB
-eq BA$.
+- Das Produkt $AB$ ist nur definiert, wenn die Spaltenzahl von $A$ gleich der Zeilenzahl von $B$ ist. Ist $A$ eine $m\times n$- und $B$ eine $n\times p$-Matrix, so ist $AB$ eine $m\times p$-Matrix.
+- Der Eintrag $(AB)_{ij}$ ist das Skalarprodukt der $i$-ten Zeile von $A$ mit der $j$-ten Spalte von $B$: $(AB)_{ij}=\sum_k a_{ik}b_{kj}$.
+- Die Matrizenmultiplikation ist assoziativ $(AB)C=A(BC)$ und distributiv, aber im Allgemeinen nicht kommutativ: $AB\neq BA$.
 - Die Einheitsmatrix $I_n$ hat Einsen auf der Diagonalen und Nullen sonst; sie ist neutral: $AI=IA=A$.
 
 #### Beispiel
 
-$egin{pmatrix}1&2\3&4end{pmatrix}egin{pmatrix}5\6end{pmatrix}=egin{pmatrix}1cdot 5+2cdot 6\3cdot 5+4cdot 6end{pmatrix}=egin{pmatrix}17\39end{pmatrix}$.
+$\begin{pmatrix}1&2\\3&4\end{pmatrix}\begin{pmatrix}5\\6\end{pmatrix}=\begin{pmatrix}1\cdot 5+2\cdot 6\\3\cdot 5+4\cdot 6\end{pmatrix}=\begin{pmatrix}17\\39\end{pmatrix}$.
 
 #### Übungsaufgabe
 
-Berechne $egin{pmatrix}1&2\0&3end{pmatrix}egin{pmatrix}4&0\1&2end{pmatrix}$.
+Berechne $\begin{pmatrix}1&2\\0&3\end{pmatrix}\begin{pmatrix}4&0\\1&2\end{pmatrix}$.
 
-*Tipp: Zeile mal Spalte: $(1,4)=(1cdot4+2cdot1)$, dann die weiteren Einträge.*
+*Tipp: Zeile mal Spalte: $(1,4)=(1\cdot4+2\cdot1)$, dann die weiteren Einträge.*
 
 #### Mini-Quiz (Q&A)
 
@@ -554,33 +549,30 @@ Berechne $egin{pmatrix}1&2\0&3end{pmatrix}egin{pmatrix}4&0\1&2end{pmatrix}$.
 #### Theorie
 
 - Eine quadratische Matrix $A$ heißt invertierbar, wenn eine Matrix $A^{-1}$ existiert mit $AA^{-1}=A^{-1}A=I$. Sonst heißt $A$ singulär.
-- Elementare Zeilenoperationen: (1) eine Zeile mit einem Skalar $
-eq 0$ multiplizieren, (2) ein Vielfaches einer Zeile zu einer anderen addieren, (3) zwei Zeilen vertauschen.
-- Man invertiert $A$, indem man $(Amid I)$ durch Zeilenoperationen auf $(Imid A^{-1})$ bringt. Klappt das nicht, ist $A$ singulär.
-- Für $2	imes2$-Matrizen gilt explizit: ist $A=egin{pmatrix}a&b\c&dend{pmatrix}$ mit $det A=ad-bc
-eq 0$, so ist $A^{-1}=	frac{1}{ad-bc}egin{pmatrix}d&-b\-c&aend{pmatrix}$.
+- Elementare Zeilenoperationen: (1) eine Zeile mit einem Skalar $\neq 0$ multiplizieren, (2) ein Vielfaches einer Zeile zu einer anderen addieren, (3) zwei Zeilen vertauschen.
+- Man invertiert $A$, indem man $(A\mid I)$ durch Zeilenoperationen auf $(I\mid A^{-1})$ bringt. Klappt das nicht, ist $A$ singulär.
+- Für $2\times2$-Matrizen gilt explizit: ist $A=\begin{pmatrix}a&b\\c&d\end{pmatrix}$ mit $\det A=ad-bc\neq 0$, so ist $A^{-1}=\tfrac{1}{ad-bc}\begin{pmatrix}d&-b\\-c&a\end{pmatrix}$.
 
 #### Beispiel
 
-Zu $A=egin{pmatrix}1&2\3&5end{pmatrix}$: $det A=1cdot5-2cdot3=-1$, also $A^{-1}=	frac{1}{-1}egin{pmatrix}5&-2\-3&1end{pmatrix}=egin{pmatrix}-5&2\3&-1end{pmatrix}$.
+Zu $A=\begin{pmatrix}1&2\\3&5\end{pmatrix}$: $\det A=1\cdot5-2\cdot3=-1$, also $A^{-1}=\tfrac{1}{-1}\begin{pmatrix}5&-2\\-3&1\end{pmatrix}=\begin{pmatrix}-5&2\\3&-1\end{pmatrix}$.
 
 #### Übungsaufgabe
 
-Bestimme $A^{-1}$ für $A=egin{pmatrix}2&1\1&1end{pmatrix}$ und prüfe $AA^{-1}=I$.
+Bestimme $A^{-1}$ für $A=\begin{pmatrix}2&1\\1&1\end{pmatrix}$ und prüfe $AA^{-1}=I$.
 
 *Tipp: Determinante $ad-bc$ berechnen, dann die Formel anwenden.*
 
 #### Mini-Quiz (Q&A)
 
-**F:** Wann ist eine $2	imes2$-Matrix invertierbar?
+**F:** Wann ist eine $2\times2$-Matrix invertierbar?
 
-**A:** Richtig ist: Wenn ihre Determinante von null verschieden ist. Genau dann, wenn $det A
-eq 0$; dann liefert die explizite Formel die Inverse.
+**A:** Richtig ist: Wenn ihre Determinante von null verschieden ist. Genau dann, wenn $\det A\neq 0$; dann liefert die explizite Formel die Inverse.
 
 #### Quellen & weiterführende Links
 
 - [Inverse Matrix — Wikipedia](https://de.wikipedia.org/wiki/Regul%C3%A4re_Matrix) — Wikipedia
-- [Elementare Zeilenumformung — Wikipedia](https://de.wikipedia.org/wiki/Elementare_Matrizen) — Wikipedia
+- [Elementarmatrix — Wikipedia](https://de.wikipedia.org/wiki/Elementarmatrix) — Wikipedia
 - [MIT OCW 18.06 — Linear Algebra](https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/) — Prof. Gilbert Strang, MIT
 
 ---
@@ -598,14 +590,14 @@ eq 0$; dann liefert die explizite Formel die Inverse.
 
 #### Theorie
 
-- Ein lineares Gleichungssystem (LGS) hat die Form $Aec x=ec b$ mit Koeffizientenmatrix $A$, Unbekanntenvektor $ec x$ und rechter Seite $ec b$.
-- Man schreibt die erweiterte Koeffizientenmatrix $(Amidec b)$ und arbeitet nur noch mit Zeilenoperationen.
-- Eine Lösung ist ein Vektor $ec x$, der alle Gleichungen gleichzeitig erfüllt.
+- Ein lineares Gleichungssystem (LGS) hat die Form $A\vec x=\vec b$ mit Koeffizientenmatrix $A$, Unbekanntenvektor $\vec x$ und rechter Seite $\vec b$.
+- Man schreibt die erweiterte Koeffizientenmatrix $(A\mid\vec b)$ und arbeitet nur noch mit Zeilenoperationen.
+- Eine Lösung ist ein Vektor $\vec x$, der alle Gleichungen gleichzeitig erfüllt.
 - Die Lösungsmenge kann leer sein (unlösbar), genau ein Vektor (eindeutig) oder unendlich groß (unterbestimmt) sein.
 
 #### Beispiel
 
-Das System $x+y=3$, $x-y=1$ wird zu $(Amidec b)=left(egin{array}{cc|c}1&1&3\1&-1&1end{array}ight)$. Lösung: $x=2$, $y=1$.
+Das System $x+y=3$, $x-y=1$ wird zu $(A\mid\vec b)=\left(\begin{array}{cc|c}1&1&3\\1&-1&1\end{array}\right)$. Lösung: $x=2$, $y=1$.
 
 #### Übungsaufgabe
 
@@ -633,18 +625,18 @@ Schreibe das LGS $2x+3y=8$, $x-y=1$ als erweiterte Matrix auf.
 
 #### Theorie
 
-- Das Gauß-Verfahren bringt $(Amidec b)$ durch Zeilenoperationen auf Zeilenstufenform: unter jeder führenden Eins (Pivot) stehen nur Nullen.
+- Das Gauß-Verfahren bringt $(A\mid\vec b)$ durch Zeilenoperationen auf Zeilenstufenform: unter jeder führenden Eins (Pivot) stehen nur Nullen.
 - Dann löst man von unten nach oben zurück (Rücksubstitution).
 - Noch weiter reduziert ergibt die reduzierte Zeilenstufenform, in der über jedem Pivot ebenfalls nur Nullen stehen — die Lösung kann dann direkt abgelesen werden.
 - Eine Spalte ohne Pivot entspricht einer freien Variablen, die beliebig wählbar ist — Grundlage für unendlich viele Lösungen.
 
 #### Beispiel
 
-$left(egin{array}{cc|c}1&1&3\1&-1&1end{array}ight)\xrightarrow{Z_2-Z_1}left(egin{array}{cc|c}1&1&3\0&-2&-2end{array}ight)\xrightarrow{Z_2/(-2)}left(egin{array}{cc|c}1&1&3\0&1&1end{array}ight)$. Rücksubstitution: $y=1$, $x=3-1=2$.
+$\left(\begin{array}{cc|c}1&1&3\\1&-1&1\end{array}\right)\xrightarrow{Z_2-Z_1}\left(\begin{array}{cc|c}1&1&3\\0&-2&-2\end{array}\right)\xrightarrow{Z_2/(-2)}\left(\begin{array}{cc|c}1&1&3\\0&1&1\end{array}\right)$. Rücksubstitution: $y=1$, $x=3-1=2$.
 
 #### Übungsaufgabe
 
-Löse per Gauß: $left(egin{array}{cc|c}1&2&5\2&3&8end{array}ight)$.
+Löse per Gauß: $\left(\begin{array}{cc|c}1&2&5\\2&3&8\end{array}\right)$.
 
 *Tipp: Erzeuge in der zweiten Zeile eine Null unter dem Pivot: $Z_2-2Z_1$.*
 
@@ -669,32 +661,31 @@ Löse per Gauß: $left(egin{array}{cc|c}1&2&5\2&3&8end{array}ight)$.
 
 #### Theorie
 
-- Der Rang $operatorname{rang}(A)$ ist die Anzahl der Pivot-Elemente in der Zeilenstufenform — also die Anzahl linear unabhängiger Zeilen.
-- Der LGS-Satz (Kronecker-Capelli) besagt: $Aec x=ec b$ ist genau dann lösbar, wenn $operatorname{rang}(A)=operatorname{rang}(Amidec b)$.
-- Ist das System lösbar, so ist es genau dann eindeutig lösbar, wenn $operatorname{rang}(A)=n$ (Anzahl der Unbekannten) gilt.
-- Der homogene Fall $ec b=ec 0$ ist stets lösbar (nämlich $ec x=ec 0$); er hat nichttriviale Lösungen genau dann, wenn $operatorname{rang}(A)<n$.
+- Der Rang $\operatorname{rang}(A)$ ist die Anzahl der Pivot-Elemente in der Zeilenstufenform — also die Anzahl linear unabhängiger Zeilen.
+- Der LGS-Satz (Kronecker-Capelli) besagt: $A\vec x=\vec b$ ist genau dann lösbar, wenn $\operatorname{rang}(A)=\operatorname{rang}(A\mid\vec b)$.
+- Ist das System lösbar, so ist es genau dann eindeutig lösbar, wenn $\operatorname{rang}(A)=n$ (Anzahl der Unbekannten) gilt.
+- Der homogene Fall $\vec b=\vec 0$ ist stets lösbar (nämlich $\vec x=\vec 0$); er hat nichttriviale Lösungen genau dann, wenn $\operatorname{rang}(A)<n$.
 
 #### Beispiel
 
-Hat $egin{pmatrix}1&2\2&4end{pmatrix}ec x=egin{pmatrix}3\7end{pmatrix}$ eine Lösung? Zeile 2 ist das Doppelte von Zeile 1, aber $7
-eq 2cdot 3$, also $operatorname{rang}(A)=1<operatorname{rang}(Amidec b)=2$ — unlösbar.
+Hat $\begin{pmatrix}1&2\\2&4\end{pmatrix}\vec x=\begin{pmatrix}3\\7\end{pmatrix}$ eine Lösung? Zeile 2 ist das Doppelte von Zeile 1, aber $7\neq 2\cdot 3$, also $\operatorname{rang}(A)=1<\operatorname{rang}(A\mid\vec b)=2$ — unlösbar.
 
 #### Übungsaufgabe
 
-Bestimme den Rang von $A=egin{pmatrix}1&2&3\2&4&6\1&1&1end{pmatrix}$.
+Bestimme den Rang von $A=\begin{pmatrix}1&2&3\\2&4&6\\1&1&1\end{pmatrix}$.
 
-*Tipp: Zeile 2 ist $2cdot$ Zeile 1. Bringe auf Stufenform und zähle die Pivots.*
+*Tipp: Zeile 2 ist $2\cdot$ Zeile 1. Bringe auf Stufenform und zähle die Pivots.*
 
 #### Mini-Quiz (Q&A)
 
-**F:** Wann ist ein LGS $Aec x=ec b$ lösbar?
+**F:** Wann ist ein LGS $A\vec x=\vec b$ lösbar?
 
-**A:** Richtig ist: Wenn $operatorname{rang}(A)=operatorname{rang}(Amidec b)$. Nach dem LGS-Satz ist das System genau dann lösbar, wenn Rang der Koeffizientenmatrix und Rang der erweiterten Matrix übereinstimmen.
+**A:** Richtig ist: Wenn $\operatorname{rang}(A)=\operatorname{rang}(A\mid\vec b)$. Nach dem LGS-Satz ist das System genau dann lösbar, wenn Rang der Koeffizientenmatrix und Rang der erweiterten Matrix übereinstimmen.
 
 #### Quellen & weiterführende Links
 
-- [Rang (Mathematik) — Wikipedia](https://de.wikipedia.org/wiki/Rang_(Mathematik)) — Wikipedia
-- [Kronecker-Capelli-Theorem — Wikipedia](https://de.wikipedia.org/wiki/Kronecker-Capelli-Theorem) — Wikipedia
+- [Rang (Lineare Algebra) — Wikipedia](https://de.wikipedia.org/wiki/Rang_(Lineare_Algebra)) — Wikipedia
+- [Satz von Kronecker-Capelli — Wikipedia](https://de.wikipedia.org/wiki/Satz_von_Kronecker-Capelli) — Wikipedia
 - [MIT OCW 18.06sc — Linear Algebra](https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/) — Prof. Gilbert Strang, MIT
 
 ---
@@ -712,19 +703,18 @@ Bestimme den Rang von $A=egin{pmatrix}1&2&3\2&4&6\1&1&1end{pmatrix}$.
 
 #### Theorie
 
-- Die Determinante $det A$ ist einer quadratischen Matrix $A$ zugeordnet und ist eine einzige Zahl. Sie misst, wie $A$ den Raum streckt und ob er umklappt.
-- Für $2	imes2$ gilt $detegin{pmatrix}a&b\c&dend{pmatrix}=ad-bc$.
-- Für $3	imes3$ entwickelt man nach einer Zeile, z. B. der ersten: $det A=a_{11}A_{11}+a_{12}A_{12}+a_{13}A_{13}$, wobei $A_{ij}$ die Kofaktoren sind (Unterdeterminante mit Vorzeichen $(-1)^{i+j}$).
+- Die Determinante $\det A$ ist einer quadratischen Matrix $A$ zugeordnet und ist eine einzige Zahl. Sie misst, wie $A$ den Raum streckt und ob er umklappt.
+- Für $2\times2$ gilt $\det\begin{pmatrix}a&b\\c&d\end{pmatrix}=ad-bc$.
+- Für $3\times3$ entwickelt man nach einer Zeile, z. B. der ersten: $\det A=a_{11}A_{11}+a_{12}A_{12}+a_{13}A_{13}$, wobei $A_{ij}$ die Kofaktoren sind (Unterdeterminante mit Vorzeichen $(-1)^{i+j}$).
 - Die Determinante ist genau dann null, wenn $A$ nicht invertierbar ist — dann ist das Bild kleiner als der ganze Raum.
 
 #### Beispiel
 
-$detegin{pmatrix}3&1\2&4end{pmatrix}=3cdot4-1cdot2=12-2=10
-eq0$, also ist die Matrix invertierbar.
+$\det\begin{pmatrix}3&1\\2&4\end{pmatrix}=3\cdot4-1\cdot2=12-2=10\neq0$, also ist die Matrix invertierbar.
 
 #### Übungsaufgabe
 
-Berechne $detegin{pmatrix}1&2&3\0&1&4\0&0&2end{pmatrix}$.
+Berechne $\det\begin{pmatrix}1&2&3\\0&1&4\\0&0&2\end{pmatrix}$.
 
 *Tipp: Bei einer Dreiecksmatrix ist die Determinante das Produkt der Diagonaleinträge.*
 
@@ -732,7 +722,7 @@ Berechne $detegin{pmatrix}1&2&3\0&1&4\0&0&2end{pmatrix}$.
 
 **F:** Wann ist eine Matrix nicht invertierbar?
 
-**A:** Richtig ist: Wenn $det A=0$. Genau bei $det A=0$ ist die Matrix singulär und besitzt keine Inverse.
+**A:** Richtig ist: Wenn $\det A=0$. Genau bei $\det A=0$ ist die Matrix singulär und besitzt keine Inverse.
 
 #### Quellen & weiterführende Links
 
@@ -748,24 +738,24 @@ Berechne $detegin{pmatrix}1&2&3\0&1&4\0&0&2end{pmatrix}$.
 
 #### Theorie
 
-- Multipliziert man eine Zeile mit $lambda$, so wird die Determinante mit $lambda$ multipliziert: $det(lambda A)=lambda^ndet A$ für $n	imes n$-Matrizen.
+- Multipliziert man eine Zeile mit $\lambda$, so wird die Determinante mit $\lambda$ multipliziert: $\det(\lambda A)=\lambda^n\det A$ für $n\times n$-Matrizen.
 - Addiert man ein Vielfaches einer Zeile zu einer anderen, ändert sich die Determinante nicht — das ist die Grundlage des Gauß-Verfahrens.
 - Vertauscht man zwei Zeilen, wechselt die Determinante das Vorzeichen.
-- Der Multiplikationssatz lautet $det(AB)=det Acdotdet B$, und $det(A^{-1})=	frac{1}{det A}$.
+- Der Multiplikationssatz lautet $\det(AB)=\det A\cdot\det B$, und $\det(A^{-1})=\tfrac{1}{\det A}$.
 
 #### Beispiel
 
-Aus $detegin{pmatrix}1&2\3&4end{pmatrix}=-2$ folgt $detegin{pmatrix}2&4\3&4end{pmatrix}=2cdot(-2)=-4$ (Zeile 1 verdoppelt) und $detegin{pmatrix}3&4\1&2end{pmatrix}=+2$ (Zeilen vertauscht).
+Aus $\det\begin{pmatrix}1&2\\3&4\end{pmatrix}=-2$ folgt $\det\begin{pmatrix}2&4\\3&4\end{pmatrix}=2\cdot(-2)=-4$ (Zeile 1 verdoppelt) und $\det\begin{pmatrix}3&4\\1&2\end{pmatrix}=+2$ (Zeilen vertauscht).
 
 #### Übungsaufgabe
 
-Es sei $det A=3$ und $A$ eine $3	imes3$-Matrix. Bestimme $det(2A)$.
+Es sei $\det A=3$ und $A$ eine $3\times3$-Matrix. Bestimme $\det(2A)$.
 
-*Tipp: Jede der drei Zeilen wird mit $2$ multipliziert, also $det(2A)=2^3det A$.*
+*Tipp: Jede der drei Zeilen wird mit $2$ multipliziert, also $\det(2A)=2^3\det A$.*
 
 #### Mini-Quiz (Q&A)
 
-**F:** Was bewirkt das Vertauschen zweier Zeilen auf $det A$?
+**F:** Was bewirkt das Vertauschen zweier Zeilen auf $\det A$?
 
 **A:** Richtig ist: Vorzeichenwechsel. Ein Zeilentausch wechselt das Vorzeichen der Determinante.
 
@@ -784,24 +774,24 @@ Es sei $det A=3$ und $A$ eine $3	imes3$-Matrix. Bestimme $det(2A)$.
 
 #### Theorie
 
-- Geometrisch ist $|det A|$ das Volumen des Parallelotops, das die Spalten von $A$ aufspannen. Im $mathbb{R}^2$ ist es die Fläche der Parallelogramms.
-- Ist $det A=0$, liegen die Spalten in einem echten Unterraum — das Volumen kollabiert, die Matrix ist nicht invertierbar.
-- Das Vorzeichen der Determinante gibt die Orientierung an: $det A>0$ erhält, $det A<0$ kehrt die Orientierung um.
-- Damit erklärt sich $det(AB)=det Adet B$: zwei Abbildungen hintereinander multiplizieren ihre Volumenskalierungen.
+- Geometrisch ist $|\det A|$ das Volumen des Parallelotops, das die Spalten von $A$ aufspannen. Im $\mathbb{R}^2$ ist es die Fläche der Parallelogramms.
+- Ist $\det A=0$, liegen die Spalten in einem echten Unterraum — das Volumen kollabiert, die Matrix ist nicht invertierbar.
+- Das Vorzeichen der Determinante gibt die Orientierung an: $\det A>0$ erhält, $\det A<0$ kehrt die Orientierung um.
+- Damit erklärt sich $\det(AB)=\det A\det B$: zwei Abbildungen hintereinander multiplizieren ihre Volumenskalierungen.
 
 #### Beispiel
 
-Die Spalten $egin{pmatrix}1\0end{pmatrix}$, $egin{pmatrix}0\1end{pmatrix}$ spannen das Einheitsquadrat der Fläche $1$ auf; $det I=1$. Mit $egin{pmatrix}2\0end{pmatrix}$, $egin{pmatrix}0\1end{pmatrix}$ ist die Fläche $2$ und $det=2$.
+Die Spalten $\begin{pmatrix}1\\0\end{pmatrix}$, $\begin{pmatrix}0\\1\end{pmatrix}$ spannen das Einheitsquadrat der Fläche $1$ auf; $\det I=1$. Mit $\begin{pmatrix}2\\0\end{pmatrix}$, $\begin{pmatrix}0\\1\end{pmatrix}$ ist die Fläche $2$ und $\det=2$.
 
 #### Übungsaufgabe
 
-Welche Fläche spannen $egin{pmatrix}3\0end{pmatrix}$ und $egin{pmatrix}1\2end{pmatrix}$ auf?
+Welche Fläche spannen $\begin{pmatrix}3\\0\end{pmatrix}$ und $\begin{pmatrix}1\\2\end{pmatrix}$ auf?
 
-*Tipp: Fläche $=|det|$ der Matrix mit diesen Spalten.*
+*Tipp: Fläche $=|\det|$ der Matrix mit diesen Spalten.*
 
 #### Mini-Quiz (Q&A)
 
-**F:** Was bedeutet geometrisch $det A=0$?
+**F:** Was bedeutet geometrisch $\det A=0$?
 
 **A:** Richtig ist: Das Volumen ist null, die Spalten sind linear abhängig. Determinante null heißt, das aufgespannte Volumen kollabiert — die Spalten liegen in einem echten Unterraum.
 
@@ -821,14 +811,14 @@ Welche Fläche spannen $egin{pmatrix}3\0end{pmatrix}$ und $egin{pmatrix}1\2end
 #### Theorie
 
 - Bislang waren Vektoren Pfeile mit Komponenten. Doch dieselben Rechenregeln gelten auch für Objekte, die gar keine Pfeile sind: Polynome, Funktionen, Lösungen von Differentialgleichungen.
-- Beispiel: Polynome kann man addieren ($x^2+3x = x^2+3x$) und mit Zahlen vielfachen ($2cdot(x^2+1)=2x^2+2$) — genau wie Vektoren. Die „Komponenten“ sind hier die Koeffizienten.
+- Beispiel: Polynome kann man addieren ($x^2+3x = x^2+3x$) und mit Zahlen vielfachen ($2\cdot(x^2+1)=2x^2+2$) — genau wie Vektoren. Die „Komponenten“ sind hier die Koeffizienten.
 - Statt jeden Typ einzeln zu behandeln, fasst man alle zusammen, die sich gleich verhalten: ein Vektorraum ist jede Menge mit Addition und skalaren Vielfachen, die die vertrauten Regeln erfüllen.
 - Der Gewinn ist enorm: ein einziger Beweis für alle Vektorräume zugleich. Sätze über Basen, Dimension und lineare Abbildungen gelten dann automatisch für Pfeile, Polynome und Funktionen.
 - Dieser Schritt — vom konkreten Objekt zur axiomatischen Struktur — ist der Kern universitärer Mathematik. Wer ihn einmal verstanden hat, sieht überall Vektorräume.
 
 #### Beispiel
 
-Die drei Vektoren $ec e_1,ec e_2,ec e_3$ bilden eine Basis des $mathbb{R}^3$; die Monome $1,x,x^2$ bilden eine Basis der quadratischen Polynome. Beide Räume haben Dimension $3$ — derselbe Satz, zwei völlig verschiedene Objekte.
+Die drei Vektoren $\vec e_1,\vec e_2,\vec e_3$ bilden eine Basis des $\mathbb{R}^3$; die Monome $1,x,x^2$ bilden eine Basis der quadratischen Polynome. Beide Räume haben Dimension $3$ — derselbe Satz, zwei völlig verschiedene Objekte.
 
 #### Übungsaufgabe
 
@@ -862,27 +852,27 @@ Nenne zwei Vektorräume, die keine Pfeile sind, und gib jeweils eine Basis an.
 
 #### Theorie
 
-- Ein Körper $K$ (z. B. $mathbb{Q},mathbb{R},mathbb{C}$) ist eine Menge mit Addition und Multiplikation, die die vertrauten Regeln erfüllen: Assoziativität, Kommutativität, Distributivität, neutrale und inverse Elemente.
-- Ein $K$-Vektorraum ist eine Menge $V$ mit Addition $ec u+ec v$ und skalarer Multiplikation $lambdaec v$ ($lambdain K$), die die Axiome erfüllen: $ec u+ec v=ec v+ec u$, $lambda(ec u+ec v)=lambdaec u+lambdaec v$, $(lambda+mu)ec v=lambdaec v+muec v$ und $1cdotec v=ec v$.
-- Diese Axiome sind nicht Willkür, sondern fassen die Rechenregeln zusammen, die wir schon bei $mathbb{R}^n$ genutzt haben — jetzt aber für beliebige Objekte.
-- Der Nullvektor $ec 0$ ist eindeutig durch $ec v+ec 0=ec v$ festgelegt, ebenso der Gegenvektor $-ec v$.
+- Ein Körper $K$ (z. B. $\mathbb{Q},\mathbb{R},\mathbb{C}$) ist eine Menge mit Addition und Multiplikation, die die vertrauten Regeln erfüllen: Assoziativität, Kommutativität, Distributivität, neutrale und inverse Elemente.
+- Ein $K$-Vektorraum ist eine Menge $V$ mit Addition $\vec u+\vec v$ und skalarer Multiplikation $\lambda\vec v$ ($\lambda\in K$), die die Axiome erfüllen: $\vec u+\vec v=\vec v+\vec u$, $\lambda(\vec u+\vec v)=\lambda\vec u+\lambda\vec v$, $(\lambda+\mu)\vec v=\lambda\vec v+\mu\vec v$ und $1\cdot\vec v=\vec v$.
+- Diese Axiome sind nicht Willkür, sondern fassen die Rechenregeln zusammen, die wir schon bei $\mathbb{R}^n$ genutzt haben — jetzt aber für beliebige Objekte.
+- Der Nullvektor $\vec 0$ ist eindeutig durch $\vec v+\vec 0=\vec v$ festgelegt, ebenso der Gegenvektor $-\vec v$.
 - Dieser Schritt — vom konkreten Pfeil zum axiomatischen Vektorraum — ist ein klassischer Schwerpunkt der Linearen Algebra 1 an der Universität Freiburg; die Axiome und der sichere Umgang mit ihnen stehen regelmäßig am Anfang von Klausuren (siehe Altklausuren der Fachschaft Mathematik).
 
 #### Beispiel
 
-$mathbb{R}^n$ über $mathbb{R}$ ist ein Vektorraum. Auch $mathbb{C}$ ist ein $mathbb{R}$-Vektorraum (Skalare reell) und ein $mathbb{C}$-Vektorraum (Skalare komplex).
+$\mathbb{R}^n$ über $\mathbb{R}$ ist ein Vektorraum. Auch $\mathbb{C}$ ist ein $\mathbb{R}$-Vektorraum (Skalare reell) und ein $\mathbb{C}$-Vektorraum (Skalare komplex).
 
 #### Übungsaufgabe
 
-Zeige: in jedem Vektorraum gilt $lambdaec 0=ec 0$ für alle $lambdain K$.
+Zeige: in jedem Vektorraum gilt $\lambda\vec 0=\vec 0$ für alle $\lambda\in K$.
 
-*Tipp: Nutze $ec 0=ec 0+ec 0$ und die Distributivität.*
+*Tipp: Nutze $\vec 0=\vec 0+\vec 0$ und die Distributivität.*
 
 #### Mini-Quiz (Q&A)
 
 **F:** Welche Axiome definieren einen Vektorraum?
 
-**A:** Richtig ist: Addition und skalare Multiplikation mit Rechenregeln wie Distributivität. Ein Vektorraum braucht Addition und skalare Multiplikation, die Assoziativität, Kommutativität und Distributivität erfüllen, mit $1cdotec v=ec v$.
+**A:** Richtig ist: Addition und skalare Multiplikation mit Rechenregeln wie Distributivität. Ein Vektorraum braucht Addition und skalare Multiplikation, die Assoziativität, Kommutativität und Distributivität erfüllen, mit $1\cdot\vec v=\vec v$.
 
 #### Quellen & weiterführende Links
 
@@ -900,27 +890,26 @@ Zeige: in jedem Vektorraum gilt $lambdaec 0=ec 0$ für alle $lambdain K$.
 
 #### Theorie
 
-- Eine Teilmenge $Usubseteq V$ heißt Unterraum, wenn sie selbst ein Vektorraum ist. Es reicht zu prüfen: $U
-eqemptyset$ und mit $ec u,ec win U$ liegt auch $lambdaec u+muec win U$ für alle $lambda,muin K$ (Unterraumkriterium).
-- Äquivalent: $ec 0in U$ und $U$ ist abgeschlossen unter Addition und skalaren Vielfachen.
-- Beispiele: jeder Vektorraum ist sein eigener Unterraum; ${ec 0}$ ist der Nullraum; eine Gerade/Ebene durch den Ursprung im $mathbb{R}^3$ ist ein Unterraum.
+- Eine Teilmenge $U\subseteq V$ heißt Unterraum, wenn sie selbst ein Vektorraum ist. Es reicht zu prüfen: $U\neq\emptyset$ und mit $\vec u,\vec w\in U$ liegt auch $\lambda\vec u+\mu\vec w\in U$ für alle $\lambda,\mu\in K$ (Unterraumkriterium).
+- Äquivalent: $\vec 0\in U$ und $U$ ist abgeschlossen unter Addition und skalaren Vielfachen.
+- Beispiele: jeder Vektorraum ist sein eigener Unterraum; ${\vec 0}$ ist der Nullraum; eine Gerade/Ebene durch den Ursprung im $\mathbb{R}^3$ ist ein Unterraum.
 - Eine Menge, die den Nullvektor nicht enthält, kann kein Unterraum sein — der erste Schnelltest.
 
 #### Beispiel
 
-Im $mathbb{R}^2$ ist $U={egin{pmatrix}x\yend{pmatrix}:y=2x}$ ein Unterraum (eine Ursprungsgerade). Dagegen ist ${ec v:lVertec vVert=1}$ (Einheitskreis) keiner, da Addition die Länge ändert.
+Im $\mathbb{R}^2$ ist $U={\begin{pmatrix}x\\y\end{pmatrix}:y=2x}$ ein Unterraum (eine Ursprungsgerade). Dagegen ist ${\vec v:\lVert\vec v\rVert=1}$ (Einheitskreis) keiner, da Addition die Länge ändert.
 
 #### Übungsaufgabe
 
-Ist $U={egin{pmatrix}x\y\zend{pmatrix}inmathbb{R}^3: x+y+z=0}$ ein Unterraum?
+Ist $U={\begin{pmatrix}x\\y\\z\end{pmatrix}\in\mathbb{R}^3: x+y+z=0}$ ein Unterraum?
 
-*Tipp: Prüfe, ob $ec 0$ dabei liegt und ob mit zwei Lösungen auch jede Linearkombination Lösung ist.*
+*Tipp: Prüfe, ob $\vec 0$ dabei liegt und ob mit zwei Lösungen auch jede Linearkombination Lösung ist.*
 
 #### Mini-Quiz (Q&A)
 
 **F:** Was ist der schnellste Test, ob eine Menge kein Unterraum ist?
 
-**A:** Richtig ist: Sie enthält $ec 0$ nicht. Ohne den Nullvektor kann eine Menge kein Unterraum sein — das ist der einfachste Ausschluss-Test.
+**A:** Richtig ist: Sie enthält $\vec 0$ nicht. Ohne den Nullvektor kann eine Menge kein Unterraum sein — das ist der einfachste Ausschluss-Test.
 
 #### Quellen & weiterführende Links
 
@@ -936,21 +925,21 @@ Ist $U={egin{pmatrix}x\y\zend{pmatrix}inmathbb{R}^3: x+y+z=0}$ ein Unterraum?
 
 #### Theorie
 
-- Vektorräume sind nicht nur Pfeile. Die Menge aller Funktionen $f:mathbb{R}	omathbb{R}$ mit punktweiser Addition $(f+g)(x)=f(x)+g(x)$ und $(lambda f)(x)=lambda f(x)$ ist ein Vektorraum.
-- Die Polynome $K[x]$ in einer Variablen bilden einen Vektorraum; die Monome $1,x,x^2,dots$ sind ein natürliches Erzeugendensystem.
-- Die stetigen Funktionen, die differenzierbaren Funktionen und die $k$-mal stetig differenzierbaren Funktionen $C^k(mathbb{R})$ sind jeweils Unterräume des Funktionenraums.
+- Vektorräume sind nicht nur Pfeile. Die Menge aller Funktionen $f:\mathbb{R}\to\mathbb{R}$ mit punktweiser Addition $(f+g)(x)=f(x)+g(x)$ und $(\lambda f)(x)=\lambda f(x)$ ist ein Vektorraum.
+- Die Polynome $K[x]$ in einer Variablen bilden einen Vektorraum; die Monome $1,x,x^2,\dots$ sind ein natürliches Erzeugendensystem.
+- Die stetigen Funktionen, die differenzierbaren Funktionen und die $k$-mal stetig differenzierbaren Funktionen $C^k(\mathbb{R})$ sind jeweils Unterräume des Funktionenraums.
 - Diese Beispiele zeigen, dass Vektorräume unendlichdimensional sein können — der Begriff „Dimension“ muss später verallgemeinert werden.
 - Für die Lineare Algebra sind Polynomräume zentral: Differentialoperatoren und charakteristische Polynome leben hier.
 
 #### Beispiel
 
-Sind $f(x)=x^2$ und $g(x)=sin x$ im Funktionenraum, so ist $3f-2g$ die Funktion $xmapsto 3x^2-2sin x$ — wieder eine Funktion, also abgeschlossen.
+Sind $f(x)=x^2$ und $g(x)=\sin x$ im Funktionenraum, so ist $3f-2g$ die Funktion $x\mapsto 3x^2-2\sin x$ — wieder eine Funktion, also abgeschlossen.
 
 #### Übungsaufgabe
 
-Ist die Menge $U={finmathbb{R}[x]:f(0)=0}$ ein Unterraum von $mathbb{R}[x]$?
+Ist die Menge $U={f\in\mathbb{R}[x]:f(0)=0}$ ein Unterraum von $\mathbb{R}[x]$?
 
-*Tipp: Prüfe $ec 0$ (die Nullfunktion) und die Abgeschlossenheit unter Linearkombinationen über den Funktionswert an $0$.*
+*Tipp: Prüfe $\vec 0$ (die Nullfunktion) und die Abgeschlossenheit unter Linearkombinationen über den Funktionswert an $0$.*
 
 #### Mini-Quiz (Q&A)
 
@@ -979,26 +968,26 @@ Ist die Menge $U={finmathbb{R}[x]:f(0)=0}$ ein Unterraum von $mathbb{R}[x]$?
 
 #### Theorie
 
-- Eine Menge $Esubseteq V$ heißt Erzeugendensystem, wenn jeder Vektor als Linearkombination von $E$ geschrieben werden kann, also $operatorname{span}(E)=V$.
-- Vektoren $ec v_1,dots,ec v_k$ heißen linear unabhängig, wenn $lambda_1ec v_1+dots+lambda_kec v_k=ec 0$ nur die triviale Lösung $lambda_1=dots=lambda_k=0$ hat. Sonst sind sie linear abhängig.
+- Eine Menge $E\subseteq V$ heißt Erzeugendensystem, wenn jeder Vektor als Linearkombination von $E$ geschrieben werden kann, also $\operatorname{span}(E)=V$.
+- Vektoren $\vec v_1,\dots,\vec v_k$ heißen linear unabhängig, wenn $\lambda_1\vec v_1+\dots+\lambda_k\vec v_k=\vec 0$ nur die triviale Lösung $\lambda_1=\dots=\lambda_k=0$ hat. Sonst sind sie linear abhängig.
 - Linear abhängig heißt: ein Vektor ist Linearkombination der anderen.
-- Im $mathbb{R}^n$ sind höchstens $n$ Vektoren linear unabhängig. Mehr als $n$ sind automatisch abhängig.
+- Im $\mathbb{R}^n$ sind höchstens $n$ Vektoren linear unabhängig. Mehr als $n$ sind automatisch abhängig.
 
 #### Beispiel
 
-Sind $egin{pmatrix}1\0end{pmatrix},egin{pmatrix}0\1end{pmatrix},egin{pmatrix}1\1end{pmatrix}$ unabhängig? Nein: $egin{pmatrix}1\1end{pmatrix}=egin{pmatrix}1\0end{pmatrix}+egin{pmatrix}0\1end{pmatrix}$, also abhängig.
+Sind $\begin{pmatrix}1\\0\end{pmatrix},\begin{pmatrix}0\\1\end{pmatrix},\begin{pmatrix}1\\1\end{pmatrix}$ unabhängig? Nein: $\begin{pmatrix}1\\1\end{pmatrix}=\begin{pmatrix}1\\0\end{pmatrix}+\begin{pmatrix}0\\1\end{pmatrix}$, also abhängig.
 
 #### Übungsaufgabe
 
-Sind $egin{pmatrix}1\2\3end{pmatrix},egin{pmatrix}2\3\4end{pmatrix},egin{pmatrix}3\5\7end{pmatrix}$ linear unabhängig?
+Sind $\begin{pmatrix}1\\2\\3\end{pmatrix},\begin{pmatrix}2\\3\\4\end{pmatrix},\begin{pmatrix}3\\5\\7\end{pmatrix}$ linear unabhängig?
 
-*Tipp: Löse $lambda_1ec v_1+lambda_2ec v_2+lambda_3ec v_3=ec 0$ als homogenes LGS.*
+*Tipp: Löse $\lambda_1\vec v_1+\lambda_2\vec v_2+\lambda_3\vec v_3=\vec 0$ als homogenes LGS.*
 
 #### Mini-Quiz (Q&A)
 
 **F:** Wann heißen Vektoren linear unabhängig?
 
-**A:** Richtig ist: Wenn die Nullgleichung nur trivial lösbar ist. Linear unabhängig bedeutet: $lambda_1ec v_1+dots+lambda_kec v_k=ec 0$ hat nur die Lösung $lambda_i=0$.
+**A:** Richtig ist: Wenn die Nullgleichung nur trivial lösbar ist. Linear unabhängig bedeutet: $\lambda_1\vec v_1+\dots+\lambda_k\vec v_k=\vec 0$ hat nur die Lösung $\lambda_i=0$.
 
 #### Quellen & weiterführende Links
 
@@ -1015,20 +1004,18 @@ Sind $egin{pmatrix}1\2\3end{pmatrix},egin{pmatrix}2\3\4end{pmatrix},egin{pmat
 
 #### Theorie
 
-- Eine Basis ist ein Erzeugendensystem, das zugleich linear unabhängig ist. Die Standardbasis des $mathbb{R}^n$ ist $ec e_1,dots,ec e_n$.
-- Basisaustauschlemma (Steinitz): Ist ${ec v_1,dots,ec v_n}$ eine Basis und $ec w=summu_iec v_i$ mit $mu_j
-eq0$, so erhält man eine neue Basis, indem man $ec v_j$ durch $ec w$ ersetzt.
+- Eine Basis ist ein Erzeugendensystem, das zugleich linear unabhängig ist. Die Standardbasis des $\mathbb{R}^n$ ist $\vec e_1,\dots,\vec e_n$.
+- Basisaustauschlemma (Steinitz): Ist ${\vec v_1,\dots,\vec v_n}$ eine Basis und $\vec w=\sum\mu_i\vec v_i$ mit $\mu_j\neq0$, so erhält man eine neue Basis, indem man $\vec v_j$ durch $\vec w$ ersetzt.
 - Daraus folgt der Basisergänzungssatz: jedes linear unabhängige System kann zu einer Basis ergänzt werden; jedes Erzeugendensystem enthält eine Basis.
 - Insbesondere haben je zwei Basen desselben Vektorraums gleich viele Elemente — das motiviert die Dimension.
 
 #### Beispiel
 
-Im $mathbb{R}^2$ ist ${ec e_1,ec e_2}$ eine Basis. Mit $ec w=ec e_1+ec e_2$ (Koeffizient von $ec e_2$ ist $1
-eq0$) ist auch ${ec e_1,ec e_1+ec e_2}$ eine Basis.
+Im $\mathbb{R}^2$ ist ${\vec e_1,\vec e_2}$ eine Basis. Mit $\vec w=\vec e_1+\vec e_2$ (Koeffizient von $\vec e_2$ ist $1\neq0$) ist auch ${\vec e_1,\vec e_1+\vec e_2}$ eine Basis.
 
 #### Übungsaufgabe
 
-Begründe, dass ${ec e_1,ec e_1+ec e_2}$ eine Basis des $mathbb{R}^2$ ist.
+Begründe, dass ${\vec e_1,\vec e_1+\vec e_2}$ eine Basis des $\mathbb{R}^2$ ist.
 
 *Tipp: Prüfe lineare Unabhängigkeit und dass jeder Vektor als Linearkombination geschrieben werden kann.*
 
@@ -1054,18 +1041,18 @@ Begründe, dass ${ec e_1,ec e_1+ec e_2}$ eine Basis des $mathbb{R}^2$ ist.
 
 #### Theorie
 
-- Die Dimension $dim V$ ist die Anzahl der Vektoren in einer (und damit jeder) Basis. Der $mathbb{R}^n$ hat Dimension $n$.
-- Für jeden Unterraum $Usubseteq V$ gilt $dim Uleqdim V$; Gleichheit liegt genau vor, wenn $U=V$.
-- Der Ergänzungssatz liefert: zu jedem Unterraum $U$ gibt es einen Komplementärraum $W$ mit $V=Uoplus W$ und $dim V=dim U+dim W$.
+- Die Dimension $\dim V$ ist die Anzahl der Vektoren in einer (und damit jeder) Basis. Der $\mathbb{R}^n$ hat Dimension $n$.
+- Für jeden Unterraum $U\subseteq V$ gilt $\dim U\leq\dim V$; Gleichheit liegt genau vor, wenn $U=V$.
+- Der Ergänzungssatz liefert: zu jedem Unterraum $U$ gibt es einen Komplementärraum $W$ mit $V=U\oplus W$ und $\dim V=\dim U+\dim W$.
 - Unendlichdimensionale Räume (wie $K[x]$) haben keine endliche Basis; ihre „Dimension“ wird später über Kardinalitäten von Hamel-Basen gefasst.
 
 #### Beispiel
 
-Im $mathbb{R}^3$ hat die $xy$-Ebene $U={z=0}$ Dimension $2$; ein Komplementärraum ist die $z$-Achse mit Dimension $1$, und $2+1=3$.
+Im $\mathbb{R}^3$ hat die $xy$-Ebene $U={z=0}$ Dimension $2$; ein Komplementärraum ist die $z$-Achse mit Dimension $1$, und $2+1=3$.
 
 #### Übungsaufgabe
 
-Bestimme die Dimension von $U={egin{pmatrix}x\y\zend{pmatrix}:x+y+z=0}subseteqmathbb{R}^3$.
+Bestimme die Dimension von $U={\begin{pmatrix}x\\y\\z\end{pmatrix}:x+y+z=0}\subseteq\mathbb{R}^3$.
 
 *Tipp: Löse $z=-x-y$, also zwei freie Parameter; gib eine Basis an.*
 
@@ -1096,10 +1083,10 @@ Bestimme die Dimension von $U={egin{pmatrix}x\y\zend{pmatrix}:x+y+z=0}subseteqm
 
 #### Theorie
 
-- Eine Abbildung $f:V	o W$ heißt linear, wenn $f(ec u+ec v)=f(ec u)+f(ec v)$ und $f(lambdaec v)=lambda f(ec v)$ gelten — kurz $f(lambdaec u+muec v)=lambda f(ec u)+mu f(ec v)$.
-- Folge: $f(ec 0)=ec 0$. Eine lineare Abbildung ist vollständig durch die Bilder einer Basis festgelegt.
-- Der Kern $ker f={ec vin V:f(ec v)=ec 0}$ ist ein Unterraum von $V$; er misst, wie viel „verschwindet“.
-- Das Bild $operatorname{im} f={f(ec v):ec vin V}$ ist ein Unterraum von $W$; es misst, wie viel „ankommt“.
+- Eine Abbildung $f:V\to W$ heißt linear, wenn $f(\vec u+\vec v)=f(\vec u)+f(\vec v)$ und $f(\lambda\vec v)=\lambda f(\vec v)$ gelten — kurz $f(\lambda\vec u+\mu\vec v)=\lambda f(\vec u)+\mu f(\vec v)$.
+- Folge: $f(\vec 0)=\vec 0$. Eine lineare Abbildung ist vollständig durch die Bilder einer Basis festgelegt.
+- Der Kern $\ker f={\vec v\in V:f(\vec v)=\vec 0}$ ist ein Unterraum von $V$; er misst, wie viel „verschwindet“.
+- Das Bild $\operatorname{im} f={f(\vec v):\vec v\in V}$ ist ein Unterraum von $W$; es misst, wie viel „ankommt“.
 
 #### Beispiel
 
@@ -1107,15 +1094,15 @@ Die Projektion $f(x,y)=(x,0)$ ist linear. Ihr Kern ist die $y$-Achse ${(0,y)}$, 
 
 #### Übungsaufgabe
 
-Bestimme Kern und Bild von $f:mathbb{R}^2	omathbb{R}^2$, $f(x,y)=(x+y,,x+y)$.
+Bestimme Kern und Bild von $f:\mathbb{R}^2\to\mathbb{R}^2$, $f(x,y)=(x+y,\,x+y)$.
 
-*Tipp: Kern: $f(x,y)=ec 0$ lösen. Bild: welche Vektoren entstehen als $(x+y,x+y)$?*
+*Tipp: Kern: $f(x,y)=\vec 0$ lösen. Bild: welche Vektoren entstehen als $(x+y,x+y)$?*
 
 #### Mini-Quiz (Q&A)
 
 **F:** Was ist der Kern einer linearen Abbildung?
 
-**A:** Richtig ist: Die Menge der Vektoren, die auf $ec 0$ abgebildet werden. Der Kern $ker f={ec v:f(ec v)=ec 0}$ ist ein Unterraum des Definitionsbereichs.
+**A:** Richtig ist: Die Menge der Vektoren, die auf $\vec 0$ abgebildet werden. Der Kern $\ker f={\vec v:f(\vec v)=\vec 0}$ ist ein Unterraum des Definitionsbereichs.
 
 #### Quellen & weiterführende Links
 
@@ -1134,26 +1121,26 @@ Bestimme Kern und Bild von $f:mathbb{R}^2	omathbb{R}^2$, $f(x,y)=(x+y,,x+y)$.
 
 #### Theorie
 
-- Der Rang $operatorname{rang}(f)=dimoperatorname{im} f$ und die Nullität $operatorname{null}(f)=dimker f$.
-- Rang-Nullitätssatz: für lineares $f:V	o W$ mit $dim V<infty$ gilt $dim V=dimker f+dimoperatorname{im} f$.
+- Der Rang $\operatorname{rang}(f)=\dim\operatorname{im} f$ und die Nullität $\operatorname{null}(f)=\dim\ker f$.
+- Rang-Nullitätssatz: für lineares $f:V\to W$ mit $\dim V<\infty$ gilt $\dim V=\dim\ker f+\dim\operatorname{im} f$.
 - Anschaulich: was im Kern verschwindet, fehlt im Bild; beides zusammen ergibt den Ausgangsraum.
-- Folgerung: ist $dim V=dim W$ und $f$ injektiv, so ist $f$ auch surjektiv (und umgekehrt) — bei gleichem Dimension ein zentraler Test.
+- Folgerung: ist $\dim V=\dim W$ und $f$ injektiv, so ist $f$ auch surjektiv (und umgekehrt) — bei gleichem Dimension ein zentraler Test.
 
 #### Beispiel
 
-Für $f(x,y)=(x+y,x+y)$ (vorher) ist $dimker f=1$ und $dimoperatorname{im} f=1$, Summe $2=dimmathbb{R}^2$. ✓
+Für $f(x,y)=(x+y,x+y)$ (vorher) ist $\dim\ker f=1$ und $\dim\operatorname{im} f=1$, Summe $2=\dim\mathbb{R}^2$. ✓
 
 #### Übungsaufgabe
 
-Sei $f:mathbb{R}^3	omathbb{R}^2$ linear mit $dimoperatorname{im} f=2$. Bestimme $dimker f$.
+Sei $f:\mathbb{R}^3\to\mathbb{R}^2$ linear mit $\dim\operatorname{im} f=2$. Bestimme $\dim\ker f$.
 
-*Tipp: Rang-Nullitätssatz: $dim V=dimker f+dimoperatorname{im} f$.*
+*Tipp: Rang-Nullitätssatz: $\dim V=\dim\ker f+\dim\operatorname{im} f$.*
 
 #### Mini-Quiz (Q&A)
 
 **F:** Was besagt der Rang-Nullitätssatz?
 
-**A:** Richtig ist: $dim V=dimker f+dimoperatorname{im} f$. Die Dimension des Ausgangsraums teilt sich auf in Kern und Bild: $dim V=dimker f+dimoperatorname{im} f$.
+**A:** Richtig ist: $\dim V=\dim\ker f+\dim\operatorname{im} f$. Die Dimension des Ausgangsraums teilt sich auf in Kern und Bild: $\dim V=\dim\ker f+\dim\operatorname{im} f$.
 
 #### Quellen & weiterführende Links
 
@@ -1169,18 +1156,18 @@ Sei $f:mathbb{R}^3	omathbb{R}^2$ linear mit $dimoperatorname{im} f=2$. Bestimme 
 
 #### Theorie
 
-- Ist $B$ eine Basis von $V$ und $C$ eine Basis von $W$, so wird jede lineare Abbildung $f:V	o W$ durch eine Matrix $M_C^B(f)$ beschrieben: ihre $j$-te Spalte ist die Koordinatendarstellung von $f(ec b_j)$ bezüglich $C$.
-- Wechselt man die Basis in $V$ von $B$ nach $B'$, so transformiert sich die Matrix durch $M_C^{B'}(f)=M_C^B(f)cdot S_{B'	o B}$, wobei $S$ die Basiswechselmatrix ist.
+- Ist $B$ eine Basis von $V$ und $C$ eine Basis von $W$, so wird jede lineare Abbildung $f:V\to W$ durch eine Matrix $M_C^B(f)$ beschrieben: ihre $j$-te Spalte ist die Koordinatendarstellung von $f(\vec b_j)$ bezüglich $C$.
+- Wechselt man die Basis in $V$ von $B$ nach $B'$, so transformiert sich die Matrix durch $M_C^{B'}(f)=M_C^B(f)\cdot S_{B'\to B}$, wobei $S$ die Basiswechselmatrix ist.
 - Bei Endomorphismen ($V=W$, $C=B$) lautet die Transformationsregel $A'=S^{-1}AS$ — ähnliche Matrizen beschreiben dieselbe Abbildung in verschiedenen Basen.
 - Ein Isomorphismus ist eine bijektive lineare Abbildung; endliche Vektorräume gleicher Dimension sind isomorph.
 
 #### Beispiel
 
-Ist $A=egin{pmatrix}2&0\0&3end{pmatrix}$ in der Standardbasis und $S=egin{pmatrix}1&1\0&1end{pmatrix}$ die Basiswechselmatrix, so ist $A'=S^{-1}AS=egin{pmatrix}2&1\0&3end{pmatrix}$ ähnlich zu $A$.
+Ist $A=\begin{pmatrix}2&0\\0&3\end{pmatrix}$ in der Standardbasis und $S=\begin{pmatrix}1&1\\0&1\end{pmatrix}$ die Basiswechselmatrix, so ist $A'=S^{-1}AS=\begin{pmatrix}2&1\\0&3\end{pmatrix}$ ähnlich zu $A$.
 
 #### Übungsaufgabe
 
-Prüfe: sind $A=egin{pmatrix}1&0\0&4end{pmatrix}$ und $B=egin{pmatrix}1&3\0&4end{pmatrix}$ ähnlich? Hinweis: $S=egin{pmatrix}1&1\0&1end{pmatrix}$.
+Prüfe: sind $A=\begin{pmatrix}1&0\\0&4\end{pmatrix}$ und $B=\begin{pmatrix}1&3\\0&4\end{pmatrix}$ ähnlich? Hinweis: $S=\begin{pmatrix}1&1\\0&1\end{pmatrix}$.
 
 *Tipp: Berechne $S^{-1}AS$ und vergleiche mit $B$.*
 
@@ -1212,30 +1199,27 @@ Prüfe: sind $A=egin{pmatrix}1&0\0&4end{pmatrix}$ und $B=egin{pmatrix}1&3\0&4e
 
 #### Theorie
 
-- Eine Zahl $lambdain K$ heißt Eigenwert eines Endomorphismus $f:V	o V$, wenn ein Vektor $ec v
-eqec 0$ existiert mit $f(ec v)=lambdaec v$. Dieser $ec v$ heißt Eigenvektor.
-- Der Eigenraum zu $lambda$ ist $E_lambda=ker(f-lambda,mathrm{id})={ec v:f(ec v)=lambdaec v}$ — ein Unterraum, der alle Eigenvektoren zu $lambda$ (und $ec 0$) enthält.
-- Eigenvektoren sind Richtungen, die unter $f$ nur gestreckt, nicht gedreht werden; der Skalar $lambda$ ist der Streckfaktor.
+- Eine Zahl $\lambda\in K$ heißt Eigenwert eines Endomorphismus $f:V\to V$, wenn ein Vektor $\vec v\neq\vec 0$ existiert mit $f(\vec v)=\lambda\vec v$. Dieser $\vec v$ heißt Eigenvektor.
+- Der Eigenraum zu $\lambda$ ist $E_\lambda=\ker(f-\lambda\,\mathrm{id})={\vec v:f(\vec v)=\lambda\vec v}$ — ein Unterraum, der alle Eigenvektoren zu $\lambda$ (und $\vec 0$) enthält.
+- Eigenvektoren sind Richtungen, die unter $f$ nur gestreckt, nicht gedreht werden; der Skalar $\lambda$ ist der Streckfaktor.
 - Eigenwerte stehen in Freiburger LA1-Klausuren häufig im Zentrum — sicheres Berechnen des charakteristischen Polynoms und der Eigenräume ist Klausurstandard (siehe Altklausuren der Fachschaft Mathematik).
-- Sind $lambda_1,dots,lambda_k$ paarweise verschiedene Eigenwerte, so sind zugehörige Eigenvektoren linear unabhängig.
+- Sind $\lambda_1,\dots,\lambda_k$ paarweise verschiedene Eigenwerte, so sind zugehörige Eigenvektoren linear unabhängig.
 
 #### Beispiel
 
-Für $A=egin{pmatrix}2&0\0&3end{pmatrix}$ ist $ec e_1$ Eigenvektor zum Eigenwert $2$ und $ec e_2$ zum Eigenwert $3$, da $Aec e_1=2ec e_1$ und $Aec e_2=3ec e_2$.
+Für $A=\begin{pmatrix}2&0\\0&3\end{pmatrix}$ ist $\vec e_1$ Eigenvektor zum Eigenwert $2$ und $\vec e_2$ zum Eigenwert $3$, da $A\vec e_1=2\vec e_1$ und $A\vec e_2=3\vec e_2$.
 
 #### Übungsaufgabe
 
-Bestimme Eigenwerte und einen Eigenvektor von $A=egin{pmatrix}1&2\2&1end{pmatrix}$.
+Bestimme Eigenwerte und einen Eigenvektor von $A=\begin{pmatrix}1&2\\2&1\end{pmatrix}$.
 
-*Tipp: Löse $det(A-lambda I)=0$; dann pro Eigenwert $(A-lambda I)ec v=ec 0$.*
+*Tipp: Löse $\det(A-\lambda I)=0$; dann pro Eigenwert $(A-\lambda I)\vec v=\vec 0$.*
 
 #### Mini-Quiz (Q&A)
 
-**F:** Was ist ein Eigenvektor von $A$ zum Eigenwert $lambda$?
+**F:** Was ist ein Eigenvektor von $A$ zum Eigenwert $\lambda$?
 
-**A:** Richtig ist: Ein Vektor $ec v
-eqec 0$ mit $Aec v=lambdaec v$. Ein Eigenvektor wird durch $A$ nur um den Faktor $lambda$ gestreckt: $Aec v=lambdaec v$, $ec v
-eqec 0$.
+**A:** Richtig ist: Ein Vektor $\vec v\neq\vec 0$ mit $A\vec v=\lambda\vec v$. Ein Eigenvektor wird durch $A$ nur um den Faktor $\lambda$ gestreckt: $A\vec v=\lambda\vec v$, $\vec v\neq\vec 0$.
 
 #### Quellen & weiterführende Links
 
@@ -1253,26 +1237,26 @@ eqec 0$.
 
 #### Theorie
 
-- Das charakteristische Polynom ist $chi_A(lambda)=det(A-lambda I)$. Seine Nullstellen sind genau die Eigenwerte.
-- Der Grad von $chi_A$ ist $n$ bei einer $n	imes n$-Matrix; über $mathbb{C}$ gibt es also genau $n$ Eigenwerte (mit Vielfachheit).
-- Die algebraische Vielfachheit eines Eigenwerts ist seine Vielfachheit als Nullstelle von $chi_A$.
-- Spur und Determinante liest man ab: $operatorname{tr}(A)=sumlambda_i$ und $det A=prodlambda_i$ (Summe bzw. Produkt über alle Eigenwerte mit Vielfachheit).
+- Das charakteristische Polynom ist $\chi_A(\lambda)=\det(A-\lambda I)$. Seine Nullstellen sind genau die Eigenwerte.
+- Der Grad von $\chi_A$ ist $n$ bei einer $n\times n$-Matrix; über $\mathbb{C}$ gibt es also genau $n$ Eigenwerte (mit Vielfachheit).
+- Die algebraische Vielfachheit eines Eigenwerts ist seine Vielfachheit als Nullstelle von $\chi_A$.
+- Spur und Determinante liest man ab: $\operatorname{tr}(A)=\sum\lambda_i$ und $\det A=\prod\lambda_i$ (Summe bzw. Produkt über alle Eigenwerte mit Vielfachheit).
 
 #### Beispiel
 
-$A=egin{pmatrix}1&2\2&1end{pmatrix}$: $chi_A=lambda^2-2lambda-3$, Spur $=2=3+(-1)$, $det=-3=3cdot(-1)$ — beides passt zu den Eigenwerten $3$ und $-1$.
+$A=\begin{pmatrix}1&2\\2&1\end{pmatrix}$: $\chi_A=\lambda^2-2\lambda-3$, Spur $=2=3+(-1)$, $\det=-3=3\cdot(-1)$ — beides passt zu den Eigenwerten $3$ und $-1$.
 
 #### Übungsaufgabe
 
-Bestimme Eigenwerte, Spur und Determinante von $A=egin{pmatrix}4&1\2&3end{pmatrix}$ über das charakteristische Polynom.
+Bestimme Eigenwerte, Spur und Determinante von $A=\begin{pmatrix}4&1\\2&3\end{pmatrix}$ über das charakteristische Polynom.
 
-*Tipp: $chi_A=(4-lambda)(3-lambda)-2$; Spur $=a+d$, $det=ad-bc$.*
+*Tipp: $\chi_A=(4-\lambda)(3-\lambda)-2$; Spur $=a+d$, $\det=ad-bc$.*
 
 #### Mini-Quiz (Q&A)
 
 **F:** Wie findet man die Eigenwerte einer Matrix?
 
-**A:** Richtig ist: Als Nullstellen des charakteristischen Polynoms $det(A-lambda I)$. Die Eigenwerte sind genau die Nullstellen von $chi_A(lambda)=det(A-lambda I)$.
+**A:** Richtig ist: Als Nullstellen des charakteristischen Polynoms $\det(A-\lambda I)$. Die Eigenwerte sind genau die Nullstellen von $\chi_A(\lambda)=\det(A-\lambda I)$.
 
 #### Quellen & weiterführende Links
 
@@ -1290,17 +1274,17 @@ Bestimme Eigenwerte, Spur und Determinante von $A=egin{pmatrix}4&1\2&3end{pmatr
 #### Theorie
 
 - Eine Matrix $A$ heißt diagonalisierbar, wenn es eine invertierbare Matrix $S$ gibt mit $S^{-1}AS=D$ diagonal. Die Diagonaleinträge von $D$ sind die Eigenwerte.
-- Die geometrische Vielfachheit eines Eigenwerts ist $dim E_lambda$. Es gilt stets $dim E_lambdaleq$ algebraische Vielfachheit.
+- Die geometrische Vielfachheit eines Eigenwerts ist $\dim E_\lambda$. Es gilt stets $\dim E_\lambda\leq$ algebraische Vielfachheit.
 - Satz: $A$ ist genau dann diagonalisierbar, wenn für jeden Eigenwert geometrische und algebraische Vielfachheit übereinstimmen.
-- Über $mathbb{C}$ ist jede Matrix mit $n$ paarweise verschiedenen Eigenwerten diagonalisierbar. Allgemeiner: ist $chi_A$ in LA1 zerlegbar und fallen alle Vielfachheiten zusammen, so ist $A$ diagonalisierbar; sonst braucht man LA2 (Trigonalisierung, Jordan-Form).
+- Über $\mathbb{C}$ ist jede Matrix mit $n$ paarweise verschiedenen Eigenwerten diagonalisierbar. Allgemeiner: ist $\chi_A$ in LA1 zerlegbar und fallen alle Vielfachheiten zusammen, so ist $A$ diagonalisierbar; sonst braucht man LA2 (Trigonalisierung, Jordan-Form).
 
 #### Beispiel
 
-$A=egin{pmatrix}1&1\0&1end{pmatrix}$ hat $chi_A=(1-lambda)^2$, also Eigenwert $1$ mit algebraischer Vielfachheit $2$. Aber $E_1=ker(A-I)={egin{pmatrix}t\0end{pmatrix}}$ hat Dimension $1$. Also nicht diagonalisierbar.
+$A=\begin{pmatrix}1&1\\0&1\end{pmatrix}$ hat $\chi_A=(1-\lambda)^2$, also Eigenwert $1$ mit algebraischer Vielfachheit $2$. Aber $E_1=\ker(A-I)={\begin{pmatrix}t\\0\end{pmatrix}}$ hat Dimension $1$. Also nicht diagonalisierbar.
 
 #### Übungsaufgabe
 
-Ist $A=egin{pmatrix}2&0&0\0&2&0\0&0&3end{pmatrix}$ diagonalisierbar?
+Ist $A=\begin{pmatrix}2&0&0\\0&2&0\\0&0&3\end{pmatrix}$ diagonalisierbar?
 
 *Tipp: Eigenwerte ablesen, dann geometrische Vielfachheiten bestimmen.*
 
@@ -1308,7 +1292,7 @@ Ist $A=egin{pmatrix}2&0&0\0&2&0\0&0&3end{pmatrix}$ diagonalisierbar?
 
 **F:** Wann ist eine Matrix diagonalisierbar?
 
-**A:** Richtig ist: Wenn geometrische und algebraische Vielfachheit jedes Eigenwerts übereinstimmen. Diagonalisierbarkeit liegt genau vor, wenn für jeden Eigenwert $dim E_lambda$ gleich der algebraischen Vielfachheit ist.
+**A:** Richtig ist: Wenn geometrische und algebraische Vielfachheit jedes Eigenwerts übereinstimmen. Diagonalisierbarkeit liegt genau vor, wenn für jeden Eigenwert $\dim E_\lambda$ gleich der algebraischen Vielfachheit ist.
 
 #### Quellen & weiterführende Links
 
@@ -1332,18 +1316,18 @@ Ist $A=egin{pmatrix}2&0&0\0&2&0\0&0&3end{pmatrix}$ diagonalisierbar?
 
 #### Theorie
 
-- Das Standardskalarprodukt auf $mathbb{R}^n$ ist $langleec u,ec vangle=sum_{i=1}^n u_iv_i$. Es liefert eine Zahl (Skalar), keinen Vektor.
-- Eigenschaften: symmetrisch $langleec u,ec vangle=langleec v,ec uangle$, linear im ersten Argument, positiv definit $langleec v,ec vanglegeq0$ mit Gleichheit nur für $ec v=ec 0$.
-- Die Norm ist $lVertec vVert=sqrt{langleec v,ec vangle}$. Zwei Vektoren heißen orthogonal, wenn $langleec u,ec vangle=0$.
-- Die Cauchy-Schwarzsche Ungleichung besagt $|langleec u,ec vangle|leqlVertec uVert,lVertec vVert$; damit ist der Winkel $cosarphi=	frac{langleec u,ec vangle}{lVertec uVertlVertec vVert}$ wohldefiniert.
+- Das Standardskalarprodukt auf $\mathbb{R}^n$ ist $\langle\vec u,\vec v\rangle=\sum_{i=1}^n u_iv_i$. Es liefert eine Zahl (Skalar), keinen Vektor.
+- Eigenschaften: symmetrisch $\langle\vec u,\vec v\rangle=\langle\vec v,\vec u\rangle$, linear im ersten Argument, positiv definit $\langle\vec v,\vec v\rangle\geq0$ mit Gleichheit nur für $\vec v=\vec 0$.
+- Die Norm ist $\lVert\vec v\rVert=\sqrt{\langle\vec v,\vec v\rangle}$. Zwei Vektoren heißen orthogonal, wenn $\langle\vec u,\vec v\rangle=0$.
+- Die Cauchy-Schwarzsche Ungleichung besagt $|\langle\vec u,\vec v\rangle|\leq\lVert\vec u\rVert\,\lVert\vec v\rVert$; damit ist der Winkel $\cos\varphi=\tfrac{\langle\vec u,\vec v\rangle}{\lVert\vec u\rVert\lVert\vec v\rVert}$ wohldefiniert.
 
 #### Beispiel
 
-$langle(1,2),(3,4)angle=1cdot3+2cdot4=11$. Die Normen sind $sqrt5$ und $5$, also ist $11leqsqrt5cdot5approx11{,}18$ (Cauchy-Schwarz).
+$\langle(1,2),(3,4)\rangle=1\cdot3+2\cdot4=11$. Die Normen sind $\sqrt5$ und $5$, also ist $11\leq\sqrt5\cdot5\approx11{,}18$ (Cauchy-Schwarz).
 
 #### Übungsaufgabe
 
-Berechne $langle(2,3),(4,-1)angle$ und prüfe Orthogonalität.
+Berechne $\langle(2,3),(4,-1)\rangle$ und prüfe Orthogonalität.
 
 *Tipp: Paarweise multiplizieren und addieren; null bedeutet orthogonal.*
 
@@ -1351,7 +1335,7 @@ Berechne $langle(2,3),(4,-1)angle$ und prüfe Orthogonalität.
 
 **F:** Wann stehen zwei Vektoren orthogonal zueinander?
 
-**A:** Richtig ist: Wenn ihr Skalarprodukt null ist. Orthogonalität heißt $langleec u,ec vangle=0$ — ein verschwindendes Skalarprodukt.
+**A:** Richtig ist: Wenn ihr Skalarprodukt null ist. Orthogonalität heißt $\langle\vec u,\vec v\rangle=0$ — ein verschwindendes Skalarprodukt.
 
 #### Quellen & weiterführende Links
 
@@ -1370,21 +1354,20 @@ Berechne $langle(2,3),(4,-1)angle$ und prüfe Orthogonalität.
 
 #### Theorie
 
-- Die orthogonale Projektion von $ec v$ auf $ec u
-eqec 0$ ist $operatorname{proj}_{ec u}(ec v)=	frac{langleec v,ec uangle}{langleec u,ec uangle}ec u$. Der Rest $ec v-operatorname{proj}_{ec u}(ec v)$ steht senkrecht auf $ec u$.
-- Das Gram-Schmidt-Verfahren macht aus einer Basis $ec v_1,dots,ec v_n$ eine orthogonale Basis $ec u_1,dots,ec u_n$ durch schrittweises Abziehen der Projektionen: $ec u_k=ec v_k-sum_{i<k}operatorname{proj}_{ec u_i}(ec v_k)$.
-- Normiert man die $ec u_i$ noch, erhält man eine Orthonormalbasis $ec q_i=ec u_i/lVertec u_iVert$.
-- Eine Orthonormalbasis vereinfacht Rechnungen: Koeffizienten sind Skalarprodukte $c_i=langleec v,ec q_iangle$.
+- Die orthogonale Projektion von $\vec v$ auf $\vec u\neq\vec 0$ ist $\operatorname{proj}_{\vec u}(\vec v)=\tfrac{\langle\vec v,\vec u\rangle}{\langle\vec u,\vec u\rangle}\vec u$. Der Rest $\vec v-\operatorname{proj}_{\vec u}(\vec v)$ steht senkrecht auf $\vec u$.
+- Das Gram-Schmidt-Verfahren macht aus einer Basis $\vec v_1,\dots,\vec v_n$ eine orthogonale Basis $\vec u_1,\dots,\vec u_n$ durch schrittweises Abziehen der Projektionen: $\vec u_k=\vec v_k-\sum_{i<k}\operatorname{proj}_{\vec u_i}(\vec v_k)$.
+- Normiert man die $\vec u_i$ noch, erhält man eine Orthonormalbasis $\vec q_i=\vec u_i/\lVert\vec u_i\rVert$.
+- Eine Orthonormalbasis vereinfacht Rechnungen: Koeffizienten sind Skalarprodukte $c_i=\langle\vec v,\vec q_i\rangle$.
 
 #### Beispiel
 
-Gram-Schmidt auf $(1,0),(1,1)$: $ec u_1=(1,0)$; $ec u_2=(1,1)-operatorname{proj}_{ec u_1}(1,1)=(1,1)-(1,0)=(0,1)$. Schon orthonormal.
+Gram-Schmidt auf $(1,0),(1,1)$: $\vec u_1=(1,0)$; $\vec u_2=(1,1)-\operatorname{proj}_{\vec u_1}(1,1)=(1,1)-(1,0)=(0,1)$. Schon orthonormal.
 
 #### Übungsaufgabe
 
-Wende Gram-Schmidt auf $ec v_1=(1,1)$, $ec v_2=(2,0)$ an.
+Wende Gram-Schmidt auf $\vec v_1=(1,1)$, $\vec v_2=(2,0)$ an.
 
-*Tipp: $ec u_1=ec v_1$; dann $ec u_2=ec v_2-operatorname{proj}_{ec u_1}ec v_2$.*
+*Tipp: $\vec u_1=\vec v_1$; dann $\vec u_2=\vec v_2-\operatorname{proj}_{\vec u_1}\vec v_2$.*
 
 #### Mini-Quiz (Q&A)
 
@@ -1410,26 +1393,26 @@ Wende Gram-Schmidt auf $ec v_1=(1,1)$, $ec v_2=(2,0)$ an.
 
 #### Theorie
 
-- Eine Matrix $Q$ mit orthonormalen Spalten heißt orthogonal; es gilt $Q^{,T}Q=I$ und damit $Q^{-1}=Q^{,T}$.
+- Eine Matrix $Q$ mit orthonormalen Spalten heißt orthogonal; es gilt $Q^{\,T}Q=I$ und damit $Q^{-1}=Q^{\,T}$.
 - Die QR-Zerlegung schreibt eine Matrix $A$ (voller Spaltenrang) als $A=QR$ mit orthonormalem $Q$ und oberer Dreiecksmatrix $R$; sie entsteht direkt aus Gram-Schmidt.
-- Orthogonale Abbildungen erhalten Längen und Winkel: $lVert Qec vVert=lVertec vVert$ und $det Q=pm1$.
-- In $mathbb{C}$ ersetzt man Transposition durch Adjungierung $A^*=overline{A^{,T}}$ und spricht von unitären Matrizen ($U^*U=I$).
+- Orthogonale Abbildungen erhalten Längen und Winkel: $\lVert Q\vec v\rVert=\lVert\vec v\rVert$ und $\det Q=\pm1$.
+- In $\mathbb{C}$ ersetzt man Transposition durch Adjungierung $A^*=\overline{A^{\,T}}$ und spricht von unitären Matrizen ($U^*U=I$).
 
 #### Beispiel
 
-Mit $ec q_1=	frac{1}{sqrt2}(1,1)$, $ec q_2=	frac{1}{sqrt2}(1,-1)$ ist $Q=	frac{1}{sqrt2}egin{pmatrix}1&1\1&-1end{pmatrix}$ orthogonal, denn $Q^{,T}Q=I$.
+Mit $\vec q_1=\tfrac{1}{\sqrt2}(1,1)$, $\vec q_2=\tfrac{1}{\sqrt2}(1,-1)$ ist $Q=\tfrac{1}{\sqrt2}\begin{pmatrix}1&1\\1&-1\end{pmatrix}$ orthogonal, denn $Q^{\,T}Q=I$.
 
 #### Übungsaufgabe
 
-Es sei $A=egin{pmatrix}1&2\1&0end{pmatrix}$. Gib eine QR-Zerlegung an, ausgehend von der orthonormalen Basis $ec q_1=	frac{1}{sqrt2}(1,1)$, $ec q_2=	frac{1}{sqrt2}(1,-1)$.
+Es sei $A=\begin{pmatrix}1&2\\1&0\end{pmatrix}$. Gib eine QR-Zerlegung an, ausgehend von der orthonormalen Basis $\vec q_1=\tfrac{1}{\sqrt2}(1,1)$, $\vec q_2=\tfrac{1}{\sqrt2}(1,-1)$.
 
-*Tipp: Spalten von $Q$ sind $ec q_1,ec q_2$; $R=Q^{,T}A$.*
+*Tipp: Spalten von $Q$ sind $\vec q_1,\vec q_2$; $R=Q^{\,T}A$.*
 
 #### Mini-Quiz (Q&A)
 
 **F:** Was zeichnet eine orthogonale Matrix $Q$ aus?
 
-**A:** Richtig ist: $Q^{,T}Q=I$. Ortogonale Matrizen haben $Q^{,T}Q=I$, also ist $Q^{-1}=Q^{,T}$ — sie erhalten Längen und Winkel.
+**A:** Richtig ist: $Q^{\,T}Q=I$. Ortogonale Matrizen haben $Q^{\,T}Q=I$, also ist $Q^{-1}=Q^{\,T}$ — sie erhalten Längen und Winkel.
 
 #### Quellen & weiterführende Links
 
@@ -1453,26 +1436,26 @@ Es sei $A=egin{pmatrix}1&2\1&0end{pmatrix}$. Gib eine QR-Zerlegung an, ausgehen
 
 #### Theorie
 
-- Die Summe $U+W={ec u+ec w:ec uin U,ec win W}$ zweier Unterräume ist wieder ein Unterraum.
-- Die Summe heißt direkt ($Uoplus W$), wenn $Ucap W={ec 0}$. Dann ist jeder Vektor eindeutig als $ec u+ec w$ zerlegbar und $dim(Uoplus W)=dim U+dim W$.
-- Ein Komplementärraum $W$ zu $Usubseteq V$ erfüllt $V=Uoplus W$. Über Körpern existiert stets ein Komplement (per Basisergänzung); es ist im Allgemeinen nicht eindeutig.
-- Die Dimensionsformel für beliebige Summen lautet $dim(U+W)=dim U+dim W-dim(Ucap W)$.
+- Die Summe $U+W={\vec u+\vec w:\vec u\in U,\vec w\in W}$ zweier Unterräume ist wieder ein Unterraum.
+- Die Summe heißt direkt ($U\oplus W$), wenn $U\cap W={\vec 0}$. Dann ist jeder Vektor eindeutig als $\vec u+\vec w$ zerlegbar und $\dim(U\oplus W)=\dim U+\dim W$.
+- Ein Komplementärraum $W$ zu $U\subseteq V$ erfüllt $V=U\oplus W$. Über Körpern existiert stets ein Komplement (per Basisergänzung); es ist im Allgemeinen nicht eindeutig.
+- Die Dimensionsformel für beliebige Summen lautet $\dim(U+W)=\dim U+\dim W-\dim(U\cap W)$.
 
 #### Beispiel
 
-Im $mathbb{R}^3$ mit $U={z=0}$ (Ebene) und $W={(0,0,z)}$ ($z$-Achse) gilt $Ucap W={ec0}$ und $mathbb{R}^3=Uoplus W$.
+Im $\mathbb{R}^3$ mit $U={z=0}$ (Ebene) und $W={(0,0,z)}$ ($z$-Achse) gilt $U\cap W={\vec0}$ und $\mathbb{R}^3=U\oplus W$.
 
 #### Übungsaufgabe
 
-Sei $U=operatorname{span}!left(egin{pmatrix}1\1\0end{pmatrix}ight)subseteqmathbb{R}^3$. Gib einen Komplementärraum $W$ an mit $mathbb{R}^3=Uoplus W$.
+Sei $U=\operatorname{span}\!\left(\begin{pmatrix}1\\1\\0\end{pmatrix}\right)\subseteq\mathbb{R}^3$. Gib einen Komplementärraum $W$ an mit $\mathbb{R}^3=U\oplus W$.
 
-*Tipp: Ergänze $egin{pmatrix}1\1\0end{pmatrix}$ zu einer Basis des $mathbb{R}^3$; die beiden neuen Vektoren spannen $W$ auf.*
+*Tipp: Ergänze $\begin{pmatrix}1\\1\\0\end{pmatrix}$ zu einer Basis des $\mathbb{R}^3$; die beiden neuen Vektoren spannen $W$ auf.*
 
 #### Mini-Quiz (Q&A)
 
 **F:** Wann heißt eine Summe $U+W$ direkt?
 
-**A:** Richtig ist: Wenn $Ucap W={ec 0}$. Direktheit heißt $Ucap W={ec 0}$; dann ist die Zerlegung eindeutig und die Dimensionen addieren sich.
+**A:** Richtig ist: Wenn $U\cap W={\vec 0}$. Direktheit heißt $U\cap W={\vec 0}$; dann ist die Zerlegung eindeutig und die Dimensionen addieren sich.
 
 #### Quellen & weiterführende Links
 
@@ -1488,30 +1471,30 @@ Sei $U=operatorname{span}!left(egin{pmatrix}1\1\0end{pmatrix}ight)subseteqmath
 
 #### Theorie
 
-- Für einen Unterraum $Usubseteq V$ definieren wir die Nebenklasse $ec v+U={ec v+ec u:ec uin U}$. Man rechnet mit Nebenklassen wie mit Vektoren: $(ec v+U)+(ec w+U)=(ec v+ec w)+U$ und $lambda(ec v+U)=lambdaec v+U$.
-- Der Quotientenraum $V/U$ ist die Menge aller Nebenklassen; er ist selbst ein Vektorraum mit $dim(V/U)=dim V-dim U$ (für $dim V<infty$).
-- Die Quotientenabbildung $pi:V	o V/U$, $ec vmapstoec v+U$, ist linear und surjektiv mit $kerpi=U$.
+- Für einen Unterraum $U\subseteq V$ definieren wir die Nebenklasse $\vec v+U={\vec v+\vec u:\vec u\in U}$. Man rechnet mit Nebenklassen wie mit Vektoren: $(\vec v+U)+(\vec w+U)=(\vec v+\vec w)+U$ und $\lambda(\vec v+U)=\lambda\vec v+U$.
+- Der Quotientenraum $V/U$ ist die Menge aller Nebenklassen; er ist selbst ein Vektorraum mit $\dim(V/U)=\dim V-\dim U$ (für $\dim V<\infty$).
+- Die Quotientenabbildung $\pi:V\to V/U$, $\vec v\mapsto\vec v+U$, ist linear und surjektiv mit $\ker\pi=U$.
 - Quotientenräume erlauben es, Information „modulo $U$“ zu betrachten — ein zentrales Werkzeug für die Konstruktion von Normalformen.
 
 #### Beispiel
 
-Ist $V=mathbb{R}^2$ und $U$ die $x$-Achse, so fasst $V/U$ Vektoren zusammen, die sich nur in der $y$-Komponente unterscheiden. Jede Nebenklasse ist eine horizontale Gerade; $dim(V/U)=1$.
+Ist $V=\mathbb{R}^2$ und $U$ die $x$-Achse, so fasst $V/U$ Vektoren zusammen, die sich nur in der $y$-Komponente unterscheiden. Jede Nebenklasse ist eine horizontale Gerade; $\dim(V/U)=1$.
 
 #### Übungsaufgabe
 
-Bestimme $dim(mathbb{R}^4/U)$ für $U={ec xinmathbb{R}^4:x_1=x_2=x_3=x_4}$.
+Bestimme $\dim(\mathbb{R}^4/U)$ für $U={\vec x\in\mathbb{R}^4:x_1=x_2=x_3=x_4}$.
 
-*Tipp: Bestimme $dim U$ (eine Ursprungsgerade) und nutze $dim(V/U)=dim V-dim U$.*
+*Tipp: Bestimme $\dim U$ (eine Ursprungsgerade) und nutze $\dim(V/U)=\dim V-\dim U$.*
 
 #### Mini-Quiz (Q&A)
 
 **F:** Was ist $V/U$?
 
-**A:** Richtig ist: Die Menge der Nebenklassen $ec v+U$, ein Vektorraum. $V/U$ besteht aus den Nebenklassen $ec v+U$ und ist ein Vektorraum mit $dim V-dim U$ (endlichdimensional).
+**A:** Richtig ist: Die Menge der Nebenklassen $\vec v+U$, ein Vektorraum. $V/U$ besteht aus den Nebenklassen $\vec v+U$ und ist ein Vektorraum mit $\dim V-\dim U$ (endlichdimensional).
 
 #### Quellen & weiterführende Links
 
-- [Quotientenraum (Vektorraum) — Wikipedia](https://de.wikipedia.org/wiki/Quotientenraum_(Vektorraum)) — Wikipedia
+- [Quotientenraum — Wikipedia](https://de.wikipedia.org/wiki/Quotientenraum) — Wikipedia
 - [Nebenklasse — Wikipedia](https://de.wikipedia.org/wiki/Nebenklasse) — Wikipedia
 
 ---
@@ -1523,26 +1506,26 @@ Bestimme $dim(mathbb{R}^4/U)$ für $U={ec xinmathbb{R}^4:x_1=x_2=x_3=x_4}$.
 
 #### Theorie
 
-- Der Dualraum $V^*=operatorname{Hom}(V,K)$ ist die Menge aller linearen Abbildungen $arphi:V	o K$ (Linearformen). Er ist selbst ein Vektorraum.
-- Ist $B=(ec b_1,dots,ec b_n)$ eine Basis, so ist die duale Basis $B^*=(ec b_1^*,dots,ec b_n^*)$ definiert durch $ec b_i^*(ec b_j)=delta_{ij}$. Damit ist $dim V^*=dim V$ (endlichdimensional).
-- Zu linearem $f:V	o W$ ist die Dualabbildung $f^*:W^*	o V^*$ definiert durch $f^*(arphi)=arphicirc f$. Sie kehrt die Richtung um.
-- Der Annihilator einer Menge $Msubseteq V$ ist $M^circ={arphiin V^*:arphi(ec v)=0;orallec vin M}$ — ein Unterraum von $V^*$ mit $dim M^circ=dim V-dimoperatorname{span}(M)$.
+- Der Dualraum $V^*=\operatorname{Hom}(V,K)$ ist die Menge aller linearen Abbildungen $\varphi:V\to K$ (Linearformen). Er ist selbst ein Vektorraum.
+- Ist $B=(\vec b_1,\dots,\vec b_n)$ eine Basis, so ist die duale Basis $B^*=(\vec b_1^*,\dots,\vec b_n^*)$ definiert durch $\vec b_i^*(\vec b_j)=\delta_{ij}$. Damit ist $\dim V^*=\dim V$ (endlichdimensional).
+- Zu linearem $f:V\to W$ ist die Dualabbildung $f^*:W^*\to V^*$ definiert durch $f^*(\varphi)=\varphi\circ f$. Sie kehrt die Richtung um.
+- Der Annihilator einer Menge $M\subseteq V$ ist $M^\circ={\varphi\in V^*:\varphi(\vec v)=0\;\forall\vec v\in M}$ — ein Unterraum von $V^*$ mit $\dim M^\circ=\dim V-\dim\operatorname{span}(M)$.
 
 #### Beispiel
 
-Zur Standardbasis $ec e_1,ec e_2$ des $mathbb{R}^2$ ist $ec e_1^*(x,y)=x$ und $ec e_2^*(x,y)=y$ — die Projektionen auf die Koordinaten.
+Zur Standardbasis $\vec e_1,\vec e_2$ des $\mathbb{R}^2$ ist $\vec e_1^*(x,y)=x$ und $\vec e_2^*(x,y)=y$ — die Projektionen auf die Koordinaten.
 
 #### Übungsaufgabe
 
-Sei $V=mathbb{R}^2$ und $arphi(x,y)=2x-yin V^*$. Gib $arphi$ als Linearkombination der dualen Standardbasis an.
+Sei $V=\mathbb{R}^2$ und $\varphi(x,y)=2x-y\in V^*$. Gib $\varphi$ als Linearkombination der dualen Standardbasis an.
 
-*Tipp: Die duale Standardbasis ist $ec e_1^*(x,y)=x$, $ec e_2^*(x,y)=y$.*
+*Tipp: Die duale Standardbasis ist $\vec e_1^*(x,y)=x$, $\vec e_2^*(x,y)=y$.*
 
 #### Mini-Quiz (Q&A)
 
 **F:** Was ist der Dualraum $V^*$?
 
-**A:** Richtig ist: Die Menge der linearen Abbildungen $V	o K$. $V^*=operatorname{Hom}(V,K)$ umfasst alle Linearformen auf $V$; endlichdimensional ist $dim V^*=dim V$.
+**A:** Richtig ist: Die Menge der linearen Abbildungen $V\to K$. $V^*=\operatorname{Hom}(V,K)$ umfasst alle Linearformen auf $V$; endlichdimensional ist $\dim V^*=\dim V$.
 
 #### Quellen & weiterführende Links
 
@@ -1565,28 +1548,28 @@ Sei $V=mathbb{R}^2$ und $arphi(x,y)=2x-yin V^*$. Gib $arphi$ als Linearkombina
 
 #### Theorie
 
-- Ein Unterraum $Usubseteq V$ heißt $f$-invariant, wenn $f(U)subseteq U$. Dann restrictiert $f$ zu einem Endomorphismus $f|_U:U	o U$.
-- Eigenräume sind invariant; allgemeiner sind die Haupträume $ker(f-lambda,mathrm{id})^k$ invariant und wachsen mit $k$ bis zur algebraischen Vielfachheit.
-- Satz von Cayley-Hamilton: jedes Endomorphismus erfüllt sein charakteristisches Polynom, d. h. $chi_A(A)=0$ als Matrixgleichung.
-- Folgerung: das Minimalpolynom $m_A$ teilt das charakteristische Polynom $chi_A$, und beide haben dieselben Nullstellen (dieselben Eigenwerte).
-- Beweis-Skizze (über $mathbb{C}$, bei diagonalisierbarem $A$): ist $A=SDS^{-1}$ mit $D=operatorname{diag}(lambda_1,dots,lambda_n)$, so ist $chi_A(A)=S,chi_A(D),S^{-1}$. Da $chi_A(D)=operatorname{diag}(chi_A(lambda_1),dots,chi_A(lambda_n))=0$ (jeder Eigenwert nullt sein eigenes Polynom), folgt $chi_A(A)=0$. Den allgemeinen Fall erhält man durch Dichtheit der diagonalisierbaren Matrizen oder über Triangularisierung: $A=TDT^{-1}$ obere Dreiecksmatrix, dann steht $chi_A(A)$ selbst in Dreiecksgestalt mit Null-Diagonale, ist also nilpotent und insgesamt null.
-- Kürzer: das Polynom $tmapstochi_A(t)$ annulliert $A$ per Definition des Minimalpolynoms — Cayley-Hamilton besagt, dass $chi_A$ ein annullierendes Polynom ist, also $m_Amidchi_A$.
+- Ein Unterraum $U\subseteq V$ heißt $f$-invariant, wenn $f(U)\subseteq U$. Dann restrictiert $f$ zu einem Endomorphismus $f|_U:U\to U$.
+- Eigenräume sind invariant; allgemeiner sind die Haupträume $\ker(f-\lambda\,\mathrm{id})^k$ invariant und wachsen mit $k$ bis zur algebraischen Vielfachheit.
+- Satz von Cayley-Hamilton: jedes Endomorphismus erfüllt sein charakteristisches Polynom, d. h. $\chi_A(A)=0$ als Matrixgleichung.
+- Folgerung: das Minimalpolynom $m_A$ teilt das charakteristische Polynom $\chi_A$, und beide haben dieselben Nullstellen (dieselben Eigenwerte).
+- Beweis-Skizze (über $\mathbb{C}$, bei diagonalisierbarem $A$): ist $A=SDS^{-1}$ mit $D=\operatorname{diag}(\lambda_1,\dots,\lambda_n)$, so ist $\chi_A(A)=S\,\chi_A(D)\,S^{-1}$. Da $\chi_A(D)=\operatorname{diag}(\chi_A(\lambda_1),\dots,\chi_A(\lambda_n))=0$ (jeder Eigenwert nullt sein eigenes Polynom), folgt $\chi_A(A)=0$. Den allgemeinen Fall erhält man durch Dichtheit der diagonalisierbaren Matrizen oder über Triangularisierung: $A=TDT^{-1}$ obere Dreiecksmatrix, dann steht $\chi_A(A)$ selbst in Dreiecksgestalt mit Null-Diagonale, ist also nilpotent und insgesamt null.
+- Kürzer: das Polynom $t\mapsto\chi_A(t)$ annulliert $A$ per Definition des Minimalpolynoms — Cayley-Hamilton besagt, dass $\chi_A$ ein annullierendes Polynom ist, also $m_A\mid\chi_A$.
 
 #### Beispiel
 
-Für $A=egin{pmatrix}1&1\0&1end{pmatrix}$ ist $chi_A=(lambda-1)^2$ und $chi_A(A)=(A-I)^2=egin{pmatrix}0&1\0&0end{pmatrix}^2=0$. Cayley-Hamilton bestätigt.
+Für $A=\begin{pmatrix}1&1\\0&1\end{pmatrix}$ ist $\chi_A=(\lambda-1)^2$ und $\chi_A(A)=(A-I)^2=\begin{pmatrix}0&1\\0&0\end{pmatrix}^2=0$. Cayley-Hamilton bestätigt.
 
 #### Übungsaufgabe
 
-Bestätige Cayley-Hamilton für $A=egin{pmatrix}2&1\0&3end{pmatrix}$.
+Bestätige Cayley-Hamilton für $A=\begin{pmatrix}2&1\\0&3\end{pmatrix}$.
 
-*Tipp: Berechne $chi_A(lambda)=(2-lambda)(3-lambda)$ und werte $chi_A(A)=(2I-A)(3I-A)$ aus.*
+*Tipp: Berechne $\chi_A(\lambda)=(2-\lambda)(3-\lambda)$ und werte $\chi_A(A)=(2I-A)(3I-A)$ aus.*
 
 #### Mini-Quiz (Q&A)
 
 **F:** Was besagt der Satz von Cayley-Hamilton?
 
-**A:** Richtig ist: Jede Matrix erfüllt ihr charakteristisches Polynom: $chi_A(A)=0$. Setzt man die Matrix $A$ in ihr eigenes charakteristisches Polynom ein, so erhält man die Nullmatrix.
+**A:** Richtig ist: Jede Matrix erfüllt ihr charakteristisches Polynom: $\chi_A(A)=0$. Setzt man die Matrix $A$ in ihr eigenes charakteristisches Polynom ein, so erhält man die Nullmatrix.
 
 #### Quellen & weiterführende Links
 
@@ -1604,19 +1587,18 @@ Bestätige Cayley-Hamilton für $A=egin{pmatrix}2&1\0&3end{pmatrix}$.
 
 #### Theorie
 
-- Das Minimalpolynom $m_A$ ist das normierte Polynom kleinsten Grades mit $m_A(A)=0$. Es teilt jedes Polynom $p$ mit $p(A)=0$, insbesondere $chi_A$.
-- Eigenwerte sind genau die Nullstellen von $m_A$, und die Vielfachheit von $lambda$ in $m_A$ ist die Größe des größten Jordan-Kästchens zu $lambda$.
+- Das Minimalpolynom $m_A$ ist das normierte Polynom kleinsten Grades mit $m_A(A)=0$. Es teilt jedes Polynom $p$ mit $p(A)=0$, insbesondere $\chi_A$.
+- Eigenwerte sind genau die Nullstellen von $m_A$, und die Vielfachheit von $\lambda$ in $m_A$ ist die Größe des größten Jordan-Kästchens zu $\lambda$.
 - Kriterium: $A$ ist genau dann diagonalisierbar, wenn $m_A$ in paarweise verschiedene Linearfaktoren zerfällt.
-- Teilen sich $chi_A$ und $m_A$ die Vielfachheiten, so heißt $A$ zyklisch; dann ist die rationale Normalform besonders einfach.
+- Teilen sich $\chi_A$ und $m_A$ die Vielfachheiten, so heißt $A$ zyklisch; dann ist die rationale Normalform besonders einfach.
 
 #### Beispiel
 
-Für $A=egin{pmatrix}1&1\0&1end{pmatrix}$ ist $chi_A=(lambda-1)^2$ und $m_A=(lambda-1)^2$ (denn $A-I
-eq0$). Da $m_A$ einen mehrfachen Faktor hat, ist $A$ nicht diagonalisierbar.
+Für $A=\begin{pmatrix}1&1\\0&1\end{pmatrix}$ ist $\chi_A=(\lambda-1)^2$ und $m_A=(\lambda-1)^2$ (denn $A-I\neq0$). Da $m_A$ einen mehrfachen Faktor hat, ist $A$ nicht diagonalisierbar.
 
 #### Übungsaufgabe
 
-Bestimme Minimal- und charakteristisches Polynom von $A=egin{pmatrix}2&0&0\0&2&1\0&0&2end{pmatrix}$ und entscheide über Diagonalisierbarkeit.
+Bestimme Minimal- und charakteristisches Polynom von $A=\begin{pmatrix}2&0&0\\0&2&1\\0&0&2\end{pmatrix}$ und entscheide über Diagonalisierbarkeit.
 
 *Tipp: Eigenwert $2$; prüfe $(A-2I)$ und $(A-2I)^2$.*
 
@@ -1640,26 +1622,26 @@ Bestimme Minimal- und charakteristisches Polynom von $A=egin{pmatrix}2&0&0\0&2&
 #### Theorie
 
 - Die Jordan-Normalform ist ein zentrales Thema der Linearen Algebra 2 in Freiburg; typische Klausuraufgaben (siehe LA2-Altklausuren der Fachschaft) verlangen, aus charakteristischem und Minimalpolynom die Kästchenstruktur abzulesen.
-- Über einem algebraisch abgeschlossenen Körper (z. B. $mathbb{C}$) ist jede Matrix ähnlich zu einer Blockdiagonalmatrix aus Jordan-Kästchen $J_k(lambda)=egin{pmatrix}lambda&1&&\&lambda&ddots&\&&ddots&1\&&&lambdaend{pmatrix}$ — der Jordan-Normalform.
-- Pro Eigenwert $lambda$ gibt es so viele Jordan-Kästchen wie die geometrische Vielfachheit $dim E_lambda$; die Summe der Kästchengrößen ist die algebraische Vielfachheit.
-- Das größte Kästchen zu $lambda$ hat die Größe gleich der Vielfachheit von $lambda$ im Minimalpolynom.
+- Über einem algebraisch abgeschlossenen Körper (z. B. $\mathbb{C}$) ist jede Matrix ähnlich zu einer Blockdiagonalmatrix aus Jordan-Kästchen $J_k(\lambda)=\begin{pmatrix}\lambda&1&&\\&\lambda&\ddots&\\&&\ddots&1\\&&&\lambda\end{pmatrix}$ — der Jordan-Normalform.
+- Pro Eigenwert $\lambda$ gibt es so viele Jordan-Kästchen wie die geometrische Vielfachheit $\dim E_\lambda$; die Summe der Kästchengrößen ist die algebraische Vielfachheit.
+- Das größte Kästchen zu $\lambda$ hat die Größe gleich der Vielfachheit von $\lambda$ im Minimalpolynom.
 - Ist der Körper nicht algebraisch abgeschlossen (oder will man rein rational arbeiten), liefert die rationale (Frobenius-)Normalform Begleitmatrizen der irreduziblen Faktoren — sie existiert über jedem Körper.
 
 #### Beispiel
 
-$A=egin{pmatrix}1&1\0&1end{pmatrix}$ ist schon ein Jordan-Kästchen $J_2(1)$. Die Jordan-Normalform ist $A$ selbst.
+$A=\begin{pmatrix}1&1\\0&1\end{pmatrix}$ ist schon ein Jordan-Kästchen $J_2(1)$. Die Jordan-Normalform ist $A$ selbst.
 
 #### Übungsaufgabe
 
-Gib die Jordan-Normalform einer $3	imes3$-Matrix mit Eigenwert $lambda=5$, algebraischer Vielfachheit $3$ und geometrischer Vielfachheit $2$ an.
+Gib die Jordan-Normalform einer $3\times3$-Matrix mit Eigenwert $\lambda=5$, algebraischer Vielfachheit $3$ und geometrischer Vielfachheit $2$ an.
 
 *Tipp: Anzahl Kästchen $=$ geometrische Vielfachheit $=2$; ihre Größen summieren sich zur algebraischen Vielfachheit $3$. Welche zwei positiven Zahlen summieren sich zu $3$?*
 
 #### Mini-Quiz (Q&A)
 
-**F:** Wie viele Jordan-Kästchen gehören zu einem Eigenwert $lambda$?
+**F:** Wie viele Jordan-Kästchen gehören zu einem Eigenwert $\lambda$?
 
-**A:** Richtig ist: Die geometrische Vielfachheit $dim E_lambda$. Die Anzahl der Jordan-Kästchen zu $lambda$ ist die geometrische Vielfachheit; ihre Größen summieren sich zur algebraischen.
+**A:** Richtig ist: Die geometrische Vielfachheit $\dim E_\lambda$. Die Anzahl der Jordan-Kästchen zu $\lambda$ ist die geometrische Vielfachheit; ihre Größen summieren sich zur algebraischen.
 
 #### Quellen & weiterführende Links
 
@@ -1683,26 +1665,26 @@ Gib die Jordan-Normalform einer $3	imes3$-Matrix mit Eigenwert $lambda=5$, algeb
 
 #### Theorie
 
-- Eine Bilinearform auf $V$ ist eine Abbildung $b:V	imes V	o K$, die in jedem Argument linear ist: $b(lambdaec u+muec v,ec w)=lambda b(ec u,ec w)+mu b(ec v,ec w)$ und entsprechend im zweiten.
-- Ist $B$ eine Basis, so ist $A=(b(ec b_i,ec b_j))$ die Darstellungsmatrix, und $b(ec x,ec y)=ec x^{,T}Aec y$ in Koordinaten. Bei Basiswechsel transformiert sich $Amapsto S^{,T}AS$.
-- Eine Sesquilinearform über $mathbb{C}$ ist im ersten Argument semilinear (komplex-konjugiert linear) und im zweiten linear; ihre Darstellung ist $b(ec x,ec y)=ec x^*Aec y$.
-- Die Form heißt symmetrisch (bzw. hermitesch), wenn $b(ec x,ec y)=b(ec y,ec x)$ (bzw. $=overline{b(ec y,ec x)}$); dann ist $A=A^{,T}$ (bzw. $A=A^*$).
+- Eine Bilinearform auf $V$ ist eine Abbildung $b:V\times V\to K$, die in jedem Argument linear ist: $b(\lambda\vec u+\mu\vec v,\vec w)=\lambda b(\vec u,\vec w)+\mu b(\vec v,\vec w)$ und entsprechend im zweiten.
+- Ist $B$ eine Basis, so ist $A=(b(\vec b_i,\vec b_j))$ die Darstellungsmatrix, und $b(\vec x,\vec y)=\vec x^{\,T}A\vec y$ in Koordinaten. Bei Basiswechsel transformiert sich $A\mapsto S^{\,T}AS$.
+- Eine Sesquilinearform über $\mathbb{C}$ ist im ersten Argument semilinear (komplex-konjugiert linear) und im zweiten linear; ihre Darstellung ist $b(\vec x,\vec y)=\vec x^*A\vec y$.
+- Die Form heißt symmetrisch (bzw. hermitesch), wenn $b(\vec x,\vec y)=b(\vec y,\vec x)$ (bzw. $=\overline{b(\vec y,\vec x)}$); dann ist $A=A^{\,T}$ (bzw. $A=A^*$).
 
 #### Beispiel
 
-Das Standardskalarprodukt auf $mathbb{R}^n$ ist die Bilinearform mit Darstellungsmatrix $I$. Auf $mathbb{C}^n$ ist das Standardskalarprodukt hermitesch mit $A=I$.
+Das Standardskalarprodukt auf $\mathbb{R}^n$ ist die Bilinearform mit Darstellungsmatrix $I$. Auf $\mathbb{C}^n$ ist das Standardskalarprodukt hermitesch mit $A=I$.
 
 #### Übungsaufgabe
 
-Bestimme die Darstellungsmatrix von $b(ec x,ec y)=2x_1y_1+x_1y_2+x_2y_1+3x_2y_2$ bezüglich der Standardbasis.
+Bestimme die Darstellungsmatrix von $b(\vec x,\vec y)=2x_1y_1+x_1y_2+x_2y_1+3x_2y_2$ bezüglich der Standardbasis.
 
-*Tipp: Eintrag $a_{ij}=b(ec e_i,ec e_j)$.*
+*Tipp: Eintrag $a_{ij}=b(\vec e_i,\vec e_j)$.*
 
 #### Mini-Quiz (Q&A)
 
 **F:** Wie transformiert sich die Darstellungsmatrix $A$ einer Bilinearform bei Basiswechsel $S$?
 
-**A:** Richtig ist: $Amapsto S^{,T}AS$. Bilinearformen transformieren kongruent: $Amapsto S^{,T}AS$ (im Gegensatz zur Ähnlichkeit $S^{-1}AS$).
+**A:** Richtig ist: $A\mapsto S^{\,T}AS$. Bilinearformen transformieren kongruent: $A\mapsto S^{\,T}AS$ (im Gegensatz zur Ähnlichkeit $S^{-1}AS$).
 
 #### Quellen & weiterführende Links
 
@@ -1718,20 +1700,20 @@ Bestimme die Darstellungsmatrix von $b(ec x,ec y)=2x_1y_1+x_1y_2+x_2y_1+3x_2y_
 
 #### Theorie
 
-- Eine symmetrische Bilinearform kann man diagonalisieren: es gibt eine Basis mit $b(ec x,ec y)=lambda_1 x_1y_1+dots+lambda_nx_ny_n$.
+- Eine symmetrische Bilinearform kann man diagonalisieren: es gibt eine Basis mit $b(\vec x,\vec y)=\lambda_1 x_1y_1+\dots+\lambda_nx_ny_n$.
 - Sylvesterscher Trägheitssatz: die Anzahlen $p$ positiver, $q$ negativer und $r$ null-freier Diagonalkoeffizienten sind invariant — unabhängig von der Diagonalisierung.
 - Das Tripel $(p,q,r)$ heißt Signatur; $(p,q)$ kennzeichnet die Form bis auf Kongruenz. Rang $=p+q$.
 - Eine Form ist positiv definit, wenn $q=0$ und $r=0$ — dann ist sie ein Skalarprodukt. Das Hauptachsenverfahren diagonalisiert reellsymmetrische Matrizen orthogonal.
 - Bilinearformen und der Trägheitssatz gehören zum Kern von Lineare Algebra 2; in Freiburger Klausuren (siehe LA2-Altklausuren der Fachschaft) werden häufig Signatur und Diagonalisierung einer Form verlangt.
-- Beweis-Skizze des Trägheitssatzes: sei $V=V_+oplus V_-oplus V_0$ eine Diagonalisierung mit $dim V_+=p$, $dim V_-=q$ ($b$ positiv/negativ definit auf den Summanden) und $V_0$ dem Radikal. Für eine andere Diagonalisierung mit $p'$ gilt $pleq p'$: auf $V_+oplus V_+'$ ist $b$ positiv semidefinit, und $V_+cap(V_+'oplus V_0')={0}$ liefert $dim V_+leqdim V_+'$. Symmetrie ergibt $p=p'$, analog $q=q'$, und $r=n-p-q$.
+- Beweis-Skizze des Trägheitssatzes: sei $V=V_+\oplus V_-\oplus V_0$ eine Diagonalisierung mit $\dim V_+=p$, $\dim V_-=q$ ($b$ positiv/negativ definit auf den Summanden) und $V_0$ dem Radikal. Für eine andere Diagonalisierung mit $p'$ gilt $p\leq p'$: auf $V_+\oplus V_+'$ ist $b$ positiv semidefinit, und $V_+\cap(V_+'\oplus V_0')={0}$ liefert $\dim V_+\leq\dim V_+'$. Symmetrie ergibt $p=p'$, analog $q=q'$, und $r=n-p-q$.
 
 #### Beispiel
 
-$A=egin{pmatrix}1&0\0&-1end{pmatrix}$ hat Signatur $(1,1,0)$: ein positiver, ein negativer Koeffizient. Das ist die Minkowski-Form der speziellen Relativitätstheorie.
+$A=\begin{pmatrix}1&0\\0&-1\end{pmatrix}$ hat Signatur $(1,1,0)$: ein positiver, ein negativer Koeffizient. Das ist die Minkowski-Form der speziellen Relativitätstheorie.
 
 #### Übungsaufgabe
 
-Bestimme die Signatur von $b$ mit Darstellungsmatrix $A=egin{pmatrix}1&2\2&1end{pmatrix}$.
+Bestimme die Signatur von $b$ mit Darstellungsmatrix $A=\begin{pmatrix}1&2\\2&1\end{pmatrix}$.
 
 *Tipp: Diagonalisiere per Vervollständigung des Quadrats oder konkretes Kongruenzverfahren.*
 
@@ -1744,7 +1726,7 @@ Bestimme die Signatur von $b$ mit Darstellungsmatrix $A=egin{pmatrix}1&2\2&1end
 #### Quellen & weiterführende Links
 
 - [Trägheitssatz von Sylvester — Wikipedia](https://de.wikipedia.org/wiki/Tr%C3%A4gheitssatz_von_Sylvester) — Wikipedia
-- [Signatur (quadratische Form) — Wikipedia](https://de.wikipedia.org/wiki/Signatur_(quadratische_Form)) — Wikipedia
+- [Quadratische Form — Wikipedia](https://de.wikipedia.org/wiki/Quadratische_Form) — Wikipedia
 - [James Joseph Sylvester — Wikipedia](https://de.wikipedia.org/wiki/James_Joseph_Sylvester) — Universität Oxford
 
 ---
@@ -1756,20 +1738,20 @@ Bestimme die Signatur von $b$ mit Darstellungsmatrix $A=egin{pmatrix}1&2\2&1end
 
 #### Theorie
 
-- Die orthogonale Gruppe $O_n={Qinmathbb{R}^{n	imes n}:Q^{,T}Q=I}$ erhält das Standardskalarprodukt; $det Q=pm1$. Die $SO_n$ hat Determinante $1$.
-- Die unitäre Gruppe $U_n={Uinmathbb{C}^{n	imes n}:U^*U=I}$ erhält das hermitesche Skalarprodukt. Die symplektische Gruppe $Sp_{2n}$ erhält eine nicht-ausgeartete schiefe Form.
-- Zu einem Endomorphismus $f$ auf einem Skalarproduktraum ist der Adjungierte $f^*$ durch $langle fec x,ec yangle=langleec x,f^*ec yangle$ definiert; in Orthonormalbasis ist die Matrix die Adjungierte (transponiert/konjugiert).
+- Die orthogonale Gruppe $O_n={Q\in\mathbb{R}^{n\times n}:Q^{\,T}Q=I}$ erhält das Standardskalarprodukt; $\det Q=\pm1$. Die $SO_n$ hat Determinante $1$.
+- Die unitäre Gruppe $U_n={U\in\mathbb{C}^{n\times n}:U^*U=I}$ erhält das hermitesche Skalarprodukt. Die symplektische Gruppe $Sp_{2n}$ erhält eine nicht-ausgeartete schiefe Form.
+- Zu einem Endomorphismus $f$ auf einem Skalarproduktraum ist der Adjungierte $f^*$ durch $\langle f\vec x,\vec y\rangle=\langle\vec x,f^*\vec y\rangle$ definiert; in Orthonormalbasis ist die Matrix die Adjungierte (transponiert/konjugiert).
 - Ein Operator heißt selbstadjungiert ($f=f^*$, hermitesch) bzw. normal ($ff^*=f^*f$). Der Spektralsatz: selbstadjungierte Operatoren sind orthonormal diagonalisierbar mit reellen Eigenwerten.
 
 #### Beispiel
 
-Eine reelle symmetrische Matrix ist selbstadjungiert; nach dem Spektralsatz gibt es ein orthogonales $Q$ mit $Q^{,T}AQ=D$ diagonal. Etwa $A=egin{pmatrix}1&2\2&1end{pmatrix}$ hat Eigenwerte $3,-1$ und orthonormale Eigenvektoren $	frac{1}{sqrt2}(1,1)$, $	frac{1}{sqrt2}(1,-1)$.
+Eine reelle symmetrische Matrix ist selbstadjungiert; nach dem Spektralsatz gibt es ein orthogonales $Q$ mit $Q^{\,T}AQ=D$ diagonal. Etwa $A=\begin{pmatrix}1&2\\2&1\end{pmatrix}$ hat Eigenwerte $3,-1$ und orthonormale Eigenvektoren $\tfrac{1}{\sqrt2}(1,1)$, $\tfrac{1}{\sqrt2}(1,-1)$.
 
 #### Übungsaufgabe
 
-Ist $A=egin{pmatrix}0&1\-1&0end{pmatrix}$ normal? Begründe über $AA^{,T}$ und $A^{,T}A$.
+Ist $A=\begin{pmatrix}0&1\\-1&0\end{pmatrix}$ normal? Begründe über $AA^{\,T}$ und $A^{\,T}A$.
 
-*Tipp: Berechne $A^{,T}=egin{pmatrix}0&-1\1&0end{pmatrix}$ und vergleiche $AA^{,T}$ mit $A^{,T}A$.*
+*Tipp: Berechne $A^{\,T}=\begin{pmatrix}0&-1\\1&0\end{pmatrix}$ und vergleiche $AA^{\,T}$ mit $A^{\,T}A$.*
 
 #### Mini-Quiz (Q&A)
 
@@ -1800,25 +1782,25 @@ Ist $A=egin{pmatrix}0&1\-1&0end{pmatrix}$ normal? Begründe über $AA^{,T}$ und
 #### Theorie
 
 - Ein Ring $R$ ist eine Menge mit Addition und Multiplikation, wobei die Addition eine abelsche Gruppe bildet, die Multiplikation assoziativ ist und das Distributivgesetz gilt. Besitzt die Multiplikation ein Einselement, heißt $R$ Ring mit Eins.
-- Beispiele: $mathbb{Z}$, $K[x]$ (Polynomring über einem Körper), $mathbb{Z}/nmathbb{Z}$. Ein Körper ist ein Ring, in dem jedes von null verschiedene Element invertierbar ist.
-- Ein Ideal $Isubseteq R$ ist eine additive Untergruppe mit $rIsubseteq I$ für alle $rin R$. Das von $a$ erzeugte Hauptideal ist $(a)=aR$.
-- Ein Integritätsring heißt Hauptidealring (HIR), wenn jedes Ideal ein Hauptideal ist. $mathbb{Z}$ und $K[x]$ sind Hauptidealringe; in ihnen gibt es eine Division mit Rest.
+- Beispiele: $\mathbb{Z}$, $K[x]$ (Polynomring über einem Körper), $\mathbb{Z}/n\mathbb{Z}$. Ein Körper ist ein Ring, in dem jedes von null verschiedene Element invertierbar ist.
+- Ein Ideal $I\subseteq R$ ist eine additive Untergruppe mit $rI\subseteq I$ für alle $r\in R$. Das von $a$ erzeugte Hauptideal ist $(a)=aR$.
+- Ein Integritätsring heißt Hauptidealring (HIR), wenn jedes Ideal ein Hauptideal ist. $\mathbb{Z}$ und $K[x]$ sind Hauptidealringe; in ihnen gibt es eine Division mit Rest.
 
 #### Beispiel
 
-In $R=mathbb{Z}$ ist $(6)=6mathbb{Z}={dots,-12,-6,0,6,12,dots}$ ein Hauptideal. In $K[x]$ ist $(x^2+1)$ das Ideal aller Vielfachen von $x^2+1$.
+In $R=\mathbb{Z}$ ist $(6)=6\mathbb{Z}={\dots,-12,-6,0,6,12,\dots}$ ein Hauptideal. In $K[x]$ ist $(x^2+1)$ das Ideal aller Vielfachen von $x^2+1$.
 
 #### Übungsaufgabe
 
-Begründe, warum $I={2a+3b:a,binmathbb{Z}}$ ein Hauptideal in $mathbb{Z}$ ist.
+Begründe, warum $I={2a+3b:a,b\in\mathbb{Z}}$ ein Hauptideal in $\mathbb{Z}$ ist.
 
-*Tipp: Zeige $I=(d)$ für einen Erzeuger $d=operatorname{ggT}(2,3)$.*
+*Tipp: Zeige $I=(d)$ für einen Erzeuger $d=\operatorname{ggT}(2,3)$.*
 
 #### Mini-Quiz (Q&A)
 
 **F:** Was ist ein Hauptidealring?
 
-**A:** Richtig ist: Ein Ring, in dem jedes Ideal ein Hauptideal ist. In einem Hauptidealring ist jedes Ideal von einem einzigen Element erzeugt, z. B. $mathbb{Z}$ oder $K[x]$.
+**A:** Richtig ist: Ein Ring, in dem jedes Ideal ein Hauptideal ist. In einem Hauptidealring ist jedes Ideal von einem einzigen Element erzeugt, z. B. $\mathbb{Z}$ oder $K[x]$.
 
 #### Quellen & weiterführende Links
 
@@ -1836,20 +1818,20 @@ Begründe, warum $I={2a+3b:a,binmathbb{Z}}$ ein Hauptideal in $mathbb{Z}$ ist.
 #### Theorie
 
 - Ein $R$-Modul $M$ verallgemeinert den Vektorraum: die Skalare stammen aus einem Ring $R$ statt aus einem Körper. Damit entfallen Divisionen — Moduln sind deutlich flexibler.
-- Beispiel: $mathbb{Z}^n$ ist ein $mathbb{Z}$-Modul; jedes $mathbb{Z}$-Modul ist eine abelsche Gruppe. Ein freier Modul hat eine Basis (wie ein Vektorraum).
-- Struktursatz über Hauptidealringen: jeder endlich erzeugte Modul über einem HIR ist isomorph zu $R^roplus R/(d_1)oplusdotsoplus R/(d_k)$ mit $d_1mid d_2middotsmid d_k$.
+- Beispiel: $\mathbb{Z}^n$ ist ein $\mathbb{Z}$-Modul; jedes $\mathbb{Z}$-Modul ist eine abelsche Gruppe. Ein freier Modul hat eine Basis (wie ein Vektorraum).
+- Struktursatz über Hauptidealringen: jeder endlich erzeugte Modul über einem HIR ist isomorph zu $R^r\oplus R/(d_1)\oplus\dots\oplus R/(d_k)$ mit $d_1\mid d_2\mid\dots\mid d_k$.
 - Die $d_i$ heißen Elementarteiler; sie sind bis auf Einheiten eindeutig. Dieser Satz vereint die Klassifikation endlich erzeugter abelscher Gruppen und die Normalformen-Sätze der Linearen Algebra.
-- Beweis-Skizze: Wähle eine surjektive Abbildung $arphi:R^n	o M$ (möglich, da $M$ endlich erzeugt). Ihr Kern $kerarphi$ ist ein Untermodul von $R^n$; über einem HIR ist jeder Untermodul von $R^n$ endlich erzeugt, etwa $kerarphi=Acdot R^m$. Mit dem Elementarteiler-Satz (Smith-Algorithmus: Zeilen-/Spaltenoperationen via ggT) bringt man die Matrix $A$ in Diagonalform $operatorname{diag}(d_1,dots,d_k,0,dots,0)$ mit $d_1middotsmid d_k$. Der Isomorphiesatz liefert $Mcong R^n/operatorname{Bild}(A)cong R^roplus R/(d_1)oplusdotsoplus R/(d_k)$. Die Eindeutigkeit folgt aus der Invarianz der Determinantenideale $(d_1cdots d_j)$.
+- Beweis-Skizze: Wähle eine surjektive Abbildung $\varphi:R^n\to M$ (möglich, da $M$ endlich erzeugt). Ihr Kern $\ker\varphi$ ist ein Untermodul von $R^n$; über einem HIR ist jeder Untermodul von $R^n$ endlich erzeugt, etwa $\ker\varphi=A\cdot R^m$. Mit dem Elementarteiler-Satz (Smith-Algorithmus: Zeilen-/Spaltenoperationen via ggT) bringt man die Matrix $A$ in Diagonalform $\operatorname{diag}(d_1,\dots,d_k,0,\dots,0)$ mit $d_1\mid\dots\mid d_k$. Der Isomorphiesatz liefert $M\cong R^n/\operatorname{Bild}(A)\cong R^r\oplus R/(d_1)\oplus\dots\oplus R/(d_k)$. Die Eindeutigkeit folgt aus der Invarianz der Determinantenideale $(d_1\cdots d_j)$.
 
 #### Beispiel
 
-Endlich erzeugte abelsche Gruppen sind $mathbb{Z}$-Moduln. Der chinesische Restsatz zerlegt $mathbb{Z}/6mathbb{Z}congmathbb{Z}/2mathbb{Z}oplusmathbb{Z}/3mathbb{Z}$, weil $6=2cdot3$ mit teilerfremden Faktoren. In invariant-Faktor-Form ($d_1mid d_2$) ist $mathbb{Z}/6mathbb{Z}$ hingegen bereits zyklisch mit $d_1=6$ — zwei verschiedene Normalformen derselben Gruppe.
+Endlich erzeugte abelsche Gruppen sind $\mathbb{Z}$-Moduln. Der chinesische Restsatz zerlegt $\mathbb{Z}/6\mathbb{Z}\cong\mathbb{Z}/2\mathbb{Z}\oplus\mathbb{Z}/3\mathbb{Z}$, weil $6=2\cdot3$ mit teilerfremden Faktoren. In invariant-Faktor-Form ($d_1\mid d_2$) ist $\mathbb{Z}/6\mathbb{Z}$ hingegen bereits zyklisch mit $d_1=6$ — zwei verschiedene Normalformen derselben Gruppe.
 
 #### Übungsaufgabe
 
-Zerlege $mathbb{Z}/12mathbb{Z}$ nach dem chinesischen Restsatz in eine direkte Summe und gib zusätzlich die invariant-Faktor-Form an.
+Zerlege $\mathbb{Z}/12\mathbb{Z}$ nach dem chinesischen Restsatz in eine direkte Summe und gib zusätzlich die invariant-Faktor-Form an.
 
-*Tipp: CRT: $12=4cdot3$ mit $operatorname{ggT}(4,3)=1$. Invariant-Faktor-Form: ein einzelner Teiler $d_1$.*
+*Tipp: CRT: $12=4\cdot3$ mit $\operatorname{ggT}(4,3)=1$. Invariant-Faktor-Form: ein einzelner Teiler $d_1$.*
 
 #### Mini-Quiz (Q&A)
 
@@ -1860,7 +1842,7 @@ Zerlege $mathbb{Z}/12mathbb{Z}$ nach dem chinesischen Restsatz in eine direkte S
 #### Quellen & weiterführende Links
 
 - [Modul (Mathematik) — Wikipedia](https://de.wikipedia.org/wiki/Modul_(Mathematik)) — Wikipedia
-- [Struktursatz für endlich erzeugte Moduln — Wikipedia](https://de.wikipedia.org/wiki/Struktursatz_f%C3%BCr_endlich_erzeugte_Moduln_%C3%BCber_einem_Hauptidealring) — Wikipedia
+- [Smith-Normalform — Wikipedia](https://de.wikipedia.org/wiki/Smith-Normalform) — Wikipedia
 
 ---
 
@@ -1871,18 +1853,18 @@ Zerlege $mathbb{Z}/12mathbb{Z}$ nach dem chinesischen Restsatz in eine direkte S
 
 #### Theorie
 
-- Fixiert ein Endomorphismus $f$ auf $V$ die Wirkung von $x$, so wird $V$ zu einem $K[x]$-Modul mit $xcdotec v=f(ec v)$. Da $K[x]$ ein Hauptidealring ist, greift der Struktursatz.
+- Fixiert ein Endomorphismus $f$ auf $V$ die Wirkung von $x$, so wird $V$ zu einem $K[x]$-Modul mit $x\cdot\vec v=f(\vec v)$. Da $K[x]$ ein Hauptidealring ist, greift der Struktursatz.
 - Die Elementarteiler dieses $K[x]$-Moduls sind genau die invarianten Teiler von $f$; aus ihnen liest man die rationale Normalform ab.
-- Zerlegt man stattdessen in Prim potenz-Anteile (Elementarteiler $p(x)^e$), so erhält man die Jordan-Normalform (für $p(x)=x-lambda$).
+- Zerlegt man stattdessen in Prim potenz-Anteile (Elementarteiler $p(x)^e$), so erhält man die Jordan-Normalform (für $p(x)=x-\lambda$).
 - Damit werden Jordan- und rationale Normalform zu Spezialfällen eines einzigen Satzes — ein Höhepunkt der Linearen Algebra, der LA1 und LA2 verbindet.
 
 #### Beispiel
 
-Ist $chi_A=(x-lambda_1)^2(x-lambda_2)$ mit Minimalpolynom $(x-lambda_1)^2(x-lambda_2)$, so ist der $K[x]$-Modul $Vcong K[x]/((x-lambda_1)^2)oplus K[x]/(x-lambda_2)$ — ein $J_2(lambda_1)$-Kästchen und ein $J_1(lambda_2)$-Kästchen.
+Ist $\chi_A=(x-\lambda_1)^2(x-\lambda_2)$ mit Minimalpolynom $(x-\lambda_1)^2(x-\lambda_2)$, so ist der $K[x]$-Modul $V\cong K[x]/((x-\lambda_1)^2)\oplus K[x]/(x-\lambda_2)$ — ein $J_2(\lambda_1)$-Kästchen und ein $J_1(\lambda_2)$-Kästchen.
 
 #### Übungsaufgabe
 
-Ein $3	imes3$-Endomorphismus habe Minimalpolynom $(x-2)^2$ und charakteristisches Polynom $(x-2)^3$. Welche Jordan-Normalform entspricht dem $K[x]$-Modul?
+Ein $3\times3$-Endomorphismus habe Minimalpolynom $(x-2)^2$ und charakteristisches Polynom $(x-2)^3$. Welche Jordan-Normalform entspricht dem $K[x]$-Modul?
 
 *Tipp: Ein Elementarteiler $(x-2)^2$ und einer $(x-2)^1$; Kästchengrößen $2$ und $1$.*
 
@@ -1919,19 +1901,19 @@ Ein $3	imes3$-Endomorphismus habe Minimalpolynom $(x-2)^2$ und charakteristische
 
 #### Beispiel
 
-Ein LA1-Klassiker: zu $A=egin{pmatrix}2&1\0&2end{pmatrix}$ Eigenwerte, Eigenräume und Diagonalisierbarkeit bestimmen. Lösung: Eigenwert $2$ (alg. Vielfachheit $2$), Eigenraum $E_2=operatorname{span}(1,0)^{,T}$, geometrische Vielfachheit $1<2$, also nicht diagonalisierbar.
+Ein LA1-Klassiker: zu $A=\begin{pmatrix}2&1\\0&2\end{pmatrix}$ Eigenwerte, Eigenräume und Diagonalisierbarkeit bestimmen. Lösung: Eigenwert $2$ (alg. Vielfachheit $2$), Eigenraum $E_2=\operatorname{span}(1,0)^{\,T}$, geometrische Vielfachheit $1<2$, also nicht diagonalisierbar.
 
 #### Übungsaufgabe
 
-Gegeben $A=egin{pmatrix}3&1\0&3end{pmatrix}$. Bestimme Eigenwerte, Eigenräume und entscheide über Diagonalisierbarkeit wie in einer Klausur.
+Gegeben $A=\begin{pmatrix}3&1\\0&3\end{pmatrix}$. Bestimme Eigenwerte, Eigenräume und entscheide über Diagonalisierbarkeit wie in einer Klausur.
 
-*Tipp: Charakteristisches Polynom, dann $(A-lambda I)ec v=ec 0$ lösen und Vielfachheiten vergleichen.*
+*Tipp: Charakteristisches Polynom, dann $(A-\lambda I)\vec v=\vec 0$ lösen und Vielfachheiten vergleichen.*
 
 #### Mini-Quiz (Q&A)
 
 **F:** Was ist ein typischer erster Schritt in einer LA1-Eigenwertaufgabe?
 
-**A:** Richtig ist: Das charakteristische Polynom $det(A-lambda I)$ aufstellen. Eigenwerte sind die Nullstellen von $chi_A(lambda)=det(A-lambda I)$ — das ist der Standardstart.
+**A:** Richtig ist: Das charakteristische Polynom $\det(A-\lambda I)$ aufstellen. Eigenwerte sind die Nullstellen von $\chi_A(\lambda)=\det(A-\lambda I)$ — das ist der Standardstart.
 
 #### Quellen & weiterführende Links
 
@@ -1956,11 +1938,11 @@ Gegeben $A=egin{pmatrix}3&1\0&3end{pmatrix}$. Bestimme Eigenwerte, Eigenräume 
 
 #### Beispiel
 
-Eine LA2-Aufgabe: zu $A$ mit $chi_A=(x-1)^3(x-2)$ und $m_A=(x-1)^2(x-2)$ die Jordan-Normalform angeben. Lösung: zum Eigenwert $1$ ein $J_2(1)$ und ein $J_1(1)$, zum Eigenwert $2$ ein $J_1(2)$.
+Eine LA2-Aufgabe: zu $A$ mit $\chi_A=(x-1)^3(x-2)$ und $m_A=(x-1)^2(x-2)$ die Jordan-Normalform angeben. Lösung: zum Eigenwert $1$ ein $J_2(1)$ und ein $J_1(1)$, zum Eigenwert $2$ ein $J_1(2)$.
 
 #### Übungsaufgabe
 
-Bestimme die Jordan-Normalform eines $4	imes4$-Endomorphismus mit $chi_A=(x-1)^3(x-2)$ und $m_A=(x-1)^2(x-2)$.
+Bestimme die Jordan-Normalform eines $4\times4$-Endomorphismus mit $\chi_A=(x-1)^3(x-2)$ und $m_A=(x-1)^2(x-2)$.
 
 *Tipp: Eigenwert $1$: alg. Vielfachheit $3$, größtes Kästchen Größe $2$ (aus $m_A$). Eigenwert $2$: alg. Vielfachheit $1$.*
 
@@ -1968,7 +1950,7 @@ Bestimme die Jordan-Normalform eines $4	imes4$-Endomorphismus mit $chi_A=(x-1)^3
 
 **F:** Was liefert das Minimalpolynom für die Jordan-Normalform?
 
-**A:** Richtig ist: Die Größe des größten Jordan-Kästchens pro Eigenwert. Die Vielfachheit von $lambda$ im Minimalpolynom ist die Größe des größten Jordan-Kästchens zu $lambda$.
+**A:** Richtig ist: Die Größe des größten Jordan-Kästchens pro Eigenwert. Die Vielfachheit von $\lambda$ im Minimalpolynom ist die Größe des größten Jordan-Kästchens zu $\lambda$.
 
 #### Quellen & weiterführende Links
 
@@ -1993,11 +1975,11 @@ Bestimme die Jordan-Normalform eines $4	imes4$-Endomorphismus mit $chi_A=(x-1)^3
 
 #### Beispiel
 
-Eine typische Strategie: bei einer Eigenwert-Aufgabe erst $chi_A$ und $m_A$ vollständig ausschreiben, Vielfachheiten vergleichen, dann Jordan-Form — das sichert selbst bei Rechenfehlern Strukturpunkte.
+Eine typische Strategie: bei einer Eigenwert-Aufgabe erst $\chi_A$ und $m_A$ vollständig ausschreiben, Vielfachheiten vergleichen, dann Jordan-Form — das sichert selbst bei Rechenfehlern Strukturpunkte.
 
 #### Übungsaufgabe
 
-Du hast $chi_A=(x-3)^4$ und $m_A=(x-3)^2$ mit $dim E_3=2$. Bestimme die Jordan-Normalform.
+Du hast $\chi_A=(x-3)^4$ und $m_A=(x-3)^2$ mit $\dim E_3=2$. Bestimme die Jordan-Normalform.
 
 *Tipp: Algebraische Vielfachheit $4$, geometrische Vielfachheit $2$ (Anzahl Kästchen), größtes Kästchen Größe $2$ (aus $m_A$).*
 
@@ -2012,7 +1994,7 @@ Du hast $chi_A=(x-3)^4$ und $m_A=(x-3)^2$ mit $dim E_3=2$. Bestimme die Jordan-N
 - [Altklausuren Lineare Algebra I — Uni Freiburg](https://fachschaft.mathematik.uni-freiburg.de/protokolle/k/s/la1.html) — Fachschaft Mathematik, Universität Freiburg
 - [Altklausuren Lineare Algebra II — Uni Freiburg](https://fachschaft.mathematik.uni-freiburg.de/protokolle/k/s/la2.html) — Fachschaft Mathematik, Universität Freiburg
 - [Fachschaft Mathematik Freiburg — Protokolle](https://fachschaft.mathematik.uni-freiburg.de/protokolle/) — Fachschaft Mathematik, Universität Freiburg
-- [Mathematisches Institut Freiburg — Lehre](https://www.mathematik.uni-freiburg.de/) — Universität Freiburg
+- [Mathematisches Institut Freiburg — Lehre](https://www.math.uni-freiburg.de/) — Universität Freiburg
 
 ---
 

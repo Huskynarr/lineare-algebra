@@ -14,17 +14,25 @@
   const LEARNING_REFERENCES = (window.LEARNING_REFERENCES && typeof window.LEARNING_REFERENCES === "object") ? window.LEARNING_REFERENCES : {};
   const STORAGE_KEY = "lineare-algebra-savegame-v1";
   const SAVEGAME_VERSION = 2;
-  const SW_VERSION = 21;
+  const SW_VERSION = 30;
   const WARMUP_COUNT = 10;
   const LESSON_GAME_COUNT = 5;
   const LESSON_GAME_PASS_PCT = 60;
   const CERTIFICATE_MASTERY_THRESHOLD = 80;
+  const APP_VIEWS = new Set(["start", "lernen", "werkzeuge", "fortschritt"]);
+  const VIEW_META = {
+    start: { title: "Lineare Algebra Trainer — von Schulmathe bis Bachelor", target: "#home-view" },
+    lernen: { title: "Lernen | Lineare Algebra Trainer", target: "#main-content" },
+    werkzeuge: { title: "Rechenwerkzeuge | Lineare Algebra Trainer", target: "#tools-panel" },
+    fortschritt: { title: "Fortschritt | Lineare Algebra Trainer", target: "#progress-panel" }
+  };
 
   // Konstanten/Daten, die das Fortschritts-Modul schon beim Aufbau von `state`
   // (loadProgress -> sanitizeProgress) benötigt — daher vor `state` exponieren.
   LA.allLessons = allLessons;
   LA.lessonById = lessonById;
   LA.learningPath = learningPath;
+  LA.learningReferences = LEARNING_REFERENCES;
   LA.STORAGE_KEY = STORAGE_KEY;
   LA.SAVEGAME_VERSION = SAVEGAME_VERSION;
   LA.CERTIFICATE_MASTERY_THRESHOLD = CERTIFICATE_MASTERY_THRESHOLD;
@@ -34,8 +42,6 @@
   const I18N = {
     de: {
       "app.title": "Lineare Algebra",
-      "stat.progress": "Fortschritt",
-      "stat.mastery": "Mastery",
       "warmup.title": "Aufwärmen: Algebra-Basics",
       "warmup.description": "10 zufällige Aufgaben zum Reinkommen — Terme, Gleichungen, Brüche und Zahlen.",
       "warmup.task": "Aufgabe",
@@ -59,10 +65,9 @@
   const elements = {
     moduleList: document.getElementById("module-list"),
     lessonDetail: document.getElementById("lesson-detail"),
-    completedLessons: document.getElementById("completed-lessons"),
-    progressPercent: document.getElementById("progress-percent"),
-    masteryScore: document.getElementById("mastery-score"),
-    progressBarFill: document.getElementById("progress-bar-fill"),
+    progressViewCompleted: document.getElementById("progress-view-completed"),
+    progressViewPercent: document.getElementById("progress-view-percent"),
+    progressViewMastery: document.getElementById("progress-view-mastery"),
     statusMessage: document.getElementById("status-message"),
     exportProgress: document.getElementById("export-progress"),
     importProgress: document.getElementById("import-progress"),
@@ -95,7 +100,12 @@
     bilfOutput: document.getElementById("bilf-output"),
     warmupArea: document.getElementById("warmup-area"),
     themeDark: document.getElementById("theme-dark"),
-    themeLight: document.getElementById("theme-light")
+    themeLight: document.getElementById("theme-light"),
+    skipLink: document.querySelector(".skip-link"),
+    homeView: document.getElementById("home-view"),
+    mainContent: document.getElementById("main-content"),
+    toolsPanel: document.getElementById("tools-panel"),
+    progressPanel: document.getElementById("progress-panel")
   };
 
   const state = {
@@ -135,6 +145,7 @@
 
     applyI18n();
     initTheme();
+    initNavigation();
     initWarmup();
     render();
     bindEvents();
@@ -185,6 +196,48 @@
     });
   }
 
+  function currentView() {
+    const requested = window.location.hash.slice(1);
+    return APP_VIEWS.has(requested) ? requested : "start";
+  }
+
+  function applyView() {
+    const view = currentView();
+    document.body.dataset.view = view;
+    if (view !== "start") document.body.classList.remove("show-warmup");
+    document.querySelectorAll("[data-view-link]").forEach((link) => {
+      const active = link.getAttribute("data-view-link") === view;
+      link.classList.toggle("is-active", active);
+      if (active) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
+    });
+    const showingWarmup = view === "start" && document.body.classList.contains("show-warmup");
+    const viewMeta = VIEW_META[view];
+    if (elements.homeView) elements.homeView.hidden = view !== "start" || showingWarmup;
+    if (elements.mainContent) elements.mainContent.hidden = view !== "lernen" && !showingWarmup;
+    [elements.toolsPanel, elements.progressPanel].forEach((panel) => panel?.removeAttribute("role"));
+    if (view === "werkzeuge") elements.toolsPanel?.setAttribute("role", "main");
+    if (view === "fortschritt") elements.progressPanel?.setAttribute("role", "main");
+    document.title = viewMeta.title;
+    if (elements.skipLink) elements.skipLink.href = showingWarmup ? "#warmup-panel" : viewMeta.target;
+    if (view === "lernen") LA.render.renderMath(elements.lessonDetail);
+    if (showingWarmup) LA.render.renderMath(elements.warmupArea);
+  }
+
+  function navigateTo(view) {
+    const target = APP_VIEWS.has(view) ? view : "start";
+    if (window.location.hash === `#${target}`) applyView();
+    else window.location.hash = target;
+  }
+
+  function initNavigation() {
+    window.addEventListener("hashchange", applyView);
+    if (!APP_VIEWS.has(window.location.hash.slice(1))) {
+      window.history.replaceState(null, "", "#start");
+    }
+    applyView();
+  }
+
   function bindEvents() {
     elements.moduleList.addEventListener("click", (event) => {
       const target = event.target.closest("[data-lesson-id]");
@@ -194,31 +247,16 @@
       state.selectedLessonId = target.getAttribute("data-lesson-id");
       state.lessonStarted = true;
       state.shareModuleId = null;
-      const navToggle = document.getElementById("nav-toggle");
-      if (navToggle) {
-        navToggle.checked = false;
+      navigateTo("lernen");
+      if (window.matchMedia("(max-width: 760px)").matches) {
+        const pathPanel = document.querySelector(".panel--path");
+        if (pathPanel) pathPanel.open = false;
       }
       render();
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
     elements.lessonDetail.addEventListener("click", (event) => {
-      const jumpWarmup = event.target.closest("#jump-warmup");
-      if (jumpWarmup) {
-        const warmupEl = document.querySelector(".panel--warmup");
-        if (warmupEl) warmupEl.scrollIntoView({ behavior: "smooth", block: "start" });
-        return;
-      }
-
-      const startFirst = event.target.closest("#start-first-lesson");
-      if (startFirst) {
-        state.lessonStarted = true;
-        render();
-        const lessonEl = document.querySelector(".panel--lesson");
-        if (lessonEl) lessonEl.scrollIntoView({ behavior: "smooth", block: "start" });
-        return;
-      }
-
       const nextButton = event.target.closest("#next-lesson");
       if (nextButton) {
         selectNeighborLesson(1);
@@ -278,14 +316,7 @@
     elements.importProgress.addEventListener("change", LA.progress.importSavegame);
     elements.resetProgress.addEventListener("click", LA.progress.resetProgress);
 
-    elements.calcDot.addEventListener("click", calculateDotProduct);
-    elements.calcDet.addEventListener("click", calculateDeterminant2x2);
-    elements.calcMul.addEventListener("click", calculateMatrixMultiply);
-    elements.calcInv.addEventListener("click", calculateInverse2x2);
-    elements.calcGauss.addEventListener("click", calculateGauss);
-    elements.calcEig.addEventListener("click", calculateEigenvalues);
-    elements.calcJordan.addEventListener("click", calculateJordanForm);
-    elements.calcBilf.addEventListener("click", calculateBilinearForm);
+    LA.tools.bind(elements);
 
     elements.warmupArea.addEventListener("click", (event) => {
       const checkBtn = event.target.closest("#warmup-check");
@@ -302,7 +333,8 @@
       if (startBtn) {
         state.selectedLessonId = allLessons[0]?.id || null;
         state.lessonStarted = true;
-        render();
+        LA.renderNow();
+        navigateTo("lernen");
         const lessonEl = document.querySelector(".panel--lesson");
         if (lessonEl) {
           lessonEl.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -311,6 +343,41 @@
     });
 
     document.addEventListener("click", (event) => {
+      const viewTarget = event.target.closest("[data-view-target]");
+      if (viewTarget) {
+        navigateTo(viewTarget.getAttribute("data-view-target"));
+        return;
+      }
+
+      const jumpWarmup = event.target.closest("#jump-warmup");
+      if (jumpWarmup) {
+        navigateTo("start");
+        document.body.classList.add("show-warmup");
+        applyView();
+        requestAnimationFrame(() => document.querySelector(".panel--warmup")?.scrollIntoView({ behavior: "smooth", block: "start" }));
+        return;
+      }
+
+      const startRoute = event.target.closest("[data-start-lesson]");
+      if (startRoute) {
+        const lessonId = startRoute.getAttribute("data-start-lesson");
+        if (lessonById.has(lessonId)) state.selectedLessonId = lessonId;
+        state.lessonStarted = true;
+        LA.renderNow();
+        navigateTo("lernen");
+        return;
+      }
+
+      const continueLearning = event.target.closest("#continue-learning");
+      if (continueLearning) {
+        const nextLesson = allLessons.find((lesson) => !isCompleted(lesson.id)) || allLessons[allLessons.length - 1];
+        if (nextLesson) state.selectedLessonId = nextLesson.id;
+        state.lessonStarted = true;
+        LA.renderNow();
+        navigateTo("lernen");
+        return;
+      }
+
       const certOpenBtn = event.target.closest("#certificate-open");
       if (certOpenBtn) {
         openCertificate();
@@ -324,7 +391,7 @@
         return;
       }
 
-      const certCloseBtn = event.target.closest("#certificate-close");
+      const certCloseBtn = event.target.closest("[data-certificate-close]");
       if (certCloseBtn) {
         closeCertificate();
         return;
@@ -347,7 +414,9 @@
         const queue = state.progress.reviewQueue || [];
         if (queue.length > 0) {
           state.selectedLessonId = queue[0];
-          render();
+          state.lessonStarted = true;
+          LA.renderNow();
+          navigateTo("lernen");
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
         return;
@@ -389,32 +458,25 @@
       }
     });
 
-    const burger = document.querySelector(".topbar__burger");
-    if (burger) {
-      burger.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          document.getElementById("nav-toggle").checked = !document.getElementById("nav-toggle").checked;
-          burger.setAttribute("aria-expanded", document.getElementById("nav-toggle").checked);
-        }
-      });
-    }
-
-    const navToggle = document.getElementById("nav-toggle");
-    if (navToggle) {
-      navToggle.addEventListener("change", () => {
-        const burgerEl = document.querySelector(".topbar__burger");
-        if (burgerEl) {
-          burgerEl.setAttribute("aria-expanded", navToggle.checked);
-        }
-        if (navToggle.checked) {
-          const firstControl = document.querySelector(".sidebar .theme-switch__btn");
-          if (firstControl) {
-            setTimeout(() => firstControl.focus(), 300);
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Tab" && state.certificateOpen) {
+        const focusable = [...document.querySelectorAll("#certificate-modal button, #certificate-modal input")];
+        if (focusable.length > 0) {
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
           }
         }
-      });
-    }
+        return;
+      }
+      if (event.key !== "Escape") return;
+      if (state.certificateOpen) closeCertificate();
+    });
   }
 
   // Render-Orchestrierung, entprellt über requestAnimationFrame: mehrere
@@ -491,227 +553,6 @@
     return Boolean(state.progress.completedLessons[lessonId]);
   }
 
-  function calculateDotProduct() {
-    try {
-      const vectorA = LA.math.parseVector(elements.vectorA.value);
-      const vectorB = LA.math.parseVector(elements.vectorB.value);
-      if (vectorA.length !== vectorB.length) {
-        throw new Error("Die Vektoren müssen gleich viele Komponenten haben.");
-      }
-      const dot = vectorA.reduce((sum, value, index) => sum + value * vectorB[index], 0);
-      const normA = Math.sqrt(vectorA.reduce((sum, value) => sum + value ** 2, 0));
-      const normB = Math.sqrt(vectorB.reduce((sum, value) => sum + value ** 2, 0));
-      const cosine = normA > 0 && normB > 0 ? dot / (normA * normB) : 0;
-      const clamped = Math.max(-1, Math.min(1, cosine));
-      const angle = Math.acos(clamped) * (180 / Math.PI);
-      elements.dotOutput.textContent = `a·b = ${dot}, Winkel ≈ ${angle.toFixed(2)}°`;
-    } catch (error) {
-      elements.dotOutput.textContent = error.message;
-    }
-  }
-
-  function calculateDeterminant2x2() {
-    try {
-      const matrix = LA.math.parse2x2Matrix(elements.matrix2x2.value);
-      const det = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
-      elements.detOutput.textContent = `det(A) = ${det}`;
-    } catch (error) {
-      elements.detOutput.textContent = error.message;
-    }
-  }
-
-  function calculateMatrixMultiply() {
-    try {
-      const A = LA.math.parseMatrix(elements.matrixA.value);
-      const B = LA.math.parseMatrix(elements.matrixB2.value);
-      if (A[0].length !== B.length) {
-        throw new Error(`Spalten von A (${A[0].length}) müssen Zeilen von B (${B.length}) entsprechen.`);
-      }
-      const result = A.map((row) =>
-        B[0].map((_, j) => row.reduce((sum, val, i) => sum + val * B[i][j], 0))
-      );
-      elements.mulOutput.textContent = `A · B = ${LA.math.formatMatrix(result)}`;
-    } catch (error) {
-      elements.mulOutput.textContent = error.message;
-    }
-  }
-
-  function calculateInverse2x2() {
-    try {
-      const m = LA.math.parse2x2Matrix(elements.matrixInv.value);
-      const det = m[0][0] * m[1][1] - m[0][1] * m[1][0];
-      if (det === 0) {
-        elements.invOutput.textContent = "Matrix ist nicht invertierbar (det = 0).";
-        return;
-      }
-      const inv = [
-        [m[1][1] / det, -m[0][1] / det],
-        [-m[1][0] / det, m[0][0] / det]
-      ];
-      const fmt = (n) => Math.round(n * 1000) / 1000;
-      elements.invOutput.textContent = `A⁻¹ = [${fmt(inv[0][0])}, ${fmt(inv[0][1])}; ${fmt(inv[1][0])}, ${fmt(inv[1][1])}]`;
-    } catch (error) {
-      elements.invOutput.textContent = error.message;
-    }
-  }
-
-  function calculateGauss() {
-    try {
-      const parts = elements.gaussInput.value.split("|");
-      if (parts.length !== 2) {
-        throw new Error("Format: a,b;c,d|e,f (Matrix|Vektor)");
-      }
-      const A = LA.math.parseMatrix(parts[0]);
-      const b = parts[1].split(",").map((v) => Number(v.trim()));
-      if (A.length !== b.length) {
-        throw new Error("Anzahl Zeilen muss Anzahl Ergebnisse entsprechen.");
-      }
-      const n = A.length;
-      const aug = A.map((row, i) => [...row, b[i]]);
-      for (let col = 0; col < n; col++) {
-        let maxRow = col;
-        for (let r = col + 1; r < n; r++) {
-          if (Math.abs(aug[r][col]) > Math.abs(aug[maxRow][col])) {
-            maxRow = r;
-          }
-        }
-        [aug[col], aug[maxRow]] = [aug[maxRow], aug[col]];
-        const pivot = aug[col][col];
-        if (pivot === 0) {
-          elements.gaussOutput.textContent = "System nicht eindeutig lösbar (Pivot = 0).";
-          return;
-        }
-        for (let r = col + 1; r < n; r++) {
-          const factor = aug[r][col] / pivot;
-          for (let c = col; c <= n; c++) {
-            aug[r][c] -= factor * aug[col][c];
-          }
-        }
-      }
-      const x = new Array(n);
-      for (let i = n - 1; i >= 0; i--) {
-        x[i] = aug[i][n];
-        for (let j = i + 1; j < n; j++) {
-          x[i] -= aug[i][j] * x[j];
-        }
-        x[i] /= aug[i][i];
-      }
-      const fmt = (n2) => Math.round(n2 * 1000) / 1000;
-      elements.gaussOutput.textContent = `x = (${x.map(fmt).join(", ")})`;
-    } catch (error) {
-      elements.gaussOutput.textContent = error.message;
-    }
-  }
-
-
-  function calculateEigenvalues() {
-    try {
-      const A = LA.math.parseMatrix(elements.eigInput.value);
-      const n = A.length;
-      if (n < 1 || n > 4 || A.some((row) => row.length !== n)) {
-        throw new Error("Bitte quadratische Matrix bis 4×4 eingeben.");
-      }
-      const coeffs = LA.math.charPolynomialCoeffs(A);
-      const polyStr = coeffs.map((c, k) => {
-        if (c === 0) return "";
-        const sign = c < 0 ? "−" : "+";
-        const mag = LA.math.formatNum(Math.abs(c));
-        if (k === 0) return `${sign}${mag}`;
-        if (k === 1) return `${sign}${mag}λ`;
-        return `${sign}${mag}λ^${k}`;
-      }).filter(Boolean).reverse().join("");
-      const roots = LA.math.polyRoots(coeffs).map(LA.math.formatNum);
-      const det = LA.math.detNxN(A);
-      const tr = LA.math.traceM(A);
-      let out = `χ_A(λ) = λ^${n} ${polyStr}\n`;
-      out += `Spur = ${LA.math.formatNum(tr)}, det = ${LA.math.formatNum(det)}\n`;
-      out += roots.length ? `Eigenwerte (reell): ${roots.join(", ")}` : "Keine reellen Eigenwerte (komplex).";
-      elements.eigOutput.textContent = out;
-    } catch (error) {
-      elements.eigOutput.textContent = error.message;
-    }
-  }
-
-  function calculateJordanForm() {
-    try {
-      const A = LA.math.parseMatrix(elements.jordanInput.value);
-      const n = A.length;
-      if (n < 1 || n > 4 || A.some((row) => row.length !== n)) {
-        throw new Error("Bitte quadratische Matrix bis 4×4 eingeben.");
-      }
-      const coeffs = LA.math.charPolynomialCoeffs(A);
-      const roots = LA.math.polyRoots(coeffs);
-      if (!roots.length) {
-        elements.jordanOutput.textContent = "Keine reellen Eigenwerte — Jordan-Form über ℝ nicht vorhanden (gebrauche ℂ).";
-        return;
-      }
-      // Eigenwerte mit algebraischer Vielfachheit bündeln.
-      const evs = [];
-      roots.sort((a, b) => a - b);
-      roots.forEach((r) => {
-        const last = evs[evs.length - 1];
-        if (last && Math.abs(last.value - r) < 1e-6) last.alg++;
-        else evs.push({ value: r, alg: 1 });
-      });
-      // Geometrische Vielfachheit = n - rang(A - lambda I).
-      let parts = [];
-      let minimalFactors = [];
-      evs.forEach((ev) => {
-        const geom = n - LA.math.rankM(LA.math.subtractLambdaI(A, ev.value));
-        ev.geom = geom;
-        // Größtes Jordan-Kästchen = kleinste k mit rang((A-lambda I)^k) = n - alg.
-        let k = 1;
-        let power = LA.math.subtractLambdaI(A, ev.value);
-        while (LA.math.rankM(power) > n - ev.alg && k <= n) {
-          power = LA.math.matMul(power, LA.math.subtractLambdaI(A, ev.value));
-          k++;
-        }
-        ev.maxBlock = k;
-        minimalFactors.push(`(λ−${LA.math.formatNum(ev.value)})^${k}`);
-        // Partition der Kästchen: alg = geom*? — Verteilung mit maxBlock als größtem Kästchen.
-        const blocks = LA.math.partitionBlocks(ev.alg, ev.geom, ev.maxBlock);
-        parts.push(`λ=${LA.math.formatNum(ev.value)}: alg=${ev.alg}, geom=${ev.geom}, Kästchen ${blocks.join("+") || "—"}, maxBlock=${ev.maxBlock}`);
-      });
-      let out = `Eigenwerte: ${evs.map((e) => LA.math.formatNum(e.value)).join(", ")}\n`;
-      out += parts.join("\n") + "\n";
-      out += `Minimalpolynom: ${minimalFactors.join("·")}`;
-      elements.jordanOutput.textContent = out;
-    } catch (error) {
-      elements.jordanOutput.textContent = error.message;
-    }
-  }
-
-  function calculateBilinearForm() {
-    try {
-      const A = LA.math.parseMatrix(elements.bilfInput.value);
-      const n = A.length;
-      if (n < 1 || n > 4 || A.some((row) => row.length !== n)) {
-        throw new Error("Bitte quadratische Matrix bis 4×4 eingeben.");
-      }
-      // Symmetrie prüfen (für Signatur relevant).
-      const sym = A.every((row, i) => row.every((v, j) => Math.abs(v - A[j][i]) < 1e-9));
-      const rang = LA.math.rankM(A);
-      // Eigenwerte bestimmen (symmetrisch ⇒ reell); über char. Polynom.
-      const coeffs = LA.math.charPolynomialCoeffs(A);
-      const roots = LA.math.polyRoots(coeffs);
-      let p = 0, q = 0;
-      roots.forEach((r) => {
-        if (r > 1e-6) p++;
-        else if (r < -1e-6) q++;
-      });
-      const r = n - p - q;
-      let out = `Rang = ${rang}\n`;
-      out += `Symmetrisch: ${sym ? "ja" : "nein — Signatur nur für symmetrische Formen definiert"}\n`;
-      if (sym) {
-        out += `Signatur (p, q, r) = (${p}, ${q}, ${r})\n`;
-        out += `Klassifikation: ${q === 0 && r === 0 ? "positiv definit (Skalarprodukt)" : q === n ? "negativ definit" : "indefinit oder semidefinit"}`;
-      }
-      elements.bilfOutput.textContent = out;
-    } catch (error) {
-      elements.bilfOutput.textContent = error.message;
-    }
-  }
-
   function registerServiceWorker() {
     if (!("serviceWorker" in navigator)) {
       return;
@@ -719,18 +560,19 @@
     window.addEventListener("load", () => {
       navigator.serviceWorker
         .register(`./service-worker.js?v=${SW_VERSION}`)
-        .then(() => {
-          showStatus("Offline-Cache ist aktiv.");
-        })
         .catch(() => {
           showStatus("Service Worker konnte nicht registriert werden.", true);
         });
     });
   }
 
+  let statusTimer = null;
   function showStatus(message, isError) {
     elements.statusMessage.textContent = message;
-    elements.statusMessage.style.color = isError ? "#fecaca" : "#bbf7d0";
+    elements.statusMessage.classList.toggle("is-error", Boolean(isError));
+    elements.statusMessage.classList.add("is-visible");
+    window.clearTimeout(statusTimer);
+    statusTimer = window.setTimeout(() => elements.statusMessage.classList.remove("is-visible"), 6000);
   }
 
   function escapeHtml(value) {
@@ -801,7 +643,8 @@
       state.lessonStarted = true;
       LA.progress.persistProgress();
       LA.render.renderWarmup();
-      render();
+      LA.renderNow();
+      navigateTo("lernen");
       showStatus("Warmup abgeschlossen — viel Erfolg bei der Linearen Algebra!");
       const lessonEl = document.querySelector(".panel--lesson");
       if (lessonEl) {
@@ -893,8 +736,6 @@
   // Lernpfad-Phasen: LA1 = mod-0 … mod-11, LA2 = mod-12 … mod-16.
   // mod-6 enthält die optionale Brücken-Lektion m6-l4 und gehört zu LA1.
   const LA1_MODULE_IDS = ["mod-0","mod-1","mod-2","mod-3","mod-4","mod-5","mod-6","mod-7","mod-8","mod-9","mod-10","mod-11"];
-  const LA2_MODULE_IDS = ["mod-12","mod-13","mod-14","mod-15","mod-16"];
-
   function lessonsOfModules(ids) {
     const set = new Set(ids);
     return allLessons.filter((l) => set.has(l.moduleId));
@@ -918,12 +759,16 @@
     LA.progress.persistProgress();
     state.certificateOpen = stage;
     LA.render.renderCertificateModal();
+    document.querySelectorAll(".topbar, .sidebar, .layout, .footer").forEach((element) => element.setAttribute("inert", ""));
+    document.querySelector("[data-certificate-close]")?.focus();
   }
 
   function closeCertificate() {
     state.certificateOpen = false;
     const modal = document.getElementById("certificate-modal");
     if (modal) modal.remove();
+    document.querySelectorAll(".topbar, .sidebar, .layout, .footer").forEach((element) => element.removeAttribute("inert"));
+    document.getElementById("certificate-open")?.focus();
   }
 
   function saveCertificateName() {
@@ -938,6 +783,7 @@
     state.progress.certificate.name = name;
     LA.progress.persistProgress();
     LA.render.renderCertificateModal();
+    document.querySelector("[data-certificate-close]")?.focus();
   }
 
   // Vom Fortschritts-Modul genutzte Core-Helfer (Functions sind gehoben, LA1_MODULE_IDS
